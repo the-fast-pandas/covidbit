@@ -14,54 +14,6 @@ app.use(express.static(__dirname + "/dist/"));
 const nodemailer = require("nodemailer");
 const ejs = require('ejs');
 
-// Commented code is for testing
-// Generate SMTP service account from ethereal.email
-// Use etheral for testing: https://ethereal.email/messages
-/*nodemailer.createTestAccount((err, account) => {
-    if (err) {throw error;}
-    else { 
-        console.log('Credentials obtained, sending message...');
-
-        // Create a SMTP transporter object (this is generic)
-        //const transporter = nodemailer.createTransport({
-        //    host: account.smtp.host,
-        //    port: account.smtp.port,
-        //   secure: account.smtp.secure,
-        //    auth: {
-        //        user: account.user,
-        //        pass: account.pass
-        //    }
-        //});
-
-        // This is for testing (not a real account) 
-        const transporter = nodemailer.createTransport({
-            host: 'smtp.ethereal.email',
-            port: 587,
-            auth: {
-                user: 'josefina.lakin@ethereal.email',
-                pass: 'CAc6twyJKr7TP79PFQ'
-            }
-        });
-
-        // Message object
-        const message = {
-            from: 'Sender Name <sender@example.com>',
-            to: 'Recipient <recipient@example.com>',
-            subject: 'Nodemailer is unicode friendly ✔',
-            text: 'Hello to myself!',
-            html: '<p><b>Hello</b> to myself!</p>'
-        };
-
-        transporter.sendMail(message, (err, info) => {
-            if (err) throw error;
-            else {
-                console.log('Message sent: %s', info.messageId);
-                console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-            }
-        });
-    }
-});*/
-
 // This is the usable code for email service
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -73,7 +25,7 @@ const transporter = nodemailer.createTransport({
   
   const mailOptions = {
     from: 'covidbitreg@gmail.com',
-    to: 'tcpaixao-costa@myseneca.ca, Valya.dersen@gmail.com, jkofitee@hotmail.com, janya330@gmail.com, adilahismail4@gmail.com',
+    to: 'covidbitreg@gmail.com',
     subject: 'Hi from the COVIDBIT App',
     text: 'Hello World! Tell Teresa that you received this email! She will be very happy. :)'
   };
@@ -91,13 +43,27 @@ const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://geral:seneca@main.0qmqz.mongodb.net/covidbit?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-client.connect(error => {
-    if(error) throw error;
-    else console.log("Conected to the database!");
-
-    //Write databse Insert/Update/Query code
-
-    client.close();
+app.route('/api/invitations').get(function(req, res) {
+    client.connect(function(error, clientdb) {
+        if(error) { throw error;}
+        else {
+            const db = clientdb.db('covidbit');  
+            const cursor = db.collection('invitations').find({});
+            let str = "Hi!";
+            console.log("Rendering items!");
+            cursor.forEach(function(item, error) {
+                if(error) { throw error;}
+                else {
+                    if (item != null) {str = str + "    Email:  " + item.email + "</br>";}
+                }
+            }
+            );
+            console.log("This is the end!");
+            console.log(str);
+        }
+       
+        //client.close();
+    });
 });
 
 // Initializes the application server
