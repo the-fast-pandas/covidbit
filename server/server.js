@@ -25,7 +25,7 @@ const transporter = nodemailer.createTransport({
   
   const mailOptions = {
     from: 'covidbitreg@gmail.com',
-    to: 'covidbitreg@gmail.com',
+    to: 'tcovidbitreg@gmail.com',
     subject: 'Hi from the COVIDBIT App',
     text: 'Hello World! Tell Teresa that you received this email! She will be very happy. :)'
   };
@@ -43,27 +43,13 @@ const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://geral:seneca@main.0qmqz.mongodb.net/covidbit?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-app.route('/api/invitations').get(function(req, res) {
-    client.connect(function(error, clientdb) {
-        if(error) { throw error;}
-        else {
-            const db = clientdb.db('covidbit');  
-            const cursor = db.collection('invitations').find({});
-            let str = "Hi!";
-            console.log("Rendering items!");
-            cursor.forEach(function(item, error) {
-                if(error) { throw error;}
-                else {
-                    if (item != null) {str = str + "    Email:  " + item.email + "</br>";}
-                }
-            }
-            );
-            console.log("This is the end!");
-            console.log(str);
-        }
-       
-        //client.close();
-    });
+client.connect(error => {
+    if(error) throw error;
+    else console.log("Conected to the database!");
+
+    //Write databse Insert/Update/Query code
+
+    client.close();
 });
 
 // Initializes the application server
