@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const favicon = require('serve-favicon');
 
-const database = require('./api/models/database');
+require('./api/models/database'); // Connects database
 const routes = require('./api/routes/index');  
 
 const app = express();
@@ -18,9 +18,9 @@ app.use(express.static(__dirname + "/dist/"));  // Directory for the 'hg build'
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use('/api', routes);  // Routes for our API (this is for the frontend conection)
 
-
 // Initializes the server
-const server = app.listen(process.env.PORT || 3000, function (error) {
+const PORT = process.env.PORT || 9000;
+const server = app.listen(PORT, function (error) {
   if (error) throw error;
   else console.log("Application server now running on port", server.address().port);
 });

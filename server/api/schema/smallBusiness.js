@@ -4,7 +4,7 @@
 
 const mongoose = require("mongoose");
 
-const AdministratorSchema = mongoose.Schema({
+const SmallBusinessSchema = mongoose.Schema({
   loginId: {
     type: String,
     required: true
@@ -12,7 +12,11 @@ const AdministratorSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  businessName: {
+    type: String,
+    required: true
   }
 });
 
-module.exports = mongoose.model('administrator', AdministratorSchema, 'Administrator');
+module.exports = mongoose.model('smallbusiness', SmallBusinessSchema, 'SmallBusiness');

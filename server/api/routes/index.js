@@ -2,9 +2,9 @@
 // Created: 31, January, 2021
 // Teresa Costa - Fast Pandas
 
-var express = require('express');
-var router = express.Router();
-var ctrlAuth = require('../controllers/authentication');
+const express = require('express');
+const router = express.Router();
+const ctrlAuth = require('../controllers/authentication');
 
 // Root
 router.get("/status", function (req, res) {
