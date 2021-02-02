@@ -18,6 +18,7 @@ app.use(express.static(__dirname + "/dist/"));  // Directory for the 'hg build'
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use('/api', routes);  // Routes for our API (this is for the frontend conection)
 
+
 // Initializes the server
 const server = app.listen(process.env.PORT || 3000, function (error) {
   if (error) throw error;
