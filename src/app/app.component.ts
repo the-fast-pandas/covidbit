@@ -21,6 +21,16 @@ export class AppComponent {
       title: 'Users',
       icon: 'people-outline',
       link: '/users'
+    },
+    {
+      title: 'Register',
+      icon: 'edit-2-outline',
+      link: '/registration-form'
+    },
+    {
+      title: 'Login',
+      icon: 'log-in-outline',
+      link: '/login-form'
     }
   ];
   constructor(private readonly sidebarService: NbSidebarService) {
