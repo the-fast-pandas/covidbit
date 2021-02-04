@@ -12,7 +12,10 @@ import {
   NbButtonModule,
   NbCheckboxModule,
   NbAlertModule,
-  NbFormFieldModule
+  NbFormFieldModule,
+  NbUserModule,
+  NbStepperModule,
+  NbActionsModule,
 } from '@nebular/theme';
 
 const NebularModules = [
@@ -32,7 +35,10 @@ const NebularModules = [
     NbButtonModule,
     NbCheckboxModule,
     NbAlertModule,
-    NbFormFieldModule
+    NbFormFieldModule,
+    NbUserModule,
+    NbStepperModule,
+    NbActionsModule,
 ];
 
 @NgModule({

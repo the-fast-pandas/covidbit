@@ -1,120 +1,188 @@
 <nb-card>
   <nb-card-body>
-    <h1 class="register-header">Register your Business</h1>
-
+    <nb-alert status="danger" closable (close)="onClose()"*ngIf="alert">
+      Please fill out the entire form
+    </nb-alert>
     <form [formGroup]='userCredentials' (ngSubmit)='onSubmit()' class="form-components">
+      <nb-stepper orientation="horizontal" disableStepNavigation linear>
+        <nb-step label="Registration" formGroupName="accountDetails" [stepControl]="userCredentials.controls.accountDetails">
+          <h1 class="register-header">Register your Business</h1>
 
-      <!-- Bussines Name Input Field -->
-      <div class="form-control-group">
-        <label nbLabel class="label" for="input-businessType">Business Name:</label>
+          <!-- Bussines Name Input Field -->
+          <div class="form-control-group">
+            <label nbLabel class="label" for="input-businessType">Business Name:</label>
 
-        <input nbInput type="text" id="input-name" formControlName='businessName' placeholder="Business Name" fullWidth
-          fieldSize="large"
-          [status]="userCredentials.controls.businessName.dirty ? (userCredentials.controls.businessName.invalid ? 'danger' : 'success') : 'basic'">
+            <input nbInput type="text" id="input-name" name="businessName" formControlName='businessName'
+              placeholder="Business Name" fullWidth fieldSize="large"
+              [status]="userCredentials.get('accountDetails.businessName')?.dirty ? (userCredentials.get('accountDetails.businessName')?.invalid ? 'danger' : 'success') : 'basic'">
 
-        <ng-container>
-          <p class="caption status-danger"
-            *ngIf="userCredentials.controls.businessName.errors?.required && userCredentials.controls.businessName.touched">
-            Business Name required!
-          </p>
-        </ng-container>
+            <ng-container>
+              <p class="caption status-danger"
+                *ngIf=" userCredentials.hasError('required','accountDetails.businessName') && userCredentials.get('accountDetails.businessName')?.touched">
+                Business Name required!
+              </p>
+            </ng-container>
 
-      </div>
 
-      <!-- Email Input Field -->
-      <div class="form-control-group">
-        <label class="label" for="input-email">Email:</label>
+          </div>
 
-        <input nbInput id="input-name" type="text" formControlName="email" placeholder="Ex. helloworld@example.com"
-          fullWidth fieldSize="large"
-          [status]="userCredentials.controls.email.dirty ? (userCredentials.controls.email.invalid ? 'danger' : 'success') : 'basic' ">
+          <!-- Email Input Field -->
+          <div class="form-control-group">
+            <label class="label" for="input-email">Email:</label>
 
-        <ng-container>
-          <p class="caption status-danger" *ngIf="userCredentials.controls.email.errors?.required && userCredentials.controls.email.touched">
-            Email is required!
-          </p>
-          <p class="caption status-danger" *ngIf="userCredentials.controls.email.errors?.email">
-            Email should be a valid one!
-          </p>
-        </ng-container>
+            <input nbInput id="input-name" type="text" name="email" formControlName="email"
+              placeholder="Ex. helloworld@example.com" fullWidth fieldSize="large"
+              [status]="userCredentials.get('accountDetails.email')?.dirty ? (userCredentials.get('accountDetails.email')?.invalid ? 'danger' : 'success') : 'basic' ">
 
-      </div>
+            <ng-container>
+              <p class="caption status-danger"
+                *ngIf="userCredentials.hasError('required', 'accountDetails.email') && userCredentials.get('accountDetails.email')?.touched">
+                Email is required!
+              </p>
+              <p class="caption status-danger" *ngIf="userCredentials.hasError('email', 'accountDetails.email')">
+                Email should be a valid one!
+              </p>
+            </ng-container>
 
-      <!-- Password Input Field -->
-      <div class="form-control-group">
-        <label class="label" for="input-password">Password:</label>
+          </div>
 
-        <input nbInput id="input-password" type="password" formControlName='password' placeholder="Password"
-         fullWidth fieldSize="large"
-         [status]="userCredentials.controls.password.dirty ? (userCredentials.controls.password.invalid ? 'danger' : 'success') : 'basic' ">
+          <!-- Password Input Field -->
+          <div class="form-control-group">
+            <label class="label" for="input-password">Password:</label>
 
-        <ng-container>
-          <p class="caption status-danger" *ngIf="userCredentials.controls.password.errors?.required && userCredentials.controls.password.touched">
-            Password is required!
-          </p>
-          <p class="caption status-danger" *ngIf="userCredentials.hasError('minlength', 'password')">
-            Password must be at least 8 characters
-          </p>
-        </ng-container>
+            <input nbInput id="input-password" type="password" name="password" formControlName='password'
+              placeholder="Password" fullWidth fieldSize="large"
+              [status]="userCredentials.get('accountDetails.password')?.dirty ? (userCredentials.get('accountDetails.password')?.invalid ? 'danger' : 'success') : 'basic' ">
 
-      </div>
+            <ng-container>
+              <p class="caption status-danger"
+                *ngIf="userCredentials.hasError('required', 'accountDetails.password') && userCredentials.get('accountDetails.password')?.touched">
+                Password is required!
+              </p>
+              <p class="caption status-danger" *ngIf="userCredentials.hasError('minlength', 'accountDetails.password')">
+                Password must be at least 8 characters
+              </p>
+            </ng-container>
 
-      <!-- Confirm Password Input Field -->
-      <div class="form-control-group">
-        <label class="label" for="input-confirmPassword">Confirm Password:</label>
+          </div>
 
-        <input nbInput id="input-confirmPassword" type="password" formControlName='confirmPassword'
-          placeholder="Confirm Password" fullWidth fieldSize="large"
-          [status]="userCredentials.controls.confirmPassword.dirty ? 
-          (userCredentials.controls.confirmPassword.invalid || userCredentials.controls.password.value !=  userCredentials.controls.confirmPassword.value ? 'danger' : 'success') : 'basic' ">
+          <!-- Confirm Password Input Field -->
+          <div class="form-control-group">
+            <label class="label" for="input-confirmPassword">Confirm Password:</label>
 
-        <ng-container>
-          <p class="caption status-danger" *ngIf="userCredentials.hasError('required', 'confirmPassword') && userCredentials.get('confirmPassword')?.touched">
-            Password Confirmation Required!
-          </p>
-          <p class="caption status-danger" *ngIf="userCredentials.get('password')?.value != userCredentials.get('confirmPassword')?.value && !userCredentials.hasError('required', 'confirmPassword')">
-            Password don't match
-          </p>
-        </ng-container>
+            <input nbInput id="input-confirmPassword" name="confirmPassword" type="password"
+              formControlName='confirmPassword' placeholder="Confirm Password" fullWidth fieldSize="large"
+              [status]="userCredentials.get('accountDetails.confirmPassword')?.dirty ? 
+          (userCredentials.get('accountDetails.confirmPassword')?.invalid || userCredentials.get('accountDetails.password')?.value !=  userCredentials.get('accountDetails.confirmPassword')?.value ? 'danger' : 'success') : 'basic' ">
 
-      </div>
+            <ng-container>
+              <p class="caption status-danger"
+                *ngIf="userCredentials.hasError('required', 'accountDetails.confirmPassword') && userCredentials.get('accountDetails.confirmPassword')?.touched">
+                Password Confirmation Required!
+              </p>
+              <p class="caption status-danger"
+                *ngIf="userCredentials.get('accountDetails.password')?.value != userCredentials.get('accountDetails.confirmPassword')?.value && !userCredentials.hasError('required', 'accounrDetails.confirmPassword')">
+                Password don't match
+              </p>
+            </ng-container>
 
-      <!-- Business Type Dropdown Menu -->
-      <div class="form-control-group">
-        <label class="label" for="input-password">Business Type: {{userCredentials.controls.businessType.value}}</label>
-        <br>
-        <nb-select placeholder="Business Type" formControlName='businessType' fullWidth fieldSize="large"
-        [status]="userCredentials.controls.businessType.dirty ? (userCredentials.controls.businessType.invalid ? 'danger' : 'success') : 'basic' ">
-          <nb-option *ngFor="let type of businessTypes" [value]='type.name'>{{type.name}}</nb-option>
-        </nb-select>
-        
-        <ng-container>
-          <p class="caption status-danger" *ngIf="userCredentials.hasError('required', 'businessType') && userCredentials.get('businessType')?.touched">
-            Please select a business type
-          </p>
-        </ng-container>
+          </div>
 
-      </div>
+          <!-- Business Type Dropdown Menu -->
+          <div class="form-control-group">
+            <label class="label" for="input-password">Business Type:
+              {{userCredentials.get('accountDetails.businessType')?.value}}</label>
+            <br>
+            <nb-select placeholder="Business Type" name="businessType" formControlName='businessType' fullWidth
+              fieldSize="large"
+              [status]="userCredentials.get('accountDetails.businessType')?.dirty ? (userCredentials.get('accountDetails.businessType')?.invalid ? 'danger' : 'success') : 'basic' ">
+              <nb-option *ngFor="let type of businessTypes" [value]='type.name'>{{type.name}}</nb-option>
+            </nb-select>
 
-      <!-- Terms and Conditions Checkbox -->
-      <div class="form-control-group">
-        <span>
-          <nb-checkbox class="checkbox" status="basic">Agree to Terms and Conditions</nb-checkbox>
-        </span>
-      </div>
+            <ng-container>
+              <p class="caption status-danger"
+                *ngIf="userCredentials.hasError('required', 'accountDetails.businessType') && userCredentials.get('accountDetails.businessType')?.touched">
+                Please select a business type
+              </p>
+            </ng-container>
 
-      <!-- Register Submit Button -->
-      <div class="form-control-group">
-        <button class="button" nbButton type="submit" fullWidth outline status="primary">REGISTER</button>
-      </div>
+          </div>
 
+          <!-- Next Button -->
+          <div class="form-control-group">
+            <button class="button" type="button" nbButton nbStepperNext fullWidth outline status="primary" (click)="checkRegistrationForm()">NEXT</button>
+          </div>
+
+          <div class="form-control-group">
+            <section style="text-align: center;" class="another-action"> Already have an account? <a
+                routerlink="/login-form" class="text-link" href="/login-form">Log in</a></section>
+          </div>
+
+        </nb-step>
+
+        <nb-step label="Phone & Location" formGroupName="businessDetails" [stepControl]="userCredentials.controls.businessDetails">
+
+          <h1 class="register-header">Business Phone & Location</h1>
+
+          <!-- Bussines Phone Number Form Field -->
+          <div class="form-control-group">
+            <label nbLabel class="label" for="input-businessPhone">Business Phone Number:</label>
+
+            <input nbInput type="text" id="input-businessPhone" formControlName='businessPhone'
+              placeholder="123-456-7890" fullWidth fieldSize="large"
+              [status]="userCredentials.get('businessDetails.businessPhone')?.dirty ? (userCredentials.get('businessDetails.businessPhone')?.invalid ? 'danger' : 'success') : 'basic'">
+
+            <ng-container>
+              <p class="caption status-danger"
+                *ngIf="userCredentials.hasError('required', 'businessDetails.businessPhone') && userCredentials.get('businessDetails.businessPhone')?.touched">
+                Phone Number required!
+              </p>
+              <p class="caption status-danger" *ngIf="userCredentials.hasError('pattern', 'businessDetails.businessPhone')">
+                Phone Number should be a valid one!
+              </p>
+            </ng-container>
+
+          </div> 
+            <!-- Business Location Form Field-->
+          <div class="form-control-group">
+            <label nbLabel class="label" for="input-businessLocation">Business Location:</label>
+
+            <input class="locationLabel" nbInput ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" id="input-businessLocation" formControlName='businessLocation'
+            placeholder="Enter a location" fullWidth fieldSize="large" [status]="userCredentials.get('businessDetails.businessLocation')?.dirty ? (!userCredentials.hasError('required', 'businessDetails.businessLocation') ? 'success' : 'danger') :
+            (userCredentials.hasError('required', 'businessDetails.businessLocation') ? 'basic' : 'danger')"/>
+
+            <ng-container>
+              <p class="caption status-danger"
+                *ngIf="userCredentials.hasError('required', 'businessDetails.businessLocation')&& userCredentials.get('businessDetails.businessLocation')?.touched">
+                Location required!
+              </p>
+            </ng-container>
+
+            </div>
+
+            <div class="stepper-buttons">
+              <button class="button" type="button" nbButton nbStepperPrevious outline status="primary">PREVIOUS</button>
+              <button class="button" type="button" nbButton nbStepperNext outline status="primary" (click)="checkBusinessInfoForm()" >NEXT</button>
+            </div>
+
+        </nb-step>
+
+        <nb-step label="Certification Form">
+          <h1 class="register-header">Apply for Certification</h1>
+
+          <div class="stepper-buttons">
+            <button class="button" type="button" nbButton nbStepperPrevious outline status="primary">PREVIOUS</button>
+            <button class="button" type="button" nbButton nbStepperNext outline status="primary">NEXT</button>
+          </div>
+
+        </nb-step>
+
+        <nb-step label="Completion" [hidden]="true">
+          <h1 class="register-header">Complete you Registration</h1>
+          <button class="button" type="submit" fullWidth nbButton outline status="success">Register Account</button>
+        </nb-step>
+
+      </nb-stepper>
     </form>
-
-    <div class="form-control-group">
-      <section style="text-align: center;" class="another-action"> Already have an account? <a routerlink="/login-form"
-          class="text-link" href="/login-form">Log in</a></section>
-    </div>
-
-
   </nb-card-body>
 </nb-card>
