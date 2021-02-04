@@ -10,9 +10,13 @@ import { NebularModulesModule } from './nebular-modules/nebular-modules.module';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -40,7 +44,8 @@ import { HttpClientModule } from '@angular/common/http';
     NebularModulesModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    GooglePlaceModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
