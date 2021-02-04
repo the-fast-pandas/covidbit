@@ -4,6 +4,9 @@
 const express = require("express");
 const app = express();
 
+//This loads all our environment variables from the keys.env
+require("dotenv").config({path:'../config/keys.env'});
+
 const bodyParser = require("body-parser");
 app.use(bodyParser.json()); // Define the JSON parser as a default way to conect to data 
 

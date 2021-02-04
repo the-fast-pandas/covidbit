@@ -3,14 +3,16 @@
   <nb-layout-header fixed>
     <nb-icon (click)="toggleSidebar()" class="sidebar-toggle" icon="menu-2-outline"></nb-icon>
     <h2>Nebular Starter Application</h2>
+    <span class="example-spacer"></span>
+    <span>
+      <a class="button" routerLink="/registration-form" routerLinkActive="activebutton">Registration</a>
+    </span>
+    <span>
+      <a class="button" routerLink="/login-form" routerLinkActive="activebutton">Login</a>
+    </span>
   </nb-layout-header>
 
-  
-  <nb-sidebar class="menu-sidebar" responsive start>
-    <nb-menu [items]="items"></nb-menu>
-  </nb-sidebar>
 
-  
   <nb-layout-column>
     <router-outlet></router-outlet>
   </nb-layout-column>
