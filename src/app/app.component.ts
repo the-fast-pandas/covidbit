@@ -31,7 +31,7 @@ export class AppComponent {
       title: 'Login',
       icon: 'log-in-outline',
       link: '/login-form'
-    }
+    },
   ];
   constructor(private readonly sidebarService: NbSidebarService) {
   }

@@ -14,9 +14,19 @@
       padding-right: 30%;
   }
 
-  
-  .checkbox{
-      margin: 2rem 0;
-  }
+.button {
+  margin-top: 3em;
+}
 
-  
+.stepper-buttons {
+  text-align: center;
+}
+
+.stepper-buttons button{
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.locationLabel {
+  text-align: left;
+}
