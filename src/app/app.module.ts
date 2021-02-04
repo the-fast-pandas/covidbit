@@ -6,12 +6,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbCardModule} from '@nebular/theme'
 import { HomeComponent } from './home/home.component';
-import {NbIconModule, NbLayoutModule, NbMenuModule, NbSidebarModule, NbThemeModule} from '@nebular/theme';
+import { NebularModulesModule } from './nebular-modules/nebular-modules.module';
+import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    RegistrationFormComponent,
+    LoginFormComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,6 +37,10 @@ import {NbIconModule, NbLayoutModule, NbMenuModule, NbSidebarModule, NbThemeModu
     NbMenuModule.forRoot(),     
     NbThemeModule.forRoot({name: 'default'}),
     NbSidebarModule.forRoot()
+    NebularModulesModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
