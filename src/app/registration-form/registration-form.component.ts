@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Validators, FormControl, FormGroup, AbstractControl } from '@angular/forms'
-import { User } from './user.model'
+import { User } from '../user.model'
 
 
 @Component({

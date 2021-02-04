@@ -1,15 +1,11 @@
 <nb-layout>
 
   <nb-layout-header fixed>
-    <nb-icon (click)="toggleSidebar()" class="sidebar-toggle" icon="menu-2-outline"></nb-icon>
-    <h2>Nebular Starter Application</h2>
+    <a style="text-decoration: none;" routerLink="/home" routerLinkActive="active">
+      <h2>COVIDBIT</h2>
+    </a>
     <span class="example-spacer"></span>
-    <span>
-      <a class="button" routerLink="/registration-form" routerLinkActive="activebutton">Registration</a>
-    </span>
-    <span>
-      <a class="button" routerLink="/login-form" routerLinkActive="activebutton">Login</a>
-    </span>
+    <app-header></app-header>
   </nb-layout-header>
 
 
@@ -18,7 +14,7 @@
   </nb-layout-column>
 
   <nb-layout-footer fixed>
-    This is the footer
+    <app-footer></app-footer>
   </nb-layout-footer>
 
 </nb-layout>
