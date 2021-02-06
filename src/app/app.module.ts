@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BusinessProfileComponent } from './business-profile/business-profile.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     LoginFormComponent,
     HeaderComponent,
     FooterComponent,
+    BusinessProfileComponent,
   ],
   imports: [
     BrowserModule,
