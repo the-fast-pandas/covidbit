@@ -5,7 +5,7 @@
 const mongoose = require("mongoose");
 
 const SmallBusinessSchema = mongoose.Schema({
-  loginId: {
+  loginId: {   // this is the email
     type: String,
     required: true
   },
