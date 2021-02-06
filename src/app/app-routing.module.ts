@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { NotFoundComponent } from './not-found/not-found.component'
 
 const routes: Routes = [
   {
@@ -19,7 +20,8 @@ const routes: Routes = [
   },
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule) },
-  {path: '**', redirectTo: 'home'},
+  //Wrong route
+  { path: '**', component: NotFoundComponent},
 ];
 
 @NgModule({

@@ -14,3 +14,8 @@
     color: black;
     padding-right: 1em;
 }
+@media only screen and (max-width: 600px) {
+  h2 {
+      display: none;
+  }
+}
