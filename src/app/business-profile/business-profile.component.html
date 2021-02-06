@@ -1,1 +1,71 @@
-<p>business-profile works!</p>
+<nb-card>
+    <nb-card-body>
+        <h1 class="businessProfile-header">Edit Profile</h1>
+        <nb-layout class="profile">
+            <nb-layout-column class="profile-image">
+                <form>
+                     <!-- Profile image Input Field -->
+                    <div class="image-control-group">
+                        <label nbLabel class="label">Profile Image:</label>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                width="265" height="265"
+                                viewBox="0 0 226 226"
+                                style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,226v-226h226v226z" fill="#ffffff"></path><g id="original-icon" fill="#95a5a6"><path d="M52.15385,8.69231c-23.86989,0 -43.46154,19.59164 -43.46154,43.46154v121.69231c0,23.86989 19.59164,43.46154 43.46154,43.46154h121.69231c23.86989,0 43.46154,-19.59164 43.46154,-43.46154v-121.69231c0,-23.86989 -19.59164,-43.46154 -43.46154,-43.46154zM52.15385,26.07692h121.69231c14.39663,0 26.07692,11.68029 26.07692,26.07692v121.69231c0,8.86208 -4.38011,16.73948 -11.13702,21.45913c-5.73828,-13.47987 -26.75601,-24.88852 -49.70913,-29.33654c0,0 -10.39002,-1.79958 -5.16106,-12.22356c5.22897,-7.80949 9.50721,-17.21485 9.50721,-19.82933c0,0 8.6244,-6.89273 9.50721,-18.19952c0.88282,-10.42398 -1.62981,-11.40865 -1.62981,-11.40865c4.34615,-12.15564 5.05919,-56.5679 -23.63221,-51.33894c-5.22896,-9.57512 -34.70132,-17.3167 -48.6226,7.8774c-6.96063,12.15565 -9.60908,28.6914 -3.53125,43.46154c0,0.88282 -1.56189,-0.91677 -2.44471,5.16106c-0.88281,6.07783 2.54658,14.9399 5.16106,19.28606c0.88282,1.73167 3.46335,2.44471 4.34615,2.44471c0,0 1.62981,11.30679 10.32212,21.73077c1.73167,7.8095 -5.97596,12.22356 -5.97596,12.22356c-22.95312,4.44802 -44.61598,15.85667 -50.52404,29.33654c-6.2476,-4.75361 -10.32212,-12.18961 -10.32212,-20.64423v-121.69231c0,-14.39663 11.68029,-26.07692 26.07692,-26.07692z"></path></g></g></svg>
+                        </div>
+                        <input nbInput type = "file" name = "fileupload" accept = "image/*" />
+                    </div>
+                 </form>                
+            </nb-layout-column>
+
+            <nb-layout-column class="profile-info">
+                <form >
+
+                     <!-- Business name Input Field -->
+                    <div class="form-control-group">
+                        <label nbLabel class="label">Business Name:</label>
+                        <input nbInput type="text" id="input-name" name="businessName" formControlName='businessName' placeholder="Business Name" fullWidth fieldSize="large">
+                    </div>
+                     
+                     <!-- Manager name Input Field -->
+                    <div class="form-control-group">
+                        <label nbLabel class="label">Manager:</label>
+                        <div>
+                            <input type="text" nbInput placeholder="Fist Name"  fieldSize="large">
+                            <input type="text" nbInput placeholder="Last Name"  fieldSize="large">
+                        </div>
+                    </div>
+
+                     <!-- Location Input Field -->
+                    <div class="form-control-group">
+                        <label nbLabel class="label">Business Location:</label>
+                        <input type="text" nbInput placeholder="Enter a location" fullWidth fieldSize="large">
+                    </div>
+                    
+                    <!-- Phone number Input Field -->
+                    <div class="form-control-group">
+                        <label nbLabel class="label">Business Phone Number:</label>
+                        <input type="tel" nbInput placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" fullWidth fieldSize="large">
+                    </div>
+
+                     <!-- Email Input Field -->
+                    <div class="form-control-group">
+                        <label nbLabel class="label">Email:</label>
+                        <input type="email" nbInput placeholder="Ex. helloworld@example.com" fullWidth fieldSize="large">
+                    </div>
+
+                     <!-- Web site Input Field -->
+                    <div class="form-control-group">
+                        <label nbLabel class="label">Web site:</label>
+                        <input type="url" nbInput placeholder="https://..." fullWidth fieldSize="large">
+                    </div>    
+                </form>
+            </nb-layout-column>
+            <nb-layout-footer class="buttons-conteiner">
+                <button class="button" type="submit" nbButton outline status="danger">Cancel</button>
+                <button class="button" type="submit" nbButton outline status="success">Save Changes</button>
+            </nb-layout-footer>
+        </nb-layout>
+    </nb-card-body>
+</nb-card>
+
