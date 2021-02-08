@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { NbCardModule, NbIconModule, NbLayoutModule, NbMenuModule, NbSidebarModule, NbThemeModule} from '@nebular/theme'
 import { HomeComponent } from './home/home.component';
 import { NebularModulesModule } from './nebular-modules/nebular-modules.module';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
@@ -30,9 +29,7 @@ import { BusinessProfileComponent } from './business-profile/business-profile.co
     LoginFormComponent,
     HeaderComponent,
     FooterComponent,
-
     NotFoundComponent,
-
     BusinessProfileComponent,
 
   ],
@@ -40,15 +37,8 @@ import { BusinessProfileComponent } from './business-profile/business-profile.co
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NbThemeModule.forRoot({ name: 'corporate' }),
-    NbLayoutModule,
     NbEvaIconsModule,
-    NbIconModule,       
     NbCardModule,        
-    NbSidebarModule.forRoot(),  
-    NbMenuModule.forRoot(),     
-    NbThemeModule.forRoot({name: 'default'}),
-    NbSidebarModule.forRoot(),
     NebularModulesModule,
     FormsModule,
     ReactiveFormsModule,

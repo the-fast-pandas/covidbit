@@ -25,8 +25,8 @@ const routes: Routes = [
     component: BusinessProfileComponent
   },
   {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule) },
-  //Wrong route
+
+  {path: '**', redirectTo: 'home'},
   { path: '**', component: NotFoundComponent},
 ];
 
