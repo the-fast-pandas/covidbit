@@ -10,6 +10,7 @@ import { Validators, FormControl, FormGroup } from '@angular/forms'
 export class LoginFormComponent implements OnInit {
 
   loginCredentials: FormGroup = new FormGroup({}); 
+  alert:Boolean = false;
 
   constructor() { }
 
@@ -18,6 +19,25 @@ export class LoginFormComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)])
     })
+  }
+
+  checkLoginForm() {
+
+    if (this.loginCredentials.controls.invalid) {
+      this.alert = true;
+    }
+    else {
+      this.alert = false;
+    }
+   
+  }
+
+  onSubmit(): void {
+    console.log(this.loginCredentials.value);
+  }
+
+  onClose() {
+    this.alert = false;
   }
 
 }

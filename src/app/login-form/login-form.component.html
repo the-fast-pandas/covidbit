@@ -2,13 +2,13 @@
   <nb-card-body>
     <h1 class="register-header">Login</h1>
 
-    <form [formGroup]="loginCredentials" class="form-components">
+    <form [formGroup]="loginCredentials" (ngSubmit)='onSubmit()' class="form-components">
 
       <!-- Email Input Field -->
       <div class="form-control-group">
         <label class="label" for="input-email">Email:</label>
 
-        <input nbInput id="input-name" type="text" formControlName="email" placeholder="Email" fullWidth
+        <input nbInput id="input-name" type="email" formControlName="email" placeholder="Email" fullWidth
           fieldSize="large"
           [status]="loginCredentials.controls.email.dirty ? (loginCredentials.controls.email.invalid ? 'danger' : 'success') : 'basic' ">
 
@@ -39,6 +39,10 @@
           </p>
         </ng-container>
 
+      </div>
+
+      <div class="form-control-group">
+        <button class="button" type="submit" nbButton fullWidth outline status="primary" [disabled]="this.loginCredentials.get('email')?.invalid || this.loginCredentials.get('password')?.invalid">LOGIN</button>
       </div>
 
     </form>
