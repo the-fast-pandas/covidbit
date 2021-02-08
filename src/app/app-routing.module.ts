@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { NotFoundComponent } from './not-found/not-found.component'
+import { BusinessProfileComponent } from './business-profile/business-profile.component';
+
 
 const routes: Routes = [
   {
@@ -17,8 +20,14 @@ const routes: Routes = [
     path: 'login-form',
     component: LoginFormComponent
   },
+  {
+    path: 'business-profile',
+    component: BusinessProfileComponent
+  },
   {path: '', redirectTo: 'home', pathMatch: 'full'},
+
   {path: '**', redirectTo: 'home'},
+  { path: '**', component: NotFoundComponent},
 ];
 
 @NgModule({

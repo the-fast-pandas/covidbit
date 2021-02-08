@@ -19,7 +19,7 @@ app.use(express.static(__dirname + "/dist/"));  // Directory for the 'hg build'
 app.use('/api', routes);  // Routes for our API (this is for the frontend conection)
 
 // Initializes the server
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 2000;
 const server = app.listen(PORT, function (error) {
   if (error) throw error;
   else console.log("Application server now running on port", server.address().port);

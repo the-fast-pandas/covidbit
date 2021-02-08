@@ -4,15 +4,20 @@
 
 const express = require('express');
 const router = express.Router();
-const ctrlAuth = require('../controllers/authentication');
+const ctrlReg = require('../controllers/registration');
+const ctrlLog = require('../controllers/login');
+const authLog = require('../middleware/auth');
 
-// Root
+// Server Status
 router.get("/status", function (req, res) {
   res.status(200).json({ status: "I am alive!" });
 });
 
-// Authentication process
-router.post('/login-form', ctrlAuth.loginUser);
-router.post('/registration-form', ctrlAuth.registerUser);
+// Login
+router.post('/login-form', ctrlLog.loginUser);
+router.get('/login-form', authLog.authLogin, ctrlLog.returnUser);
+
+// registration
+router.post('/registration-form', ctrlReg.registerUser);
 
 module.exports = router;

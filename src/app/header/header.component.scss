@@ -9,3 +9,9 @@ button {
 a {
     text-decoration: none;
 }
+@media only screen and (max-width: 600px) {
+    .navigation-buttons {
+        display: inline-block;
+        left: 2rem;
+    }
+}

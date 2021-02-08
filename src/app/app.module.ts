@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { NbCardModule} from '@nebular/theme'
 import { HomeComponent } from './home/home.component';
 import { NebularModulesModule } from './nebular-modules/nebular-modules.module';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
@@ -14,6 +13,11 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
+
+import { NotFoundComponent } from './not-found/not-found.component';
+
+import { BusinessProfileComponent } from './business-profile/business-profile.component';
+
 
 
 
@@ -25,6 +29,9 @@ import { HttpClientModule } from '@angular/common/http';
     LoginFormComponent,
     HeaderComponent,
     FooterComponent,
+    NotFoundComponent,
+    BusinessProfileComponent,
+
   ],
   imports: [
     BrowserModule,
