@@ -4,7 +4,7 @@
       Please fill out the entire form
     </nb-alert>
     <form [formGroup]='userCredentials' (ngSubmit)='onSubmit()' class="form-components">
-      <nb-stepper orientation="horizontal" disableStepNavigation linear="false">
+      <nb-stepper orientation="horizontal" disableStepNavigation linear>
         <nb-step label="Registration" formGroupName="accountDetails" [stepControl]="userCredentials.controls.accountDetails">
           <h1 class="register-header">Register your Business</h1>
 

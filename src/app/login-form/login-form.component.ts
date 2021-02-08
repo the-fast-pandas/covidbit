@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -12,7 +14,7 @@ export class LoginFormComponent implements OnInit {
   loginCredentials: FormGroup = new FormGroup({}); 
   alert:Boolean = false;
 
-  constructor() { }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.loginCredentials = new FormGroup({
@@ -32,7 +34,7 @@ export class LoginFormComponent implements OnInit {
    
   }
 
-  onSubmit(): void {
+  onSubmit() {
     console.log(this.loginCredentials.value);
   }
 

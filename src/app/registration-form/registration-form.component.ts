@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration-form',
@@ -28,6 +29,7 @@ export class RegistrationFormComponent implements OnInit {
   registeredUser:any;
   safteyMeasureList:any = [];
   
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
 
@@ -56,6 +58,7 @@ export class RegistrationFormComponent implements OnInit {
   onSubmit(): void {
     console.log(this.userCredentials.value);
     console.log(this.safteyMeasureList);
+    this.router.navigate(['/home']);
   }
 
   checkRegistrationForm() {
