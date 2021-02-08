@@ -14,7 +14,11 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
+
+import { NotFoundComponent } from './not-found/not-found.component';
+
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
+
 
 
 
@@ -26,7 +30,11 @@ import { BusinessProfileComponent } from './business-profile/business-profile.co
     LoginFormComponent,
     HeaderComponent,
     FooterComponent,
+
+    NotFoundComponent,
+
     BusinessProfileComponent,
+
   ],
   imports: [
     BrowserModule,
