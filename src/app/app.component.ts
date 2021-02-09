@@ -10,34 +10,5 @@ import { NbMenuItem, NbSidebarService } from '@nebular/theme';
 
 export class AppComponent {
   title = 'covidbit';
-  items: NbMenuItem[] = [
-    {
-      title: 'Home',
-      icon: 'home-outline',
-      link: '/home',
-      home: true
-    },
-    {
-      title: 'Users',
-      icon: 'people-outline',
-      link: '/users'
-    },
-    {
-      title: 'Register',
-      icon: 'edit-2-outline',
-      link: '/registration-form'
-    },
-    {
-      title: 'Login',
-      icon: 'log-in-outline',
-      link: '/login-form'
-    },
-  ];
-  constructor(private readonly sidebarService: NbSidebarService) {
-  }
-  
-  toggleSidebar(): boolean {
-    this.sidebarService.toggle();
-    return false;
-  }
+  constructor() { }
 }

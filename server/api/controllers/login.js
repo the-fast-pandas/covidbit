@@ -1,5 +1,6 @@
 // Server - CovidBit - Fast Pandas
 // Created: 03, February, 2021, Teresa Costa
+// Modified: 08, February, 2021, Teresa Costa: frontend integration, loginUser finished
 
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken")
@@ -18,18 +19,23 @@ const loginUser = function (req, res) {
         }
         if (user) {
             bcrypt.compare(password, user.password, function (error, result) {
-                console.log(password);
-                console.log(user.password);
-                console.log(result);
-                if (error) throw error;
+                if (error) {
+                    throw error;
+                }
                 if (!result) {
                     message = "incorrectPassword";
                     return res.status(401).json({ message });
                 }
                 const payload = {
-                    user: { id: user.id }
+                    user: {
+                        id: user.id
+                    }
                 };
-                const token = jwt.sign(payload, "ilikemypandasfast", { expiresIn: 1000 });
+                const token = jwt.sign(
+                    payload,
+                    "ilikemypandasfast",
+                    { expiresIn: 1000 }
+                );
                 return res.status(200).json({ token });
             });
         }

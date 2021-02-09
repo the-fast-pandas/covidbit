@@ -11,7 +11,7 @@ import { AuthGuard } from "./auth-services/auth.guard";
 const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent, canActivate: [AuthGuard] 
+    component: HomeComponent,
   },
   {
     path: 'registration-form',
@@ -23,7 +23,8 @@ const routes: Routes = [
   },
   {
     path: 'business-profile',
-    component: BusinessProfileComponent
+    component: BusinessProfileComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '',
@@ -37,4 +38,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }

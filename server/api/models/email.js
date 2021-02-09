@@ -24,8 +24,12 @@ const sendEmail = function (email, emailContent) {
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
-        if (error) throw error;
-        else console.log('Email sent: ' + info.response);
+        if (error) {
+            throw error;
+        }
+        else {
+            console.log('Email sent: ' + info.response);
+        }
     });
 }
 
