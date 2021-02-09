@@ -5,16 +5,17 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { NotFoundComponent } from './not-found/not-found.component'
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
+import { AuthGuard } from "./auth-services/auth.guard";
 
 
 const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent, canActivate: [AuthGuard] 
   },
   {
-   path: 'registration-form', 
-   component: RegistrationFormComponent
+    path: 'registration-form',
+    component: RegistrationFormComponent
   },
   {
     path: 'login-form',
@@ -24,9 +25,12 @@ const routes: Routes = [
     path: 'business-profile',
     component: BusinessProfileComponent
   },
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {
+    path: '',
+    component: HomeComponent
+  },
 
-  { path: '**', component: NotFoundComponent},
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({

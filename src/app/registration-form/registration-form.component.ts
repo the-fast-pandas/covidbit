@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
+import { AuthService } from '../auth-services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -29,7 +30,7 @@ export class RegistrationFormComponent implements OnInit {
   registeredUser:any;
   safteyMeasureList:any = [];
   
-  constructor(private router: Router) { }
+  constructor(public authService: AuthService, public router: Router) { }
 
   ngOnInit(): void {
 
@@ -57,8 +58,7 @@ export class RegistrationFormComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.userCredentials.value);
-    console.log(this.safteyMeasureList);
-    this.router.navigate(['/home']);
+    this.authService.signUp(this.userCredentials.value);
   }
 
   checkRegistrationForm() {

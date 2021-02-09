@@ -1,24 +1,21 @@
-// Server - CovidBit
-// Created: 03, February, 2021
-// Teresa Costa - Fast Pandas
+// Server - CovidBit - Fast Pandas
+// Created: 03, February, 2021, Teresa Costa
 
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken")
-const email = require('../models/email');
 const SmallBusiness = require('../schema/smallBusiness');
 const saltRounds = 10;
 
 // Responsible for registration of small business in database
 const registerUser = function (req, res) {
-  //const {loginId, businessName, password} = req.body; // This is for frontend
-  const { loginId, businessName, password } = req.query;
-  SmallBusiness.findOne({ "loginId": loginId }, function (error, user) {
+  const { email, businessName, password } = req.body; 
+  SmallBusiness.findOne({ "loginId": email }, function (error, user) {
     if (error) throw error;
     if (user) return res.status(400).json({ message: "User Already Exists" });
     if (!user) {
       newBusiness = new SmallBusiness({
         businessName,
-        loginId,
+        email,
         password
       });
       bcrypt.genSalt(saltRounds, function (error, salt) {

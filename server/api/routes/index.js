@@ -1,6 +1,5 @@
-// Server - CovidBit
-// Created: 31, January, 2021
-// Teresa Costa - Fast Pandas
+// Server - CovidBit - Fast Pandas
+// Created: 01, February, 2021, Teresa Costa
 
 const express = require('express');
 const router = express.Router();
