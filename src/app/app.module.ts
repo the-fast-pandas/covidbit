@@ -14,6 +14,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
+import { SearchWidgetComponent } from './search-widget/search-widget.component';
 
 
 
@@ -28,6 +29,7 @@ import { BusinessProfileComponent } from './business-profile/business-profile.co
     FooterComponent,
     NotFoundComponent,
     BusinessProfileComponent,
+    SearchWidgetComponent,
 
   ],
   imports: [
