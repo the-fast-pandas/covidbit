@@ -15,6 +15,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
 import { AuthInterceptor } from './auth-services/authconfig.interceptor';
+import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { AuthInterceptor } from './auth-services/authconfig.interceptor';
     FooterComponent,
     NotFoundComponent,
     BusinessProfileComponent,
+    BusinessDashboardComponent,
 
   ],
   imports: [

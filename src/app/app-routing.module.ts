@@ -5,6 +5,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { NotFoundComponent } from './not-found/not-found.component'
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
+import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component';
 import { AuthGuard } from "./auth-services/auth.guard";
 
 
@@ -24,7 +25,11 @@ const routes: Routes = [
   {
     path: 'business-profile',
     component: BusinessProfileComponent,
-    canActivate: [AuthGuard]
+   // canActivate: [AuthGuard]
+  },
+  {
+    path: 'business-dashboard',
+    component: BusinessDashboardComponent
   },
   {
     path: '',

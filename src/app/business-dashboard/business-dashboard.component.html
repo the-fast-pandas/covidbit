@@ -1,0 +1,71 @@
+<div class="card-row">
+    <div class="card-col">
+      <nb-card size="medium" class="profileInfo">
+        <nb-card-header>
+            <h3>Business Name</h3>
+            <a href routerLink="/business-profile" routerLinkActive="active">Edit Profile</a>
+            </nb-card-header>
+        <nb-card-body id="profileInfo">
+            <div class="form-control-group">
+                <label nbLabel class="label">Manager:</label>
+                <p>Manager's Name</p>
+            </div>
+            <div class="form-control-group">
+                <label nbLabel class="label">Business Location:</label>
+                <p>Adress</p>
+            </div>
+            <div class="form-control-group">
+                <label nbLabel class="label" >Business Phone Number:</label>
+                <p>123-456-7890</p>
+            </div>
+            <div class="form-control-group">
+                <label nbLabel class="label">Email:</label>
+                <p>helloworld@example.com</p>
+            </div>
+            <div class="form-control-group">
+                <label nbLabel class="label">Web site:</label>
+                <p>https://...</p>
+            </div>    
+            <div class="form-control-group">
+                <label class="label">Business Type:</label>
+                <p>Business Type</p>
+            </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="card-col">
+      <nb-card size="tiny">
+        <nb-card-header>Safety Measures</nb-card-header>
+        <nb-card-body>
+            <nb-checkbox (checkedChange)="toggle($event)">Safety Measure #1</nb-checkbox><br />
+            <nb-checkbox (checkedChange)="toggle($event)">Safety Measure #2</nb-checkbox><br />
+            <nb-checkbox (checkedChange)="toggle($event)">Safety Measure #3</nb-checkbox><br />
+            <nb-checkbox (checkedChange)="toggle($event)">Safety Measure #4</nb-checkbox><br />
+            <nb-checkbox (checkedChange)="toggle($event)">Safety Measure #5</nb-checkbox><br />
+            <nb-checkbox (checkedChange)="toggle($event)">Safety Measure #6</nb-checkbox><br />
+        </nb-card-body>
+      </nb-card>
+      <nb-card size="tiny">
+        <nb-card-header>Tracing Methods</nb-card-header>
+        <nb-card-body>
+            <nb-checkbox (checkedChange)="toggle($event)">Tracing Method #1</nb-checkbox><br />
+            <nb-checkbox (checkedChange)="toggle($event)">Tracing Method #2</nb-checkbox><br />
+            <nb-checkbox (checkedChange)="toggle($event)">Tracing Method #3</nb-checkbox><br />
+            <nb-checkbox (checkedChange)="toggle($event)">Tracing Method #4</nb-checkbox><br />
+            <nb-checkbox (checkedChange)="toggle($event)">Tracing Method #5</nb-checkbox><br />
+            <nb-checkbox (checkedChange)="toggle($event)">Tracing Method #6</nb-checkbox><br />
+          </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  
+  <div class="card-row">
+    <div class="card-col">
+      <nb-card size="large">
+        <nb-card-header>Reported Cases</nb-card-header>
+        <nb-card-body>
+           
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
