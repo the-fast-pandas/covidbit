@@ -1,5 +1,8 @@
 <div class="navigation-buttons">
-    <button nbButton outline status="info"><a routerLink="/home" routerLinkActive="active">Home</a></button>
-    <button nbButton outline status="info"><a routerLink="/smallbusinessmap" routerLinkActive="active">Tracker Map</a></button>
-    <button nbButton outline status="info"><a routerLink="/login-form" routerLinkActive="active">Login</a></button>
+    <app-search-widget></app-search-widget>
+    <button nbButton ><a routerLink="/home" routerLinkActive="active">Home</a></button>
+    <button nbButton ><a routerLink="/smallbusinessmap" routerLinkActive="active">Tracker Map</a></button>
+    <button nbButton [nbContextMenu]="items" nbContextMenuTag="my-context-menu">
+        Login
+    </button>
 </div>

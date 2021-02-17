@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+
 import {
   NbIconModule,
   NbLayoutModule,
   NbMenuModule,
   NbSidebarModule,
   NbThemeModule,
+  NbContextMenuModule,
   NbCardModule,
   NbInputModule,
+  NbSearchModule,
   NbSelectModule,
   NbButtonModule,
   NbCheckboxModule,
@@ -18,8 +21,7 @@ import {
   NbActionsModule,
   NbAccordionModule,
   NbListModule,
-  NbDialogModule,
-  NbContextMenuModule
+  NbDialogModule
   
 } from '@nebular/theme';
 
@@ -27,6 +29,7 @@ const NebularModules = [
   NbThemeModule.forRoot({ name: 'corporate' }),
   NbLayoutModule,
   NbEvaIconsModule,
+  NbContextMenuModule,
   NbIconModule,
   NbSidebarModule.forRoot(),
   NbSidebarModule,
@@ -37,6 +40,7 @@ const NebularModules = [
   NbCardModule,
   NbInputModule,
   NbSelectModule,
+  NbSearchModule,
   NbButtonModule,
   NbCheckboxModule,
   NbAlertModule,

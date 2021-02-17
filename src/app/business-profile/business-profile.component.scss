@@ -3,22 +3,68 @@
     margin-bottom: 20px;
   }
 
-  nb-layout-column.profile-image{
-      background-color: #ffffff;
-  }
-
-nb-layout-column.profile-info{
-    background-color: #ffffff;
-}
-
 .form-control-group{
     padding-bottom: 20px;
 }
 
 .button {
-    margin: 3em;
+    margin-right: 3em;
+    margin-top: 2em;
     width: 200px;
 }
+
+  :host {
+    display: block;
+    max-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  
+  .card-row {
+    display: flex;
+    margin: 0 -0.5rem;
+  }
+  
+  .card-col {
+    flex: 1 0 calc(50% - 1rem);
+    margin: 0 0.5rem;
+  }
+
+  #profile-image {
+    flex: 1 !important;
+  }
+
+  #profile-info{
+   flex: 2 !important;
+  }
+
+
+  @media only screen and (max-width: 900px) {
+
+    .card-row {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .profile-image {
+        width: 50%;
+        height: 50%;
+      }
+
+      .buttons {
+        text-align: center;
+      }
+          
+      .button {
+        display: inline-block;
+      }
+      #profile-image{
+        text-align: center;
+      }
+    }
+
+  
+
 
 
 
