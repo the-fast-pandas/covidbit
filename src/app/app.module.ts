@@ -14,7 +14,6 @@ import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
-import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { CaseSettingsComponent } from './admin-dashboard/case-settings/case-settings.component';
 import {OverlayModule} from '@angular/cdk/overlay';
@@ -37,7 +36,6 @@ import { SearchPageComponent } from './search-page/search-page.component';
     FooterComponent,
     NotFoundComponent,
     BusinessProfileComponent,
-    BusinessDashboardComponent
     BusinessDashboardComponent,
     AdminDashboardComponent,
     CaseSettingsComponent,
