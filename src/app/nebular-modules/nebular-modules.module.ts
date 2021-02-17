@@ -20,8 +20,7 @@ import {
   NbActionsModule,
   NbAccordionModule,
   NbListModule,
-  NbDialogModule,
-  NbContextMenuModule
+  NbDialogModule
   
 } from '@nebular/theme';
 

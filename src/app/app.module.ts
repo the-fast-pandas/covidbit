@@ -56,9 +56,9 @@ import { SearchPageComponent } from './search-page/search-page.component';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    [CasesService]
   ],
-  providers: [CasesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
