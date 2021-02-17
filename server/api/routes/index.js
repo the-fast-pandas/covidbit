@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 const ctrlReg = require('../controllers/registration');
 const ctrlLog = require('../controllers/login');
+const ctrlDashUser = require('../controllers/userDashboard');
 const authLog = require('../middleware/auth');
 
 // Server Status
@@ -14,9 +15,11 @@ router.get("/status", function (req, res) {
 
 // Login
 router.post('/login-form', ctrlLog.loginUser);
-router.get('/login-form', authLog.authLogin, ctrlLog.returnUser);
 
 // registration
 router.post('/registration-form', ctrlReg.registerUser);
+
+// User dashoard
+router.get('/user-dashboard/id', authLog.authLogin, ctrlDashUser.getUserDashboard);
 
 module.exports = router;

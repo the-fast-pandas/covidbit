@@ -1,8 +1,13 @@
+// Server - CovidBit - Fast Pandas
+// Created: 08, February, 2021, Teresa Costa
+
 import { Injectable } from '@angular/core';
 import { LoginCredentials } from '../models/logincredentials.model';
 import { SmallBusiness } from '../models/smallBusiness.model';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -33,14 +38,25 @@ export class AuthService {
     return this.http.post<any>(`${this.endpoint}/login-form`, user)
       .subscribe(
         data => {
+          console.log(data);
           this.router.navigate(['home']);
         },
         error => {
-          this.router.navigate(['wrong-request']);
+          window.alert("Wrong Credentials");
+          this.router.navigate(['login-form']);
         }
       )
   }
 
+  getUserDashboard(id: any): Observable<any> {
+    let api = `${this.endpoint}/business-profile/${id}`;
+    return this.http.get<any>(api, { headers: this.headers }).pipe(
+      map((res: Response) => {
+        return res || {}
+      }),
+      catchError(this.handleError)
+    )
+  }
 
   getToken() {
     return localStorage.getItem('access_token');
@@ -51,6 +67,25 @@ export class AuthService {
     return (authToken !== null) ? true : false;
   }
 
+  doLogout() {
+    let removeToken = localStorage.removeItem('access_token');
+    if (removeToken == null) {
+      this.router.navigate(['log-in']);
+    }
+  }
+
+  // Error 
+  handleError(error: HttpErrorResponse) {
+    let msg = '';
+    if (error.error instanceof ErrorEvent) {
+      // client-side error
+      msg = error.error.message;
+    } else {
+      // server-side error
+      msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    return throwError(msg);
+  }
 
 
 }

@@ -7,7 +7,6 @@ import { NotFoundComponent } from './not-found/not-found.component'
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
 import { AuthGuard } from "./auth-services/auth.guard";
 
-
 const routes: Routes = [
   {
     path: 'home',
@@ -22,7 +21,7 @@ const routes: Routes = [
     component: LoginFormComponent
   },
   {
-    path: 'business-profile',
+    path: 'business-profile/:id',
     component: BusinessProfileComponent,
     canActivate: [AuthGuard]
   },

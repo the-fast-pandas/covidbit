@@ -4,14 +4,12 @@
 
 const express = require("express");
 const bodyParser = require('body-parser'); 
-const passport = require('passport');
 const favicon = require('serve-favicon');
 
 require('./api/models/database'); // Connects database
 const routes = require('./api/routes/index');  
 
 const app = express();
-app.use(passport.initialize());
 app.use(bodyParser.json()); // Define the JSON parser as a default way to conect to data 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/dist/"));  // Directory for the 'hg build'
@@ -26,4 +24,3 @@ const server = app.listen(PORT, function (error) {
 });
 
 module.exports = app;
-

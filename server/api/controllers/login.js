@@ -8,14 +8,12 @@ const SmallBusiness = require('../schema/smallBusiness');
 
 const loginUser = function (req, res) {
     const { email, password } = req.body;
-    let message = "";
     SmallBusiness.findOne({ "loginId": email }, function (error, user) {
         if (error) {
             throw error;
         }
         if (!user) {
-            message = "incorrectLoginId";
-            return res.status(401).json({ message });
+            return res.status(401).json({ message: "incorrectLoginId" });
         }
         if (user) {
             bcrypt.compare(password, user.password, function (error, result) {
@@ -23,8 +21,7 @@ const loginUser = function (req, res) {
                     throw error;
                 }
                 if (!result) {
-                    message = "incorrectPassword";
-                    return res.status(401).json({ message });
+                    return res.status(401).json({ message: "incorrectPassword" });
                 }
                 const payload = {
                     user: {
@@ -42,11 +39,4 @@ const loginUser = function (req, res) {
     })
 }
 
-const returnUser = function (req, res) {
-    SmallBusiness.findById(req.user.id, function (error, smallBusiness) {
-        if (error) throw error;
-        return res.status(200).json({ smallBusiness })
-    });
-}
-
-module.exports = { loginUser, returnUser };
+module.exports = { loginUser};

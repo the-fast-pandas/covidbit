@@ -4,11 +4,13 @@
 const jwt = require("jsonwebtoken");
 
 const authLogin = function (req, res, next) {
-    const token = req.header("token");
-    if (!token) return res.status(401).json({ message: "Authentication not possible" });
-    const decoded = jwt.verify(token, "ilikemypandasfast");
-    req.user = decoded.user;
-    next();
+    try {
+        const token = req.headers.authorization.split(" ")[1];
+        jwt.verify(token, "ilikemypandasfast");
+        next();
+    } catch (error) {
+        res.status(401).json({ message: "No token provided" });
+    }
 };
 
 module.exports = { authLogin };
