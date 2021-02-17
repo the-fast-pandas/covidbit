@@ -1,15 +1,18 @@
 <nb-card size="medium">
-  <nb-card-header>
+  <nb-card-header style="text-align: center;">
     <button nbButton [nbContextMenu]="items" nbContextMenuTag="caseOptions">{{title}}</button>
   </nb-card-header>
   <nb-card-body>
 
     <div class="editor">
-        <input type="text" nbInput placeholder="Search for Business">
-        <nb-icon style="margin-left: 0.75em;" icon="search-outline"></nb-icon>
+        <input nbInput placeholder="Search for Business">
+        <button nbSuffix nbButton ghost (click)="searchForBusiness()">
+          <nb-icon style="margin-left: 0.75em;" icon="search-outline"></nb-icon>
+        </button>
+        
     </div>
 
-     <nb-list *ngIf="addCase != false || removeCase != false">
+     <nb-list *ngIf="searchCheck === true">
         <nb-list-item *ngFor="let fruit of typesList">
             <nb-checkbox>{{ fruit.name }}</nb-checkbox>
         </nb-list-item>

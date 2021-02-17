@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, Injectable } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { CasesService } from '../cases.service';
-import { NbMenuService } from '@nebular/theme';
+import { NB_WINDOW, NbMenuService } from '@nebular/theme';
 import { filter, map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-case-settings',
@@ -23,6 +24,8 @@ export class CaseSettingsComponent implements OnInit {
   @Input()
   removeCase = false;
 
+  searchCheck = false;
+
   items = [
     { title: 'Add Case' },
     { title: 'Remove Case' },
@@ -43,7 +46,11 @@ export class CaseSettingsComponent implements OnInit {
   constructor(private menuService: NbMenuService) { }
 
   ngOnInit(): void {
-    
+    this.menuService.onItemClick().subscribe((event) => {this.title = event.item.title, this.buttonText = event.item.title})
   }
 
+  searchForBusiness(){
+    this.searchCheck = true;
+  }
+  
 }
