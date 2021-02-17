@@ -5,6 +5,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { NotFoundComponent } from './not-found/not-found.component'
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
+import { SearchPageComponent } from './search-page/search-page.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'business-profile',
     component: BusinessProfileComponent
+  },
+  {
+    path: 'search-page',
+    component: SearchPageComponent
   },
   {path: '', redirectTo: 'home', pathMatch: 'full'},
 

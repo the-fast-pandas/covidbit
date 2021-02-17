@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NbMenuService } from '@nebular/theme';
 import { filter, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { SearchWidgetComponent } from '../search-widget/search-widget.component';
 
 @Component({
   selector: 'app-header',
