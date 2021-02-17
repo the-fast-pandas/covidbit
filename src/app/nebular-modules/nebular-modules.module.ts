@@ -6,8 +6,10 @@ import {
   NbMenuModule,
   NbSidebarModule,
   NbThemeModule,
+  NbContextMenuModule,
   NbCardModule,
   NbInputModule,
+  NbSearchModule,
   NbSelectModule,
   NbButtonModule,
   NbCheckboxModule,
@@ -16,13 +18,17 @@ import {
   NbUserModule,
   NbStepperModule,
   NbActionsModule,
-  NbAccordionModule
+  NbAccordionModule,
+  NbListModule,
+  NbDialogModule
+  
 } from '@nebular/theme';
 
 const NebularModules = [
   NbThemeModule.forRoot({ name: 'corporate' }),
   NbLayoutModule,
   NbEvaIconsModule,
+  NbContextMenuModule,
   NbIconModule,
   NbSidebarModule.forRoot(),
   NbSidebarModule,
@@ -33,6 +39,7 @@ const NebularModules = [
   NbCardModule,
   NbInputModule,
   NbSelectModule,
+  NbSearchModule,
   NbButtonModule,
   NbCheckboxModule,
   NbAlertModule,
@@ -40,7 +47,10 @@ const NebularModules = [
   NbUserModule,
   NbStepperModule,
   NbActionsModule,
-  NbAccordionModule
+  NbAccordionModule,
+  NbListModule,
+  NbDialogModule.forRoot(),
+  NbContextMenuModule
 ];
 
 @NgModule({

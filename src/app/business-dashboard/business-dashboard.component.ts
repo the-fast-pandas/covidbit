@@ -3,9 +3,6 @@ import { Validators, FormControl, FormGroup } from '@angular/forms'
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { CompleterService, CompleterData } from 'ng2-completer';
 
-
-
-
 @Component({
   selector: 'app-business-dashboard',
   templateUrl: './business-dashboard.component.html',
@@ -38,15 +35,11 @@ export class BusinessDashboardComponent implements OnInit {
       }
     }
   };
-  
-
-
-
-
 
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }
