@@ -5,6 +5,8 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { NotFoundComponent } from './not-found/not-found.component'
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
+import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 
 const routes: Routes = [
@@ -23,6 +25,14 @@ const routes: Routes = [
   {
     path: 'business-profile',
     component: BusinessProfileComponent
+  },
+  {
+    path: 'business-dashboard',
+    component: BusinessDashboardComponent
+  },
+  {
+    path: 'admin-dashboard',
+    component: AdminDashboardComponent
   },
   {path: '', redirectTo: 'home', pathMatch: 'full'},
 
