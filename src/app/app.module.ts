@@ -11,13 +11,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
+import { AuthInterceptor } from './auth-services/authconfig.interceptor';
 import { SearchWidgetComponent } from './search-widget/search-widget.component';
 import { SearchPageComponent } from './search-page/search-page.component';
-
-
 
 
 @NgModule({
@@ -42,9 +41,15 @@ import { SearchPageComponent } from './search-page/search-page.component';
     FormsModule,
     ReactiveFormsModule,
     GooglePlaceModule,
-    HttpClientModule,    
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,5 @@
-// Server - CovidBit
-// Created: 31, January, 2021
-// Teresa Costa - Fast Pandas
+// Server - CovidBit - Fast Pandas
+// Created: 31, January, 2021, Teresa Costa
 
 const nodemailer = require("nodemailer");
 
@@ -25,8 +24,12 @@ const sendEmail = function (email, emailContent) {
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
-        if (error) throw error;
-        else console.log('Email sent: ' + info.response);
+        if (error) {
+            throw error;
+        }
+        else {
+            console.log('Email sent: ' + info.response);
+        }
     });
 }
 
