@@ -18,7 +18,11 @@ import {
   NbUserModule,
   NbStepperModule,
   NbActionsModule,
-  NbAccordionModule
+  NbAccordionModule,
+  NbListModule,
+  NbDialogModule,
+  NbContextMenuModule
+  
 } from '@nebular/theme';
 
 const NebularModules = [
@@ -44,7 +48,10 @@ const NebularModules = [
   NbUserModule,
   NbStepperModule,
   NbActionsModule,
-  NbAccordionModule
+  NbAccordionModule,
+  NbListModule,
+  NbDialogModule.forRoot(),
+  NbContextMenuModule
 ];
 
 @NgModule({

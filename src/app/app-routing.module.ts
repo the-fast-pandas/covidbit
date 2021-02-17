@@ -7,6 +7,8 @@ import { NotFoundComponent } from './not-found/not-found.component'
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
 import { AuthGuard } from "./auth-services/auth.guard";
 import { SearchPageComponent } from './search-page/search-page.component';
+import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
   {
@@ -33,6 +35,14 @@ const routes: Routes = [
   {
     path: 'search-page',
     component: SearchPageComponent
+  },
+  {
+    path: 'business-dashboard',
+    component: BusinessDashboardComponent
+  },
+  {
+    path: 'admin-dashboard',
+    component: AdminDashboardComponent
   },
   {path: '', redirectTo: 'home', pathMatch: 'full'},
 
