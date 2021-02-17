@@ -27,6 +27,8 @@
     "bootstrap": "^4.6.0",
     "dotenv": "^8.2.0",
     "eva-icons": "^1.1.2",
+    "ng2-completer": "^9.0.1",
+    "ng2-smart-table": "^1.7.2",
     "ngx-google-places-autocomplete": "^2.0.5",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

@@ -16,6 +16,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
 import { AuthInterceptor } from './auth-services/authconfig.interceptor';
 import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { Ng2CompleterModule } from "ng2-completer";
+
 
 @NgModule({
   declarations: [
@@ -27,8 +30,7 @@ import { BusinessDashboardComponent } from './business-dashboard/business-dashbo
     FooterComponent,
     NotFoundComponent,
     BusinessProfileComponent,
-    BusinessDashboardComponent,
-
+    BusinessDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +41,8 @@ import { BusinessDashboardComponent } from './business-dashboard/business-dashbo
     ReactiveFormsModule,
     GooglePlaceModule,
     HttpClientModule,
+    Ng2SmartTableModule,
+    Ng2CompleterModule
   ],
   providers: [
     {
