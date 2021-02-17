@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
 import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component';
@@ -19,7 +19,9 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { CaseSettingsComponent } from './admin-dashboard/case-settings/case-settings.component';
 import {OverlayModule} from '@angular/cdk/overlay';
 import { CasesService } from './admin-dashboard/cases.service';
-
+import { AuthInterceptor } from './auth-services/authconfig.interceptor';
+import { SearchWidgetComponent } from './search-widget/search-widget.component';
+import { SearchPageComponent } from './search-page/search-page.component';
 
 
 @NgModule({
@@ -35,6 +37,8 @@ import { CasesService } from './admin-dashboard/cases.service';
     BusinessDashboardComponent,
     AdminDashboardComponent,
     CaseSettingsComponent,
+    SearchWidgetComponent,
+    SearchPageComponent,
 
   ],
   imports: [
@@ -45,7 +49,14 @@ import { CasesService } from './admin-dashboard/cases.service';
     FormsModule,
     ReactiveFormsModule,
     GooglePlaceModule,
-    HttpClientModule,    
+    HttpClientModule,
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   providers: [CasesService],
   bootstrap: [AppComponent]

@@ -1,6 +1,5 @@
-// Server - CovidBit
-// Created: 03, February, 2021
-// Teresa Costa - Fast Pandas
+// Server - CovidBit - Fast Pandas
+// Created: 03, February, 2021, Teresa Costa
 
 const jwt = require("jsonwebtoken");
 
