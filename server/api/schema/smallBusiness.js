@@ -5,7 +5,11 @@
 const mongoose = require("mongoose");
 
 const SmallBusinessSchema = mongoose.Schema({
+<<<<<<< HEAD
   loginId: {
+=======
+  loginId: {   // this is the email
+>>>>>>> 7ffa663 (map visualization 1)
     type: String,
     required: true
   },

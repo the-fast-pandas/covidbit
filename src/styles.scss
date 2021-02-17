@@ -1,8 +1,18 @@
 @import 'themes';
 
 @import '~@nebular/theme/styles/globals';
+<<<<<<< HEAD
 
 @include nb-install() {
   @include nb-theme-global();
+=======
+@import '~@nebular/theme/styles/globals';
+@import '~@nebular/bootstrap/styles/globals';
+
+
+@include nb-install() {
+  @include nb-theme-global();
+  @include nb-bootstrap-global();
+>>>>>>> 7ffa663 (map visualization 1)
 };
 /* You can add global styles to this file, and also import other style files */

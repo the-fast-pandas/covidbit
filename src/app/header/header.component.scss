@@ -1,10 +1,26 @@
+<<<<<<< HEAD
 .item-rows {
     font-family: nb-theme(font-family-primary);
     color: nb-theme(text-basic-color);
+=======
+.navigation-buttons {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+>>>>>>> 7ffa663 (map visualization 1)
 }
 button {
     margin-right: 0.5rem;
 }
 a {
     text-decoration: none;
+<<<<<<< HEAD
+=======
+}
+@media only screen and (max-width: 600px) {
+    .navigation-buttons {
+        display: inline-block;
+        left: 2rem;
+    }
+>>>>>>> 7ffa663 (map visualization 1)
 }

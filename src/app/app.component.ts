@@ -31,7 +31,11 @@ export class AppComponent {
       title: 'Login',
       icon: 'log-in-outline',
       link: '/login-form'
+<<<<<<< HEAD
     }
+=======
+    },
+>>>>>>> 7ffa663 (map visualization 1)
   ];
   constructor(private readonly sidebarService: NbSidebarService) {
   }
