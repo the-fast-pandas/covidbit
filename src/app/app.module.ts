@@ -15,6 +15,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
 import { AuthInterceptor } from './auth-services/authconfig.interceptor';
+import { SearchWidgetComponent } from './search-widget/search-widget.component';
+import { SearchPageComponent } from './search-page/search-page.component';
+
 
 @NgModule({
   declarations: [
@@ -26,6 +29,8 @@ import { AuthInterceptor } from './auth-services/authconfig.interceptor';
     FooterComponent,
     NotFoundComponent,
     BusinessProfileComponent,
+    SearchWidgetComponent,
+    SearchPageComponent,
 
   ],
   imports: [

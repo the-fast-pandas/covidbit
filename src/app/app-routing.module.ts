@@ -6,7 +6,7 @@ import { RegistrationFormComponent } from './registration-form/registration-form
 import { NotFoundComponent } from './not-found/not-found.component'
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
 import { AuthGuard } from "./auth-services/auth.guard";
-
+import { SearchPageComponent } from './search-page/search-page.component';
 
 const routes: Routes = [
   {
@@ -30,6 +30,11 @@ const routes: Routes = [
     path: '',
     component: HomeComponent
   },
+  {
+    path: 'search-page',
+    component: SearchPageComponent
+  },
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
 
   { path: '**', component: NotFoundComponent },
 ];
