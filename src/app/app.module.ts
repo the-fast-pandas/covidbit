@@ -20,6 +20,9 @@ import { CaseSettingsComponent } from './admin-dashboard/case-settings/case-sett
 import {OverlayModule} from '@angular/cdk/overlay';
 import { CasesService } from './admin-dashboard/cases.service';
 import { AuthInterceptor } from './auth-services/authconfig.interceptor';
+import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { Ng2CompleterModule } from "ng2-completer";
 import { SearchWidgetComponent } from './search-widget/search-widget.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 
@@ -34,12 +37,12 @@ import { SearchPageComponent } from './search-page/search-page.component';
     FooterComponent,
     NotFoundComponent,
     BusinessProfileComponent,
+    BusinessDashboardComponent
     BusinessDashboardComponent,
     AdminDashboardComponent,
     CaseSettingsComponent,
     SearchWidgetComponent,
     SearchPageComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,8 @@ import { SearchPageComponent } from './search-page/search-page.component';
     ReactiveFormsModule,
     GooglePlaceModule,
     HttpClientModule,
+    Ng2SmartTableModule,
+    Ng2CompleterModule
   ],
   providers: [
     {

@@ -1,28 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Validators, FormControl, FormGroup } from '@angular/forms'
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { CompleterService, CompleterData } from 'ng2-completer';
 
 @Component({
   selector: 'app-business-dashboard',
   templateUrl: './business-dashboard.component.html',
-  styleUrls: ['./business-dashboard.component.scss']
+  styleUrls: ['./business-dashboard.component.scss'],
 })
 export class BusinessDashboardComponent implements OnInit {
 
-  categoryName = '';
+  checked: Boolean = false;
 
-  typesList = [
-    {name: "Resturant"},
-    {name: "Botique"},
-    {name: "Specialized Skill"},
-    {name: "Food and Hospitality"},
-    {name: "IT and Internet"},
-    {name: "Business"},
-    {name: "Labor"}
-  ]
+  toggle(checked: boolean) {
+    this.checked = checked;
+  }
+
+  settings = {
+    columns: {
+      caseCount: {
+        title: 'ID'
+      },
+      dateReported: {
+        title: 'Date of case'
+      },
+      status: {
+        title: 'Case Status'
+      },
+      gender: {
+        title: 'Gender of person'
+      }, 
+      age: {
+        title: 'Age of person'
+      }
+    }
+  };
 
   constructor() { }
 
   ngOnInit(): void {
-    this.categoryName = this.typesList[Math.floor(Math.random() * this.typesList.length)].name;
+
   }
 
 }
