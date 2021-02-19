@@ -1,0 +1,67 @@
+<!-- Case Managment Card -->
+<nb-card>
+  <nb-card-header>Case Management Settings</nb-card-header>
+  <nb-card-body>
+
+    <!-- Case Managment Tabset -->
+    <nb-tabset>
+
+      <!-- Add Case -->
+      <nb-tab tabTitle="Add Case">
+        <div class="editor">
+          <nb-form-field>
+            <input nbInput placeholder="Search For Business">
+            <button nbSuffix nbButton ghost (click)="searchForBusiness()">
+              <nb-icon icon="search-outline"></nb-icon>
+            </button>
+          </nb-form-field>
+        </div>
+
+        <ng-container *ngIf="searchCheck === true">
+          <p class="subtitle">Displaying Cases from: Business Name</p>
+        </ng-container>
+
+        <form [formGroup]="caseResults" (ngSubmit)='onSubmit()'>
+            <nb-list size="medium" *ngIf="searchCheck === true">
+                <nb-list-item *ngFor="let type of typesList; let i = index" formArrayName="cases">
+                  <nb-checkbox id="caseResults" [formControlName]="i" >{{ type.name }}</nb-checkbox>
+                </nb-list-item>
+              </nb-list>
+
+              <div class="buttonSlot" *ngIf="searchCheck === true">
+                <button class="button" type="submit" nbButton outline status="success" [disabled]="this.caseResults.hasError('required', 'cases')">Add Case</button>
+              </div>
+
+        </form>
+
+      </nb-tab>
+
+      <!-- Remove Case -->
+      <nb-tab tabTitle="Remove Case">
+
+        <div class="editor">
+          <input nbInput placeholder="Search for Business">
+          <button nbSuffix nbButton ghost>
+            <nb-icon style="margin-left: 0.75em;" icon="search-outline" (click)="searchForBusiness()"></nb-icon>
+          </button>
+        </div>
+
+        <ng-container *ngIf="searchCheck === true">
+          <p class="subtitle">Displaying Cases from: Business Name</p>
+        </ng-container>
+
+        <nb-list size="medium" *ngIf="searchCheck === true">
+          <nb-list-item *ngFor="let fruit of typesList">
+            <nb-checkbox>{{ fruit.name }}</nb-checkbox>
+          </nb-list-item>
+        </nb-list>
+
+        <div class="buttonSlot" *ngIf="searchCheck === true">
+          <button class="button" type="button" nbButton outline status="success">Remove Case</button>
+        </div>
+
+      </nb-tab>
+    </nb-tabset>
+
+  </nb-card-body>
+</nb-card>
