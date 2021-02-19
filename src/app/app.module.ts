@@ -24,6 +24,12 @@ import { SearchWidgetComponent } from './search-widget/search-widget.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { MapSettingsComponent } from './admin-dashboard/adminSettings/map-settings/map-settings.component';
 import { CaseSettingsComponent } from './admin-dashboard/adminSettings/case-settings/case-settings.component'
+import { TrackerMapComponent } from './tracker-map/tracker-map.component';
+
+import { NbListModule } from '@nebular/theme';
+import { AgmCoreModule } from '@agm/core';
+import { NbCalendarModule } from '@nebular/theme'
+
 
 
 @NgModule({
@@ -42,6 +48,7 @@ import { CaseSettingsComponent } from './admin-dashboard/adminSettings/case-sett
     SearchWidgetComponent,
     SearchPageComponent,
     MapSettingsComponent,
+    TrackerMapComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +60,14 @@ import { CaseSettingsComponent } from './admin-dashboard/adminSettings/case-sett
     GooglePlaceModule,
     HttpClientModule,
     Ng2SmartTableModule,
-    Ng2CompleterModule
+    Ng2CompleterModule,
+    NbListModule,
+    NbCalendarModule,
+    GooglePlaceModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAbNARRSTlFSaDp6GyBBM_pkEttwvj18d0',
+      libraries: ['places']
+    }) 
   ],
   providers: [
     {
