@@ -24,6 +24,12 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { Ng2CompleterModule } from "ng2-completer";
 import { SearchWidgetComponent } from './search-widget/search-widget.component';
 import { SearchPageComponent } from './search-page/search-page.component';
+import { TrackerMapComponent } from './tracker-map/tracker-map.component';
+
+import { NbListModule } from '@nebular/theme';
+import { AgmCoreModule } from '@agm/core';
+import { NbCalendarModule } from '@nebular/theme'
+
 
 
 @NgModule({
@@ -41,6 +47,7 @@ import { SearchPageComponent } from './search-page/search-page.component';
     CaseSettingsComponent,
     SearchWidgetComponent,
     SearchPageComponent,
+    TrackerMapComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +59,14 @@ import { SearchPageComponent } from './search-page/search-page.component';
     GooglePlaceModule,
     HttpClientModule,
     Ng2SmartTableModule,
-    Ng2CompleterModule
+    Ng2CompleterModule,
+    NbListModule,
+    NbCalendarModule,
+    GooglePlaceModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAbNARRSTlFSaDp6GyBBM_pkEttwvj18d0',
+      libraries: ['places']
+    }) 
   ],
   providers: [
     {
