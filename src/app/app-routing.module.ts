@@ -9,6 +9,7 @@ import { AuthGuard } from "./auth-services/auth.guard";
 import { SearchPageComponent } from './search-page/search-page.component';
 import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { TrackerMapComponent } from './tracker-map/tracker-map.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: 'admin-dashboard',
     component: AdminDashboardComponent
+  },
+  {
+    path: 'tracker-map',
+    component: TrackerMapComponent
   },
   {path: '', redirectTo: 'home', pathMatch: 'full'},
 
