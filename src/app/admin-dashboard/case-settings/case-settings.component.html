@@ -1,0 +1,22 @@
+<nb-card size="medium">
+  <nb-card-header>
+    <button nbButton [nbContextMenu]="items" nbContextMenuTag="caseOptions">{{title}}</button>
+  </nb-card-header>
+  <nb-card-body>
+
+    <div class="editor">
+        <input type="text" nbInput placeholder="Search for Business">
+        <nb-icon style="margin-left: 0.75em;" icon="search-outline"></nb-icon>
+    </div>
+
+     <nb-list *ngIf="addCase != false || removeCase != false">
+        <nb-list-item *ngFor="let fruit of typesList">
+            <nb-checkbox>{{ fruit.name }}</nb-checkbox>
+        </nb-list-item>
+      </nb-list>
+
+  </nb-card-body>
+  <nb-card-footer style="text-align: center;">
+      <button nbButton status="success">{{buttonText}}</button>
+    </nb-card-footer>
+</nb-card>

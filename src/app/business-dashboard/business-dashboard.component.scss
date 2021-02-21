@@ -1,0 +1,31 @@
+:host {
+    display: block;
+    max-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  
+  .card-row {
+    display: flex;
+    margin: 0 -0.5rem;
+  }
+  
+  .card-col {
+    flex: 1 0 calc(50% - 1rem);
+    margin: 0 0.5rem;
+  }
+
+  ul {
+    list-style-type: none;
+    margin-top: 0.5rem;
+    padding: 0;
+  }
+
+  @media only screen and (max-width: 900px) {
+    .card-row {
+        display: flex;
+        flex-direction: column;
+      }
+      
+
+  }

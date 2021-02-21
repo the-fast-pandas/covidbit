@@ -6,6 +6,13 @@ import { RegistrationFormComponent } from './registration-form/registration-form
 import { NotFoundComponent } from './not-found/not-found.component'
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
 import { AuthGuard } from "./auth-services/auth.guard";
+<<<<<<< HEAD
+=======
+import { SearchPageComponent } from './search-page/search-page.component';
+import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { TrackerMapComponent } from './tracker-map/tracker-map.component';
+>>>>>>> master
 
 const routes: Routes = [
   {
@@ -23,12 +30,33 @@ const routes: Routes = [
   {
     path: 'business-profile/:id',
     component: BusinessProfileComponent,
-    canActivate: [AuthGuard]
+   // canActivate: [AuthGuard]
+  },
+  {
+    path: 'business-dashboard',
+    component: BusinessDashboardComponent
   },
   {
     path: '',
     component: HomeComponent
   },
+  {
+    path: 'search-page',
+    component: SearchPageComponent
+  },
+  {
+    path: 'business-dashboard',
+    component: BusinessDashboardComponent
+  },
+  {
+    path: 'admin-dashboard',
+    component: AdminDashboardComponent
+  },
+  {
+    path: 'tracker-map',
+    component: TrackerMapComponent
+  },
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
 
   { path: '**', component: NotFoundComponent },
 ];
