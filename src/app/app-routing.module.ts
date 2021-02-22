@@ -10,6 +10,7 @@ import { SearchPageComponent } from './search-page/search-page.component';
 import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { TrackerMapComponent } from './tracker-map/tracker-map.component';
+import { BusinessUserViewComponent } from './business-user-view/business-user-view.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,10 @@ const routes: Routes = [
   {
     path: 'business-dashboard',
     component: BusinessDashboardComponent
+  },
+  {
+    path: 'business-user-view',
+    component: BusinessUserViewComponent
   },
   {
     path: 'admin-dashboard',

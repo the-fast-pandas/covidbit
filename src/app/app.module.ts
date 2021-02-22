@@ -29,6 +29,8 @@ import { TrackerMapComponent } from './tracker-map/tracker-map.component';
 import { NbListModule } from '@nebular/theme';
 import { AgmCoreModule } from '@agm/core';
 import { NbCalendarModule } from '@nebular/theme'
+import { ApiService } from './api.service';
+import { BusinessUserViewComponent } from './business-user-view/business-user-view.component';
 
 
 
@@ -49,6 +51,7 @@ import { NbCalendarModule } from '@nebular/theme'
     SearchPageComponent,
     MapSettingsComponent,
     TrackerMapComponent,
+    BusinessUserViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,7 +78,8 @@ import { NbCalendarModule } from '@nebular/theme'
       useClass: AuthInterceptor,
       multi: true
     },
-    []
+    
+    [ApiService]
   ],
   bootstrap: [AppComponent]
 })
