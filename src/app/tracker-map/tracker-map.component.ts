@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { MapsAPILoader} from '@agm/core';
+import { ApiService } from '../api.service'
 
 @Component({
   selector: 'app-tracker-map',
@@ -21,7 +22,7 @@ export class TrackerMapComponent implements OnInit {
 
   @ViewChild('search')
   public searchElementRef!: ElementRef;
-  constructor ( private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) { }
+  constructor ( private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private apiService: ApiService) { }
 
   ngOnInit() {
     //load Places Autocomplete
@@ -47,6 +48,12 @@ export class TrackerMapComponent implements OnInit {
         });
       });
     });
+    
+    //Call COVID API
+    this.apiService.getCaseData().subscribe((data) => {
+      console.log("Connection Made")
+    })
+
   }
 
   // Get Current Location Coordinates

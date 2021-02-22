@@ -1,6 +1,6 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { NbDialogConfig, NbDialogService, NbMenuService } from '@nebular/theme';
-import { CaseSettingsComponent } from './case-settings/case-settings.component';
+import { CaseSettingsComponent } from './adminSettings/case-settings/case-settings.component'
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -15,22 +15,16 @@ export class AdminDashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  toggle(event: Event): void {
+  openSettings = false;
+  settingsType = '';
+
+  settingsOpened(event: Event){
+    //Show settings Tab
     let elementId: string = (event.target as Element).id;
-    console.log(elementId);
-
-    if (elementId === 'add') {
-      this.dialogService.open(CaseSettingsComponent, {
-        context: {title: 'Add Case', buttonText: 'Add Case'}
-      });
-    }
-
-    if (elementId === 'remove') {
-      this.dialogService.open(CaseSettingsComponent, {
-        context: {title: 'Remove Case', buttonText: 'Remove Case'}
-      });
-    }
+    this.settingsType = elementId;
+    console.log(this.settingsType)
     
-}
+  }
+
 
 }
