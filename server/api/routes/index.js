@@ -19,7 +19,7 @@ router.post('/login-form', ctrlLog.loginUser);
 // registration
 router.post('/registration-form', ctrlReg.registerUser);
 
-// User dashoard
-router.get('/user-dashboard/id', authLog.authLogin, ctrlDashUser.getUserDashboard);
+// Small business dashoard
+router.get('/business-dashboard', authLog.authLogin, ctrlDashUser.getUserDashboard);
 
 module.exports = router;

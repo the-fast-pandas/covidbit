@@ -6,8 +6,9 @@ import { LoginCredentials } from '../models/logincredentials.model';
 import { SmallBusiness } from '../models/smallBusiness.model';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators'
+import { TheadFitlersRowComponent } from 'ng2-smart-table/lib/components/thead/rows/thead-filters-row.component';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +22,14 @@ export class AuthService {
   constructor(private http: HttpClient, public router: Router) {
   }
 
+  loggedIn = false;
+  
   signUp(user: SmallBusiness) {
     let api = `${this.endpoint}/registration-form`;
     return this.http.post<any>(api, user)
       .subscribe(
         data => {
+          
           this.router.navigate(['login-form']);
         },
         error => {
@@ -39,6 +43,7 @@ export class AuthService {
       .subscribe(
         data => {
           console.log(data);
+          this.loggedIn = true;
           this.router.navigate(['home']);
         },
         error => {
@@ -48,11 +53,11 @@ export class AuthService {
       )
   }
 
-  getUserDashboard(id: any): Observable<any> {
-    let api = `${this.endpoint}/business-profile/${id}`;
+  getUserDashboard(): Observable<any> {
+    let api = `${this.endpoint}/business-dasboard`;
     return this.http.get<any>(api, { headers: this.headers }).pipe(
       map((res: Response) => {
-        return res || {}
+        return this.router.navigate(['business-dashboard']);
       }),
       catchError(this.handleError)
     )
@@ -70,7 +75,8 @@ export class AuthService {
   doLogout() {
     let removeToken = localStorage.removeItem('access_token');
     if (removeToken == null) {
-      this.router.navigate(['log-in']);
+      this.loggedIn = false
+      this.router.navigate(['login-form']);
     }
   }
 

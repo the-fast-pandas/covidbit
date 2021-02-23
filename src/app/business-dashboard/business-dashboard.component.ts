@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { CompleterService, CompleterData } from 'ng2-completer';
+import { AuthService } from '../auth-services/auth.service';
 
 @Component({
   selector: 'app-business-dashboard',
@@ -36,10 +37,10 @@ export class BusinessDashboardComponent implements OnInit {
     }
   };
 
-  constructor() { }
+  constructor(public authService: AuthService, public router: Router) { }
 
   ngOnInit(): void {
-
+    //this.authService.getUserDashboard();
   }
 
 }

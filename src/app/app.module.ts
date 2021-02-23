@@ -16,7 +16,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { CaseSettingsComponent } from './admin-dashboard/case-settings/case-settings.component';
-import {OverlayModule} from '@angular/cdk/overlay';
 import { CasesService } from './admin-dashboard/cases.service';
 import { AuthInterceptor } from './auth-services/authconfig.interceptor';
 import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component';
@@ -25,10 +24,7 @@ import { Ng2CompleterModule } from "ng2-completer";
 import { SearchWidgetComponent } from './search-widget/search-widget.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { TrackerMapComponent } from './tracker-map/tracker-map.component';
-
-import { NbListModule } from '@nebular/theme';
 import { AgmCoreModule } from '@agm/core';
-import { NbCalendarModule } from '@nebular/theme'
 
 
 
@@ -60,8 +56,6 @@ import { NbCalendarModule } from '@nebular/theme'
     HttpClientModule,
     Ng2SmartTableModule,
     Ng2CompleterModule,
-    NbListModule,
-    NbCalendarModule,
     GooglePlaceModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAbNARRSTlFSaDp6GyBBM_pkEttwvj18d0',

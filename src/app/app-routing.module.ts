@@ -6,13 +6,10 @@ import { RegistrationFormComponent } from './registration-form/registration-form
 import { NotFoundComponent } from './not-found/not-found.component'
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
 import { AuthGuard } from "./auth-services/auth.guard";
-<<<<<<< HEAD
-=======
 import { SearchPageComponent } from './search-page/search-page.component';
 import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { TrackerMapComponent } from './tracker-map/tracker-map.component';
->>>>>>> master
 
 const routes: Routes = [
   {
@@ -29,12 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'business-profile/:id',
-    component: BusinessProfileComponent,
-   // canActivate: [AuthGuard]
-  },
-  {
-    path: 'business-dashboard',
-    component: BusinessDashboardComponent
+    component: BusinessProfileComponent
   },
   {
     path: '',
@@ -46,7 +38,8 @@ const routes: Routes = [
   },
   {
     path: 'business-dashboard',
-    component: BusinessDashboardComponent
+    component: BusinessDashboardComponent,
+    //canActivate: [AuthGuard],
   },
   {
     path: 'admin-dashboard',

@@ -13,6 +13,12 @@ const registerUser = function (req, res) {
   const password = accountDetails.password;
   const loginId = accountDetails.email;
   const businessName = accountDetails.businessName;
+  const businessType = accountDetails.businessType;
+  const firstName = accountDetails.firstName;
+  const lastName = accountDetails.lastName;
+  const phoneNumber= businessDetails.businessPhone;
+  const location= businessDetails.businessLocation;
+
 
   SmallBusiness.findOne({ "loginId": loginId }, function (error, user) {
     if (error) {
@@ -25,7 +31,12 @@ const registerUser = function (req, res) {
       newBusiness = new SmallBusiness({
         loginId,
         password,
-        businessName
+        businessName,
+        firstName,
+        lastName,
+        businessType,
+        phoneNumber,
+        location
       });
       bcrypt.genSalt(saltRounds, function (error, salt) {
         if (error) {

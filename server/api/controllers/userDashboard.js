@@ -4,14 +4,15 @@
 const SmallBusiness = require('../schema/smallBusiness');
 
 const getUserDashboard = function (req, res) {
-    SmallBusiness.findById(req.params.id, (error, data) => {
+    /*SmallBusiness.findById(req.params.id, (error, data) => {
         if (error) {
             throw error;
         }
         else {
             res.status(200).json({ message: data })
         }
-    })
+    })*/
+    res.status(200).json(true);
 }
 
 module.exports = { getUserDashboard };
