@@ -1,4 +1,5 @@
 // Server - CovidBit - Fast Pandas
+// AUTHENTICATION
 // Created: 03, February, 2021, Teresa Costa
 
 const jwt = require("jsonwebtoken");

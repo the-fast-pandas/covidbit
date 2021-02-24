@@ -20,7 +20,9 @@ import {
   NbActionsModule,
   NbAccordionModule,
   NbListModule,
-  NbDialogModule, NbCalendarModule
+  NbDialogModule, NbCalendarModule,
+  NbTabsetModule
+  
 } from '@nebular/theme';
 
 const NebularModules = [
@@ -50,7 +52,8 @@ const NebularModules = [
   NbListModule,
   NbDialogModule.forRoot(),
   NbContextMenuModule,
-  NbCalendarModule
+  NbCalendarModule,
+  NbTabsetModule
 ];
 
 @NgModule({

@@ -1,0 +1,117 @@
+<!-- Row One -->
+<div class="row">
+    <div class="col-8">
+  
+      <!-- Business Info Card -->
+      <nb-card>
+        <nb-card-header>
+          <h2>Business Name</h2>
+        </nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-6">
+              <label nbLabel class="h6" for="input-businessType">Phone Number</label>
+              <ng-container>
+                <!-- Business Name -->
+                <p class="subtitle text-hint">123-456-7890</p>
+              </ng-container>
+            </div>
+            <div class="col-6">
+              <label nbLabel class="h6" for="input-businessType">Address</label>
+              <ng-container>
+                <!-- Business' Address -->
+                <p class="subtitle text-hint">777 Bay St, Toronto, ON M5B 2H4, Canada</p>
+              </ng-container>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <label nbLabel class="h6" for="input-businessType">Website</label>
+              <ng-container>
+                <p class="subtitle text-hint">
+                  <a style="text-decoration: none;" href="/registration-form">www.fastpandas.com</a>
+                </p>
+              </ng-container>
+            </div>
+            <div class="col-6">
+              <label nbLabel class="h6" for="input-businessType">Business Type</label>
+              <ng-container>
+                <p class="subtitle text-hint">{{categoryName}}</p>
+              </ng-container>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+  
+    </div>
+  
+    <!-- Saftey Measures List Card -->
+    <div class="col-4">
+      <nb-card>
+        <nb-card-header>Saftey Measures</nb-card-header>
+        <nb-accordion multi>
+          <nb-accordion-item>
+            <nb-accordion-item-header>Saftey Measure #1</nb-accordion-item-header>
+            <nb-accordion-item-body>Measure</nb-accordion-item-body>
+          </nb-accordion-item>
+  
+          <nb-accordion-item>
+            <nb-accordion-item-header>Saftey Measure #2</nb-accordion-item-header>
+            <nb-accordion-item-body>Measure</nb-accordion-item-body>
+          </nb-accordion-item>
+  
+          <nb-accordion-item>
+            <nb-accordion-item-header>Saftey Measure #3</nb-accordion-item-header>
+            <nb-accordion-item-body>Measure</nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+      </nb-card>
+  
+    </div>
+  </div>
+  
+  <!-- Row Three -->
+  <div class="row">
+    <div class="col-8">
+      <nb-card>
+        <nb-card-header>COVID Case Log</nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-6">
+              <ng-container>
+                <h4 class="case-numbers">Total Cases</h4>
+                <h4 class="case-numbers">0</h4>
+              </ng-container>
+            </div>
+            <div class="col-6">
+              <ng-container>
+                <h4 class="case-numbers">Cases in the last 30 days</h4>
+                <h4 class="case-numbers">0</h4>
+              </ng-container>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-4">
+      <nb-card>
+        <nb-card-header>Tracking Methods</nb-card-header>
+        <nb-card-body class="icon-container">
+          <div class="row">
+            <div class="col-6">
+              <nb-icon class="icon-body" icon="checkmark-circle-outline" status="success"></nb-icon>
+              <ng-container>
+                <p class="subtitle status-Link">Text</p>
+              </ng-container>
+            </div>
+            <div class="col-6">
+              <nb-icon class="icon-body" icon="checkmark-circle-outline"></nb-icon>
+              <ng-container>
+                <p class="subtitle status-Link">Email</p>
+              </ng-container>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>

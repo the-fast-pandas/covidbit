@@ -40,7 +40,7 @@ export class BusinessDashboardComponent implements OnInit {
   constructor(public authService: AuthService, public router: Router) { }
 
   ngOnInit(): void {
-    //this.authService.getUserDashboard();
+    this.authService.getUserDashboard();
   }
 
 }

@@ -7,7 +7,6 @@ import { SmallBusiness } from '../models/smallBusiness.model';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, map } from 'rxjs/operators'
-import { TheadFitlersRowComponent } from 'ng2-smart-table/lib/components/thead/rows/thead-filters-row.component';
 import { Observable, throwError } from 'rxjs';
 
 @Injectable({
@@ -19,33 +18,34 @@ export class AuthService {
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser = {};
 
-  constructor(private http: HttpClient, public router: Router) {
-  }
+  constructor(private http: HttpClient, public router: Router) { }
 
-  loggedIn = false;
-  
+  // User Registration
   signUp(user: SmallBusiness) {
-    let api = `${this.endpoint}/registration-form`;
+    const api = `${this.endpoint}/registration-form`;
     return this.http.post<any>(api, user)
       .subscribe(
         data => {
-          
           this.router.navigate(['login-form']);
         },
         error => {
-          this.router.navigate(['wrong-request']);
+          window.alert("Registration not Allowed");
+          this.router.navigate(['registration-form']);
         }
       )
   }
 
+  loggedIn = false; // Controls header
+
+  // User login (administrators/business)
   logIn(user: LoginCredentials) {
-    return this.http.post<any>(`${this.endpoint}/login-form`, user)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.loggedIn = true;
-          this.router.navigate(['home']);
-        },
+    const api = `${this.endpoint}/login-form`;
+    return this.http.post<any>(api, user)
+      .subscribe((res: any) => {
+        this.loggedIn = true;
+        localStorage.setItem('access_token', res.token)
+          this.router.navigate(['business-dashboard']);
+      },
         error => {
           window.alert("Wrong Credentials");
           this.router.navigate(['login-form']);
@@ -53,14 +53,18 @@ export class AuthService {
       )
   }
 
+  doLogout() {
+    let removeToken = localStorage.removeItem('access_token');
+    if (removeToken == null) {
+      this.loggedIn = false
+      this.router.navigate(['login-form']);
+    }
+  }
+
+  // Get user Dashboard
   getUserDashboard(): Observable<any> {
-    let api = `${this.endpoint}/business-dasboard`;
-    return this.http.get<any>(api, { headers: this.headers }).pipe(
-      map((res: Response) => {
-        return this.router.navigate(['business-dashboard']);
-      }),
-      catchError(this.handleError)
-    )
+    const api = `${this.endpoint}/business-dasboard`;
+    return this.http.get<any>(api);
   }
 
   getToken() {
@@ -70,14 +74,6 @@ export class AuthService {
   get isLoggedIn(): boolean {
     let authToken = localStorage.getItem('access_token');
     return (authToken !== null) ? true : false;
-  }
-
-  doLogout() {
-    let removeToken = localStorage.removeItem('access_token');
-    if (removeToken == null) {
-      this.loggedIn = false
-      this.router.navigate(['login-form']);
-    }
   }
 
   // Error 
