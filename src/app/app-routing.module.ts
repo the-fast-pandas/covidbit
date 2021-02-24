@@ -40,6 +40,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'business-dashboard/:id',
+    component: BusinessDashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'business-user-view',
     component: BusinessUserViewComponent
   },

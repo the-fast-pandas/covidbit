@@ -4,10 +4,10 @@
 import { Injectable } from '@angular/core';
 import { LoginCredentials } from '../models/logincredentials.model';
 import { SmallBusiness } from '../models/smallBusiness.model';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { catchError, map } from 'rxjs/operators'
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -41,11 +41,15 @@ export class AuthService {
   logIn(user: LoginCredentials) {
     const api = `${this.endpoint}/login-form`;
     return this.http.post<any>(api, user)
-      .subscribe((res: any) => {
-        this.loggedIn = true;
-        localStorage.setItem('access_token', res.token)
-          this.router.navigate(['business-dashboard']);
-      },
+      .subscribe(
+        data => {
+          this.loggedIn = true;
+          localStorage.setItem('access_token', data.token)
+          this.getUserDashboard(data.user._id).subscribe(
+            data => {
+              this.router.navigate(['/business-dashboard/' + data.user._id]);
+            })
+        },
         error => {
           window.alert("Wrong Credentials");
           this.router.navigate(['login-form']);
@@ -62,15 +66,18 @@ export class AuthService {
   }
 
   // Get user Dashboard
-  getUserDashboard(): Observable<any> {
-    const api = `${this.endpoint}/business-dasboard`;
-    return this.http.get<any>(api);
-  }
-
-  // Get Small Business View
-  getUserView(): Observable<any> {
-    const api = `${this.endpoint}/business-user-view`;
-    return this.http.get<any>(api);
+  getUserDashboard(id: any): Observable<any> {
+    const api = `${this.endpoint}/business-dashboard/${id}`;
+    return this.http.get<any>(api, { headers: this.headers }).pipe(
+      map(
+        data => {
+          return data;
+        },
+        (error: any) => {
+          window.alert("You need to login.");
+          this.router.navigate(['login-form']);
+        }
+      ))
   }
 
   getToken() {
@@ -81,19 +88,5 @@ export class AuthService {
     let authToken = localStorage.getItem('access_token');
     return (authToken !== null) ? true : false;
   }
-
-  // Error 
-  handleError(error: HttpErrorResponse) {
-    let msg = '';
-    if (error.error instanceof ErrorEvent) {
-      // client-side error
-      msg = error.error.message;
-    } else {
-      // server-side error
-      msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    return throwError(msg);
-  }
-
 
 }

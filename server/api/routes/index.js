@@ -29,8 +29,10 @@ router.get('/tracker-map');
 // Small Business View
 router.get('/business-user-view', ctrlViewBus.getUserView);
 
+// AUTHENTICATION NEEDED
+
 // Small business dashoard
-router.get('/business-dashboard', authLog.authLogin, ctrlDashUser.getUserDashboard);
+router.get('/business-dashboard/:id', authLog.authLogin, ctrlDashUser.getUserDashboard);
 router.get('/business-profile', authLog.authLogin, ctrlProfUser.getUserProfile);
 
 // Administrator dashboard

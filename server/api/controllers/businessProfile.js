@@ -1,22 +1,18 @@
 // Server - CovidBit - Fast Pandas
-// BUSINESS USER DASHBOARD
+// BUSINESS PROFILE
 // Created: 16, February, 2021, Teresa Costa
 
 const SmallBusiness = require('../schema/smallBusiness');
 
 const getUserProfile = function (req, res) {
     SmallBusiness.findById(req.body.id, function (error, user) {
-        console.log("I am here");
-        console.log(user);
         if (error) {
             throw error;
         }
         if (!user) {
-            return res.status(401).json({ message: "incorrectId" });
+            return res.status(200).json({ user });
         }
         if (user) {
-            console.log("I am here");
-            console.log(user);
             return res.status(200).json({ user });
         }
     })

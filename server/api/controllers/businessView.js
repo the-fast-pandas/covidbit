@@ -5,18 +5,14 @@
 const SmallBusiness = require('../schema/smallBusiness');
 
 const getUserView = function (req, res) {
-    SmallBusiness.findById(req.body.id, function (error, user) {
-        console.log("I am here");
-        console.log(user);
+    SmallBusiness.findById(req.params.id, function (error, user) {
         if (error) {
             throw error;
         }
         if (!user) {
-            return res.status(401).json({ message: "incorrectId" });
+            return res.status(401).json({ message: "No user in database" });
         }
         if (user) {
-            console.log("I am here");
-            console.log(user);
             return res.status(200).json({ user });
         }
     })

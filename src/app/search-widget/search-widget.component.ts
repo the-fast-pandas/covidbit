@@ -1,6 +1,6 @@
 import { EventEmitter, Component, OnInit, Output } from '@angular/core';
 import { NbSearchService } from '@nebular/theme';
-import { Router } from '@angular/router';
+import { DataService  } from '../data/data.service'
 
 @Component({
   selector: 'app-search-widget',
@@ -13,10 +13,11 @@ export class SearchWidgetComponent implements OnInit {
   
   searchQuery = '';
 
-  constructor(private searchService: NbSearchService, private router: Router) { 
+  constructor(private searchService: NbSearchService, public data: DataService) { 
     this.searchService.onSearchSubmit()
       .subscribe((data: any) => {
         this.searchQuery = data.term;
+        this.data.getUserView();
       })
   }
 
