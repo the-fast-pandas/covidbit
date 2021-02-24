@@ -28,15 +28,7 @@ const routes: Routes = [
   {
     path: 'business-profile',
     component: BusinessProfileComponent,
-   // canActivate: [AuthGuard]
-  },
-  {
-    path: 'business-dashboard',
-    component: BusinessDashboardComponent
-  },
-  {
-    path: '',
-    component: HomeComponent
+    canActivate: [AuthGuard]
   },
   {
     path: 'search-page',
@@ -44,7 +36,8 @@ const routes: Routes = [
   },
   {
     path: 'business-dashboard',
-    component: BusinessDashboardComponent
+    component: BusinessDashboardComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'business-user-view',
@@ -58,7 +51,7 @@ const routes: Routes = [
     path: 'tracker-map',
     component: TrackerMapComponent
   },
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
 
   { path: '**', component: NotFoundComponent },
 ];

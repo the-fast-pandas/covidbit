@@ -38,6 +38,7 @@ export class LoginFormComponent implements OnInit {
 
   onSubmit() {
     this.authService.logIn(this.loginCredentials.value);
+    
   }
 
   onClose() {

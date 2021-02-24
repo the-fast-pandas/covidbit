@@ -1,4 +1,5 @@
 // Server - CovidBit - Fast Pandas
+// REGISTRATION for small business user
 // Created: 03, February, 2021, Teresa Costa
 // Modified: 08, February, 2021, Teresa Costa: frontend integration, registerUser changed to match schema
 
@@ -13,6 +14,12 @@ const registerUser = function (req, res) {
   const password = accountDetails.password;
   const loginId = accountDetails.email;
   const businessName = accountDetails.businessName;
+  const businessType = accountDetails.businessType;
+  const firstName = accountDetails.firstName;
+  const lastName = accountDetails.lastName;
+  const phoneNumber = businessDetails.businessPhone;
+  const location = businessDetails.businessLocation;
+
 
   SmallBusiness.findOne({ "loginId": loginId }, function (error, user) {
     if (error) {
@@ -25,7 +32,12 @@ const registerUser = function (req, res) {
       newBusiness = new SmallBusiness({
         loginId,
         password,
-        businessName
+        businessName,
+        firstName,
+        lastName,
+        businessType,
+        phoneNumber,
+        location
       });
       bcrypt.genSalt(saltRounds, function (error, salt) {
         if (error) {
@@ -41,7 +53,7 @@ const registerUser = function (req, res) {
               if (error) {
                 throw error;
               }
-              emailService.sendEmail('myemail@provider.com', emailService.registrationInvite);
+              emailService.email(newBusiness.businessName, 'covidbitreg@gmail.com', emailService.registrationInvite, 'COVIDBIT Website Registration Request');
               const payload = {
                 user: {
                   id: newBusiness.id

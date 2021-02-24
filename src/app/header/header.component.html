@@ -2,7 +2,8 @@
     <app-search-widget></app-search-widget>
     <button nbButton ><a routerLink="/home" routerLinkActive="active">Home</a></button>
     <button nbButton ><a routerLink="/tracker-map" routerLinkActive="active">Tracker Map</a></button>
-    <button nbButton [nbContextMenu]="items" nbContextMenuTag="my-context-menu">
-        Login
+    <button *ngIf="loggedIn" nbButton [nbContextMenu]="items" nbContextMenuTag="my-context-menu">
+        BusinessName
     </button>
+    <button *ngIf="!loggedIn" nbButton ><a routerLink="/login-form" routerLinkActive="active">Login</a></button>
 </div>
