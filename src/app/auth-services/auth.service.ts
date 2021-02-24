@@ -67,6 +67,12 @@ export class AuthService {
     return this.http.get<any>(api);
   }
 
+  // Get Small Business View
+  getUserView(): Observable<any> {
+    const api = `${this.endpoint}/business-user-view`;
+    return this.http.get<any>(api);
+  }
+
   getToken() {
     return localStorage.getItem('access_token');
   }

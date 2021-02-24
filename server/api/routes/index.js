@@ -9,6 +9,7 @@ const ctrlDashUser = require('../controllers/businessDashboard');
 const authLog = require('../middleware/auth');
 const ctrlProfUser = require('../controllers/businessProfile');
 const ctrlDashAdm = require('../controllers/administratorDashboard');
+const ctrlViewBus = require('../controllers/businessView');
 
 
 // Server Status
@@ -16,17 +17,25 @@ router.get("/status", function (req, res) {
   res.status(200).json({ status: "I am alive!" });
 });
 
-// Login
+// Login/registration
 router.post('/login-form', ctrlLog.loginUser);
-
-// registration
 router.post('/registration-form', ctrlReg.registerUser);
+
+// Tracking Map
+router.get('/tracker-map');
+
+// Search
+
+// Small Business View
+router.get('/business-user-view', ctrlViewBus.getUserView);
 
 // Small business dashoard
 router.get('/business-dashboard', authLog.authLogin, ctrlDashUser.getUserDashboard);
 router.get('/business-profile', authLog.authLogin, ctrlProfUser.getUserProfile);
 
 // Administrator dashboard
-outer.get('/administrator-dashboard', authLog.authLogin, ctrlDashAdm.getAdmDashboard);
+router.get('/administrator-dashboard', authLog.authLogin, ctrlDashAdm.getAdmDashboard);
+
+
 
 module.exports = router;
