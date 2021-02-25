@@ -5,22 +5,22 @@
       <!-- Business Info Card -->
       <nb-card>
         <nb-card-header>
-          <h2>Business Name</h2>
+          <h2>{{businessName}}</h2>
         </nb-card-header>
         <nb-card-body>
           <div class="row">
             <div class="col-6">
               <label nbLabel class="h6" for="input-businessType">Phone Number</label>
               <ng-container>
-                <!-- Business Name -->
-                <p class="subtitle text-hint">123-456-7890</p>
+                <!-- Business Phone Number -->
+                <p class="subtitle text-hint">{{businessPhoneNumber}}</p>
               </ng-container>
             </div>
             <div class="col-6">
               <label nbLabel class="h6" for="input-businessType">Address</label>
               <ng-container>
                 <!-- Business' Address -->
-                <p class="subtitle text-hint">777 Bay St, Toronto, ON M5B 2H4, Canada</p>
+                <p class="subtitle text-hint">{{businessAddress}}</p>
               </ng-container>
             </div>
           </div>
@@ -29,14 +29,14 @@
               <label nbLabel class="h6" for="input-businessType">Website</label>
               <ng-container>
                 <p class="subtitle text-hint">
-                  <a style="text-decoration: none;" href="/registration-form">www.fastpandas.com</a>
+                  <a style="text-decoration: none;" href="/registration-form">{{businessWebsite}}</a>
                 </p>
               </ng-container>
             </div>
             <div class="col-6">
               <label nbLabel class="h6" for="input-businessType">Business Type</label>
               <ng-container>
-                <p class="subtitle text-hint">{{categoryName}}</p>
+                <p class="subtitle text-hint">{{businessType}}</p>
               </ng-container>
             </div>
           </div>
@@ -49,22 +49,12 @@
     <div class="col-4">
       <nb-card>
         <nb-card-header>Saftey Measures</nb-card-header>
-        <nb-accordion multi>
-          <nb-accordion-item>
-            <nb-accordion-item-header>Saftey Measure #1</nb-accordion-item-header>
-            <nb-accordion-item-body>Measure</nb-accordion-item-body>
+        <nb-accordion *ngIf="safteyMeasureList.length > 0">
+          <nb-accordion-item *ngFor="let measure of safteyMeasureList">
+           <nb-accordion-item-header>{{measure.title}}</nb-accordion-item-header>
+           <nb-accordion-item-body>{{measure.description}}</nb-accordion-item-body>
           </nb-accordion-item>
-  
-          <nb-accordion-item>
-            <nb-accordion-item-header>Saftey Measure #2</nb-accordion-item-header>
-            <nb-accordion-item-body>Measure</nb-accordion-item-body>
-          </nb-accordion-item>
-  
-          <nb-accordion-item>
-            <nb-accordion-item-header>Saftey Measure #3</nb-accordion-item-header>
-            <nb-accordion-item-body>Measure</nb-accordion-item-body>
-          </nb-accordion-item>
-        </nb-accordion>
+         </nb-accordion>
       </nb-card>
   
     </div>
@@ -80,13 +70,13 @@
             <div class="col-6">
               <ng-container>
                 <h4 class="case-numbers">Total Cases</h4>
-                <h4 class="case-numbers">0</h4>
+                <h4 class="case-numbers">{{totalCases}}</h4>
               </ng-container>
             </div>
             <div class="col-6">
               <ng-container>
                 <h4 class="case-numbers">Cases in the last 30 days</h4>
-                <h4 class="case-numbers">0</h4>
+                <h4 class="case-numbers">{{totalCases30Days}}</h4>
               </ng-container>
             </div>
           </div>
@@ -97,7 +87,7 @@
       <nb-card>
         <nb-card-header>Tracking Methods</nb-card-header>
         <nb-card-body class="icon-container">
-          <div class="row">
+          <div class="row" *ngIf="trackingMethod == true">
             <div class="col-6">
               <nb-icon class="icon-body" icon="checkmark-circle-outline" status="success"></nb-icon>
               <ng-container>
