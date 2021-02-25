@@ -20,6 +20,19 @@ export class TrackerMapComponent implements OnInit {
   private geoCoder!: google.maps.Geocoder;
 
 
+  //COVID-19 Tracker API Variables
+  caseInformation: any;
+  currentDate: any;
+  totalCases: any
+  totalCriticals: any
+  totalFatalities: any
+  totalHospitalizations: any;
+  totalRecoveries: any;
+  totalTests: any
+  totalVaccinations: any
+  totalVaccinated: any
+  totalVaccinesDistributed: any
+
   @ViewChild('search')
   public searchElementRef!: ElementRef;
   constructor ( private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private apiService: ApiService) { }
@@ -52,6 +65,30 @@ export class TrackerMapComponent implements OnInit {
     //Call COVID API
     this.apiService.getCaseData().subscribe((data) => {
       console.log("Connection Made")
+      this.caseInformation = data;
+
+      //Check for ON (Ontario) Province Prefix
+      for (let i = 0; i < this.caseInformation.data.length; i++) {
+        if (this.caseInformation.data[i].province == "ON") {
+
+            //Store API Data in Varibales (All Total Data)
+            this.currentDate = this.caseInformation.data[i].date;
+            this.totalCases = this.caseInformation.data[i].total_cases;
+            this.totalCriticals = this.caseInformation.data[i].total_criticals;
+            this.totalFatalities = this.caseInformation.data[i].total_fatalities;
+            this.totalHospitalizations = this.caseInformation.data[i].total_hospitalizations;
+            this.totalRecoveries = this.caseInformation.data[i].total_recoveries;
+            this.totalTests = this.caseInformation.data[i].total_tests;
+            this.totalVaccinations = this.caseInformation.data[i].total_vaccinations;
+            this.totalVaccinated = this.caseInformation.data[i].total_vaccinated;
+            this.totalVaccinesDistributed = this.caseInformation.data[i].total_vaccines_distributed;
+            return
+        } else {
+          console.log("false")
+          return
+        }
+      }
+      
     })
 
   }
