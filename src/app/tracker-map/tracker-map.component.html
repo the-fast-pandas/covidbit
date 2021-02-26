@@ -85,8 +85,6 @@
 
   </div>
 
-
-
   <!-- second container -->
 
   <div class="container">
@@ -99,7 +97,7 @@
 </div>
 
 <nb-card status="primary">
-  <nb-card-header>COVID-19 Information: {{currentDate}}</nb-card-header>
+  <nb-card-header>COVID-19 Information for Ontario as of {{currentDate}}</nb-card-header>
   <nb-card-body>
     <div class="row">
 
@@ -117,6 +115,11 @@
       <div class="col-3 within-card">
         <h5>Total Tests</h5>
         <h6>{{totalTests | number}}</h6>
+      </div>
+
+      <div class="col-3 within-card">
+        <h5>Total Deaths</h5>
+        <h6>{{totalFatalities | number}}</h6>
       </div>
 
     </div>
