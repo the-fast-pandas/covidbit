@@ -30,7 +30,6 @@ export class RegistrationFormComponent implements OnInit {
 
   //Form Groups
   userCredentials: FormGroup = new FormGroup({});
-  tester: FormGroup = new FormGroup({});
   businessLocation = '';
   registeredUser: any;
   safteyMeasureList: any = [];

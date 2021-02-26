@@ -15,6 +15,26 @@ const SmallBusinessSchema = mongoose.Schema({
   businessName: {
     type: String,
     required: true
+  },
+  firstName: {
+    type: String,
+    required: true
+  }, 
+  lastName: {
+    type: String,
+    required: true
+  },
+  businessType: {
+    type: String,
+    required: true
+  },
+  phoneNumber: {
+    type: String,
+    required: true
+  },
+  location: {
+    type: String,
+    required: true
   }
 });
 

@@ -10,6 +10,7 @@ import { SearchPageComponent } from './search-page/search-page.component';
 import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { TrackerMapComponent } from './tracker-map/tracker-map.component';
+import { BusinessUserViewComponent } from './business-user-view/business-user-view.component';
 
 const routes: Routes = [
   {
@@ -27,15 +28,7 @@ const routes: Routes = [
   {
     path: 'business-profile',
     component: BusinessProfileComponent,
-   // canActivate: [AuthGuard]
-  },
-  {
-    path: 'business-dashboard',
-    component: BusinessDashboardComponent
-  },
-  {
-    path: '',
-    component: HomeComponent
+    canActivate: [AuthGuard]
   },
   {
     path: 'search-page',
@@ -43,7 +36,12 @@ const routes: Routes = [
   },
   {
     path: 'business-dashboard',
-    component: BusinessDashboardComponent
+    component: BusinessDashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'business-user-view',
+    component: BusinessUserViewComponent
   },
   {
     path: 'admin-dashboard',
@@ -53,7 +51,7 @@ const routes: Routes = [
     path: 'tracker-map',
     component: TrackerMapComponent
   },
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
 
   { path: '**', component: NotFoundComponent },
 ];
