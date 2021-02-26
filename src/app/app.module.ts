@@ -28,9 +28,7 @@ import { TrackerMapComponent } from './tracker-map/tracker-map.component';
 
 import { NbListModule } from '@nebular/theme';
 import { AgmCoreModule } from '@agm/core';
-import { NbCalendarModule } from '@nebular/theme'
-
-
+import { NbCalendarModule } from '@nebular/theme';
 
 @NgModule({
   declarations: [
@@ -47,7 +45,7 @@ import { NbCalendarModule } from '@nebular/theme'
     CaseSettingsComponent,
     SearchWidgetComponent,
     SearchPageComponent,
-    TrackerMapComponent,
+    TrackerMapComponent
   ],
   imports: [
     BrowserModule,
@@ -72,8 +70,8 @@ import { NbCalendarModule } from '@nebular/theme'
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
-    },
+      multi: true,
+    }, 
     [CasesService]
   ],
   bootstrap: [AppComponent]
