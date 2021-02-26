@@ -19,6 +19,7 @@ export class DataService {
   // search Business User
   searchUser(business: BusinessName) {
     const api = `${this.endpoint}/search`;
+    console.log("Here");
     return this.http.post<any>(api, business)
       .subscribe(
         data => {

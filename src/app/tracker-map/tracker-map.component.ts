@@ -42,11 +42,9 @@ export class TrackerMapComponent implements OnInit {
 
   @ViewChild('search')
   public searchElementRef!: ElementRef;
-  constructor ( private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private http:HttpClient) { 
-    this.loadNews();
-  }
 
-  constructor ( private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private apiService: ApiService) { }
+  constructor ( private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private http:HttpClient,  private apiService: ApiService) {   
+    this.loadNews();}
 
 
   ngOnInit() {
