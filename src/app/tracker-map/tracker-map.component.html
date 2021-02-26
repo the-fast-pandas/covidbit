@@ -1,33 +1,63 @@
 <!-- first container -->
 
 <div class="container">
+
   <div class="map-column">
 
     <!-- search -->
     <div class="search-form">
-      <input nbInput type="text" class="search-overlay" (keydown.enter)="$event.preventDefault()"
-        placeholder="Enter name of business" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
-        #search>
+      <input type="text" class="search-overlay" (keydown.enter)="$event.preventDefault()"
+        placeholder="Enter name of business" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search
+        [(ngModel)]="businessName" (input)="Search()">
     </div>
 
     <!-- google map -->
+    <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+          <agm-marker [latitude]="lat" [longitude]="lng">
+            <agm-info-window>
+              <nb-card class="info-window"  status="info">
+                <nb-card-header>Restaurant</nb-card-header>
+                <nb-card-body>
+                  <p>Most Recent Case: 2020-11-01</p>
+                  <p>Total # of cases: 2</p>
+                  <p># of employees: 1-10 </p>
+                </nb-card-body>
+              </nb-card>
+              </agm-info-window>
+          </agm-marker>
+        </agm-map> -->
+
     <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
       <agm-marker [latitude]="lat" [longitude]="lng">
         <agm-info-window>
-          <nb-card class="info-window" status="info">
-            <nb-card-header>Restaurant</nb-card-header>
+          <nb-card class="info-window" status="info" *ngFor="let sb of searchSB">
+            <nb-card-header>{{sb.category}}</nb-card-header>
             <nb-card-body>
-              <p>Most Recent Case: 2020-11-01</p>
-              <p>Total # of cases: 2</p>
-              <p># of employees: 1-10 </p>
+              <!-- <p>Most Recent Case: 2020-11-01</p> -->
+              <p>Total # of cases: {{sb.cases}}</p>
+              <p># of employees: {{sb.employees}} </p>
             </nb-card-body>
           </nb-card>
         </agm-info-window>
       </agm-marker>
     </agm-map>
-
   </div>
 
+  <!-- google map -->
+  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+    <agm-marker [latitude]="lat" [longitude]="lng">
+      <agm-info-window>
+        <nb-card class="info-window" status="info">
+          <nb-card-header>Restaurant</nb-card-header>
+          <nb-card-body>
+            <p>Most Recent Case: 2020-11-01</p>
+            <p>Total # of cases: 2</p>
+            <p># of employees: 1-10 </p>
+          </nb-card-body>
+        </nb-card>
+      </agm-info-window>
+    </agm-marker>
+  </agm-map>
 
   <div class="info-column">
 
@@ -36,44 +66,11 @@
       <div class="news-container">
         <nb-card size="medium">
           <nb-list>
-            <nb-list-item>
+            <nb-list-item *ngFor="let article of articles">
               <div class="news-section">
-                <h3> Where is your region placed in Ontario's 2021 COVID-19 reopening framework</h3>
-                <p> The Ontario government has been gradually moving regions back into its colour-coded tiered
-                  framework, which is meant to guide ...<br>
-                  23 hours ago </p>
-              </div>
-            </nb-list-item>
-            <nb-list-item>
-              <div class="news-section">
-                <h3> Where is your region placed in Ontario's 2021 COVID-19 reopening framework</h3>
-                <p> The Ontario government has been gradually moving regions back into its colour-coded tiered
-                  framework, which is meant to guide ...<br>
-                  23 hours ago </p>
-              </div>
-            </nb-list-item>
-            <nb-list-item>
-              <div class="news-section">
-                <h3> Where is your region placed in Ontario's 2021 COVID-19 reopening framework</h3>
-                <p> The Ontario government has been gradually moving regions back into its colour-coded tiered
-                  framework, which is meant to guide ...<br>
-                  23 hours ago </p>
-              </div>
-            </nb-list-item>
-            <nb-list-item>
-              <div class="news-section">
-                <h3> Where is your region placed in Ontario's 2021 COVID-19 reopening framework</h3>
-                <p> The Ontario government has been gradually moving regions back into its colour-coded tiered
-                  framework, which is meant to guide ...<br>
-                  23 hours ago </p>
-              </div>
-            </nb-list-item>
-            <nb-list-item>
-              <div class="news-section">
-                <h3> Where is your region placed in Ontario's 2021 COVID-19 reopening framework</h3>
-                <p> The Ontario government has been gradually moving regions back into its colour-coded tiered
-                  framework, which is meant to guide ...<br>
-                  23 hours ago </p>
+                <h3><a href={{article.url}}>{{article.title}}</a></h3>
+                <p>{{article.description}}</p>
+                <p>{{article.publishedAt | date}} </p>
               </div>
             </nb-list-item>
           </nb-list>
@@ -85,16 +82,14 @@
 
   </div>
 
-  <!-- second container -->
-
-  <div class="container">
-    <div class="calendar-container">
-      <nb-calendar [(date)]="date"></nb-calendar>
-    </div>
+<div class="container">
+  <div class="calendar-container">
+    <nb-calendar [(date)]="date"></nb-calendar>
   </div>
-
-  
 </div>
+
+
+
 
 <nb-card status="primary">
   <nb-card-header>COVID-19 Information for Ontario as of {{currentDate}}</nb-card-header>

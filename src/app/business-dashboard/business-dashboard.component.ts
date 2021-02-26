@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { CompleterService, CompleterData } from 'ng2-completer';
+import { AuthService } from '../auth-services/auth.service';
 
 @Component({
   selector: 'app-business-dashboard',
@@ -29,17 +30,23 @@ export class BusinessDashboardComponent implements OnInit {
       },
       gender: {
         title: 'Gender of person'
-      }, 
+      },
       age: {
         title: 'Age of person'
       }
     }
   };
 
-  constructor() { }
+  constructor(public authService: AuthService, public router: Router, private activatedRoute: ActivatedRoute) {
+    let id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.authService.getUserDashboard(id)
+      .subscribe(
+        data => {
+          window.alert("I need data for this user");
+        })
+  }
 
   ngOnInit(): void {
-
   }
 
 }

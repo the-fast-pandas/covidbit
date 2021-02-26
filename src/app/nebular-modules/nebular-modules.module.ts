@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-
 import {
   NbIconModule,
   NbLayoutModule,
@@ -21,7 +20,7 @@ import {
   NbActionsModule,
   NbAccordionModule,
   NbListModule,
-  NbDialogModule,
+  NbDialogModule, NbCalendarModule,
   NbTabsetModule
   
 } from '@nebular/theme';
@@ -53,11 +52,12 @@ const NebularModules = [
   NbListModule,
   NbDialogModule.forRoot(),
   NbContextMenuModule,
+  NbCalendarModule,
   NbTabsetModule
 ];
 
 @NgModule({
   imports: [NebularModules],
-  exports: [NebularModules]
+  exports: [NebularModules],
 })
 export class NebularModulesModule { }
