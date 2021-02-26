@@ -44,7 +44,7 @@
       }
     ],
     "no-console": [
-      false,
+      false, 
       "debug",
       "info",
       "time",
