@@ -66,7 +66,7 @@ const loginUser = function (req, res) {
                     "ilikemypandasfast",
                     { expiresIn: 1000 }
                 );
-                return res.status(200).json({ token });
+                return res.status(200).json({ token, user });
             });
         }
     })

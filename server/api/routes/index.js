@@ -27,10 +27,13 @@ router.get('/tracker-map');
 // Search
 
 // Small Business View
-router.get('/business-user-view', ctrlViewBus.getUserView);
+router.post('/search', ctrlViewBus.searchUserView);
+router.get('/business-user-view/:id', ctrlViewBus.getUserView);
+
+// AUTHENTICATION NEEDED
 
 // Small business dashoard
-router.get('/business-dashboard', authLog.authLogin, ctrlDashUser.getUserDashboard);
+router.get('/business-dashboard/:id', authLog.authLogin, ctrlDashUser.getUserDashboard);
 router.get('/business-profile', authLog.authLogin, ctrlProfUser.getUserProfile);
 
 // Administrator dashboard
