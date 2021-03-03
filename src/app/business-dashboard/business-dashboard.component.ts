@@ -30,17 +30,23 @@ export class BusinessDashboardComponent implements OnInit {
       },
       gender: {
         title: 'Gender of person'
-      }, 
+      },
       age: {
         title: 'Age of person'
       }
     }
   };
 
-  constructor(public authService: AuthService, public router: Router) { }
+  constructor(public authService: AuthService, public router: Router, private activatedRoute: ActivatedRoute) {
+    let id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.authService.getUserDashboard(id)
+      .subscribe(
+        data => {
+          window.alert("I need data for this user");
+        })
+  }
 
   ngOnInit(): void {
-    this.authService.getUserDashboard();
   }
 
 }

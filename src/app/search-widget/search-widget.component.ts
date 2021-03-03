@@ -1,7 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { NbSearchService } from '@nebular/theme';
-import { Router } from '@angular/router';
-import { SearchManagerService } from '../search-manager.service';
+import { DataService  } from '../data/data.service'
+import { BusinessName } from '../models/businessName.model';
 
 @Component({
   selector: 'app-search-widget',
@@ -13,11 +13,14 @@ export class SearchWidgetComponent implements OnInit {
   //@Output() searchSubmitted = new EventEmitter();
 
   searchQuery = '';
+  businessName: BusinessName = {name: ''};
 
-  constructor(private searchService: NbSearchService, private router: Router) { 
+  constructor(private searchService: NbSearchService, public data: DataService) { 
     this.searchService.onSearchSubmit()
       .subscribe((data: any) => {
         this.searchQuery = data.term;
+        this.businessName.name = this.searchQuery;
+        this.data.searchUser(this.businessName);
       })
   }
 

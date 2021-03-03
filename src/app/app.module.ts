@@ -11,7 +11,6 @@ import { ApiService } from './api.service';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { Ng2CompleterModule } from "ng2-completer";
 import { AuthInterceptor } from './auth-services/authconfig.interceptor';
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginFormComponent } from './login-form/login-form.component';
@@ -30,7 +29,6 @@ import { TrackerMapComponent } from './tracker-map/tracker-map.component';
 import { BusinessUserViewComponent } from './business-user-view/business-user-view.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,9 +44,11 @@ import { BusinessUserViewComponent } from './business-user-view/business-user-vi
     CaseSettingsComponent,
     SearchWidgetComponent,
     SearchPageComponent,
-    MapSettingsComponent,
     TrackerMapComponent,
+    MapSettingsComponent,
     BusinessUserViewComponent,
+    SearchPageComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -65,15 +65,14 @@ import { BusinessUserViewComponent } from './business-user-view/business-user-vi
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAbNARRSTlFSaDp6GyBBM_pkEttwvj18d0',
       libraries: ['places']
-    }) 
+    })
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
+      multi: true,
     },
-    
     [ApiService]
   ],
   bootstrap: [AppComponent]
