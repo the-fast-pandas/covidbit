@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapSettingsComponent } from './map-settings.component';
+import { MapSettingsComponent } from './business-settings.component';
 
 describe('MapSettingsComponent', () => {
   let component: MapSettingsComponent;
