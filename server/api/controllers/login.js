@@ -9,6 +9,9 @@ const jwt = require("jsonwebtoken")
 const SmallBusiness = require('../schema/smallBusiness');
 const Administrator = require('../schema/administrator');
 
+const accessTokenSecret = "ilikemypandasfast";
+const refreshTokens = [];
+
 const loginUser = function (req, res) {
     const { email, password } = req.body;
     SmallBusiness.findOne({ "loginId": email }, function (error, user) {
@@ -56,17 +59,11 @@ const loginUser = function (req, res) {
                 if (!result) {
                     return res.status(401).json({ message: "incorrectPassword" });
                 }
-                const payload = {
-                    user: {
-                        id: user.id
-                    }
-                };
-                const token = jwt.sign(
-                    payload,
-                    "ilikemypandasfast",
-                    { expiresIn: 1000 }
-                );
-                return res.status(200).json({ token, user });
+                const payload = { user: { id: user.id } };
+                const accessToken = jwt.sign( payload, accessTokenSecret,  { expiresIn: '20m' });
+                const refreshToken = jwt.sign( payload, accessTokenSecret);
+                refreshTokens.push(refreshToken);
+                return res.status(200).json({ accessToken, user });
             });
         }
     })

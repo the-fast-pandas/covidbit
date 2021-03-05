@@ -15,28 +15,16 @@ import { DataService } from '../data/data.service';
 })
 export class BusinessUserViewComponent implements OnInit {
 
-  categoryName = '';
-  safteyMeasureList: any = [];
   businessName: String = '';
   businessPhoneNumber: String = '';
   businessAddress: String = '';
   businessWebsite: String = '';
-  businessType: String = ''
-  trackingMethod: boolean = false
-  totalCases = 0;
-  totalCases30Days = 0;
+  businessType: String = '';
 
-  loaded = false;
-
-  typesList = [
-    { name: "Restaurant" },
-    { name: "Boutique" },
-    { name: "Specialized Skill" },
-    { name: "Food and Hospitality" },
-    { name: "IT and Internet" },
-    { name: "Business" },
-    { name: "Labor" }
-  ]
+  safteyMeasureList: any = [];
+  trackingMethod: boolean = false;
+  totalCases: number = 0;
+  totalCases30Days: number = 0;
 
   constructor(public dataService: DataService, public router: Router, private activatedRoute: ActivatedRoute) {
 
@@ -48,7 +36,7 @@ export class BusinessUserViewComponent implements OnInit {
           this.businessPhoneNumber = data.user.phoneNumber;
           this.businessAddress = data.user.location;
           this.businessWebsite = data.user.loginId;
-          //location.reload();
+          this.businessType = data.user.businessType;
         })
   }
 
