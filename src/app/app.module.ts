@@ -23,7 +23,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component'
 import { SearchWidgetComponent } from './search-widget/search-widget.component';
 import { SearchPageComponent } from './search-page/search-page.component';
-import { MapSettingsComponent } from './admin-dashboard/adminSettings/map-settings/map-settings.component';
+import { MapSettingsComponent } from './admin-dashboard/adminSettings/business-settings/business-settings.component';
 import { CaseSettingsComponent } from './admin-dashboard/adminSettings/case-settings/case-settings.component'
 import { TrackerMapComponent } from './tracker-map/tracker-map.component';
 import { BusinessUserViewComponent } from './business-user-view/business-user-view.component';
