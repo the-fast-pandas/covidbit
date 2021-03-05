@@ -16,7 +16,7 @@ import { map } from 'rxjs/operators';
 export class AuthService {
   endpoint: string = 'http://localhost:2000/api';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
-  currentUser = {};
+  serverWarning: Boolean = false;
 
   constructor(private http: HttpClient, public router: Router) { }
 
@@ -30,12 +30,25 @@ export class AuthService {
         },
         error => {
           window.alert("Registration not Allowed");
-          this.router.navigate(['registration-form']);
+          this.router.navigate(['home']);
         }
       )
   }
 
-  loggedIn = false; // Controls header
+  //Registration of user by Administrator
+  addBusinessUser(user: SmallBusiness) {
+    const api = `${this.endpoint}/registration-admin`;
+    return this.http.post<any>(api, user)
+      .subscribe(
+        data => {
+          this.router.navigate(['admin-dashboard']);
+        },
+        error => {
+          window.alert("Registration of new user not Allowed");
+          this.router.navigate(['admin-dashboard']);
+        }
+      )
+  }
 
   // User login (administrators/business)
   logIn(user: LoginCredentials) {
@@ -43,24 +56,25 @@ export class AuthService {
     return this.http.post<any>(api, user)
       .subscribe(
         data => {
-          this.loggedIn = true;
-          localStorage.setItem('access_token', data.token)
+          localStorage.setItem('access_token', data.accessToken);
+          localStorage.setItem('name_header', data.user.businessName);
           this.getUserDashboard(data.user._id).subscribe(
             data => {
+              this.serverWarning = false;
               this.router.navigate(['/business-dashboard/' + data.user._id]);
             })
         },
         error => {
-          window.alert("Wrong Credentials");
-          this.router.navigate(['login-form']);
+          this.serverWarning = true;
+          //this.router.navigate(['login-form']);
         }
       )
   }
 
   doLogout() {
     let removeToken = localStorage.removeItem('access_token');
+    localStorage.removeItem('name_header');
     if (removeToken == null) {
-      this.loggedIn = false
       this.router.navigate(['login-form']);
     }
   }
@@ -74,11 +88,12 @@ export class AuthService {
           return data;
         },
         (error: any) => {
-          window.alert("You need to login.");
           this.router.navigate(['login-form']);
         }
       ))
   }
+
+
 
   getToken() {
     return localStorage.getItem('access_token');

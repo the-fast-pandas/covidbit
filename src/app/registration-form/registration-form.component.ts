@@ -1,11 +1,13 @@
 // Server - CovidBit - Fast Pandas
 // Created:                2021, John T
-// Modified: 08, February, 2021, Teresa Costa: backend integration
+// Modified: 08, February, 2021, Teresa Costa: backend integration (checks database for user, registeres a new user in database)
 
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
 import { AuthService } from '../auth-services/auth.service';
+import { DataService } from '../data/data.service';
 import { Router } from '@angular/router';
+import * as myGlobals from '../globals';
 
 @Component({
   selector: 'app-registration-form',
@@ -18,23 +20,14 @@ export class RegistrationFormComponent implements OnInit {
   alert: Boolean = false;
 
   //Business Types Array
-  businessTypes = [
-    { name: "Restaurant" },
-    { name: "Boutique" },
-    { name: "Specialized Skill" },
-    { name: "Food and Hospitality" },
-    { name: "IT and Internet" },
-    { name: "Business" },
-    { name: "Labor" }
-  ]
+  businessTypes = myGlobals.categories;
 
   //Form Groups
   userCredentials: FormGroup = new FormGroup({});
   businessLocation = '';
-  registeredUser: any;
   safteyMeasureList: any = [];
 
-  constructor(public authService: AuthService, public router: Router) { }
+  constructor(public authService: AuthService, public router: Router, public dataService: DataService) { }
 
   ngOnInit(): void {
 
@@ -61,19 +54,20 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.userCredentials.value);
     this.authService.signUp(this.userCredentials.value);
   }
 
   checkRegistrationForm() {
-
     if (this.userCredentials.controls.accountDetails.invalid) {
       this.alert = true;
     }
     else {
-      this.alert = false;
+      if (this.dataService.getValidUser(this.userCredentials.value)) {
+        this.alert = false;
+      } else {
+        this.alert = true;
+      }
     }
-
   }
 
   checkBusinessInfoForm() {
@@ -97,6 +91,7 @@ export class RegistrationFormComponent implements OnInit {
     this.safteyMeasureList.push(safteyMeasure);
     this.userCredentials.get('safteyMeasures.title')?.reset()
     this.userCredentials.get('safteyMeasures.description')?.reset()
+    //console.log(this.userCredentials.value);  // this returns safteyMeasures: {title: null, description: null}
   }
 
   public handleAddressChange(address: any) {

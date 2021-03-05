@@ -20,6 +20,7 @@ router.get("/status", function (req, res) {
 // Login/registration
 router.post('/login-form', ctrlLog.loginUser);
 router.post('/registration-form', ctrlReg.registerUser);
+router.post('/check-user', ctrlReg.checkUser);
 
 // Tracking Map
 router.get('/tracker-map');
@@ -37,7 +38,8 @@ router.get('/business-dashboard/:id', authLog.authLogin, ctrlDashUser.getUserDas
 router.get('/business-profile', authLog.authLogin, ctrlProfUser.getUserProfile);
 
 // Administrator dashboard
-router.get('/administrator-dashboard', authLog.authLogin, ctrlDashAdm.getAdmDashboard);
+router.post('/registration-admin', ctrlDashAdm.registerUserAdm );
+router.post('/search-adm', ctrlDashAdm.searchUserAdm);
 
 
 

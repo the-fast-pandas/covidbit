@@ -11,9 +11,10 @@ require('./api/models/database'); // Connects database
 const routes = require('./api/routes/index');  
 
 const app = express();
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(cors());
-app.use(bodyParser.json()); // Define the JSON parser as a default way to conect to data 
-app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(express.static(__dirname + "/dist/"));  // Directory for the 'hg build'
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use('/api', routes);  // Routes for our API (this is for the frontend conection)

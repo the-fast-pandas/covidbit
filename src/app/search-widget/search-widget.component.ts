@@ -13,7 +13,7 @@ export class SearchWidgetComponent implements OnInit {
   @Output() searchEvent = new EventEmitter();
   
   searchQuery = '';
-  businessName: BusinessName = {name: ''};
+  businessName: BusinessName = { name: '' };
 
   constructor(private searchService: NbSearchService, public data: DataService) { 
     this.searchService.onSearchSubmit()
@@ -21,10 +21,13 @@ export class SearchWidgetComponent implements OnInit {
         this.searchQuery = data.term;
         this.businessName.name = this.searchQuery;
         this.data.searchUser(this.businessName);
+        localStorage.setItem('reload', "true");
+
       })
   }
 
   ngOnInit(): void {
+    
   }
 
 }

@@ -3,9 +3,13 @@
     <h1 class="register-header">Login</h1>
 
     <form [formGroup]="loginCredentials" (ngSubmit)="onSubmit()" class="form-components">
-
+      
       <!-- Email Input Field -->
       <div class="form-control-group">
+
+      <nb-alert *ngIf="serverWarning" status="danger" closable (close)="onCloseServer()">
+        Wrong credentials!
+      </nb-alert>
         <label class="label" for="input-email">Email:</label>
 
         <input nbInput id="input-name" type="email" formControlName="email" placeholder="Email" fullWidth

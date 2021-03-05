@@ -21,6 +21,9 @@ const searchUserView = function (req, res) {
     })
 }
 
+
+
+
 const getUserView = function (req, res) {
     SmallBusiness.findById(req.params.id, function (error, user) {
         if (error) {
@@ -35,4 +38,4 @@ const getUserView = function (req, res) {
     })
 }
 
-module.exports = { getUserView, searchUserView };
+module.exports = { getUserView, searchUserView};
