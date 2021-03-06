@@ -3,16 +3,17 @@
 // Created: 03, February, 2021, Teresa Costa
 // Modified: 08, February, 2021, Teresa Costa: frontend integration, registerUser changed to match schema
 
+const email = require('../templates/registrationUser');
+
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken")
 const SmallBusiness = require('../schema/smallBusiness');
 const emailService = require('../models/email');
 const saltRounds = 10;
 
+// Registration of a new business user
 const registerUser = function (req, res) {
-
   const { accountDetails, businessDetails, safteyMeasures } = req.body;
-  console.log(req.body);
 
   const password = accountDetails.password;
   const loginId = accountDetails.email;
@@ -25,12 +26,12 @@ const registerUser = function (req, res) {
   const location = businessDetails.businessLocation;
   const safetyM = safteyMeasures;
 
-  SmallBusiness.findOne({ "loginId": loginId }, function (error, user) {
+  SmallBusiness.findOne({ "loginId": loginId }, function (error, user) { // checks if the user already exists
     if (error) {
       throw error;
     }
     if (user) {
-      return res.status(400).json({ message: "User Already Exists" });
+      return res.status(401).json({ message: "This business already exists!" });
     }
     if (!user) {
       newBusiness = new SmallBusiness({
@@ -44,7 +45,7 @@ const registerUser = function (req, res) {
         location, 
         safetyM
       });
-      bcrypt.genSalt(saltRounds, function (error, salt) {
+      bcrypt.genSalt(saltRounds, function (error, salt) {  //sets password with hash
         if (error) {
           throw error;
         }
@@ -58,13 +59,9 @@ const registerUser = function (req, res) {
               if (error) {
                 throw error;
               }
-              emailService.email(newBusiness.businessName, 'covidbitreg@gmail.com', emailService.registrationInvite, 'COVIDBIT Website Registration Request');
-              const payload = {
-                user: {
-                  id: newBusiness.id
-                }
-              };
-              const token = jwt.sign(payload, "ilikemypandasfast", { expiresIn: 1000 });
+              emailService.email(newBusiness.businessName, 'covidbitreg@gmail.com', email.confirmRegistration, 'COVIDBIT Website Registration Request');
+              const payload = { user: { id: newBusiness.id } };
+              const token = jwt.sign(payload, 'ilikemypandasfast', { expiresIn: 1000 });
               return res.status(200).json({ token });
             });
           }
@@ -74,6 +71,7 @@ const registerUser = function (req, res) {
   })
 }
 
+// Cheacks if a user already exists (for the first step of the registration form)
 const checkUser = function (req, res) {
   const { accountDetails, businessDetails, safteyMeasures } = req.body;
   const loginId = accountDetails.email;
@@ -82,7 +80,7 @@ const checkUser = function (req, res) {
       throw error;
     }
     if (user) {
-      return res.status(400).json({ message: "User Already Exists" });
+      return res.status(401).json({ message: "This business already exists!" });
     }
     return res.status(200).json({ loginId });
   })

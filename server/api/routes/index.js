@@ -5,10 +5,9 @@ const express = require('express');
 const router = express.Router();
 const ctrlReg = require('../controllers/registration');
 const ctrlLog = require('../controllers/login');
-const ctrlDashUser = require('../controllers/businessDashboard');
+const ctrlDashUser = require('../controllers/businessUser');
 const authLog = require('../middleware/auth');
-const ctrlProfUser = require('../controllers/businessProfile');
-const ctrlDashAdm = require('../controllers/administratorDashboard');
+const ctrlDashAdm = require('../controllers/administrator');
 const ctrlViewBus = require('../controllers/businessView');
 
 
@@ -35,12 +34,13 @@ router.get('/business-user-view/:id', ctrlViewBus.getUserView);
 
 // Small business dashoard
 router.get('/business-dashboard/:id', authLog.authLogin, ctrlDashUser.getUserDashboard);
-router.get('/business-profile', authLog.authLogin, ctrlProfUser.getUserProfile);
 
 // Administrator dashboard
 router.post('/registration-admin', ctrlDashAdm.registerUserAdm );
-router.post('/search-adm', ctrlDashAdm.searchUserAdm);
-
+router.post('/search-user-adm', ctrlDashAdm.searchUserAdm);
+router.post('/search-cases-adm', ctrlDashAdm.searchUserCasesAdm);
+router.delete('/business-user-adm/:id', ctrlDashAdm.deleteUserAdm); 
+router.delete('/cases-user-adm/:id', ctrlDashAdm. deleteUserCaseAdm); 
 
 
 module.exports = router;

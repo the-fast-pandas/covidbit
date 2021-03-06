@@ -5,7 +5,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
 import { AuthService } from '../auth-services/auth.service';
-import { DataService } from '../data/data.service';
+import { DataService } from '../data-services/data.service';
 import { Router } from '@angular/router';
 import * as myGlobals from '../globals';
 

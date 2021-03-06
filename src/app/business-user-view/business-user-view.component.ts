@@ -6,7 +6,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DataService } from '../data/data.service';
+import { DataService } from '../data-services/data.service';
 
 @Component({
   selector: 'app-business-user-view',

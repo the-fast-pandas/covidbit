@@ -35,6 +35,10 @@ const SmallBusinessSchema = mongoose.Schema({
   location: {
     type: String,
     required: true
+  },
+  website:{
+    type: String,
+    default: " "
   }
 });
 
