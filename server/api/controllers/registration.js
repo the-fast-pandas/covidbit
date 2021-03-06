@@ -4,7 +4,6 @@
 // Modified: 08, February, 2021, Teresa Costa: frontend integration, registerUser changed to match schema
 
 const email = require('../templates/registrationUser');
-
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken")
 const SmallBusiness = require('../schema/smallBusiness');
@@ -61,7 +60,7 @@ const registerUser = function (req, res) {
               }
               emailService.email(newBusiness.businessName, 'covidbitreg@gmail.com', email.confirmRegistration, 'COVIDBIT Website Registration Request');
               const payload = { user: { id: newBusiness.id } };
-              const token = jwt.sign(payload, 'ilikemypandasfast', { expiresIn: 1000 });
+              const token = jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: 1000 });
               return res.status(200).json({ token });
             });
           }

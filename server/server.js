@@ -3,7 +3,7 @@
 // Teresa Costa - Fast Pandas
 
 const dotenv = require('dotenv');
-dotenv.config({ path: './.env'}); //variables
+dotenv.config({path: __dirname + '/.env'}); //variables
 const express = require('express');
 const bodyParser = require('body-parser'); 
 const favicon = require('serve-favicon');
@@ -24,7 +24,7 @@ app.use(express.static(__dirname + "/dist/"));  // Directory for the 'hg build'
 app.use('/api', routes);  // Routes for our API (this is for the frontend conection)
 
 // Initializes the server
-const PORT = 2000;
+const PORT = process.env.PORT ;
 const server = app.listen(PORT, function (error) {
   if (error) throw error;
   else console.log("Application server now running on port", server.address().port);

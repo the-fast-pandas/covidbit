@@ -16,26 +16,29 @@ router.get("/status", function (req, res) {
   res.status(200).json({ status: "I am alive!" });
 });
 
-// Login/registration
-router.post('/login-form', ctrlLog.loginUser);
-router.post('/registration-form', ctrlReg.registerUser);
-router.post('/check-user', ctrlReg.checkUser);
-
 // Tracking Map
 router.get('/tracker-map');
-
-// Search
-
 // Small Business View
 router.post('/search', ctrlViewBus.searchUserView);
 router.get('/business-user-view/:id', ctrlViewBus.getUserView);
 
-// AUTHENTICATION NEEDED
+////////   BUSINESS USER  ////////
 
+// Login/registration
+router.post('/login-form', ctrlLog.loginUser);
+router.post('/registration-form', ctrlReg.registerUser);
+router.post('/check-user', ctrlReg.checkUser);
 // Small business dashoard
 router.get('/business-dashboard/:id', authLog.authLogin, ctrlDashUser.getUserDashboard);
+router.get('/edit-profile/:id', authLog.authLogin, ctrlDashUser.getUserDashboard);
+router.get('/edit-profile', authLog.authLogin, ctrlDashUser.editUserProfile);
 
-// Administrator dashboard
+
+////////   ADMINISTRATOR  ////////
+
+// Administrator login
+router.post('/login-admin', ctrlDashAdm.loginAdmin);
+// Administrator Dashboard
 router.post('/registration-admin', ctrlDashAdm.registerUserAdm );
 router.post('/search-user-adm', ctrlDashAdm.searchUserAdm);
 router.post('/search-cases-adm', ctrlDashAdm.searchUserCasesAdm);

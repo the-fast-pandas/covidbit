@@ -3,7 +3,7 @@
 
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb+srv://geral:seneca@main.0qmqz.mongodb.net/covidbit?retryWrites=true&w=majority", { useUnifiedTopology:true,
+mongoose.connect(process.env.URI, { useUnifiedTopology:true,
   useNewUrlParser: true,
   useCreateIndex: true });
 

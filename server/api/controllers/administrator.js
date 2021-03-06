@@ -1,15 +1,37 @@
 // Server - CovidBit - Fast Pandas
-// Conects to the ADMINISTRATOR DASHBOARD
+// Conects to the ADMINISTRATOR DASHBOARD/SERVICES
 // Created: 28, February, 2021, Teresa Costa
 
 const email = require('../templates/resgistrationAdm');
-
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 const SmallBusiness = require('../schema/smallBusiness');
 const Cases = require('../schema/cases');
-
+const Administrator = require('../schema/administrator');
 const emailService = require('../models/email');
 const saltRounds = 10;
+
+
+// Controls the login for a business user
+const loginAdmin = function (req, res) {
+  const { email, password } = req.body;
+  Administrator.findOne({ "loginId": email }, function (error, user) {
+    if (error) {
+      throw error;
+    }
+    if (!user) {
+      return res.status(401).json({ message: "Incorrect LoginId!" });
+    }
+    if (user) {
+      if (password == user.password) {
+        const payload = { user: { id: user.id } };
+        const adminToken = jwt.sign(payload, process.env.SECRET_ADMIN, { expiresIn: '20m' });
+        return res.status(200).json({ adminToken, user });
+      } else {
+        return res.status(401).json({ message: "Incorrect Password!" });
+      }
+    }
+  })
+}
 
 
 // Administrator can register a user
@@ -60,9 +82,9 @@ const registerUserAdm = function (req, res) {
               if (error) {
                 throw error;
               }
-              emailService.email(newBusiness.businessName, 'covidbitreg@gmail.com', email.confirmRegistrationAdm, 'COVIDBIT Website Registration Request');
+              emailService.email(newBusiness.businessName, 'covidbitreg@gmail.com', email.confirmRegistrationAdm , 'COVIDBIT Website Registration Request');
               const payload = { user: { id: newBusiness.id } };
-              const token = jwt.sign(payload, 'ilikemypandasfast', { expiresIn: 1000 });
+              const token = jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: 1000 });
               return res.status(200).json({ token });
             });
           }
@@ -136,7 +158,4 @@ const deleteUserCaseAdm = function (req, res) {
   })
 }
 
-
-
-
-module.exports = { registerUserAdm, searchUserAdm, deleteUserAdm, searchUserCasesAdm, deleteUserCaseAdm };
+module.exports = { registerUserAdm, searchUserAdm, deleteUserAdm, searchUserCasesAdm, deleteUserCaseAdm, loginAdmin };

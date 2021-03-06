@@ -6,7 +6,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken")
 const SmallBusiness = require('../schema/smallBusiness');
-const Administrator = require('../schema/administrator');
 
 // Controls the login for a business user
 const loginUser = function (req, res) {
@@ -27,7 +26,7 @@ const loginUser = function (req, res) {
                     return res.status(401).json({ message: "Incorrect Password!" });
                 }
                 const payload = { user: { id: user.id } };
-                const accessToken = jwt.sign(payload, 'ilikemypandasfast', { expiresIn: '20m' });
+                const accessToken = jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: '20m' });
                 return res.status(200).json({ accessToken, user });
             });
         }

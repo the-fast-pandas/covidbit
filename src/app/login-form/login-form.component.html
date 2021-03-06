@@ -8,7 +8,7 @@
       <div class="form-control-group">
 
       <nb-alert *ngIf="serverWarning" status="danger" closable (close)="onCloseServer()">
-        Wrong credentials!
+        Wrong credentials! Please enter a registered email/password.
       </nb-alert>
         <label class="label" for="input-email">Email:</label>
 
@@ -53,9 +53,7 @@
 
     <div class="form-control-group">
       <section style="text-align: center;" class="another-action">Don't have an account? <a
-          routerlink="/registration-form" class="text-link" href="/registration-form">Register</a></section>
+          routerlink="/registration-form" class="text-link" href="/registration-invitation">Get an Invitation to Register</a></section>
     </div>
-
-
   </nb-card-body>
 </nb-card>
