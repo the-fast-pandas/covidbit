@@ -20,7 +20,6 @@ export class BusinessProfileComponent implements OnInit {
     webSite: String = 'https://www.pizzapizza.ca';
     businessType: String = 'Resturant';
 
-  
   //Business Types Array
   businessTypes = [
     {name: "Resturant"},
