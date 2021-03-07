@@ -5,7 +5,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
 import { AuthService } from '../auth-services/auth.service';
-import { DataService } from '../data/data.service';
+import { DataService } from '../data-services/data.service';
 import { Router } from '@angular/router';
 import * as myGlobals from '../globals';
 
@@ -17,7 +17,9 @@ import * as myGlobals from '../globals';
 
 export class RegistrationFormComponent implements OnInit {
 
+  // Error warnings
   alert: Boolean = false;
+  serverWarning: Boolean = false;
 
   //Business Types Array
   businessTypes = myGlobals.categories;
@@ -27,10 +29,13 @@ export class RegistrationFormComponent implements OnInit {
   businessLocation = '';
   safteyMeasureList: any = [];
 
-  constructor(public authService: AuthService, public router: Router, public dataService: DataService) { }
+  constructor(public authService: AuthService, public router: Router, public dataService: DataService) {
+    if (localStorage.getItem('server_warning') === 'true') {  // Controls messages from server
+      this.serverWarning = true;
+    }
+  }
 
   ngOnInit(): void {
-
     this.userCredentials = new FormGroup({
       accountDetails: new FormGroup({
         businessName: new FormControl('', [Validators.required]),
@@ -50,11 +55,11 @@ export class RegistrationFormComponent implements OnInit {
         description: new FormControl('', [Validators.required])
       })
     })
-
+    localStorage.removeItem('server_warning'); // Controls messages from server
   }
 
   onSubmit(): void {
-    this.authService.signUp(this.userCredentials.value);
+    this.authService.signUp(this.userCredentials.value, false);
   }
 
   checkRegistrationForm() {
@@ -68,6 +73,11 @@ export class RegistrationFormComponent implements OnInit {
         this.alert = true;
       }
     }
+  }
+
+  // Closes the warning box for the server errors
+  onCloseServer() {
+    this.serverWarning = false;
   }
 
   checkBusinessInfoForm() {

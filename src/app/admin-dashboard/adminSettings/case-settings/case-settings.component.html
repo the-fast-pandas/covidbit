@@ -37,7 +37,7 @@
         <form [formGroup]="caseResults" (ngSubmit)='onSubmit()'>
           <nb-list size="medium" *ngIf="displayCaseList === true">
             <nb-list-item *ngFor="let type of typesList; let i = index" formArrayName="cases">
-              <nb-checkbox id="caseResults" [formControlName]="i">{{ type.name }}</nb-checkbox>
+              <nb-checkbox id="caseResults" [formControlName]="i">{{ type}}</nb-checkbox>
             </nb-list-item>
           </nb-list>
 
@@ -81,7 +81,7 @@
         <form [formGroup]="caseResults" (ngSubmit)='onSubmit()'>
           <nb-list size="medium" *ngIf="displayCaseList === true">
             <nb-list-item *ngFor="let type of typesList; let i = index" formArrayName="cases">
-              <nb-checkbox id="caseResults" [formControlName]="i">{{ type.name }}</nb-checkbox>
+              <nb-checkbox id="caseResults" [formControlName]="i">{{ type }}</nb-checkbox>
             </nb-list-item>
           </nb-list>
 

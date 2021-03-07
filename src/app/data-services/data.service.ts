@@ -20,7 +20,7 @@ export class DataService {
 
   constructor(private http: HttpClient, public router: Router) { }
 
-  // search Business User
+  // Search Business User
   searchUser(business: BusinessName) {
     const api = `${this.endpoint}/search`;
     return this.http.post<any>(api, business)
@@ -40,21 +40,7 @@ export class DataService {
       )
   }
 
-  searchUserAdm(business: BusinessName) {
-    const api = `${this.endpoint}/search-adm`;
-    return this.http.post<any>(api, business)
-      .pipe(
-        map(
-          data => {
-            return data;
-          },
-          (error: any) => {
-            window.alert("No business with this name.");
-          }
-        ))
-  }
-
-  // Get Small Business View
+  // Get User Business View
   getUserView(id: any): Observable<any> {
     const api = `${this.endpoint}/business-user-view/${id}`;
     return this.http.get<any>(api, id)
@@ -70,6 +56,7 @@ export class DataService {
         ))
   }
 
+  // Get a valid User for Registration 
   getValidUser(user: LoginCredentials) {
     const api = `${this.endpoint}/check-user`;
     return this.http.post<any>(api, user)

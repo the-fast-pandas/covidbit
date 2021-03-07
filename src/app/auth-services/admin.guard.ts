@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
 
   constructor(public authService: AuthService, public router: Router) { }
 
   canActivate(
     next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.authService.isLoggedIn !== true) {
-      window.alert("You need to login!");
-      this.router.navigate(['login-form']);
+    if (this.authService.isAdmin !== true) {
+      window.alert("You administrator authentication!");
+      this.router.navigate(['home']);
       return false;
     } else {
       return true;

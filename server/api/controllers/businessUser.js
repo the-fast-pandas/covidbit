@@ -18,4 +18,19 @@ const getUserDashboard = function (req, res) {
     })
 }
 
-module.exports = { getUserDashboard };
+const editUserProfile = function (req, res) {
+    const { user } = req.body;
+    SmallBusiness.updateOne({ "_id": user._id }, { $set: user }, function (error, user) {
+        if (error) {
+            throw error;
+        }
+        if (!user) {
+            return res.status(401).json({ message: "No user in database" });
+        }
+        if (user) {
+            return res.status(200).json({ user });
+        }
+    })
+}
+
+module.exports = { getUserDashboard, editUserProfile };

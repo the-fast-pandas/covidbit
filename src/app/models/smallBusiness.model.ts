@@ -9,4 +9,5 @@ export interface SmallBusiness {
     businessPhone: String;
     businessLocation: String;
     safetyM: Array<any>;
+    registeredBy: Boolean;
 }
