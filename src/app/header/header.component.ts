@@ -1,6 +1,6 @@
 // Server - CovidBit - Fast Pandas
-// Created:               2021, Yevgeniya Anasheva
-// Changed: 15, February, 2021, Teresa Costa, added integration with authentication, typescript variables
+// Created: Yevgeniya Anasheva
+// Changed: 15, February, 2021, Teresa Costa, added logout method, profile method
 
 
 import { Component, OnInit } from '@angular/core';
@@ -16,9 +16,9 @@ import { AuthService } from '../auth-services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  loggedIn: boolean = false;
-  businessName: any = "Business Name";
-  items: Array<any> = [
+  loggedIn = false;
+
+  items = [
     { title: 'Profile' },
     { title: 'Logout' },
   ];
@@ -28,8 +28,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.router.events.subscribe(event => {
       if (event.constructor.name === "NavigationEnd") {
-        this.loggedIn = this.authService.isLoggedIn;
-        this.businessName = localStorage.getItem('name_header');
+        this.loggedIn = this.authService.loggedIn;
       }
     })
 

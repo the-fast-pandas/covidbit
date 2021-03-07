@@ -1,6 +1,3 @@
-// Server - CovidBit - Fast Pandas
-// Created:               2021, Adilah
-
 import { Component, OnInit } from '@angular/core';
 
 @Component({

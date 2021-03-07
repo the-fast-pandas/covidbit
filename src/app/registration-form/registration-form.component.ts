@@ -1,13 +1,11 @@
 // Server - CovidBit - Fast Pandas
 // Created:                2021, John T
-// Modified: 08, February, 2021, Teresa Costa: backend integration (checks database for user, registeres a new user in database)
+// Modified: 08, February, 2021, Teresa Costa: backend integration
 
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
 import { AuthService } from '../auth-services/auth.service';
-import { DataService } from '../data-services/data.service';
 import { Router } from '@angular/router';
-import * as myGlobals from '../globals';
 
 @Component({
   selector: 'app-registration-form',
@@ -17,25 +15,29 @@ import * as myGlobals from '../globals';
 
 export class RegistrationFormComponent implements OnInit {
 
-  // Error warnings
   alert: Boolean = false;
-  serverWarning: Boolean = false;
 
   //Business Types Array
-  businessTypes = myGlobals.categories;
+  businessTypes = [
+    { name: "Restaurant" },
+    { name: "Boutique" },
+    { name: "Specialized Skill" },
+    { name: "Food and Hospitality" },
+    { name: "IT and Internet" },
+    { name: "Business" },
+    { name: "Labor" }
+  ]
 
   //Form Groups
   userCredentials: FormGroup = new FormGroup({});
   businessLocation = '';
+  registeredUser: any;
   safteyMeasureList: any = [];
 
-  constructor(public authService: AuthService, public router: Router, public dataService: DataService) {
-    if (localStorage.getItem('server_warning') === 'true') {  // Controls messages from server
-      this.serverWarning = true;
-    }
-  }
+  constructor(public authService: AuthService, public router: Router) { }
 
   ngOnInit(): void {
+
     this.userCredentials = new FormGroup({
       accountDetails: new FormGroup({
         businessName: new FormControl('', [Validators.required]),
@@ -55,29 +57,23 @@ export class RegistrationFormComponent implements OnInit {
         description: new FormControl('', [Validators.required])
       })
     })
-    localStorage.removeItem('server_warning'); // Controls messages from server
+
   }
 
   onSubmit(): void {
-    this.authService.signUp(this.userCredentials.value, false);
+    console.log(this.userCredentials.value);
+    this.authService.signUp(this.userCredentials.value);
   }
 
   checkRegistrationForm() {
+
     if (this.userCredentials.controls.accountDetails.invalid) {
       this.alert = true;
     }
     else {
-      if (this.dataService.getValidUser(this.userCredentials.value)) {
-        this.alert = false;
-      } else {
-        this.alert = true;
-      }
+      this.alert = false;
     }
-  }
 
-  // Closes the warning box for the server errors
-  onCloseServer() {
-    this.serverWarning = false;
   }
 
   checkBusinessInfoForm() {
@@ -101,7 +97,6 @@ export class RegistrationFormComponent implements OnInit {
     this.safteyMeasureList.push(safteyMeasure);
     this.userCredentials.get('safteyMeasures.title')?.reset()
     this.userCredentials.get('safteyMeasures.description')?.reset()
-    //console.log(this.userCredentials.value);  // this returns safteyMeasures: {title: null, description: null}
   }
 
   public handleAddressChange(address: any) {

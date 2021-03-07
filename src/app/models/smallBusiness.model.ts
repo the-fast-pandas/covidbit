@@ -8,6 +8,4 @@ export interface SmallBusiness {
     businessType: String;
     businessPhone: String;
     businessLocation: String;
-    safetyM: Array<any>;
-    registeredBy: Boolean;
 }
