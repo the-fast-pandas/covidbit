@@ -21,19 +21,19 @@ export class AuthService {
   constructor(private http: HttpClient, public router: Router) { }
 
   // Business User Registration
-  signUp(user: SmallBusiness, registeredBy: Boolean) {
+  registerUser(user: SmallBusiness, registeredBy: Boolean) {
     user.registeredBy = registeredBy;
     const api = `${this.endpoint}/registration-form`;
     return this.http.post<any>(api, user)
       .subscribe(
-        data => {
+        (data: SmallBusiness) => {
           if (registeredBy == true) {
             this.router.navigate(['admin-dashboard']);
           } else {
             this.router.navigate(['login-form']);
           }
         },
-        error => {
+        (error: any) => {
           if (registeredBy == true) {
             window.alert("Registration of new user not Allowed!");
             this.router.navigate(['admin-dashboard']);
@@ -85,8 +85,7 @@ export class AuthService {
           });
         },
         error => {
-          console.log("Not administrator");
-          //this.router.navigate(['login-form']);
+          console.log("Not valid administrator credentials!");
         }
       )
   }

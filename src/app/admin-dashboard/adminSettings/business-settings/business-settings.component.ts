@@ -68,7 +68,7 @@ export class MapSettingsComponent implements OnInit {
 
   // Controls adding/register a business
   addBusiness() {
-    this.authService.signUp(this.businessCredentials.value, true);
+    this.authService.registerUser(this.businessCredentials.value, true);
     this.alert = true;
     this.businessCredentials.reset();
   }
