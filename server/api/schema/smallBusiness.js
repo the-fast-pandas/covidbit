@@ -10,7 +10,7 @@ const SmallBusinessSchema = mongoose.Schema({
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   businessName: {
     type: String,

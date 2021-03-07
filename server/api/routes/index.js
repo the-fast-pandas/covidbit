@@ -39,7 +39,6 @@ router.get('/edit-profile', authLog.authLogin, ctrlDashUser.editUserProfile);
 // Administrator login
 router.post('/login-admin', ctrlDashAdm.loginAdmin);
 // Administrator Dashboard
-router.post('/registration-admin', ctrlDashAdm.registerUserAdm );
 router.post('/search-user-adm', ctrlDashAdm.searchUserAdm);
 router.post('/search-cases-adm', ctrlDashAdm.searchUserCasesAdm);
 router.delete('/business-user-adm/:id', ctrlDashAdm.deleteUserAdm); 

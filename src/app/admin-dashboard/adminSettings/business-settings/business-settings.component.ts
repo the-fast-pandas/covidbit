@@ -43,9 +43,8 @@ export class MapSettingsComponent implements OnInit {
       businessType: new FormControl('', [Validators.required]),
       website: new FormControl('', [Validators.required]),
       businessPhone: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')]),
-      businessLocation: new FormControl('', [Validators.required])
+      businessLocation: new FormControl('', [Validators.required]),
     })
-
     this.businessSearch = new FormGroup({
       searchedBusiness: new FormControl('', [Validators.required])
     });
@@ -69,7 +68,7 @@ export class MapSettingsComponent implements OnInit {
 
   // Controls adding/register a business
   addBusiness() {
-    this.authService.addBusinessUser(this.businessCredentials.value);
+    this.authService.signUp(this.businessCredentials.value, true);
     this.alert = true;
     this.businessCredentials.reset();
   }

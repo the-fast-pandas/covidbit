@@ -21,36 +21,32 @@ export class AuthService {
   constructor(private http: HttpClient, public router: Router) { }
 
   // Business User Registration
-  signUp(user: SmallBusiness) {
+  signUp(user: SmallBusiness, registeredBy: Boolean) {
+    user.registeredBy = registeredBy;
     const api = `${this.endpoint}/registration-form`;
     return this.http.post<any>(api, user)
       .subscribe(
         data => {
-          this.router.navigate(['login-form']);
+          if (registeredBy == true) {
+            this.router.navigate(['admin-dashboard']);
+          } else {
+            this.router.navigate(['login-form']);
+          }
         },
         error => {
-          this.router.navigate(['registration-form']).then(() => {
-            localStorage.setItem('server_warning', 'true');
-            window.location.reload();
-          });
+          if (registeredBy == true) {
+            window.alert("Registration of new user not Allowed!");
+            this.router.navigate(['admin-dashboard']);
+          } else {
+            this.router.navigate(['registration-form']).then(() => {
+              localStorage.setItem('server_warning', 'true');
+              window.location.reload();
+            });
+          }
         }
       )
   }
 
-  // Registration of user by Administrator
-  addBusinessUser(user: SmallBusiness) {
-    const api = `${this.endpoint}/registration-admin`;
-    return this.http.post<any>(api, user)
-      .subscribe(
-        data => {
-          this.router.navigate(['admin-dashboard']);
-        },
-        error => {
-          window.alert("Registration of new user not Allowed!");
-          this.router.navigate(['admin-dashboard']);
-        }
-      )
-  }
 
   // Business user login
   logIn(user: LoginCredentials) {

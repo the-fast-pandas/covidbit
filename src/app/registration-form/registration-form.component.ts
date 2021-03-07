@@ -59,7 +59,7 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.authService.signUp(this.userCredentials.value);
+    this.authService.signUp(this.userCredentials.value, false);
   }
 
   checkRegistrationForm() {

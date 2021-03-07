@@ -23,10 +23,6 @@ const CasesSchema = mongoose.Schema({
     acquisition:{
         type: String,
         default: 'Unknown'
-    },
-    registered:{
-        type: String,
-        default: 'admin'
     }
 });
 
