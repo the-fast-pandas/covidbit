@@ -14,6 +14,7 @@ export class BusinessDashboardComponent implements OnInit {
   safteyMeasures: FormGroup = new FormGroup({});
   safteyMeasureList: any = [];
 
+  
   // some dummy data
   businessName: String = 'Pizza-Pizza';
   firstName: String = 'James';
