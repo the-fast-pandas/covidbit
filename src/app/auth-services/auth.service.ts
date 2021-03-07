@@ -21,7 +21,7 @@ export class AuthService {
   constructor(private http: HttpClient, public router: Router) { }
 
   // Business User Registration
-  signUp(user: SmallBusiness, registeredBy: Boolean) {
+  registerUser(user: SmallBusiness, registeredBy: Boolean) {
     user.registeredBy = registeredBy;
     const api = `${this.endpoint}/registration-form`;
     return this.http.post<any>(api, user)
