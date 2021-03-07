@@ -4,47 +4,33 @@
   <nb-card-body>
 
     <!-- Case Managment Tabset -->
-    <nb-tabset (changeTab)="tabReset()">
+    <nb-tabset>
 
       <!-- Add Case -->
       <nb-tab tabTitle="Add Case">
+        <div class="editor">
+          <nb-form-field>
+            <input nbInput placeholder="Search For Business">
+            <button nbSuffix nbButton ghost (click)="searchForBusiness()">
+              <nb-icon icon="search-outline"></nb-icon>
+            </button>
+          </nb-form-field>
+        </div>
 
-        <form [formGroup]="businessSearch" (ngSubmit)="searchForBusiness()">
-          <div class="editor">
-            <nb-form-field>
-              <input nbInput placeholder="Search For Business" id="businessSearch" formControlName="searchedBusiness">
-
-              <button type="submit" nbSuffix nbButton ghost>
-                <nb-icon icon="search-outline"></nb-icon>
-              </button>
-            </nb-form-field>
-
-            <ng-container>
-              <p class="caption status-danger"
-                *ngIf=" searchCheck === true">
-                Business Not Found!
-              </p>
-            </ng-container>
-
-          </div>
-
-          <ng-container *ngIf="displayCaseList === true">
-            <p class="subtitle">Displaying Cases from: {{businessSearch.get('searchedBusiness')?.value}}</p>
-          </ng-container>
-
-        </form>
+        <ng-container *ngIf="searchCheck === true">
+          <p class="subtitle">Displaying Cases from: Business Name</p>
+        </ng-container>
 
         <form [formGroup]="caseResults" (ngSubmit)='onSubmit()'>
-          <nb-list size="medium" *ngIf="displayCaseList === true">
-            <nb-list-item *ngFor="let type of typesList; let i = index" formArrayName="cases">
-              <nb-checkbox id="caseResults" [formControlName]="i">{{ type}}</nb-checkbox>
-            </nb-list-item>
-          </nb-list>
+            <nb-list size="medium" *ngIf="searchCheck === true">
+                <nb-list-item *ngFor="let type of typesList; let i = index" formArrayName="cases">
+                  <nb-checkbox id="caseResults" [formControlName]="i" >{{ type.name }}</nb-checkbox>
+                </nb-list-item>
+              </nb-list>
 
-          <div class="buttonSlot" *ngIf="displayCaseList === true">
-            <button class="button" type="submit" nbButton outline status="success"
-              [disabled]="this.caseResults.hasError('required', 'cases')">Add Case</button>
-          </div>
+              <div class="buttonSlot" *ngIf="searchCheck === true">
+                <button class="button" type="submit" nbButton outline status="success" [disabled]="this.caseResults.hasError('required', 'cases')">Add Case</button>
+              </div>
 
         </form>
 
@@ -53,44 +39,27 @@
       <!-- Remove Case -->
       <nb-tab tabTitle="Remove Case">
 
-        <form [formGroup]="businessSearch" (ngSubmit)="searchForBusiness()">
-          <div class="editor">
-            <nb-form-field>
-              <input nbInput placeholder="Search For Business" id="businessSearch" formControlName="searchedBusiness">
+        <div class="editor">
+          <input nbInput placeholder="Search for Business">
+          <button nbSuffix nbButton ghost>
+            <nb-icon style="margin-left: 0.75em;" icon="search-outline" (click)="searchForBusiness()"></nb-icon>
+          </button>
+        </div>
 
-              <button type="submit" nbSuffix nbButton ghost>
-                <nb-icon icon="search-outline"></nb-icon>
-              </button>
-            </nb-form-field>
+        <ng-container *ngIf="searchCheck === true">
+          <p class="subtitle">Displaying Cases from: Business Name</p>
+        </ng-container>
 
-            <ng-container>
-              <p class="caption status-danger"
-                *ngIf=" searchCheck === true">
-                Business Not Found!
-              </p>
-            </ng-container>
+        <nb-list size="medium" *ngIf="searchCheck === true">
+          <nb-list-item *ngFor="let fruit of typesList">
+            <nb-checkbox>{{ fruit.name }}</nb-checkbox>
+          </nb-list-item>
+        </nb-list>
 
-          </div>
+        <div class="buttonSlot" *ngIf="searchCheck === true">
+          <button class="button" type="button" nbButton outline status="success">Remove Case</button>
+        </div>
 
-          <ng-container *ngIf="displayCaseList === true">
-            <p class="subtitle">Displaying Cases from: {{businessSearch.get('searchedBusiness')?.value}}</p>
-          </ng-container>
-
-        </form>
-
-        <form [formGroup]="caseResults" (ngSubmit)='onSubmit()'>
-          <nb-list size="medium" *ngIf="displayCaseList === true">
-            <nb-list-item *ngFor="let type of typesList; let i = index" formArrayName="cases">
-              <nb-checkbox id="caseResults" [formControlName]="i">{{ type }}</nb-checkbox>
-            </nb-list-item>
-          </nb-list>
-
-          <div class="buttonSlot" *ngIf="displayCaseList === true">
-            <button class="button" type="submit" nbButton outline status="success"
-              [disabled]="this.caseResults.hasError('required', 'cases')">Remove Case</button>
-          </div>
-
-        </form>
       </nb-tab>
     </nb-tabset>
 

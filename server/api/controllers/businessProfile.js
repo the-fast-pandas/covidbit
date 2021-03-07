@@ -1,10 +1,10 @@
 // Server - CovidBit - Fast Pandas
-// BUSINESS VIEW
+// BUSINESS USER DASHBOARD
 // Created: 16, February, 2021, Teresa Costa
 
 const SmallBusiness = require('../schema/smallBusiness');
 
-const getUserView = function (req, res) {
+const getUserProfile = function (req, res) {
     SmallBusiness.findById(req.body.id, function (error, user) {
         console.log("I am here");
         console.log(user);
@@ -22,4 +22,4 @@ const getUserView = function (req, res) {
     })
 }
 
-module.exports = { getUserView };
+module.exports = { getUserProfile};

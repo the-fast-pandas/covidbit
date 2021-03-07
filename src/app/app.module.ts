@@ -11,6 +11,7 @@ import { ApiService } from './api.service';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { Ng2CompleterModule } from "ng2-completer";
 import { AuthInterceptor } from './auth-services/authconfig.interceptor';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginFormComponent } from './login-form/login-form.component';
@@ -23,10 +24,11 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component'
 import { SearchWidgetComponent } from './search-widget/search-widget.component';
 import { SearchPageComponent } from './search-page/search-page.component';
-import { MapSettingsComponent } from './admin-dashboard/adminSettings/business-settings/business-settings.component';
+import { MapSettingsComponent } from './admin-dashboard/adminSettings/map-settings/map-settings.component';
 import { CaseSettingsComponent } from './admin-dashboard/adminSettings/case-settings/case-settings.component'
 import { TrackerMapComponent } from './tracker-map/tracker-map.component';
 import { BusinessUserViewComponent } from './business-user-view/business-user-view.component';
+
 
 
 @NgModule({
@@ -44,11 +46,9 @@ import { BusinessUserViewComponent } from './business-user-view/business-user-vi
     CaseSettingsComponent,
     SearchWidgetComponent,
     SearchPageComponent,
-    TrackerMapComponent,
     MapSettingsComponent,
+    TrackerMapComponent,
     BusinessUserViewComponent,
-    SearchPageComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -65,14 +65,15 @@ import { BusinessUserViewComponent } from './business-user-view/business-user-vi
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAbNARRSTlFSaDp6GyBBM_pkEttwvj18d0',
       libraries: ['places']
-    })
+    }) 
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true,
+      multi: true
     },
+    
     [ApiService]
   ],
   bootstrap: [AppComponent]
