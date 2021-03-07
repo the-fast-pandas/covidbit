@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AdmService } from '../../../adm/adm.service';
+import { AdmService } from '../../../services/adm-services/adm.service';
 import { BusinessName } from '../../../models/businessName.model';
 
 @Component({
@@ -40,7 +40,7 @@ export class CaseSettingsComponent implements OnInit {
     this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
     this.admService.searchUserAdm(this.businessName).subscribe(
       data => {
-        this.typesList = data;
+        //this.typesList = data;
         if (this.typesList === []) {
           this.searchCheck = true;
           this.displayCaseList = false;

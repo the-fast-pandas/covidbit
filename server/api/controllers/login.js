@@ -1,7 +1,7 @@
 // Server - CovidBit - Fast Pandas
 // LOGIN for small business user
 // Created: 03, February, 2021, Teresa Costa
-// Modified: 08, February, 2021, Teresa Costa: frontend integration, loginUser finished
+// https://www.codementor.io/@olatundegaruba/password-reset-using-jwt-ag2pmlck0
 
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken")
@@ -26,7 +26,7 @@ const loginUser = function (req, res) {
                     return res.status(401).json({ message: "Incorrect Password!" });
                 }
                 const payload = { user: { id: user.id } };
-                const accessToken = jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: '20m' });
+                const accessToken = jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: '200m' });
                 return res.status(200).json({ accessToken, user });
             });
         }

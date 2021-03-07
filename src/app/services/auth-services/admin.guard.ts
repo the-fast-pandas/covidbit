@@ -13,7 +13,7 @@ export class AdminGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (this.authService.isAdmin !== true) {
-      window.alert("You administrator authentication!");
+      //window.alert("You need administrator authentication!");
       this.router.navigate(['home']);
       return false;
     } else {

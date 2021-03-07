@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef , Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { DataService } from '../services/data-services/data.service';
+import * as myGlobals from '../globals';
+import { AuthService } from '../services/auth-services/auth.service';
 
 @Component({
   selector: 'app-business-profile',
@@ -8,50 +11,65 @@ import { Router } from '@angular/router';
   styleUrls: ['./business-profile.component.scss']
 })
 
-export class BusinessProfileComponent implements OnInit {
+export class BusinessProfileComponent implements OnInit, AfterContentChecked{
 
-    // some dummy data
-    businessName: String = 'Pizza-Pizza';
-    firstName: String = 'James';
-    lastName: String = 'Bond';
-    businessLocation: String = '45 Gerrard St W, Toronto, ON M5G 1Z4, Canada';
-    businessPhone: String = '647-234-4567';
-    email: String = 'pizza@gmail.com';
-    webSite: String = 'https://www.pizzapizza.ca';
-    businessType: String = 'Resturant';
+  // some dummy data
+  id: String = ' ';
+  businessName: String = '';
+  firstName: String = '';
+  lastName: String = '';
+  businessLocation: String = '';
+  businessPhone: String = '';
+  email: String = '';
+  webSite: String = '';
+  businessType: String = '';
 
   //Business Types Array
-  businessTypes = [
-    {name: "Resturant"},
-    {name: "Botique"},
-    {name: "Specialized Skill"},
-    {name: "Food and Hospitality"},
-    {name: "IT and Internet"},
-    {name: "Business"},
-    {name: "Labor"}
-  ]
+  businessTypes = myGlobals.categories;
 
   //Form Group
   userProfile: FormGroup = new FormGroup({});
 
-  constructor(private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, public dataService: DataService, private ref: ChangeDetectorRef, public authService: AuthService) {
 
-  ngOnInit(): void {
-    this.userProfile= new FormGroup({     
-        businessName: new FormControl('', [Validators.required]),
-        firstName: new FormControl('', [Validators.required]),
-        lastName: new FormControl('', [Validators.required]),
-        businessType: new FormControl('', [Validators.required]),
-        businessLocation: new FormControl('', [Validators.required]),
-        businessPhone: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')]),
-        email: new FormControl('', [Validators.required, Validators.email]),
-        webSite: new FormControl('', [Validators.required, Validators.pattern("https://.*")])
-    })
+
   }
 
-  onSubmit(): void {
-    console.log(this.userProfile.value);
-    this.router.navigate(['/business-dashboard']);
+  ngOnInit(): void {
+
+    this.userProfile = new FormGroup({
+      businessName: new FormControl('', [Validators.required]),
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+      businessType: new FormControl('', [Validators.required]),
+      businessLocation: new FormControl('', [Validators.required]),
+      businessPhone: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      webSite: new FormControl('' , [Validators.required, Validators.pattern("https://.*")])
+    })
+
+    let id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.dataService.getUserView(id)
+      .subscribe(
+        data => {   
+          this.id = data.user._id;
+          this.businessName = data.user.businessName;
+          this.firstName = data.user.firstName;
+          this.lastName = data.user.lastName;
+          this.businessPhone = data.user.phoneNumber;
+          this.businessLocation = data.user.location;
+          this.email = data.user.loginId;
+          this.businessType = data.user.businessType;
+          this.webSite = data.user.website;
+        })
+  }
+
+  ngAfterContentChecked() {
+    this.ref.detectChanges();
+  }
+
+  onSubmit() {
+    this.authService.editProfile(this.userProfile.value, this.id);
   }
 
   public handleAddressChange(address: any) {

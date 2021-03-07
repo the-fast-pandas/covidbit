@@ -6,7 +6,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DataService } from '../data-services/data.service';
+import { DataService } from '../services/data-services/data.service';
 
 @Component({
   selector: 'app-business-user-view',
@@ -21,7 +21,7 @@ export class BusinessUserViewComponent implements OnInit {
   businessWebsite: String = '';
   businessType: String = '';
 
-  safteyMeasureList: any = [];
+  safetyMeasureList: any = [];
   trackingMethod: boolean = false;
   totalCases: number = 0;
   totalCases30Days: number = 0;
@@ -42,17 +42,17 @@ export class BusinessUserViewComponent implements OnInit {
 
   ngOnInit(): void {
 
-    safteyMeasures: new FormGroup({
+    safetyMeasures: new FormGroup({
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required])
     })
 
-    const safteyMeasure = {
-      title: "Saftey Measure #1",
-      description: "Saftey Measure Description"
+    const safetyMeasure = {
+      title: "safety Measure #1",
+      description: "safety Measure Description"
     }
 
-    this.safteyMeasureList.push(safteyMeasure)
+    this.safetyMeasureList.push(safetyMeasure)
 
   }
 }  

@@ -3,11 +3,11 @@
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoginCredentials } from '../models/logincredentials.model';
+import { LoginCredentials } from '../../models/logincredentials.model';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { BusinessName } from '../models/businessName.model';
+import { BusinessName } from '../../models/businessName.model';
 
 
 @Injectable({

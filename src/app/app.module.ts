@@ -10,7 +10,7 @@ import { AgmCoreModule } from '@agm/core';
 import { ApiService } from './api.service';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { Ng2CompleterModule } from "ng2-completer";
-import { AuthInterceptor } from './auth-services/authconfig.interceptor';
+import { AuthInterceptor } from './services/auth-services/authconfig.interceptor';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginFormComponent } from './login-form/login-form.component';

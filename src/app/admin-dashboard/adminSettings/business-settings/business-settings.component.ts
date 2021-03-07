@@ -5,9 +5,9 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../../auth-services/auth.service';
+import { AuthService } from '../../../services/auth-services/auth.service';
 import * as myGlobals from '../../../globals';
-import { AdmService } from '../../../adm/adm.service';
+import { AdmService } from '../../../services/adm-services/adm.service';
 import { BusinessName } from '../../../models/businessName.model';
 
 @Component({
@@ -73,7 +73,7 @@ export class MapSettingsComponent implements OnInit {
     this.businessCredentials.reset();
   }
 
-  // Controls delete
+  // Controls delete of a Business User
   removeBusiness() {
     this.admService.deleteUserAdm(this.idList);
   }
@@ -84,8 +84,9 @@ export class MapSettingsComponent implements OnInit {
     this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
     this.admService.searchUserAdm(this.businessName).subscribe(
       data => {
-        this.getNames(data.users);
-        this.getId(data.users);
+        console.log(data.myUsers);
+        this.getNames(data);
+        this.getId(data);
         if (this.typesList === []) {
           this.searchCheck = true;
           this.displayList = false;
@@ -99,17 +100,15 @@ export class MapSettingsComponent implements OnInit {
 
   // Adds business names to typesList
   getNames(data: any) {
-    const names = [...data];
-    for (var name of names) {
-      this.typesList.push(name.businessName);
+    for (let i = 0; i < Object.keys(data).length; i++) {
+      this.typesList.push(data.myUsers[i].businessName);
     }
   }
 
   // Get businesses id
   getId(data: any) {
-    const names = [...data];
-    for (var name of names) {
-      this.idList.push(name._id);
+    for (let i = 0; i < Object.keys(data).length; i++) {
+      this.idList.push(data.myUsers[i]._id);
     }
   }
 

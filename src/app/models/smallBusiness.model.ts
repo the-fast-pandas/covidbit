@@ -1,4 +1,5 @@
 export interface SmallBusiness {
+    id: String;
     businessName: String;
     email: String;
     firstName: String;

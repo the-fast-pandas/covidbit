@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { NbMenuService } from '@nebular/theme';
 import { filter, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth-services/auth.service';
+import { AuthService } from '../services/auth-services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
 
   loggedIn: boolean = false;
   businessName: any = "Business Name";
+  id: any = "9";
   items: Array<any> = [
     { title: 'Profile' },
     { title: 'Logout' },
@@ -30,6 +31,7 @@ export class HeaderComponent implements OnInit {
       if (event.constructor.name === "NavigationEnd") {
         this.loggedIn = this.authService.isLoggedIn;
         this.businessName = localStorage.getItem('name_header');
+        this.id = localStorage.getItem('business_id')
       }
     })
 
@@ -40,7 +42,7 @@ export class HeaderComponent implements OnInit {
       )
       .subscribe(title => {
         if (title == "Profile") {
-          this.router.navigate(['business-dashboard']);
+          this.router.navigate(['business-dashboard/' + this.id]);
         }
         if (title == "Logout") {
           this.authService.doLogout();

@@ -3,8 +3,8 @@
 // Changed: 03, March, 2021, Teresa Costa: added authentication for administrator
 
 import { Injectable } from '@angular/core';
-import { LoginCredentials } from '../models/logincredentials.model';
-import { SmallBusiness } from '../models/smallBusiness.model';
+import { LoginCredentials } from '../../models/logincredentials.model';
+import { SmallBusiness } from '../../models/smallBusiness.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -56,6 +56,7 @@ export class AuthService {
         data => {
           localStorage.setItem('access_token', data.accessToken);
           localStorage.setItem('name_header', data.user.businessName);
+          localStorage.setItem('business_id', data.user._id);
           this.getUserDashboard(data.user._id)
             .subscribe(
               data => {
@@ -77,7 +78,6 @@ export class AuthService {
     return this.http.post<any>(api, user)
       .subscribe(
         data => {
-          console.log("Administrator");
           localStorage.removeItem('access_token');
           localStorage.setItem('admin_token', data.adminToken);
           this.router.navigate(['/admin-dashboard']).then(() => {
@@ -94,6 +94,7 @@ export class AuthService {
   doLogout() {
     let removeToken = localStorage.removeItem('access_token');
     localStorage.removeItem('name_header');
+    localStorage.removeItem('business_id');
     if (removeToken == null) {
       this.router.navigate(['login-form']);
     }
@@ -122,10 +123,32 @@ export class AuthService {
   }
 
   // Edit the Business Profile
-  editProfile(user: SmallBusiness) {
-    const api = `${this.endpoint}/edit-profile`;
+  editProfile(user: SmallBusiness, id: String) {
+    const api = `${this.endpoint}/edit-profile/${id}`;
     return this.http.put<any>(api, user)
-      .subscribe()
+      .subscribe(
+        data => {
+          this.router.navigate(['/business-dashboard/' + data.id]).then(() => {
+            window.location.reload();
+          });
+        },
+        error => {
+          console.log("It was not possible to edit profile!");
+        }
+      )
+  }
+
+  addSafety(safety: any, id: String) {
+    const api = `${this.endpoint}/add-safety/${id}`;
+    return this.http.put<any>(api, safety)
+      .subscribe(
+        data => {
+          return data;
+        },
+        error => {
+          console.log("It was not possible to add safety meausure!");
+        }
+      )
   }
 
   getToken() {

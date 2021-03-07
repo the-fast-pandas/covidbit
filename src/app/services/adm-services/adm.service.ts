@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { BusinessName } from '../models/businessName.model';
+import { BusinessName } from '../../models/businessName.model';
 
 
 @Injectable({
@@ -19,10 +19,11 @@ export class AdmService {
 
   constructor(private http: HttpClient, public router: Router) { }
 
-  // For the administrator to search a user on database
-  // Returns user data or an error message
+  ////////////   BUSINESS USER //////////////
+
+  // For the administrator to search multiple users on database using business name
   searchUserAdm(business: BusinessName) {
-    const api = `${this.endpoint}/search-user-adm`;
+    const api = `${this.endpoint}/search-users-adm`;
     return this.http.post<any>(api, business)
       .pipe(
         map(
@@ -34,6 +35,23 @@ export class AdmService {
           }
         ))
   }
+
+  // Delete a business user
+  deleteUserAdm(id: any): Observable<any> {
+    const api = `${this.endpoint}/delete-business-user/${id}`;
+    return this.http.delete<any>(api, id)
+      .pipe(
+        map(
+          data => {
+            return true;
+          },
+          (error: any) => {
+            window.alert("No business user to delete.");
+          }
+        ))
+  }
+
+  ////////////   CASES    //////////////
 
   // Returns data for cases by business name
   searchUserCases(business: BusinessName) {
@@ -50,22 +68,7 @@ export class AdmService {
         ))
   }
 
-  // Delete a business user
-  deleteUserAdm(id: any): Observable<any> {
-    const api = `${this.endpoint}/business-user-adm/${id}`;
-    return this.http.delete<any>(api, id)
-      .pipe(
-        map(
-          data => {
-            return true;
-          },
-          (error: any) => {
-            window.alert("No user business to delete.");
-          }
-        ))
-  }
-
-  // Delete a business user
+  // Delete a case
   deleteUserCaseAdm(id: any): Observable<any> {
     const api = `${this.endpoint}/cases-user-adm/${id}`;
     return this.http.delete<any>(api, id)

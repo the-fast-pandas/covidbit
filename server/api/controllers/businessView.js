@@ -4,7 +4,8 @@
 
 const SmallBusiness = require('../schema/smallBusiness');
 
-// Search for a business using business name
+// Search for one business using business name
+// Returns the business user id
 const searchUserView = function (req, res) {
     const { name } = req.body;
     SmallBusiness.findOne({ "businessName": name }, function (error, user) {
@@ -12,7 +13,7 @@ const searchUserView = function (req, res) {
             throw error;
         }
         if (!user) {
-            return res.status(401).json({ message: "This business does not exist!"  });
+            return res.status(401).json({ message: "This business user does not exist!"  });
         }
         if (user) {
             id = user.id;
@@ -21,14 +22,14 @@ const searchUserView = function (req, res) {
     })
 }
 
-// Gets data for the business view using business id
+// Returns data for the business view using business id
 const getUserView = function (req, res) {
     SmallBusiness.findById(req.params.id, function (error, user) {
         if (error) {
             throw error;
         }
         if (!user) {
-            return res.status(401).json({ message: "This business does not exist!" });
+            return res.status(401).json({ message: "This business user does not exist!" });
         }
         if (user) {
             return res.status(200).json({ user });

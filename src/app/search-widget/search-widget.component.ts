@@ -1,6 +1,6 @@
 import { EventEmitter, Component, OnInit, Output } from '@angular/core';
 import { NbSearchService } from '@nebular/theme';
-import { DataService  } from '../data-services/data.service'
+import { DataService  } from '../services/data-services/data.service'
 import { BusinessName } from '../models/businessName.model';
 
 @Component({

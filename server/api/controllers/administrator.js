@@ -2,31 +2,30 @@
 // Conects to the ADMINISTRATOR DASHBOARD/SERVICES
 // Created: 28, February, 2021, Teresa Costa
 
-// Nodejs modules
-const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken"); // Nodejs modules
 // MongoDB Schemas
 const SmallBusiness = require('../schema/smallBusiness');
 const Cases = require('../schema/cases');
 const Administrator = require('../schema/administrator');
 
-
 ///////////  AUTHENTICATION  ///////////
 
 // Controls the login for an administrator
+// Returns token and administrator information
 const loginAdmin = function (req, res) {
   const { email, password } = req.body;
-  Administrator.findOne({ "loginId": email }, function (error, user) {
+  Administrator.findOne({ "loginId": email }, function (error, admin) {
     if (error) {
       throw error;
     }
-    if (!user) {
+    if (!admin) {
       return res.status(401).json({ message: "Incorrect LoginId!" });
     }
-    if (user) {
-      if (password == user.password) {
-        const payload = { user: { id: user.id } };
-        const adminToken = jwt.sign(payload, process.env.SECRET_ADMIN, { expiresIn: '20m' });
-        return res.status(200).json({ adminToken, user });
+    if (admin) {
+      if (password == admin.password) {
+        const payload = { admin: { id: admin.id } };
+        const adminToken = jwt.sign(payload, process.env.SECRET_ADMIN, { expiresIn: '200m' });
+        return res.status(200).json({ adminToken, admin });
       } else {
         return res.status(401).json({ message: "Incorrect Password!" });
       }
@@ -36,7 +35,8 @@ const loginAdmin = function (req, res) {
 
 ///////////  SETTINGS BUSINESS USER  ///////////
 
-// Administrator can search a user based on business name
+// Administrator can search multiple users based on business name
+// Returns an array with the business name and id of businesses that match
 const searchUserAdm = function (req, res) {
   const { name } = req.body;
   SmallBusiness.find({ "businessName": { $regex: name } }, function (error, users) {
@@ -44,23 +44,30 @@ const searchUserAdm = function (req, res) {
       throw error;
     }
     if (!users) {
-      return res.status(401).json({ message: "This business does not exist!" });
+      return res.status(401).json({ message: "This business user does not exist!" });
     }
     if (users) {
-      return res.status(200).json({ users });
+      let myUsers = [];
+      for (let i = 0; i < Object.keys(users).length; i++) {
+        let singleUser = {};
+        singleUser["businessName"] = users[i].businessName;
+        singleUser["_id"] = users[i]._id;
+        myUsers.push(singleUser);
+      }
+      return res.status(200).json({ myUsers });
     }
   })
 }
 
 // Administrator can delete a user
 const deleteUserAdm = function (req, res) {
-  const { id } = req.params.id;
+  const id  = req.params.id;
   SmallBusiness.remove(id, function (error, user) {
     if (error) {
       throw error;
     }
     if (!user) {
-      return res.status(401).json({ message: "Business User not found" });
+      return res.status(401).json({ message: "This business user does not exist!"  });
     }
     if (user) {
       return res.status(200).json({ users });
@@ -86,11 +93,9 @@ const searchUserCasesAdm = function (req, res) {
   })
 }
 
-
-
 // Administrator can delete a case
 const deleteUserCaseAdm = function (req, res) {
-  const { id } = req.params.id;
+  const id  = req.params.id;
   Cases.remove(id, function (error, cases) {
     if (error) {
       throw error;
@@ -104,4 +109,4 @@ const deleteUserCaseAdm = function (req, res) {
   })
 }
 
-module.exports = {  searchUserAdm, deleteUserAdm, searchUserCasesAdm, deleteUserCaseAdm, loginAdmin };
+module.exports = { searchUserAdm, deleteUserAdm, searchUserCasesAdm, deleteUserCaseAdm, loginAdmin };

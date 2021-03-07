@@ -1,8 +1,6 @@
 // Server - CovidBit - Fast Pandas
 // REGISTRATION for small business user
 // Created: 03, February, 2021, Teresa Costa
-// Modified: 08, February, 2021, Teresa Costa: frontend integration, registerUser changed to match schema
-//           04, March, 2021, Teresa Costa: support administrator
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -16,9 +14,7 @@ const SmallBusiness = require('../schema/smallBusiness');
 // Registration of a new business user
 const registerUser = function (req, res) {
 
-  let password, loginId, businessName, businessType;
-  let firstName, lastName, phoneNumber, location, safetyM;
-  let emailSend;
+  let password, loginId, businessName, businessType, firstName, lastName, phoneNumber, location, safetyM, emailSend;
 
   if (req.body.registeredBy == true) {
 
@@ -30,12 +26,12 @@ const registerUser = function (req, res) {
     lastName = 'Second';
     phoneNumber = req.body.businessPhone;
     location = req.body.businessLocation;
-    safetyM = [];
+    safetyMeasures = [];
     emailSend = emailAdmin.confirmRegistrationAdm;
 
   } else {
 
-    const { accountDetails, businessDetails, safteyMeasures } = req.body;
+    const { accountDetails, businessDetails, safetyMeasures } = req.body;
 
     password = accountDetails.password;
     loginId = accountDetails.email;
@@ -45,7 +41,7 @@ const registerUser = function (req, res) {
     lastName = accountDetails.lastName;
     phoneNumber = businessDetails.businessPhone;
     location = businessDetails.businessLocation;
-    safetyM = safteyMeasures;
+    safetyMeasures = safetyMeasures;
     emailSend = email.confirmRegistration;
   }
   SmallBusiness.findOne({ "loginId": loginId }, function (error, user) { // checks if the user already exists
@@ -53,7 +49,7 @@ const registerUser = function (req, res) {
       throw error;
     }
     if (user) {
-      return res.status(401).json({ message: "This business already exists!" });
+      return res.status(401).json({ message: "This business user already exists!" });
     }
     if (!user) {
       newBusiness = new SmallBusiness({
@@ -65,7 +61,7 @@ const registerUser = function (req, res) {
         businessType,
         phoneNumber,
         location,
-        safetyM
+        safetyMeasures
       });
       bcrypt.genSalt(saltRounds, function (error, salt) {  //sets password with hash
         if (error) {
@@ -100,7 +96,7 @@ const checkUser = function (req, res) {
       throw error;
     }
     if (user) {
-      return res.status(401).json({ message: "This business already exists!" });
+      return res.status(401).json({ message: "This business user already exists!" });
     }
     return res.status(200).json({ loginId });
   })

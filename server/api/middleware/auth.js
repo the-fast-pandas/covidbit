@@ -26,7 +26,7 @@ const authAdmin = function (req, res, next) {
         const token = authHeader.split(" ")[1];
         jwt.verify(token, process.env.SECRET_ADMIN, (error, user) => {
             if (error) {
-                return res.status(401).json({ message: "User not authenticated!"});
+                return res.status(401).json({ message: "Admin not authenticated!"});
             }
             req.user = user;
             next();

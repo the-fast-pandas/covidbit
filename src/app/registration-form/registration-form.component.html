@@ -206,24 +206,24 @@
 
         </nb-step>
 
-        <nb-step label="Certification Form" formGroupName="safteyMeasures">
+        <nb-step label="Certification Form" formGroupName="safetyMeasures">
           <h1 class="register-header">Apply for Certification</h1>
           <p class="sub-title">COVIDBIT Small Business Certification is <strong>NOT</strong> required to register a business. You can apply for certfication again  your business profile page.</p>
 
           <div class="form-control-group">
-            <label nbLabel class="label" for="input-safteyMeasureTitle">Add Saftey Measure:</label>
+            <label nbLabel class="label" for="input-safetyMeasureTitle">Add safety Measure:</label>
 
-            <input nbInput type="text" id="input-safteyMeasureTitle" fieldSize="large" formControlName="title" fullWidth placeholder="Name of Saftey Measure" >
+            <input nbInput type="text" id="input-safetyMeasureTitle" fieldSize="large" formControlName="title" fullWidth placeholder="Name of safety Measure" >
             
           </div>
 
           <div class="form-control-group">
-            <label nbLabel class="label" for="input-safteyMeasureDescription"></label>
+            <label nbLabel class="label" for="input-safetyMeasureDescription"></label>
 
-            <textarea nbInput type="text" id="input-safteyMeasureDescription" formControlName="description" fullWidth placeholder="Desciption of Saftey Measure"></textarea>
+            <textarea nbInput type="text" id="input-safetyMeasureDescription" formControlName="description" fullWidth placeholder="Desciption of safety Measure"></textarea>
             
             <div class="stepper-buttons" style="margin: 1rem;">
-              <button nbButton id="addMeasure" outline status="primary" [disabled]="this.userCredentials.get('safteyMeasures.title')?.invalid || this.userCredentials.get('safteyMeasures.description')?.invalid" (click)="onAddMeasure()">ADD SAFTEY MEASURE</button>
+              <button nbButton id="addMeasure" outline status="primary" [disabled]="this.userCredentials.get('safetyMeasures.title')?.invalid || this.userCredentials.get('safetyMeasures.description')?.invalid" (click)="onAddMeasure()">ADD safety MEASURE</button>
             </div>
 
             <hr>
@@ -231,14 +231,14 @@
           </div>
 
           <div class="form-control-group">
-            <div class="safteyMeasureList">
-              <nb-accordion *ngIf="safteyMeasureList.length > 0">
-                <nb-accordion-item *ngFor="let measure of safteyMeasureList">
+            <div class="safetyMeasureList">
+              <nb-accordion *ngIf="safetyMeasureList.length > 0">
+                <nb-accordion-item *ngFor="let measure of safetyMeasureList">
                  <nb-accordion-item-header>{{measure.title}}</nb-accordion-item-header>
                  <nb-accordion-item-body>{{measure.description}}</nb-accordion-item-body>
                 </nb-accordion-item>
                </nb-accordion>
-               <p class="subtitle" *ngIf="safteyMeasureList.length <= 0">No Saftey Measures added</p>  
+               <p class="subtitle" *ngIf="safetyMeasureList.length <= 0">No safety Measures added</p>  
             </div>
           </div>
 

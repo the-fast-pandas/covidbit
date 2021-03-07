@@ -4,13 +4,15 @@
 
 const SmallBusiness = require('../schema/smallBusiness');
 
+
+// Returns information for a business user associated to an id
 const getUserDashboard = function (req, res) {
     SmallBusiness.findById(req.params.id, function (error, user) {
         if (error) {
             throw error;
         }
         if (!user) {
-            return res.status(401).json({ message: "No user in database" });
+            return res.status(401).json({ message: "This business does not exist!" });
         }
         if (user) {
             return res.status(200).json({ user });
@@ -18,19 +20,67 @@ const getUserDashboard = function (req, res) {
     })
 }
 
+// Business User can edit profile
+// Returns business user id
 const editUserProfile = function (req, res) {
-    const { user } = req.body;
-    SmallBusiness.updateOne({ "_id": user._id }, { $set: user }, function (error, user) {
+    let id = req.params.id;
+    let newvalues = {
+        $set: {
+            businessName: req.body.businessName,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            location: req.body.businessLocation,
+            phoneNumber: req.body.businessPhone,
+            businessType: req.body.businessType,
+            email: req.body.email,
+            website: req.body.webSite,
+        }
+    };
+    SmallBusiness.updateOne({ "_id": id }, newvalues, function (error, user) {
         if (error) {
             throw error;
         }
         if (!user) {
-            return res.status(401).json({ message: "No user in database" });
+            return res.status(401).json({ message: "This business does not exist!" });
         }
         if (user) {
-            return res.status(200).json({ user });
+            return res.status(200).json({ id });
         }
     })
 }
 
-module.exports = { getUserDashboard, editUserProfile };
+const addSafety = function (req, res) {
+    console.log("hi")
+    let id = req.params.id;
+    let mySafety = [];
+    SmallBusiness.findById(id, function (error, user) {
+        if (error) {
+            throw error;
+        }
+        if (!user) {
+            return res.status(401).json({ message: "This business does not exist!" });
+        }
+        if (user) {
+            let safety = {};
+            safety["title"] = req.body.title;
+            safety["description"] = req.body.description;
+            mySafety = user.safetyMeasures;
+            mySafety.push(safety);
+            console.log(mySafety);
+            let newvalues = { $set: { safetyMeasures: mySafety } };
+            SmallBusiness.updateOne({ "_id": id }, newvalues, function (error, user) {
+                if (error) {
+                    throw error;
+                }
+                if (!user) {
+                    return res.status(401).json({ message: "This business does not exist!" });
+                }
+                if (user) {
+                    return res.status(200).json({ id });
+                }
+            })
+        }
+    })
+}
+
+module.exports = { getUserDashboard, editUserProfile, addSafety };

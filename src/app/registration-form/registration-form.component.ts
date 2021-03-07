@@ -4,8 +4,8 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
-import { AuthService } from '../auth-services/auth.service';
-import { DataService } from '../data-services/data.service';
+import { AuthService } from '../services/auth-services/auth.service';
+import { DataService } from '../services/data-services/data.service';
 import { Router } from '@angular/router';
 import * as myGlobals from '../globals';
 
@@ -27,7 +27,7 @@ export class RegistrationFormComponent implements OnInit {
   //Form Groups
   userCredentials: FormGroup = new FormGroup({});
   businessLocation = '';
-  safteyMeasureList: any = [];
+  safetyMeasureList: any = [];
 
   constructor(public authService: AuthService, public router: Router, public dataService: DataService) {
     if (localStorage.getItem('server_warning') === 'true') {  // Controls messages from server
@@ -50,7 +50,7 @@ export class RegistrationFormComponent implements OnInit {
         businessPhone: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')]),
         businessLocation: new FormControl('', [Validators.required])
       }),
-      safteyMeasures: new FormGroup({
+      safetyMeasures: new FormGroup({
         title: new FormControl('', [Validators.required]),
         description: new FormControl('', [Validators.required])
       })
@@ -94,14 +94,14 @@ export class RegistrationFormComponent implements OnInit {
 
   onAddMeasure() {
 
-    const safteyMeasure = {
-      title: this.userCredentials.get('safteyMeasures.title')?.value,
-      description: this.userCredentials.get('safteyMeasures.description')?.value
+    const safetyMeasure = {
+      title: this.userCredentials.get('safetyMeasures.title')?.value,
+      description: this.userCredentials.get('safetyMeasures.description')?.value
     }
-    this.safteyMeasureList.push(safteyMeasure);
-    this.userCredentials.get('safteyMeasures.title')?.reset()
-    this.userCredentials.get('safteyMeasures.description')?.reset()
-    //console.log(this.userCredentials.value);  // this returns safteyMeasures: {title: null, description: null}
+    this.safetyMeasureList.push(safetyMeasure);
+    this.userCredentials.get('safetyMeasures.title')?.reset()
+    this.userCredentials.get('safetyMeasures.description')?.reset()
+    //console.log(this.userCredentials.value);  // this returns safetyMeasures: {title: null, description: null}
   }
 
   public handleAddressChange(address: any) {
