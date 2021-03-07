@@ -61,8 +61,7 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.userCredentials.value);
-    this.authService.signUp(this.userCredentials.value);
+    this.authService.registerUser(this.userCredentials.value, false);
   }
 
   checkRegistrationForm() {

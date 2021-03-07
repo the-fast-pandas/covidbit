@@ -52,7 +52,8 @@ export class MapSettingsComponent implements OnInit {
 
   // Controls adding/register a business
   addBusiness() {
-    this.authService.addBusinessUser(this.businessCredentials.value);
+
+    this.authService.registerUser(this.businessCredentials.value, true);
     this.alert = true;
     this.businessCredentials.reset();
   }
@@ -60,7 +61,6 @@ export class MapSettingsComponent implements OnInit {
   removeBusiness() {
 
   }
-
   // Controls search business for delete
   searchForBusiness() {
     this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
