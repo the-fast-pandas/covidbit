@@ -79,6 +79,7 @@ export class MapSettingsComponent implements OnInit {
   }
 
   // Search business by name
+  // Controls search business for delete
   searchForBusiness() {
     this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
     this.admService.searchUserAdm(this.businessName).subscribe(
