@@ -1,63 +1,71 @@
 <div class="card-row">
     <div class="card-col">
-      <nb-card size="medium" class="profileInfo">
+      <nb-card size="large" class="profileInfo">
         <nb-card-header>
-            <h3>Business Name</h3>
+            <h3 [(ngModel)]="businessName">{{businessName}}</h3>
             <a href routerLink="/business-profile" routerLinkActive="active">Edit Profile</a>
-            </nb-card-header>
+        </nb-card-header>
         <nb-card-body id="profileInfo">
             <div class="form-control-group">
                 <label nbLabel class="label">Manager:</label>
-                <p>Manager's Name</p>
+                <p [(ngModel)]="firstName" [(ngModel)]="lastName">{{firstName}} {{lastName}}</p>
             </div>
             <div class="form-control-group">
                 <label nbLabel class="label">Business Location:</label>
-                <p>Adress</p>
+                <p [(ngModel)]="businessLocation">{{businessLocation}}</p>
             </div>
             <div class="form-control-group">
-                <label nbLabel class="label" >Business Phone Number:</label>
-                <p>123-456-7890</p>
+                <label nbLabel class="label">Business Phone Number:</label>
+                <p [(ngModel)]="businessPhone">{{businessPhone}}</p>
             </div>
             <div class="form-control-group">
                 <label nbLabel class="label">Email:</label>
-                <p>helloworld@example.com</p>
+                <p [(ngModel)]="email">{{email}}</p>
             </div>
             <div class="form-control-group">
                 <label nbLabel class="label">Web site:</label>
-                <p>https://...</p>
+                <a target="_blank" href="{{webSite}}"><p [(ngModel)]="webSite">{{webSite}}</p></a>
             </div>    
             <div class="form-control-group">
                 <label class="label">Business Type:</label>
-                <ul>
-                  <li>Food and Hospitality</li>
-                  <li>Resturant</li>
-                </ul>
+                <p [(ngModel)]="businessType">{{businessType}}</p>
             </div>
         </nb-card-body>
       </nb-card>
     </div>
     <div class="card-col">
-      <nb-card size="tiny">
+      <nb-card size="small">
         <nb-card-header><h5>Safety Measures</h5></nb-card-header>
         <nb-card-body>
-            <nb-checkbox (checkedChange)="toggle($event)">Safety Measure #1</nb-checkbox><br />
-            <nb-checkbox (checkedChange)="toggle($event)">Safety Measure #2</nb-checkbox><br />
-            <nb-checkbox (checkedChange)="toggle($event)">Safety Measure #3</nb-checkbox><br />
-            <nb-checkbox (checkedChange)="toggle($event)">Safety Measure #4</nb-checkbox><br />
-            <nb-checkbox (checkedChange)="toggle($event)">Safety Measure #5</nb-checkbox><br />
-            <nb-checkbox (checkedChange)="toggle($event)">Safety Measure #6</nb-checkbox><br />
+            <div class="form-control-group" class="column">
+              <div class="safteyMeasureList">
+                <nb-accordion *ngIf="safteyMeasureList.length > 0">
+                  <nb-accordion-item *ngFor="let measure of safteyMeasureList">
+                  <nb-accordion-item-header>{{measure.title}}</nb-accordion-item-header>
+                  <nb-accordion-item-body>{{measure.description}}</nb-accordion-item-body>
+                  </nb-accordion-item>
+                </nb-accordion>
+                <p class="subtitle" *ngIf="safteyMeasureList.length <= 0">No Saftey Measures added</p>  
+              </div>
+            </div>
         </nb-card-body>
       </nb-card>
       <nb-card size="tiny">
-        <nb-card-header><h5>Tracing Methods</h5></nb-card-header>
         <nb-card-body>
-            <nb-checkbox (checkedChange)="toggle($event)">Tracing Method #1</nb-checkbox><br />
-            <nb-checkbox (checkedChange)="toggle($event)">Tracing Method #2</nb-checkbox><br />
-            <nb-checkbox (checkedChange)="toggle($event)">Tracing Method #3</nb-checkbox><br />
-            <nb-checkbox (checkedChange)="toggle($event)">Tracing Method #4</nb-checkbox><br />
-            <nb-checkbox (checkedChange)="toggle($event)">Tracing Method #5</nb-checkbox><br />
-            <nb-checkbox (checkedChange)="toggle($event)">Tracing Method #6</nb-checkbox><br />
-          </nb-card-body>
+          <form [formGroup]='safteyMeasures'>
+            <div class="form-control-group" >
+              <label nbLabel class="label" for="input-safteyMeasureTitle">Add Saftey Measure:</label>
+              <input nbInput type="text" id="input-safteyMeasureTitle" fieldSize="small" formControlName="title" fullWidth placeholder="Name of Saftey Measure" >
+            </div>
+            <div class="form-control-group">
+              <label nbLabel class="label" for="input-safteyMeasureDescription"></label>
+              <textarea nbInput type="text" id="input-safteyMeasureDescription" formControlName="description" fullWidth placeholder="Desciption of Saftey Measure"></textarea>
+              <button nbButton size="small" nbButton id="addMeasure" outline status="primary"
+              [disabled]="this.safteyMeasures.get('title')?.invalid || this.safteyMeasures.get('description')?.invalid" 
+              (click)="onAddMeasure()">ADD SAFTEY MEASURE</button>
+            </div>
+          </form>
+        </nb-card-body>
       </nb-card>
     </div>
   </div>

@@ -7,9 +7,18 @@ import { Router } from '@angular/router';
   templateUrl: './business-profile.component.html',
   styleUrls: ['./business-profile.component.scss']
 })
+
 export class BusinessProfileComponent implements OnInit {
 
-  alert: Boolean = false;
+    // some dummy data
+    businessName: String = '';
+    firstName: String = '';
+    lastName: String = '';
+    businessLocation: String = '';
+    businessPhone: String = '';
+    email: String = '';
+    webSite: String = '';
+    businessType: String = '';
 
   //Business Types Array
   businessTypes = [
@@ -24,9 +33,6 @@ export class BusinessProfileComponent implements OnInit {
 
   //Form Group
   userProfile: FormGroup = new FormGroup({});
-  tester:FormGroup = new FormGroup({});
-  businessLocation = '';
-  registeredUser:any;
 
   constructor(private router: Router) { }
 
@@ -45,26 +51,10 @@ export class BusinessProfileComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.userProfile.value);
-    this.router.navigate(['/home']);
-  }
-
-  checkProfileForm() {
-
-    if (this.userProfile.controls.invalid) {
-      this.alert = true;
-    }
-    else {
-      this.alert = false;
-    }
-   
-  }
-
-  onClose() {
-    this.alert = false;
+    this.router.navigate(['/business-dashboard']);
   }
 
   public handleAddressChange(address: any) {
-    
     this.userProfile.get('businessLocation')?.setValue(address.formatted_address);
   }
 
