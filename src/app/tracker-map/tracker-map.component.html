@@ -1,15 +1,18 @@
 <!-- first container -->
 
 <div class="container">
-    <div class="map-column">
-  
-      <!-- search -->
-      <div class="search-form">
-        <input type="text" class="search-overlay" (keydown.enter)="$event.preventDefault()" placeholder="Enter name of business" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-      </div>
-      
-      <!-- google map -->
-        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+
+  <div class="map-column">
+
+    <!-- search -->
+    <div class="search-form">
+      <input type="text" class="search-overlay" (keydown.enter)="$event.preventDefault()"
+        placeholder="Enter name of business" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search
+        [(ngModel)]="businessName" (input)="Search()">
+    </div>
+
+    <!-- google map -->
+    <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
           <agm-marker [latitude]="lat" [longitude]="lng">
             <agm-info-window>
               <nb-card class="info-window"  status="info">
@@ -22,77 +25,104 @@
               </nb-card>
               </agm-info-window>
           </agm-marker>
-        </agm-map>
-  
-    </div>
-  
-  
+        </agm-map> -->
+
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+      <agm-marker [latitude]="lat" [longitude]="lng">
+        <agm-info-window>
+          <nb-card class="info-window" status="info" *ngFor="let sb of searchSB">
+            <nb-card-header>{{sb.category}}</nb-card-header>
+            <nb-card-body>
+              <!-- <p>Most Recent Case: 2020-11-01</p> -->
+              <p>Total # of cases: {{sb.cases}}</p>
+              <p># of employees: {{sb.employees}} </p>
+            </nb-card-body>
+          </nb-card>
+        </agm-info-window>
+      </agm-marker>
+    </agm-map>
+  </div>
+
+  <!-- google map -->
+  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+    <agm-marker [latitude]="lat" [longitude]="lng">
+      <agm-info-window>
+        <nb-card class="info-window" status="info">
+          <nb-card-header>Restaurant</nb-card-header>
+          <nb-card-body>
+            <p>Most Recent Case: 2020-11-01</p>
+            <p>Total # of cases: 2</p>
+            <p># of employees: 1-10 </p>
+          </nb-card-body>
+        </nb-card>
+      </agm-info-window>
+    </agm-marker>
+  </agm-map>
+
   <div class="info-column">
-  
-    <fieldset style="border: 2px solid lightblue;"><legend>Recent News</legend>
+
+    <fieldset style="border: 2px solid lightblue;">
+      <legend>Recent News</legend>
       <div class="news-container">
         <nb-card size="medium">
           <nb-list>
-            <nb-list-item>
-             <div class="news-section">
-              <h3> Where is your region placed in Ontario's 2021 COVID-19 reopening framework</h3>
-              <p> The Ontario government has been gradually moving regions back into its colour-coded tiered framework, which is meant to guide ...<br>
-                23 hours ago </p>
-            </div>
+            <nb-list-item *ngFor="let article of articles">
+              <div class="news-section">
+                <h3><a target="_blank" href={{article.url}}>{{article.title}}</a></h3>
+                <p>{{article.description}}</p>
+                <p>{{article.publishedAt | date}} </p>
+              </div>
             </nb-list-item>
-            <nb-list-item>
-              <div class="news-section">
-               <h3> Where is your region placed in Ontario's 2021 COVID-19 reopening framework</h3>
-               <p> The Ontario government has been gradually moving regions back into its colour-coded tiered framework, which is meant to guide ...<br>
-                 23 hours ago </p>
-             </div>
-             </nb-list-item>
-             <nb-list-item>
-              <div class="news-section">
-               <h3> Where is your region placed in Ontario's 2021 COVID-19 reopening framework</h3>
-               <p> The Ontario government has been gradually moving regions back into its colour-coded tiered framework, which is meant to guide ...<br>
-                 23 hours ago </p>
-             </div>
-             </nb-list-item>
-             <nb-list-item>
-              <div class="news-section">
-               <h3> Where is your region placed in Ontario's 2021 COVID-19 reopening framework</h3>
-               <p> The Ontario government has been gradually moving regions back into its colour-coded tiered framework, which is meant to guide ...<br>
-                 23 hours ago </p>
-             </div>
-             </nb-list-item>
-             <nb-list-item>
-              <div class="news-section">
-               <h3> Where is your region placed in Ontario's 2021 COVID-19 reopening framework</h3>
-               <p> The Ontario government has been gradually moving regions back into its colour-coded tiered framework, which is meant to guide ...<br>
-                 23 hours ago </p>
-             </div>
-             </nb-list-item>
           </nb-list>
         </nb-card>
-  
+
       </div>
     </fieldset>
-  
+
+
   </div>
-  
-  
-  <!-- second container -->
-  
-  <div class="container">
-  
+
+<div class="container">
   <div class="calendar-container">
     <nb-calendar [(date)]="date"></nb-calendar>
   </div>
-  
-  </div>
-  
-  
-  
-  
-  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbNARRSTlFSaDp6GyBBM_pkEttwvj18d0&libraries=places&callback=initMap"
+</div>
+
+
+
+
+<nb-card status="primary">
+  <nb-card-header>COVID-19 Information for Ontario as of {{currentDate}}</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+
+      <!-- User Settings Button -->
+      <div class="col-3 within-card">
+        <h5>Total Cases</h5>
+        <h6>{{totalCases | number}}</h6>
+      </div>
+
+      <div class="col-3 within-card">
+        <h5>Total Vaccinations</h5>
+        <h6>{{totalVaccinations | number}}</h6>
+      </div>
+
+      <div class="col-3 within-card">
+        <h5>Total Tests</h5>
+        <h6>{{totalTests | number}}</h6>
+      </div>
+
+      <div class="col-3 within-card">
+        <h5>Total Deaths</h5>
+        <h6>{{totalFatalities | number}}</h6>
+      </div>
+
+    </div>
+  </nb-card-body>
+</nb-card>
+
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbNARRSTlFSaDp6GyBBM_pkEttwvj18d0&libraries=places&callback=initMap"
   async defer></script> -->
 
-  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbNARRSTlFSaDp6GyBBM_pkEttwvj18d0&libraries=places&callback=initMap"
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbNARRSTlFSaDp6GyBBM_pkEttwvj18d0&libraries=places&callback=initMap"
   async defer></script> -->
-  

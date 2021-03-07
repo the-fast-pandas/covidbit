@@ -10,6 +10,9 @@
 
           <!-- Bussines Name Input Field -->
           <div class="form-control-group">
+            <nb-alert *ngIf="serverWarning" status="danger" closable (close)="onCloseServer()">
+              Registration denied: this email is already registered or there is no invitation associated with this email.
+            </nb-alert>
             <label nbLabel class="label" for="input-businessType">Business Name:</label>
 
             <input nbInput type="text" id="input-business-name" name="businessName" formControlName='businessName'

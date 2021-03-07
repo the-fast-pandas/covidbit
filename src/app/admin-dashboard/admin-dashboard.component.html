@@ -9,29 +9,16 @@
         <div class="row">
 
           <!-- Case Settings Button -->
-          <div class="col-3 within-card">
+          <div class="col-6 within-card">
             <h5>COVID Case Management</h5>
             <button id="caseManagment" nbButton (click)="settingsOpened($event)">Settings</button>
           </div>
 
           <!-- Map Settings Button -->
-          <div class="col-3 within-card">
+          <div class="col-6 within-card">
             <h5>Business Map Settings</h5>
             <button id="mapManagement" nbButton (click)="settingsOpened($event)">Settings</button>
           </div>
-
-          <!-- User Settings Button -->
-          <div class="col-3 within-card">
-            <h5>User Management Settings</h5>
-            <button id="userManagement" nbButton (click)="settingsOpened($event)">Settings</button>
-          </div>
-
-          <!-- Database Settings Button -->
-          <div class="col-3 within-card">
-            <h5>Database Settings</h5>
-            <button id="databaseManagement" nbButton (click)="settingsOpened($event)">Settings</button>
-          </div>
-
         </div>
       </nb-card-body>
     </nb-card>
@@ -44,7 +31,7 @@
         <app-case-settings *ngIf="settingsType === 'caseManagment'"></app-case-settings>
 
         <!-- Map Management Card -->
-       <app-map-settings *ngIf="settingsType === 'mapManagement'"></app-map-settings>
+       <app-buisness-settings *ngIf="settingsType === 'mapManagement'"></app-buisness-settings>
       </div>
     </div>
 
