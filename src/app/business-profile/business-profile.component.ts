@@ -11,14 +11,14 @@ import { Router } from '@angular/router';
 export class BusinessProfileComponent implements OnInit {
 
     // some dummy data
-    businessName: String = '';
-    firstName: String = '';
-    lastName: String = '';
-    businessLocation: String = '';
-    businessPhone: String = '';
-    email: String = '';
-    webSite: String = '';
-    businessType: String = '';
+    businessName: String = 'Pizza-Pizza';
+    firstName: String = 'James';
+    lastName: String = 'Bond';
+    businessLocation: String = '45 Gerrard St W, Toronto, ON M5G 1Z4, Canada';
+    businessPhone: String = '647-234-4567';
+    email: String = 'pizza@gmail.com';
+    webSite: String = 'https://www.pizzapizza.ca';
+    businessType: String = 'Resturant';
 
   //Business Types Array
   businessTypes = [

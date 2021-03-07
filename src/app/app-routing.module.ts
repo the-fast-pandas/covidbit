@@ -38,7 +38,7 @@ const routes: Routes = [
   {
     path: 'business-dashboard',
     component: BusinessDashboardComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   {
     path: 'business-dashboard/:id',

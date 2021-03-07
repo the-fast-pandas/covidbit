@@ -1,82 +1,89 @@
 <div class="card-row">
-    <div class="card-col">
-      <nb-card size="large" class="profileInfo">
-        <nb-card-header>
-            <h3 [(ngModel)]="businessName">{{businessName}}</h3>
-            <a href routerLink="/business-profile" routerLinkActive="active">Edit Profile</a>
-        </nb-card-header>
-        <nb-card-body id="profileInfo">
-            <div class="form-control-group">
-                <label nbLabel class="label">Manager:</label>
-                <p [(ngModel)]="firstName" [(ngModel)]="lastName">{{firstName}} {{lastName}}</p>
-            </div>
-            <div class="form-control-group">
-                <label nbLabel class="label">Business Location:</label>
-                <p [(ngModel)]="businessLocation">{{businessLocation}}</p>
-            </div>
-            <div class="form-control-group">
-                <label nbLabel class="label">Business Phone Number:</label>
-                <p [(ngModel)]="businessPhone">{{businessPhone}}</p>
-            </div>
-            <div class="form-control-group">
-                <label nbLabel class="label">Email:</label>
-                <p [(ngModel)]="email">{{email}}</p>
-            </div>
-            <div class="form-control-group">
-                <label nbLabel class="label">Web site:</label>
-                <a target="_blank" href="{{webSite}}"><p [(ngModel)]="webSite">{{webSite}}</p></a>
-            </div>    
-            <div class="form-control-group">
-                <label class="label">Business Type:</label>
-                <p [(ngModel)]="businessType">{{businessType}}</p>
-            </div>
-        </nb-card-body>
-      </nb-card>
-    </div>
-    <div class="card-col">
-      <nb-card size="small">
-        <nb-card-header><h5>Safety Measures</h5></nb-card-header>
-        <nb-card-body>
-            <div class="form-control-group" class="column">
-              <div class="safteyMeasureList">
-                <nb-accordion *ngIf="safteyMeasureList.length > 0">
-                  <nb-accordion-item *ngFor="let measure of safteyMeasureList">
-                  <nb-accordion-item-header>{{measure.title}}</nb-accordion-item-header>
-                  <nb-accordion-item-body>{{measure.description}}</nb-accordion-item-body>
-                  </nb-accordion-item>
-                </nb-accordion>
-                <p class="subtitle" *ngIf="safteyMeasureList.length <= 0">No Saftey Measures added</p>  
-              </div>
-            </div>
-        </nb-card-body>
-      </nb-card>
-      <nb-card size="tiny">
-        <nb-card-body>
-          <form [formGroup]='safteyMeasures'>
-            <div class="form-control-group" >
-              <label nbLabel class="label" for="input-safteyMeasureTitle">Add Saftey Measure:</label>
-              <input nbInput type="text" id="input-safteyMeasureTitle" fieldSize="small" formControlName="title" fullWidth placeholder="Name of Saftey Measure" >
-            </div>
-            <div class="form-control-group">
-              <label nbLabel class="label" for="input-safteyMeasureDescription"></label>
-              <textarea nbInput type="text" id="input-safteyMeasureDescription" formControlName="description" fullWidth placeholder="Desciption of Saftey Measure"></textarea>
-              <button nbButton size="small" nbButton id="addMeasure" outline status="primary"
-              [disabled]="this.safteyMeasures.get('title')?.invalid || this.safteyMeasures.get('description')?.invalid" 
-              (click)="onAddMeasure()">ADD SAFTEY MEASURE</button>
-            </div>
-          </form>
-        </nb-card-body>
-      </nb-card>
-    </div>
-  </div>
   
-  <div class="card-row">
-    <div class="card-col">
-      <nb-card size="large">
-        <nb-card-header><h5>Reported Cases</h5></nb-card-header>
-        <nb-card-body>
-          <ng2-smart-table [settings]="settings"></ng2-smart-table>
-        </nb-card-body>
-      </nb-card>
-    </div>
-  </div>
+  <!-- Business Profile -->
+   <div class="card-col">
+     <nb-card size="large" class="profileInfo">
+       <nb-card-header>
+           <h3>{{businessName}}</h3>
+           <a href routerLink="/business-profile" routerLinkActive="active">Edit Profile</a>
+       </nb-card-header>
+       <nb-card-body id="profileInfo">
+         <div class="form-control-group">
+             <label nbLabel class="label">Manager:</label>
+             <p>{{firstName}} {{lastName}}</p>
+         </div>
+         <div class="form-control-group">
+             <label nbLabel class="label">Business Location:</label>
+             <p>{{businessLocation}}</p>
+         </div>
+         <div class="form-control-group">
+             <label nbLabel class="label">Business Phone Number:</label>
+             <p>{{businessPhone}}</p>
+         </div>
+         <div class="form-control-group">
+             <label nbLabel class="label">Email:</label>
+             <p>{{email}}</p>
+         </div>
+         <div class="form-control-group">
+             <label nbLabel class="label">Web site:</label>
+             <a target="_blank" href="{{webSite}}"><p>{{webSite}}</p></a>
+         </div>    
+         <div class="form-control-group">
+             <label class="label">Business Type:</label>
+             <p>{{businessType}}</p>
+         </div>
+       </nb-card-body>
+     </nb-card>
+   </div>
+
+    <!-- Safety Measures -->
+   <div class="card-col">
+     <!-- Display list of Safety Measures -->
+     <nb-card size="small">
+       <nb-card-header><h5>Safety Measures</h5></nb-card-header>
+       <nb-card-body>
+           <div class="form-control-group" class="column">
+             <div class="safteyMeasureList">
+               <nb-accordion *ngIf="safteyMeasureList.length > 0">
+                 <nb-accordion-item *ngFor="let measure of safteyMeasureList">
+                 <nb-accordion-item-header>{{measure.title}}</nb-accordion-item-header>
+                 <nb-accordion-item-body>{{measure.description}}</nb-accordion-item-body>
+                 </nb-accordion-item>
+               </nb-accordion>
+               <p class="subtitle" *ngIf="safteyMeasureList.length <= 0">No Saftey Measures added</p>  
+             </div>
+           </div>
+       </nb-card-body>
+     </nb-card>
+     <!-- Add Safety Measure -->
+     <nb-card size="tiny">
+       <nb-card-body>
+         <form [formGroup]='safteyMeasures'>
+           <div class="form-control-group" >
+             <label nbLabel class="label" for="input-safteyMeasureTitle">Add Saftey Measure:</label>
+             <input nbInput type="text" id="input-safteyMeasureTitle" fieldSize="small" formControlName="title" fullWidth placeholder="Name of Saftey Measure" >
+           </div>
+           <div class="form-control-group">
+             <label nbLabel class="label" for="input-safteyMeasureDescription"></label>
+             <textarea nbInput type="text" id="input-safteyMeasureDescription" formControlName="description" fullWidth placeholder="Desciption of Saftey Measure"></textarea>
+             <button nbButton size="small" nbButton id="addMeasure" outline status="primary"
+             [disabled]="this.safteyMeasures.get('title')?.invalid || this.safteyMeasures.get('description')?.invalid" 
+             (click)="onAddMeasure()">ADD SAFTEY MEASURE</button>
+           </div>
+         </form>
+       </nb-card-body>
+     </nb-card>
+   </div>
+ </div>
+ 
+ <!-- Reported Cases -->
+ <div class="card-row">
+   <div class="card-col">
+     <nb-card size="large">
+       <nb-card-header><h5>Reported Cases</h5></nb-card-header>
+       <nb-card-body>
+         <ng2-smart-table [settings]="settings"></ng2-smart-table>
+       </nb-card-body>
+     </nb-card>
+   </div>
+ </div>
