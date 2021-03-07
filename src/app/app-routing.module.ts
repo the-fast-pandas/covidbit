@@ -28,7 +28,7 @@ const routes: Routes = [
   {
     path: 'business-profile',
     component: BusinessProfileComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   {
     path: 'search-page',
