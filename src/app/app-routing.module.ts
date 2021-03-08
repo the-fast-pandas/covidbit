@@ -11,6 +11,7 @@ import { BusinessDashboardComponent } from './business-dashboard/business-dashbo
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { TrackerMapComponent } from './tracker-map/tracker-map.component';
 import { BusinessUserViewComponent } from './business-user-view/business-user-view.component';
+import { CertificationFormComponent } from './certification-form/certification-form.component';
 
 const routes: Routes = [
   {
@@ -57,7 +58,10 @@ const routes: Routes = [
     component: TrackerMapComponent
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-
+  { 
+    path: 'certification-form',
+    component: CertificationFormComponent 
+  },
   { path: '**', component: NotFoundComponent },
 ];
 

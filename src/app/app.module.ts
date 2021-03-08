@@ -27,6 +27,7 @@ import { MapSettingsComponent } from './admin-dashboard/adminSettings/map-settin
 import { CaseSettingsComponent } from './admin-dashboard/adminSettings/case-settings/case-settings.component'
 import { TrackerMapComponent } from './tracker-map/tracker-map.component';
 import { BusinessUserViewComponent } from './business-user-view/business-user-view.component';
+import { CertificationFormComponent } from './certification-form/certification-form.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { BusinessUserViewComponent } from './business-user-view/business-user-vi
     MapSettingsComponent,
     BusinessUserViewComponent,
     SearchPageComponent,
+    CertificationFormComponent,
 
   ],
   imports: [
