@@ -1,8 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+// Server - CovidBit - Fast Pandas
+// Created:                2021, Valya Derksen
+// Modified: 25, February, 2021, Teresa Costa: backend integration
+
+import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { CompleterService, CompleterData } from 'ng2-completer';
-import { AuthService } from '../auth-services/auth.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DataService } from '../services/data-services/data.service';
+import { AuthService } from '../services/auth-services/auth.service';
 
 @Component({
   selector: 'app-business-dashboard',
@@ -11,12 +15,22 @@ import { AuthService } from '../auth-services/auth.service';
 })
 export class BusinessDashboardComponent implements OnInit {
 
-  checked: Boolean = false;
+  //Form Groups
+  safetyMeasures: FormGroup = new FormGroup({});
+  safetyMeasureList: any = [];
 
-  toggle(checked: boolean) {
-    this.checked = checked;
-  }
+  // Form Variables
+  id: String = "";
+  businessName: String = 'What is your name?';
+  firstName: String = 'James';
+  lastName: String = 'Bond';
+  businessLocation: String = 'Where are you?';
+  businessPhone: String = 'Add a Phone';
+  email: String = 'myemail@host.com.ca';
+  webSite: String = 'to be added';
+  businessType: String = 'Type of Business';
 
+  // smart table settings
   settings = {
     columns: {
       caseCount: {
@@ -37,16 +51,39 @@ export class BusinessDashboardComponent implements OnInit {
     }
   };
 
-  constructor(public authService: AuthService, public router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(public dataService: DataService, public router: Router, private activatedRoute: ActivatedRoute, public authService: AuthService) {
     let id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.authService.getUserDashboard(id)
+    this.dataService.getUserView(id)
       .subscribe(
         data => {
-          window.alert("I need data for this user");
+          this.id = data.user._id;
+          this.businessName = data.user.businessName;
+          this.firstName = data.user.firstName;
+          this.lastName = data.user.lastName;
+          this.businessPhone = data.user.phoneNumber;
+          this.businessLocation = data.user.location;
+          this.email = data.user.loginId;
+          this.businessType = data.user.businessType;
+          this.webSite = data.user.website;
+          this.safetyMeasureList = data.user.safetyMeasures;
         })
   }
 
   ngOnInit(): void {
+    this.safetyMeasures = new FormGroup({
+      title: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required])
+    })
   }
 
+  onAddMeasure() {
+    const safetyMeasure = {
+      title: this.safetyMeasures.get('title')?.value,
+      description: this.safetyMeasures.get('description')?.value
+    }
+    this.safetyMeasureList.push(safetyMeasure);
+    this.authService.addSafety(safetyMeasure, this.id);
+    this.safetyMeasures.get('title')?.reset();
+    this.safetyMeasures.get('description')?.reset();
+  }
 }

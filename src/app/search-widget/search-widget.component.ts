@@ -1,6 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { NbSearchService } from '@nebular/theme';
-import { DataService  } from '../data/data.service'
+import { DataService  } from '../services/data-services/data.service'
 import { BusinessName } from '../models/businessName.model';
 
 @Component({
@@ -13,7 +13,7 @@ export class SearchWidgetComponent implements OnInit {
   //@Output() searchSubmitted = new EventEmitter();
 
   searchQuery = '';
-  businessName: BusinessName = {name: ''};
+  businessName: BusinessName = { name: '' };
 
   constructor(private searchService: NbSearchService, public data: DataService) { 
     this.searchService.onSearchSubmit()
@@ -21,6 +21,8 @@ export class SearchWidgetComponent implements OnInit {
         this.searchQuery = data.term;
         this.businessName.name = this.searchQuery;
         this.data.searchUser(this.businessName);
+        localStorage.setItem('reload', "true");
+
       })
   }
 
@@ -30,6 +32,7 @@ export class SearchWidgetComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
   }
 
 }

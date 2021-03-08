@@ -68,7 +68,7 @@
           <nb-list>
             <nb-list-item *ngFor="let article of articles">
               <div class="news-section">
-                <h3><a href={{article.url}}>{{article.title}}</a></h3>
+                <h3><a target="_blank" href={{article.url}}>{{article.title}}</a></h3>
                 <p>{{article.description}}</p>
                 <p>{{article.publishedAt | date}} </p>
               </div>

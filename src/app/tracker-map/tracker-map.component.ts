@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { MapsAPILoader} from '@agm/core';
+import { MapsAPILoader } from '@agm/core';
 import { HttpClient } from '@angular/common/http';
 import { searchSB } from '../models/searchSB.model';
 import { ApiService } from '../api.service'
@@ -13,15 +13,15 @@ import { ApiService } from '../api.service'
 
 
 export class TrackerMapComponent implements OnInit {
-  
+
   //data
-  searchSB : searchSB[] = [];
+  searchSB: searchSB[] = [];
   businessName!: string;
 
   //map
   title: string = 'COVIDBIT project';
   lat: number = 43.651070;
-  lng: number = -79.347015; 
+  lng: number = -79.347015;
   zoom: number = 10;
   address: string | undefined;
   private geoCoder!: google.maps.Geocoder;
@@ -43,42 +43,43 @@ export class TrackerMapComponent implements OnInit {
   @ViewChild('search')
   public searchElementRef!: ElementRef;
 
-  constructor ( private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private http:HttpClient,  private apiService: ApiService) {   
-    this.loadNews();}
+  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private http: HttpClient, private apiService: ApiService) {
+    this.loadNews();
+  }
 
 
   ngOnInit() {
 
-      this.searchSB = [
-          {
-              "ID": 1,
-              "businessName": "CN Tower",
-              "businessLocation": "290 Bremner Blvd",
-              "category": "Entertainment",
-              "cases": 0,
-              "employees": "100"
-          },
-          {
-              "ID": 2,
-              "businessName": "Queen Street Warehouse",
-              "businessLocation": "232 Queen St W",
-              "category": "Restaurant",
-              "cases": 10,
-              "employees": "10-50"
-          },
-          {
-              "ID": 3,
-              "businessName": "Maha's Egyptian Brunch",
-              "businessLocation": "226 Greenwood Ave",
-              "category": "Restaurant",
-              "cases": 2,
-              "employees": "1-10"
-          } 
-      
-          ]
+    this.searchSB = [
+      {
+        "ID": 1,
+        "businessName": "CN Tower",
+        "businessLocation": "290 Bremner Blvd",
+        "category": "Entertainment",
+        "cases": 0,
+        "employees": "100"
+      },
+      {
+        "ID": 2,
+        "businessName": "Queen Street Warehouse",
+        "businessLocation": "232 Queen St W",
+        "category": "Restaurant",
+        "cases": 10,
+        "employees": "10-50"
+      },
+      {
+        "ID": 3,
+        "businessName": "Maha's Egyptian Brunch",
+        "businessLocation": "226 Greenwood Ave",
+        "category": "Restaurant",
+        "cases": 2,
+        "employees": "1-10"
+      }
 
-      
-    
+    ]
+
+
+
 
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
@@ -103,7 +104,7 @@ export class TrackerMapComponent implements OnInit {
         });
       });
     });
-    
+
     //Call COVID API
     this.apiService.getCaseData().subscribe((data) => {
       console.log("Connection Made")
@@ -113,37 +114,37 @@ export class TrackerMapComponent implements OnInit {
       for (let i = 0; i < this.caseInformation.data.length; i++) {
         if (this.caseInformation.data[i].province == "ON") {
 
-            //Store API Data in Varibales (All Total Data)
-            this.currentDate = this.caseInformation.data[i].date;
-            this.totalCases = this.caseInformation.data[i].total_cases;
-            this.totalCriticals = this.caseInformation.data[i].total_criticals;
-            this.totalFatalities = this.caseInformation.data[i].total_fatalities;
-            this.totalHospitalizations = this.caseInformation.data[i].total_hospitalizations;
-            this.totalRecoveries = this.caseInformation.data[i].total_recoveries;
-            this.totalTests = this.caseInformation.data[i].total_tests;
-            this.totalVaccinations = this.caseInformation.data[i].total_vaccinations;
-            this.totalVaccinated = this.caseInformation.data[i].total_vaccinated;
-            this.totalVaccinesDistributed = this.caseInformation.data[i].total_vaccines_distributed;
-            return
+          //Store API Data in Varibales (All Total Data)
+          this.currentDate = this.caseInformation.data[i].date;
+          this.totalCases = this.caseInformation.data[i].total_cases;
+          this.totalCriticals = this.caseInformation.data[i].total_criticals;
+          this.totalFatalities = this.caseInformation.data[i].total_fatalities;
+          this.totalHospitalizations = this.caseInformation.data[i].total_hospitalizations;
+          this.totalRecoveries = this.caseInformation.data[i].total_recoveries;
+          this.totalTests = this.caseInformation.data[i].total_tests;
+          this.totalVaccinations = this.caseInformation.data[i].total_vaccinations;
+          this.totalVaccinated = this.caseInformation.data[i].total_vaccinated;
+          this.totalVaccinesDistributed = this.caseInformation.data[i].total_vaccines_distributed;
+          return
         } else {
           console.log("false")
           return
         }
       }
-      
+
     })
 
   }
 
   Search() {
-    if(this.businessName != ""){
-      this.searchSB = this.searchSB.filter(res=>{
+    if (this.businessName != "") {
+      this.searchSB = this.searchSB.filter(res => {
         return res.businessName.toLocaleLowerCase().match(this.businessName.toLocaleLowerCase());
       })
-    } else if (this.businessName == ""){
+    } else if (this.businessName == "") {
       this.ngOnInit();
     }
-    
+
   }
 
   // Get Current Location Coordinates
@@ -180,19 +181,19 @@ export class TrackerMapComponent implements OnInit {
   date = new Date();
 
   //news
-  articles : any
-    loadNews(){
-      this.getNews().subscribe( (news: any) =>{
-        this.articles = news.articles 
-        console.log(this.articles);
-      })
+  articles: any
+  loadNews() {
+    this.getNews().subscribe((news: any) => {
+      this.articles = news.articles
+      console.log(this.articles);
+    })
   }
 
-  getNews(){
+  getNews() {
     return this.http.get(`https://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=fd7187b0369b44b1b4f9a03c11a32b9a`)
   }
 
 
 
-  
+
 }

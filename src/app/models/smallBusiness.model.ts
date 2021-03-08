@@ -1,4 +1,5 @@
 export interface SmallBusiness {
+    id: String;
     businessName: String;
     email: String;
     firstName: String;
@@ -8,4 +9,6 @@ export interface SmallBusiness {
     businessType: String;
     businessPhone: String;
     businessLocation: String;
+    safetyM: Array<any>;
+    registeredBy: Boolean;
 }

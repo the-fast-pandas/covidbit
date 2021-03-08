@@ -6,7 +6,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DataService } from '../data/data.service';
+import { DataService } from '../services/data-services/data.service';
 
 @Component({
   selector: 'app-business-user-view',
@@ -15,28 +15,16 @@ import { DataService } from '../data/data.service';
 })
 export class BusinessUserViewComponent implements OnInit {
 
-  categoryName = '';
-  safteyMeasureList: any = [];
   businessName: String = '';
   businessPhoneNumber: String = '';
   businessAddress: String = '';
   businessWebsite: String = '';
-  businessType: String = ''
-  trackingMethod: boolean = false
-  totalCases = 0;
-  totalCases30Days = 0;
+  businessType: String = '';
 
-  loaded = false;
-
-  typesList = [
-    { name: "Restaurant" },
-    { name: "Boutique" },
-    { name: "Specialized Skill" },
-    { name: "Food and Hospitality" },
-    { name: "IT and Internet" },
-    { name: "Business" },
-    { name: "Labor" }
-  ]
+  safetyMeasureList: any = [];
+  trackingMethod: boolean = false;
+  totalCases: number = 0;
+  totalCases30Days: number = 0;
 
   constructor(public dataService: DataService, public router: Router, private activatedRoute: ActivatedRoute) {
 
@@ -48,23 +36,23 @@ export class BusinessUserViewComponent implements OnInit {
           this.businessPhoneNumber = data.user.phoneNumber;
           this.businessAddress = data.user.location;
           this.businessWebsite = data.user.loginId;
-          //location.reload();
+          this.businessType = data.user.businessType;
         })
   }
 
   ngOnInit(): void {
 
-    safteyMeasures: new FormGroup({
+    safetyMeasures: new FormGroup({
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required])
     })
 
-    const safteyMeasure = {
-      title: "Saftey Measure #1",
-      description: "Saftey Measure Description"
+    const safetyMeasure = {
+      title: "safety Measure #1",
+      description: "safety Measure Description"
     }
 
-    this.safteyMeasureList.push(safteyMeasure)
+    this.safetyMeasureList.push(safetyMeasure)
 
   }
 }  
