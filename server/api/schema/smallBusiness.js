@@ -43,6 +43,14 @@ const SmallBusinessSchema = mongoose.Schema({
   safetyMeasures: {
     type: Array,
     default: []
+  },
+  resetPassword:{
+    type: String,
+    default: ""
+  },
+  resetPasswordExpires:{
+    type: Date,
+    default: ""
   }
 });
 

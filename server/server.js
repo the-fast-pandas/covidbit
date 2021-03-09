@@ -5,8 +5,6 @@
 const dotenv = require('dotenv');
 dotenv.config({path: __dirname + '/.env'}); //variables
 const express = require('express');
-const bodyParser = require('body-parser'); 
-const favicon = require('serve-favicon');
 const cors = require('cors');
 
 
