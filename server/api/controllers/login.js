@@ -33,4 +33,47 @@ const loginUser = function (req, res) {
     })
 }
 
-module.exports = { loginUser };
+const forgotPassword = function (req, res) {
+    SmallBusiness.findOne({ "loginId": email }, function (error, user) {
+        if (error) {
+            throw error;
+        }
+        if (!user) {
+            return res.status(401).json({ message: "User not found!" });
+        }
+        if (user) {
+
+            let token;
+            crypto.randomBytes(20, function (err, buffer) {
+                token = buffer.toString('hex');
+            });
+            SmallBusiness.findByIdAndUpdate({ _id: user._id }, { reset_password_token: token, reset_password_expires: Date.now() + 86400000 }, { upsert: true, new: true })
+        }
+    })
+}
+
+
+const resetPassword = function (req, res, next) {
+    User.findOne({
+        reset_password_token: req.body.token, reset_password_expires: { $gt: Date.now() }, function(error, user) {
+            if (error) {
+                throw error;
+            }
+            if (!user) {
+                return res.status(401).json({ message: "User not found!" });
+            }
+            if (user) {
+                user.hash_password = bcrypt.hashSync(req.body.newPassword, 10);
+                user.reset_password_token = undefined;
+                user.reset_password_expires = undefined;
+            }
+        }
+    });
+};
+
+
+
+
+
+
+module.exports = { loginUser, forgotPassword, resetPassword };
