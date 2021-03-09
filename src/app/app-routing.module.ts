@@ -12,6 +12,8 @@ import { BusinessDashboardComponent } from './business-dashboard/business-dashbo
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { TrackerMapComponent } from './tracker-map/tracker-map.component';
 import { BusinessUserViewComponent } from './business-user-view/business-user-view.component';
+import { PolicyComponent } from './policy/policy.component';
+import { TermsComponent } from './terms/terms.component';
 
 const routes: Routes = [
   {
@@ -25,6 +27,14 @@ const routes: Routes = [
   {
     path: 'login-form',
     component: LoginFormComponent
+  },
+  {
+    path: 'terms',
+    component: TermsComponent
+  },
+  {
+    path: 'policy',
+    component: PolicyComponent
   },
   {
     path: 'business-profile/:id',
