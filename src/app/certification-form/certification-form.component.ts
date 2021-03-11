@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
-import { AuthService } from '../auth-services/auth.service';
-import { Router } from '@angular/router';
+import { DataService } from '../services/data-services/data.service';
+import { AuthService } from '../services/auth-services/auth.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-certification-form',
@@ -14,7 +15,32 @@ export class CertificationFormComponent implements OnInit {
   safetyMeasureList: any = [];
   acceptedGuidelines: Boolean = false;
 
-  constructor(public authService: AuthService, public router: Router) { }
+  // Form Variables
+  id: String = "";
+  businessName: String = 'What is your name?';
+  firstName: String = 'James';
+  lastName: String = 'Bond';
+  businessLocation: String = 'Where are you?';
+  businessPhone: String = 'Add a Phone';
+  email: String = 'myemail@host.com.ca';
+  webSite: String = 'to be added';
+  businessType: String = 'Type of Business';
+
+  constructor(public authService: AuthService, public router: Router, public dataService: DataService, private activatedRoute: ActivatedRoute) { 
+    let id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.dataService.getUserView(id)
+      .subscribe(
+        data => {
+          this.id = data.user._id;
+          this.businessName = data.user.businessName;
+          this.firstName = data.user.firstName;
+          this.lastName = data.user.lastName;
+          this.businessPhone = data.user.phoneNumber;
+          this.businessLocation = data.user.location;
+          this.businessType = data.user.businessType;
+          this.safetyMeasureList = data.user.safetyMeasures;
+        })
+  }
 
   onSubmit(): void {
     console.log(this.userCredentials.value);
@@ -25,6 +51,9 @@ export class CertificationFormComponent implements OnInit {
   // }
 
   ngOnInit(): void {
+
+    
+
     this.userCredentials = new FormGroup({
       guidelines: new FormGroup({
         acceptedGuidelines: new FormControl('', [Validators.required])

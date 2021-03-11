@@ -43,6 +43,11 @@ const SmallBusinessSchema = mongoose.Schema({
   safetyMeasures: {
     type: Array,
     default: []
+  },
+  certification: {
+    type: Boolean,
+    default: false,
+    required: false
   }
 });
 

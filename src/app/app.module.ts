@@ -49,8 +49,7 @@ import { CertificationFormComponent } from './certification-form/certification-f
     MapSettingsComponent,
     BusinessUserViewComponent,
     SearchPageComponent,
-    CertificationFormComponent,
-
+    CertificationFormComponent
   ],
   imports: [
     BrowserModule,

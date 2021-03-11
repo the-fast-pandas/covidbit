@@ -30,21 +30,17 @@
         </nb-step>
         <nb-step label="Certification" formGroupName="safetyMeasures">
           <div class="form-control-group">
-            <label nbLabel class="label" for="input-safteyMeasureTitle">Add Safety Measure:</label>
-            <br>
-
-            <input nbInput type="text" fieldSize="large" formControlName="title" fullWidth placeholder="Name of Safety Measure" >
-            
+            <p>
+              <strong>Business Name: </strong> {{businessName}} <br>
+              <strong>First Name: </strong> {{firstName}} <br>
+              <strong>Last Name: </strong> {{lastName}} <br>
+              <strong>Location: </strong> {{businessLocation}} <br>
+              <strong>Business Type: </strong> {{businessType}} <br>
+              <strong>Safety Measures: </strong> <br>
+            </p>
           </div>
 
           <div class="form-control-group">
-            <label nbLabel class="label" for="input-safteyMeasureDescription"></label>
-
-            <textarea nbInput type="text" id="input-safteyMeasureDescription" formControlName="description" fullWidth placeholder="Desciption of Safety Measure"></textarea>
-            
-            <div class="stepper-buttons">
-              <button nbButton >Add safety measure</button>
-            </div>
 
             <div class="stepper-buttons">
               <button class="button" type="button" nbButton nbStepperPrevious fullWidth outline status="primary">PREVIOUS</button>

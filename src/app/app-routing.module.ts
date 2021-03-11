@@ -56,7 +56,7 @@ const routes: Routes = [
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { 
-    path: 'certification-form',
+    path: 'certification-form/:id',
     component: CertificationFormComponent 
   },
   { path: '**', component: NotFoundComponent },
