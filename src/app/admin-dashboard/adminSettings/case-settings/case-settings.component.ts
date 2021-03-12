@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { ValueTransformer } from '@angular/compiler/src/util';
 import { AdmService } from '../../../services/adm-services/adm.service';
 import { BusinessName } from '../../../models/businessName.model';
+
 
 @Component({
   selector: 'app-case-settings',
@@ -18,21 +20,25 @@ export class CaseSettingsComponent implements OnInit {
 
   caseResults: FormGroup = new FormGroup({});
   businessSearch: FormGroup = new FormGroup({});
-
   businessName: BusinessName = { name: '' };
 
-  constructor(private formBuilder: FormBuilder, public admService: AdmService) { }
+
+
+  constructor(private formBuilder: FormBuilder,  public admService: AdmService)) {
+    this.caseResults = this.formBuilder.group({
+      checkArray: this.formBuilder.array([], [Validators.required])
+    })
+   }
+
+  
+  constructor(private formBuilder: FormBuilder, { }
+
 
   ngOnInit(): void {
 
     this.businessSearch = new FormGroup({
       searchedBusiness: new FormControl('', [Validators.required])
     });
-
-    this.caseResults = new FormGroup({
-      cases: this.formBuilder.array(this.typesList.map(x => !1), Validators.required)
-    });
-
   }
 
   searchForBusiness() {
@@ -66,9 +72,25 @@ export class CaseSettingsComponent implements OnInit {
     this.searchCheck = false;
     this.businessSearch.get('searchedBusiness')?.setValue('');
   }
+  getCheckedValue(event: any) {
+    const checkArray: FormArray = this.caseResults.get('checkArray') as FormArray;
 
-  onSubmit() {
-    console.log(this.caseResults.controls.cases.value);
+    if(event.target.checked) {
+      checkArray.push(new FormControl(event.target.value));
+    } else {
+      let i: number = 0;
+      checkArray.controls.forEach((item: AbstractControl) => {
+        if (item.value == event.target.value) {
+          checkArray.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
+  }
+
+  onSubmit(){
+    console.log(this.caseResults.value);
   }
 
 }
