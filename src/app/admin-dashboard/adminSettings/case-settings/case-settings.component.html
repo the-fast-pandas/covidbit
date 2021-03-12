@@ -9,45 +9,6 @@
       <!-- Add Case -->
       <nb-tab tabTitle="Add Case">
 
-        <form [formGroup]="businessSearch" (ngSubmit)="searchForBusiness()">
-          <div class="editor">
-            <nb-form-field>
-              <input nbInput placeholder="Search For Business" id="businessSearch" formControlName="searchedBusiness">
-
-              <button type="submit" nbSuffix nbButton ghost>
-                <nb-icon icon="search-outline"></nb-icon>
-              </button>
-            </nb-form-field>
-
-            <ng-container>
-              <p class="caption status-danger"
-                *ngIf=" searchCheck === true">
-                Business Not Found!
-              </p>
-            </ng-container>
-
-          </div>
-
-          <ng-container *ngIf="displayCaseList === true">
-            <p class="subtitle">Displaying Cases from: {{businessSearch.get('searchedBusiness')?.value}}</p>
-          </ng-container>
-
-        </form>
-
-        <form [formGroup]="caseResults" (ngSubmit)='onSubmit()'>
-          <nb-list size="medium" *ngIf="displayCaseList === true">
-            <nb-list-item *ngFor="let type of typesList; let i = index" formArrayName="cases">
-              <nb-checkbox id="caseResults" [formControlName]="i">{{ type.name }}</nb-checkbox>
-            </nb-list-item>
-          </nb-list>
-
-          <div class="buttonSlot" *ngIf="displayCaseList === true">
-            <button class="button" type="submit" nbButton outline status="success"
-              [disabled]="this.caseResults.hasError('required', 'cases')">Add Case</button>
-          </div>
-
-        </form>
-
       </nb-tab>
 
       <!-- Remove Case -->
@@ -80,14 +41,14 @@
 
         <form [formGroup]="caseResults" (ngSubmit)='onSubmit()'>
           <nb-list size="medium" *ngIf="displayCaseList === true">
-            <nb-list-item *ngFor="let type of typesList; let i = index" formArrayName="cases">
-              <nb-checkbox id="caseResults" [formControlName]="i">{{ type.name }}</nb-checkbox>
+            <nb-list-item *ngFor="let data of typesList; let i = index">
+              <nb-checkbox (change)="getCheckedValue($event)">{{ data.name }}</nb-checkbox>
             </nb-list-item>
           </nb-list>
 
           <div class="buttonSlot" *ngIf="displayCaseList === true">
             <button class="button" type="submit" nbButton outline status="success"
-              [disabled]="this.caseResults.hasError('required', 'cases')">Remove Case</button>
+              [disabled]="this.caseResults.hasError('required', 'checkArray')">Remove Case</button>
           </div>
 
         </form>

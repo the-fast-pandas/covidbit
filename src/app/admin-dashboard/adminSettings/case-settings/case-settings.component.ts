@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { ValueTransformer } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-case-settings',
@@ -21,16 +22,16 @@ export class CaseSettingsComponent implements OnInit {
   caseResults: FormGroup = new FormGroup({});
   businessSearch: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) {
+    this.caseResults = this.formBuilder.group({
+      checkArray: this.formBuilder.array([], [Validators.required])
+    })
+   }
 
   ngOnInit(): void {
 
     this.businessSearch = new FormGroup({
       searchedBusiness: new FormControl('', [Validators.required])
-    });
-
-    this.caseResults = new FormGroup({
-      cases: this.formBuilder.array(this.typesList.map(x => !1),  Validators.required)
     });
 
   }
@@ -67,8 +68,25 @@ export class CaseSettingsComponent implements OnInit {
     this.businessSearch.get('searchedBusiness')?.setValue('');
   }
 
+  getCheckedValue(event: any) {
+    const checkArray: FormArray = this.caseResults.get('checkArray') as FormArray;
+
+    if(event.target.checked) {
+      checkArray.push(new FormControl(event.target.value));
+    } else {
+      let i: number = 0;
+      checkArray.controls.forEach((item: AbstractControl) => {
+        if (item.value == event.target.value) {
+          checkArray.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
+  }
+
   onSubmit(){
-    console.log(this.caseResults.controls.cases.value);
+    console.log(this.caseResults.value);
   }
 
 }
