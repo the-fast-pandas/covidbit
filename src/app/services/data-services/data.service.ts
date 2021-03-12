@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BusinessName } from '../../models/businessName.model';
+import { LoginId } from '../../models/loginId';
 
 
 @Injectable({
@@ -65,8 +66,27 @@ export class DataService {
           return true;
         },
         error => {
-          window.alert("You are already registered. Login!");
-          this.router.navigate(['login-form']);
+          this.router.navigate(['registration-form']).then(() => {
+            localStorage.setItem('server_warning', 'true');
+            window.location.reload();
+          });
+        }
+      )
+  }
+
+  requestNewPassword(loginId: LoginId) {
+    console.log(loginId);
+    const api = `${this.endpoint}/forgot-password`;
+    return this.http.post<any>(api, loginId)
+      .subscribe(
+        data => {
+          this.router.navigate(['login-form']).then(() => {
+            localStorage.setItem('new_password', 'true');
+            window.location.reload();
+          });;
+        },
+        error => {
+          console.log("Not valid loginID!");
         }
       )
   }

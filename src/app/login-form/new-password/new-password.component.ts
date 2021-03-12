@@ -3,7 +3,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
-import { AuthService } from '../../services/auth-services/auth.service';
+import { DataService } from '../../services/data-services/data.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +19,7 @@ export class NewPasswordComponent implements OnInit {
   alert: Boolean = false;
   serverWarning: Boolean = false;
 
-  constructor(public authService: AuthService, public router: Router) { 
+  constructor(public dataService: DataService, public router: Router) { 
     if (localStorage.getItem('server_warning') === 'true') {  // Controls messages from server
       this.serverWarning = true;
     }
@@ -46,12 +46,11 @@ export class NewPasswordComponent implements OnInit {
 
   // Cheks login credentials
   onSubmit() {
-    this.authService.logIn(this.loginId.value);
+    this.dataService.requestNewPassword(this.loginId.value);
   }
 
   onClose() {
     this.alert = false;
-    this.authService.logIn(this.loginId.value).unsubscribe();
   }
 
 }

@@ -10,6 +10,9 @@
       <nb-alert *ngIf="serverWarning" status="danger" closable (close)="onCloseServer()">
         Wrong credentials! Please enter a registered email/password.
       </nb-alert>
+      <nb-alert *ngIf="newPassword" status="success" closable (close)="onCloseServer()">
+        Please, check your email!
+      </nb-alert>
         <label class="label" for="input-email">Email:</label>
 
         <input nbInput id="input-name" type="email" formControlName="email" placeholder="Email" fullWidth
@@ -52,8 +55,8 @@
     </form>
 
     <div class="form-control-group">
-      <section style="text-align: center;" class="another-action">Forgot your password? <a
-          routerlink="/registration-form" class="text-link" href="/registration-invitation">Ask us!</a></section>
+      <section style="text-align: center;" class="another-action">Forgot your password? Click 
+        <a  class="text-link" href="/new-password">here</a>.</section>
     </div>
   </nb-card-body>
 </nb-card>
