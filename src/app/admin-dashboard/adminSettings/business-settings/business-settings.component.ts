@@ -11,7 +11,7 @@ import { AdmService } from '../../../services/adm-services/adm.service';
 import { BusinessName } from '../../../models/businessName.model';
 
 @Component({
-  selector: 'app-buisness-settings',
+  selector: 'app-business-settings',
   templateUrl: './business-settings.component.html',
   styleUrls: ['./business-settings.component.scss']
 })

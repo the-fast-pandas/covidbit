@@ -31,8 +31,12 @@
         <app-case-settings *ngIf="settingsType === 'caseManagment'"></app-case-settings>
 
         <!-- Map Management Card -->
-       <app-buisness-settings *ngIf="settingsType === 'mapManagement'"></app-buisness-settings>
+        <app-business-settings *ngIf="settingsType === 'mapManagement'"></app-business-settings>
       </div>
     </div>
 
   </div>
+</div>
+
+<app-chart-business></app-chart-business>
+<app-bar-business-cases></app-bar-business-cases>

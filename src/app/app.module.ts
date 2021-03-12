@@ -32,6 +32,21 @@ import { PolicyComponent } from './static-pages/policy/policy.component';
 import { TermsComponent } from './static-pages/terms/terms.component';
 import { NewPasswordComponent } from './login-form/new-password/new-password.component';
 import { ResetPasswordComponent } from './login-form/reset-password/reset-password.component';
+import { ChartBusinessComponent} from './admin-dashboard/chart-business/chart-business.component'
+
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { RatingModule } from 'primeng/rating';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ConfirmationService } from 'primeng/api';
+import { ChartModule } from 'primeng/chart';
+import { BarBusinessCasesComponent } from './admin-dashboard/adminSettings/bar-business-cases/bar-business-cases.component';
 
 
 @NgModule({
@@ -58,6 +73,8 @@ import { ResetPasswordComponent } from './login-form/reset-password/reset-passwo
     TermsComponent,
     NewPasswordComponent,
     ResetPasswordComponent,
+    ChartBusinessComponent,
+    BarBusinessCasesComponent
 
   ],
   imports: [
@@ -75,7 +92,22 @@ import { ResetPasswordComponent } from './login-form/reset-password/reset-passwo
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAbNARRSTlFSaDp6GyBBM_pkEttwvj18d0',
       libraries: ['places']
-    })
+    }),
+    ChartModule,
+
+
+
+    TableModule,
+
+    InputTextModule,
+    DialogModule,
+    ToolbarModule,
+    ConfirmDialogModule,
+    RatingModule,
+    InputNumberModule,
+    InputTextareaModule,
+    RadioButtonModule,
+    ButtonModule
   ],
   providers: [
     {
@@ -83,7 +115,8 @@ import { ResetPasswordComponent } from './login-form/reset-password/reset-passwo
       useClass: AuthInterceptor,
       multi: true,
     },
-    [ApiService]
+    [ApiService],
+    [ConfirmationService],
   ],
   bootstrap: [AppComponent]
 })
