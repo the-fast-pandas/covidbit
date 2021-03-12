@@ -29,6 +29,9 @@ router.post('/login-form', ctrlLog.loginUser);
 router.post('/registration-form', ctrlReg.registerUser);
 router.post('/check-user', ctrlReg.checkUser);
 router.post('/certification-form/:id', authLog.authLogin, ctrlDashUser.addCertification);
+router.post('/forgot-password', ctrlLog.forgotPassword);
+router.post('/reset-password', ctrlLog.resetPassword);
+
 // Small business dashoard
 router.get('/business-dashboard/:id', authLog.authLogin, ctrlDashUser.getUserDashboard);
 router.get('/edit-profile/:id', authLog.authLogin, ctrlDashUser.getUserDashboard);

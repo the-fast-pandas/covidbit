@@ -44,15 +44,14 @@ export class CertificationFormComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.userCredentials.value);
+    //this.authService.addCertification(this.userCredentials.value, false);
   }
-
+  
   // toggle(checked: boolean) {
   //   this.acceptedGuidelines = checked;
   // }
 
   ngOnInit(): void {
-
-    
 
     this.userCredentials = new FormGroup({
       guidelines: new FormGroup({

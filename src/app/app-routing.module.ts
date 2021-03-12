@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
-import { NotFoundComponent } from './not-found/not-found.component'
+import { NotFoundComponent } from './static-pages/not-found/not-found.component'
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
 import { AuthGuard } from "./services/auth-services/auth.guard";
 import { AdminGuard } from "./services/auth-services/admin.guard";
@@ -13,6 +13,10 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { TrackerMapComponent } from './tracker-map/tracker-map.component';
 import { BusinessUserViewComponent } from './business-user-view/business-user-view.component';
 import { CertificationFormComponent } from './certification-form/certification-form.component';
+import { PolicyComponent } from './static-pages/policy/policy.component';
+import { TermsComponent } from './static-pages/terms/terms.component';
+import { NewPasswordComponent } from './login-form/new-password/new-password.component';
+import { ResetPasswordComponent } from './login-form/reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -26,6 +30,22 @@ const routes: Routes = [
   {
     path: 'login-form',
     component: LoginFormComponent
+  },
+  {
+    path: 'terms',
+    component: TermsComponent
+  },
+  {
+    path: 'policy',
+    component: PolicyComponent
+  },
+  {
+    path:'new-password',
+    component: NewPasswordComponent
+  },
+  {
+    path:'reset-password',
+    component: ResetPasswordComponent
   },
   {
     path: 'business-profile/:id',

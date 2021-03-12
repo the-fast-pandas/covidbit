@@ -48,6 +48,14 @@ const SmallBusinessSchema = mongoose.Schema({
     type: Boolean,
     default: false,
     required: false
+  },
+  resetPassword:{
+    type: String,
+    default: ""
+  },
+  resetPasswordExpires:{
+    type: Date,
+    default: ""
   }
 });
 

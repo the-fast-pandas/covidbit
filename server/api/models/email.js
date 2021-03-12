@@ -36,3 +36,14 @@ const email = function (businessName, email, emailContent, subject) {
 }
 
 module.exports = {  email };
+
+/*
+ to: user.email,
+                from: email,
+                template: 'forgot-password-email',
+                subject: 'Password help has arrived!',
+                context: {
+                    url: 'http://localhost:3000/auth/reset_password?token=' + token,
+                    name: user.fullName.split(' ')[0]
+                }
+            };*/
