@@ -21,10 +21,14 @@ export class LoginFormComponent implements OnInit {
   // Error warnings
   alert: Boolean = false;
   serverWarning: Boolean = false;
+  newPassword: Boolean = false;
 
   constructor(public authService: AuthService, public router: Router) { 
     if (localStorage.getItem('server_warning') === 'true') {  // Controls messages from server
       this.serverWarning = true;
+    }
+    if (localStorage.getItem('new_password') === 'true') {  // Controls messages from server
+      this.newPassword = true;
     }
   }
 
@@ -48,6 +52,8 @@ export class LoginFormComponent implements OnInit {
   // Closes the warning box for the server errors
   onCloseServer() {
     this.serverWarning = false;
+    this.newPassword = false;
+    localStorage.removeItem('new_password');
   }
 
   // Cheks login credentials
