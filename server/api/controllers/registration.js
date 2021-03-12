@@ -1,32 +1,55 @@
 // Server - CovidBit - Fast Pandas
 // REGISTRATION for small business user
 // Created: 03, February, 2021, Teresa Costa
-// Modified: 08, February, 2021, Teresa Costa: frontend integration, registerUser changed to match schema
 
 const bcrypt = require('bcrypt');
-const jwt = require("jsonwebtoken")
-const SmallBusiness = require('../schema/smallBusiness');
-const emailService = require('../models/email');
 const saltRounds = 10;
+// Nodemailer
+const email = require('../templates/registrationUser');
+const emailAdmin = require('../templates/resgistrationAdmin');
+const emailService = require('../models/email');
+// Schemas
+const SmallBusiness = require('../schema/smallBusiness');
 
+// Registration of a new business user
 const registerUser = function (req, res) {
-  const { accountDetails, businessDetails, safteyMeasures } = req.body;
-  const password = accountDetails.password;
-  const loginId = accountDetails.email;
-  const businessName = accountDetails.businessName;
-  const businessType = accountDetails.businessType;
-  const firstName = accountDetails.firstName;
-  const lastName = accountDetails.lastName;
-  const phoneNumber = businessDetails.businessPhone;
-  const location = businessDetails.businessLocation;
 
+  let password, loginId, businessName, businessType, firstName, lastName, phoneNumber, location, safetyM, emailSend;
 
-  SmallBusiness.findOne({ "loginId": loginId }, function (error, user) {
+  if (req.body.registeredBy == true) {
+
+    password = 'fakefake';
+    loginId = req.body.email;
+    businessName = req.body.businessName;
+    businessType = req.body.businessType;
+    firstName = 'First';
+    lastName = 'Second';
+    phoneNumber = req.body.businessPhone;
+    location = req.body.businessLocation;
+    safetyMeasures = [];
+    emailSend = emailAdmin.confirmRegistrationAdm;
+
+  } else {
+
+    const { accountDetails, businessDetails, safetyMeasures } = req.body;
+
+    password = accountDetails.password;
+    loginId = accountDetails.email;
+    businessName = accountDetails.businessName;
+    businessType = accountDetails.businessType;
+    firstName = accountDetails.firstName;
+    lastName = accountDetails.lastName;
+    phoneNumber = businessDetails.businessPhone;
+    location = businessDetails.businessLocation;
+    safetyMeasures = safetyMeasures;
+    emailSend = email.confirmRegistration;
+  }
+  SmallBusiness.findOne({ "loginId": loginId }, function (error, user) { // checks if the user already exists
     if (error) {
       throw error;
     }
     if (user) {
-      return res.status(400).json({ message: "User Already Exists" });
+      return res.status(401).json({ message: "This business user already exists!" });
     }
     if (!user) {
       newBusiness = new SmallBusiness({
@@ -37,9 +60,10 @@ const registerUser = function (req, res) {
         lastName,
         businessType,
         phoneNumber,
-        location
+        location,
+        safetyMeasures
       });
-      bcrypt.genSalt(saltRounds, function (error, salt) {
+      bcrypt.genSalt(saltRounds, function (error, salt) {  //sets password with hash
         if (error) {
           throw error;
         }
@@ -53,14 +77,8 @@ const registerUser = function (req, res) {
               if (error) {
                 throw error;
               }
-              emailService.email(newBusiness.businessName, 'covidbitreg@gmail.com', emailService.registrationInvite, 'COVIDBIT Website Registration Request');
-              const payload = {
-                user: {
-                  id: newBusiness.id
-                }
-              };
-              const token = jwt.sign(payload, "ilikemypandasfast", { expiresIn: 1000 });
-              return res.status(200).json({ token });
+              emailService.email(newBusiness.businessName, 'covidbitreg@gmail.com', emailSend, 'COVIDBIT Website Registration Request');
+              return res.status(200).json({ newBusiness });
             });
           }
         });
@@ -69,4 +87,19 @@ const registerUser = function (req, res) {
   })
 }
 
-module.exports = { registerUser };
+// Checks if a user already exists (for the first step of the registration form)
+const checkUser = function (req, res) {
+  const { accountDetails } = req.body;
+  const loginId = accountDetails.email;
+  SmallBusiness.findOne({ "loginId": loginId }, function (error, user) {
+    if (error) {
+      throw error;
+    }
+    if (user) {
+      return res.status(401).json({ message: "This business user already exists!" });
+    }
+    return res.status(200).json({ loginId });
+  })
+}
+
+module.exports = { registerUser, checkUser };

@@ -9,7 +9,7 @@
     <!-- Map Managment Tabset -->
     <nb-tabset (changeTab)="tabReset()">
       <nb-tab tabTitle="Add New Business">
-        <form [formGroup]='businessCredentials' (ngSubmit)="verifyInfo()">
+        <form [formGroup]='businessCredentials' (ngSubmit)="addBusiness()">
 
           <!-- First row of Fields -->
           <div class="row">
@@ -137,7 +137,7 @@
           </div>
 
           <ng-container *ngIf="displayList === true">
-            <p class="subtitle">Businesses found with the name: {{businessSearch.get('searchedBusiness')?.value}}</p>
+            <p class="subtitle">Businesses found with the name:  {{businessSearch.get('searchedBusiness')?.value}}</p>
           </ng-container>
 
         </form>
@@ -145,7 +145,7 @@
         <form [formGroup]="businessList" (ngSubmit)='removeBusiness()'>
           <nb-list size="medium" *ngIf="displayList === true">
             <nb-list-item *ngFor="let type of typesList; let i = index" formArrayName="businesses">
-              <nb-checkbox id="caseResults" [formControlName]="i">{{ type.name }}</nb-checkbox>
+              <nb-checkbox id="caseResults" formControlName={{i}}>{{ type}}</nb-checkbox>
             </nb-list-item>
           </nb-list>
 

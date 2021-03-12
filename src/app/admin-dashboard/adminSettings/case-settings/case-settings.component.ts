@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { ValueTransformer } from '@angular/compiler/src/util';
+import { AdmService } from '../../../services/adm-services/adm.service';
+import { BusinessName } from '../../../models/businessName.model';
 
 @Component({
   selector: 'app-case-settings',
@@ -9,11 +11,7 @@ import { ValueTransformer } from '@angular/compiler/src/util';
 })
 export class CaseSettingsComponent implements OnInit {
 
-  typesList = [
-    {name: "Case #1"},
-    {name: "Case #2"},
-    {name: "Case #3"},
-  ]
+  typesList: Array<String> = [];
 
   displayCaseList = false;
   searchCheck = false
@@ -22,11 +20,12 @@ export class CaseSettingsComponent implements OnInit {
   caseResults: FormGroup = new FormGroup({});
   businessSearch: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, public admService: AdmService) {
     this.caseResults = this.formBuilder.group({
       checkArray: this.formBuilder.array([], [Validators.required])
     })
    }
+  businessName: BusinessName = { name: '' };
 
   ngOnInit(): void {
 
@@ -36,23 +35,24 @@ export class CaseSettingsComponent implements OnInit {
 
   }
 
-  searchForBusiness(){
+  searchForBusiness() {
 
-    if (this.businessSearch.get('searchedBusiness')?.value === '')
-    {
-      console.log(this.displayCaseList)
-      this.searchCheck = true;
-      this.displayCaseList = false;
-    }
-    else {
-      this.displayCaseList = true;
-      this.searchCheck = false;
-    }
-
-    
+    this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
+    this.admService.searchUserAdm(this.businessName).subscribe(
+      data => {
+        //this.typesList = data;
+        if (this.typesList === []) {
+          this.searchCheck = true;
+          this.displayCaseList = false;
+        } else {
+          this.displayCaseList = true;
+          this.searchCheck = false;
+        }
+      }
+    );
   }
 
-  toggle(checked: Boolean){
+  toggle(checked: Boolean) {
     this.checked = checked;
     console.log(checked);
   }
@@ -61,7 +61,6 @@ export class CaseSettingsComponent implements OnInit {
     return this.caseResults.value[key].map((x: any, i: any) => !1)
   }
   
-
   tabReset() {
     this.displayCaseList = false;
     this.searchCheck = false;

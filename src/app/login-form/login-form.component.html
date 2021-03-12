@@ -3,9 +3,13 @@
     <h1 class="register-header">Login</h1>
 
     <form [formGroup]="loginCredentials" (ngSubmit)="onSubmit()" class="form-components">
-
+      
       <!-- Email Input Field -->
       <div class="form-control-group">
+
+      <nb-alert *ngIf="serverWarning" status="danger" closable (close)="onCloseServer()">
+        Wrong credentials! Please enter a registered email/password.
+      </nb-alert>
         <label class="label" for="input-email">Email:</label>
 
         <input nbInput id="input-name" type="email" formControlName="email" placeholder="Email" fullWidth
@@ -48,10 +52,8 @@
     </form>
 
     <div class="form-control-group">
-      <section style="text-align: center;" class="another-action">Don't have an account? <a
-          routerlink="/registration-form" class="text-link" href="/registration-form">Register</a></section>
+      <section style="text-align: center;" class="another-action">Forgot your password? <a
+          routerlink="/registration-form" class="text-link" href="/registration-invitation">Ask us!</a></section>
     </div>
-
-
   </nb-card-body>
 </nb-card>
