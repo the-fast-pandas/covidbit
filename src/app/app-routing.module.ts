@@ -17,6 +17,7 @@ import { PolicyComponent } from './static-pages/policy/policy.component';
 import { TermsComponent } from './static-pages/terms/terms.component';
 import { NewPasswordComponent } from './login-form/new-password/new-password.component';
 import { ResetPasswordComponent } from './login-form/reset-password/reset-password.component';
+import { ChartBusinessComponent } from './admin-dashboard/chart-business/chart-business.component';
 
 const routes: Routes = [
   {
@@ -78,6 +79,10 @@ const routes: Routes = [
   { 
     path: 'certification-form/:id',
     component: CertificationFormComponent 
+  },
+  {
+    path: 'chart-business',
+    component: ChartBusinessComponent
   },
   { path: '**', component: NotFoundComponent },
 ];

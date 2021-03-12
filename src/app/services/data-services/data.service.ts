@@ -75,7 +75,6 @@ export class DataService {
   }
 
   requestNewPassword(loginId: LoginId) {
-    console.log(loginId);
     const api = `${this.endpoint}/forgot-password`;
     return this.http.post<any>(api, loginId)
       .subscribe(
@@ -90,5 +89,22 @@ export class DataService {
         }
       )
   }
+
+  getAllBusiness () {
+    console.log("I am here")
+  const api = `${this.endpoint}/all-business`;
+  return this.http.get<any>(api)
+    .pipe(
+      map(
+        data => {
+          return data;
+        },
+        (error: any) => {
+          window.alert("No business with this name");
+          this.router.navigate(['home']);
+        }
+      ))
+
+}
 
 }
