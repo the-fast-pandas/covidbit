@@ -21,6 +21,7 @@ router.get('/tracker-map');
 // Small Business View
 router.post('/search', ctrlViewBus.searchUserView);
 router.get('/business-user-view/:id', ctrlViewBus.getUserView);
+router.get('/all-business', ctrlViewBus.getAll);
 
 ////////   BUSINESS USER  ////////
 
