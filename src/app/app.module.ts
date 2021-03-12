@@ -27,6 +27,7 @@ import { MapSettingsComponent } from './admin-dashboard/adminSettings/business-s
 import { CaseSettingsComponent } from './admin-dashboard/adminSettings/case-settings/case-settings.component'
 import { TrackerMapComponent } from './tracker-map/tracker-map.component';
 import { BusinessUserViewComponent } from './business-user-view/business-user-view.component';
+import { CertificationFormComponent } from './certification-form/certification-form.component';
 import { PolicyComponent } from './static-pages/policy/policy.component';
 import { TermsComponent } from './static-pages/terms/terms.component';
 import { NewPasswordComponent } from './login-form/new-password/new-password.component';
@@ -52,6 +53,7 @@ import { ResetPasswordComponent } from './login-form/reset-password/reset-passwo
     MapSettingsComponent,
     BusinessUserViewComponent,
     SearchPageComponent,
+    CertificationFormComponent,
     PolicyComponent,
     TermsComponent,
     NewPasswordComponent,

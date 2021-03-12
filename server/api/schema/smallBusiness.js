@@ -44,6 +44,11 @@ const SmallBusinessSchema = mongoose.Schema({
     type: Array,
     default: []
   },
+  certification: {
+    type: Boolean,
+    default: false,
+    required: false
+  },
   resetPassword:{
     type: String,
     default: ""

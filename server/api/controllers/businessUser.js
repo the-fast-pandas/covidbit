@@ -83,4 +83,30 @@ const addSafety = function (req, res) {
     })
 }
 
-module.exports = { getUserDashboard, editUserProfile, addSafety };
+//DON'T FORGET TO EXPORT
+//method to submit
+const addCertification = function (req, res) {
+
+    let id = req.params.id;
+    console.log(`${id}`);
+
+    let newvalues = {
+        $set: {
+            certification: true
+        }
+    };
+
+    SmallBusiness.updateOne({ "_id": id }, newvalues, function (error, user) {
+        if (error) {
+            throw error;
+        }
+        if (!user) {
+            return res.status(401).json({ message: "This business does not exist!" });
+        }
+        if (user) {
+            return res.status(200).json({ id });
+        }
+    })
+}
+
+module.exports = { getUserDashboard, editUserProfile, addSafety, addCertification };
