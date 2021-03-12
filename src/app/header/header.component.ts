@@ -1,13 +1,13 @@
 // Server - CovidBit - Fast Pandas
-// Created: Yevgeniya Anasheva
-// Changed: 15, February, 2021, Teresa Costa, added logout method, profile method
+// Created:               2021, Yevgeniya Anasheva
+// Changed: 15, February, 2021, Teresa Costa, added integration with authentication, typescript variables
 
 
 import { Component, OnInit } from '@angular/core';
 import { NbMenuService } from '@nebular/theme';
 import { filter, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth-services/auth.service';
+import { AuthService } from '../services/auth-services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -16,9 +16,10 @@ import { AuthService } from '../auth-services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  loggedIn = false;
-
-  items = [
+  loggedIn: boolean = false;
+  businessName: any = "Business Name";
+  id: any = "9";
+  items: Array<any> = [
     { title: 'Profile' },
     { title: 'Logout' },
   ];
@@ -28,7 +29,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.router.events.subscribe(event => {
       if (event.constructor.name === "NavigationEnd") {
-        this.loggedIn = this.authService.loggedIn;
+        this.loggedIn = this.authService.isLoggedIn;
+        this.businessName = localStorage.getItem('name_header');
+        this.id = localStorage.getItem('business_id')
       }
     })
 
@@ -39,7 +42,7 @@ export class HeaderComponent implements OnInit {
       )
       .subscribe(title => {
         if (title == "Profile") {
-          this.router.navigate(['business-dashboard']);
+          this.router.navigate(['business-dashboard/' + this.id]);
         }
         if (title == "Logout") {
           this.authService.doLogout();

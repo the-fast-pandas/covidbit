@@ -10,14 +10,14 @@ import { AgmCoreModule } from '@agm/core';
 import { ApiService } from './api.service';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { Ng2CompleterModule } from "ng2-completer";
-import { AuthInterceptor } from './auth-services/authconfig.interceptor';
+import { AuthInterceptor } from './services/auth-services/authconfig.interceptor';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { NotFoundComponent } from './static-pages/not-found/not-found.component';
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component'
@@ -27,6 +27,11 @@ import { MapSettingsComponent } from './admin-dashboard/adminSettings/business-s
 import { CaseSettingsComponent } from './admin-dashboard/adminSettings/case-settings/case-settings.component'
 import { TrackerMapComponent } from './tracker-map/tracker-map.component';
 import { BusinessUserViewComponent } from './business-user-view/business-user-view.component';
+import { CertificationFormComponent } from './certification-form/certification-form.component';
+import { PolicyComponent } from './static-pages/policy/policy.component';
+import { TermsComponent } from './static-pages/terms/terms.component';
+import { NewPasswordComponent } from './login-form/new-password/new-password.component';
+import { ResetPasswordComponent } from './login-form/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -48,6 +53,11 @@ import { BusinessUserViewComponent } from './business-user-view/business-user-vi
     MapSettingsComponent,
     BusinessUserViewComponent,
     SearchPageComponent,
+    CertificationFormComponent,
+    PolicyComponent,
+    TermsComponent,
+    NewPasswordComponent,
+    ResetPasswordComponent,
 
   ],
   imports: [

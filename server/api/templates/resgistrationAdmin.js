@@ -1,0 +1,1 @@
+module.exports.confirmRegistrationAdm = 'You are a part of this!';

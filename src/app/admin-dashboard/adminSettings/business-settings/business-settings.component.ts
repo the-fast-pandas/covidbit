@@ -1,7 +1,14 @@
-import { TemplateRef } from '@angular/core';
-import { Component, OnInit} from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NbDialogService } from '@nebular/theme';
+// Server - CovidBit - Fast Pandas
+// Created:             2021, John T
+// Modified: 04, March, 2021, Teresa Costa: backend integration, global variables
+
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../../services/auth-services/auth.service';
+import * as myGlobals from '../../../globals';
+import { AdmService } from '../../../services/adm-services/adm.service';
+import { BusinessName } from '../../../models/businessName.model';
 
 @Component({
   selector: 'app-buisness-settings',
@@ -15,71 +22,36 @@ export class MapSettingsComponent implements OnInit {
   businessList: FormGroup = new FormGroup({});
   businessLocation = '';
   alert: Boolean = false;
-  searchCheck = false;
-  displayList = false;
+  searchCheck: Boolean = false;
+  displayList: Boolean = false;
 
-  typesList = [
-    {name: "Business #1"},
-    {name: "Business #2"},
-    {name: "Business #3"},
-  ]
+  businessName: BusinessName = { name: '' };
 
-  businessTypes = [
-    { name: "Restaurant" },
-    { name: "Boutique" },
-    { name: "Specialized Skill" },
-    { name: "Food and Hospitality" },
-    { name: "IT and Internet" },
-    { name: "Business" },
-    { name: "Labor" }
-  ]
+  typesList: Array<String> = [];
+  idList: Array<String> = [];
 
-  constructor(private formBuilder: FormBuilder) {}
+  //Business Types Array
+  businessTypes = myGlobals.categories;
+
+  constructor(private formBuilder: FormBuilder, public authService: AuthService, public admService: AdmService) { }
 
   ngOnInit(): void {
 
     this.businessCredentials = new FormGroup({
-        businessName: new FormControl('', [Validators.required]),
-        email: new FormControl('', [Validators.required, Validators.email]),
-        businessType: new FormControl('', [Validators.required]),
-        website: new FormControl('', [Validators.required]),
-        businessPhone: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')]),
-        businessLocation: new FormControl('', [Validators.required])
+      businessName: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      businessType: new FormControl('', [Validators.required]),
+      website: new FormControl('', [Validators.required]),
+      businessPhone: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')]),
+      businessLocation: new FormControl('', [Validators.required]),
     })
-
     this.businessSearch = new FormGroup({
       searchedBusiness: new FormControl('', [Validators.required])
     });
 
     this.businessList = new FormGroup({
-      businesses: this.formBuilder.array(this.typesList.map(x => !1),  Validators.required)
+      businesses: this.formBuilder.array(this.typesList.map(x => !1), Validators.required)
     });
-    
-  }
-
-  
-  verifyInfo(){
-    console.log(this.businessCredentials.value)
-    this.alert = true;
-    this.businessCredentials.reset();
-  }
-
-  removeBusiness(){
-    console.log(this.businessList.value);
-  }
-
-  searchForBusiness(){
-
-    if (this.businessSearch.get('searchedBusiness')?.value === '')
-    {
-      console.log(this.displayList)
-      this.searchCheck = true;
-      this.displayList = false;
-    }
-    else {
-      this.displayList = true;
-      this.searchCheck = false;
-    }
 
   }
 
@@ -90,13 +62,59 @@ export class MapSettingsComponent implements OnInit {
     this.businessSearch.get('searchedBusiness')?.setValue('');
   }
 
+  public handleAddressChange(address: any) {
+    this.businessCredentials.get('businessLocation')?.setValue(address.formatted_address);
+  }
+
+  // Controls adding/register a business
+  addBusiness() {
+    this.authService.registerUser(this.businessCredentials.value, true);
+    this.alert = true;
+    this.businessCredentials.reset();
+  }
+
+  // Controls delete of a Business User
+  removeBusiness() {
+    this.admService.deleteUserAdm(this.idList);
+  }
+
+  // Search business by name
+  // Controls search business for delete
+  searchForBusiness() {
+    this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
+    this.admService.searchUserAdm(this.businessName).subscribe(
+      data => {
+        console.log(data.myUsers);
+        this.getNames(data);
+        this.getId(data);
+        if (this.typesList === []) {
+          this.searchCheck = true;
+          this.displayList = false;
+        } else {
+          this.displayList = true;
+          this.searchCheck = false;
+        }
+      }
+    );
+  }
+
+  // Adds business names to typesList
+  getNames(data: any) {
+    for (let i = 0; i < Object.keys(data).length; i++) {
+      this.typesList.push(data.myUsers[i].businessName);
+    }
+  }
+
+  // Get businesses id
+  getId(data: any) {
+    for (let i = 0; i < Object.keys(data).length; i++) {
+      this.idList.push(data.myUsers[i]._id);
+    }
+  }
+
   onClose() {
     this.alert = false;
   }
 
-  public handleAddressChange(address: any) {
-
-    this.businessCredentials.get('businessLocation')?.setValue(address.formatted_address);
-  }
-
 }
+
