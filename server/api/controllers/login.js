@@ -3,11 +3,12 @@
 // Created: 03, February, 2021, Teresa Costa
 
 const bcrypt = require('bcrypt');
-const jwt = require("jsonwebtoken")
-const SmallBusiness = require('../schema/smallBusiness');
+const saltRounds = 10;
+const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+// MongoDb shemas
+const SmallBusiness = require('../schema/smallBusiness');
 const emailService = require('../models/email');
-
 
 // Controls the login for a business user
 const loginUser = function (req, res) {
@@ -27,10 +28,12 @@ const loginUser = function (req, res) {
                 if (!result) {
                     return res.status(401).json({ message: "Incorrect Password!" });
                 }
-                const payload = { user: { id: user.id } };
-                const accessToken = jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: '200m' });
-                return res.status(200).json({ accessToken, user });
-            });
+                if (result) {
+                    const payload = { "id": user.id };
+                    const accessToken = jwt.sign(payload, process.env.TOKEN_SECRET, { noTimestamp: true, expiresIn: '1h' });
+                    return res.status(200).json({ accessToken, user });
+                }
+            })
         }
     })
 }
@@ -45,15 +48,12 @@ const forgotPassword = function (req, res) {
         }
         if (user) {
             let token = crypto.randomBytes(64).toString('hex');
-
             let newvalues = {
                 $set: {
                     resetPassword: token,
                     resetPasswordExpires: Date.now() + 86400000
                 }
             }
-            const businessName = user.businessName;
-            console.log(newvalues);
             SmallBusiness.updateOne({ "_id": user._id }, newvalues, function (error, user) {
                 if (error) {
                     throw error;
@@ -62,8 +62,8 @@ const forgotPassword = function (req, res) {
                     return res.status(401).json({ message: "User not found!" });
                 }
                 if (user) {
-                    const emailSend = 'http://localhost:4200/auth/reset_password?token=' + token;
-                    emailService.email( businessName, 'covidbitreg@gmail.com', emailSend, 'COVIDBIT Website Registration Request');
+                    const emailSend = 'http://localhost:4200/reset-password/' + token;
+                    emailService.email(user.businessName, 'covidbitreg@gmail.com', emailSend, 'COVIDBIT Website Registration Request');
                     return res.status(200).json({ user });
                 }
             })
@@ -72,27 +72,61 @@ const forgotPassword = function (req, res) {
 }
 
 
-const resetPassword = function (req, res, next) {
-    User.findOne({
-        reset_password_token: req.body.token, reset_password_expires: { $gt: Date.now() }, function(error, user) {
-            if (error) {
-                throw error;
-            }
-            if (!user) {
-                return res.status(401).json({ message: "User not found!" });
-            }
+const checkResetPassword = function (req, res, next) {
+    let token = req.params.token;
+    SmallBusiness.findOne({ resetPassword: token }, function (error, user) {
+        if (error) {
+            throw error;
+        }
+        if (!user) {
+            return res.status(401).json({ message: "This link is invalid." });
+        }
+        if (user) {
             if (user) {
-                user.hash_password = bcrypt.hashSync(req.body.newPassword, 10);
-                user.reset_password_token = undefined;
-                user.reset_password_expires = undefined;
+                id = user.id;
+                return res.status(200).json({ id });
             }
         }
-    });
+    })
 };
 
 
+const resetPassword = function (req, res, next) {
+    let password = req.body.password;
+    let token = req.body.token;
+    bcrypt.genSalt(saltRounds, function (error, salt) {  //sets password with hash
+        if (error) {
+            throw error;
+        }
+        bcrypt.hash(password, salt, function (error, hash) {
+            if (error) {
+                throw error;
+            }
+            if (hash) {
+                let newvalues = {
+                    $set: {
+                        password: hash,
+                        resetPassword: "",
+                    }
+                };
+                SmallBusiness.updateOne({ resetPassword: token }, newvalues, function (error, user) {
+                    if (error) {
+                        throw error;
+                    }
+                    if (!user) {
+                        return res.status(401).json({ message: "This business does not exist!" });
+                    }
+                    if (user) {
+                        return res.status(200).json({ user });
+                    }
+                })
+
+
+            }
+        })
+    })
+}
 
 
 
-
-module.exports = { loginUser, forgotPassword, resetPassword };
+module.exports = { loginUser, forgotPassword, resetPassword, checkResetPassword };

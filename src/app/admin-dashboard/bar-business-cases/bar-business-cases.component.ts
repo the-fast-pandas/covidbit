@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../../services/data-services/data.service';
-import * as myGlobals from '../../../globals';
+import { DataService } from '../../services/data-services/data.service';
+import * as myGlobals from '../../globals';
 
 @Component({
   selector: 'app-bar-business-cases',

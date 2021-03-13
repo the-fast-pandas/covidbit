@@ -3,8 +3,8 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
-import { AuthService } from '../../services/auth-services/auth.service';
-import { Router } from '@angular/router';
+import { DataService } from '../../services/data-services/data.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -13,14 +13,14 @@ import { Router } from '@angular/router';
 })
 export class ResetPasswordComponent implements OnInit {
 
-  
   newPassword: FormGroup = new FormGroup({});
 
   // Error warnings
   alert: Boolean = false;
   serverWarning: Boolean = false;
+  token: string ="";
 
-  constructor(public authService: AuthService, public router: Router) { 
+  constructor(private activatedRoute: ActivatedRoute, public dataService: DataService, public router: Router) {
     if (localStorage.getItem('server_warning') === 'true') {  // Controls messages from server
       this.serverWarning = true;
     }
@@ -31,10 +31,12 @@ export class ResetPasswordComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       confirmPassword: new FormControl('', [Validators.required]),
     })
+    this.token = this.activatedRoute.snapshot.params['token'];
+    this.dataService.checkValidNewPassword(this.token);
   }
 
   checkLoginForm() {
-    if (this. newPassword.controls.invalid) {
+    if (this.newPassword.controls.invalid) {
       this.alert = true;
     }
     else {
@@ -46,14 +48,14 @@ export class ResetPasswordComponent implements OnInit {
   onCloseServer() {
   }
 
-  // Cheks login credentials
+  // Set new password
   onSubmit() {
-    this.authService.logIn(this.newPassword.value);
+    this.dataService.setNewPassword(this.newPassword.value, this.token);
   }
 
   onClose() {
     this.alert = false;
-    this.authService.logIn(this.newPassword.value).unsubscribe();
+    this.dataService.setNewPassword(this.newPassword.value, this.token).unsubscribe();
   }
 
 }

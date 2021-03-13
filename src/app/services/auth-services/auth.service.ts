@@ -53,7 +53,7 @@ export class AuthService {
     const api = `${this.endpoint}/login-form`;
     return this.http.post<any>(api, user).pipe()
       .subscribe(
-        data => {
+        (data: any) => {
           localStorage.setItem('access_token', data.accessToken);
           localStorage.setItem('name_header', data.user.businessName);
           localStorage.setItem('business_id', data.user._id);
@@ -63,7 +63,7 @@ export class AuthService {
                 this.router.navigate(['/business-dashboard/' + data.user._id]);
               })
         },
-        error => {
+        (error: any) => {
           this.router.navigate(['login-form']).then(() => {
             localStorage.setItem('server_warning', 'true');
             window.location.reload();
@@ -138,6 +138,7 @@ export class AuthService {
       )
   }
 
+  // Business User is allowed to add safety measures
   addSafety(safety: any, id: String) {
     const api = `${this.endpoint}/add-safety/${id}`;
     return this.http.put<any>(api, safety)
@@ -151,15 +152,22 @@ export class AuthService {
       )
   }
 
+  // Retrieve local storage
   getToken() {
     return localStorage.getItem('access_token');
   }
+  getBusinesName() {
+    return localStorage.getItem('name_header');
+  }
+  getId(){
+    return localStorage.getItem('business_id');
+  }
 
+  // Check if it is authenticated
   get isLoggedIn(): boolean {
     let authToken = localStorage.getItem('access_token');
     return (authToken !== null) ? true : false;
   }
-
   get isAdmin(): boolean {
     let authToken = localStorage.getItem('admin_token');
     return (authToken !== null) ? true : false;

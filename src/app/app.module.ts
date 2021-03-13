@@ -46,7 +46,7 @@ import { RatingModule } from 'primeng/rating';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ConfirmationService } from 'primeng/api';
 import { ChartModule } from 'primeng/chart';
-import { BarBusinessCasesComponent } from './admin-dashboard/adminSettings/bar-business-cases/bar-business-cases.component';
+import { BarBusinessCasesComponent } from './admin-dashboard/bar-business-cases/bar-business-cases.component';
 
 
 @NgModule({

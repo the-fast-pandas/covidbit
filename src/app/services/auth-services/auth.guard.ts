@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (this.authService.isLoggedIn !== true) {
-      window.alert("You need to login!");
+      localStorage.setItem('auth_warning', 'true');
       this.router.navigate(['login-form']);
       return false;
     } else {

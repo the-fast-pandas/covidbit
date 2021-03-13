@@ -74,37 +74,72 @@ export class DataService {
       )
   }
 
+  // Business User can request a new password
   requestNewPassword(loginId: LoginId) {
     const api = `${this.endpoint}/forgot-password`;
     return this.http.post<any>(api, loginId)
       .subscribe(
-        data => {
+        (data: any) => {
           this.router.navigate(['login-form']).then(() => {
             localStorage.setItem('new_password', 'true');
             window.location.reload();
           });;
         },
-        error => {
+        (error: any) => {
           console.log("Not valid loginID!");
+          this.router.navigate(['new-password']).then(() => {
+            localStorage.setItem('new_password_warning', 'true');
+            window.location.reload();
+          });
         }
       )
   }
 
-  getAllBusiness () {
-    console.log("I am here")
-  const api = `${this.endpoint}/all-business`;
-  return this.http.get<any>(api)
-    .pipe(
-      map(
-        data => {
+  checkValidNewPassword(token: any) {
+    console.log(token)
+    const api = `${this.endpoint}/check-reset-password/${token}`;
+    return this.http.get<any>(api)
+      .subscribe(
+        (data: any) => {
           return data;
         },
         (error: any) => {
-          window.alert("No business with this name");
+          window.alert("This is not a valid link");
           this.router.navigate(['home']);
-        }
-      ))
+        })
+  }
 
-}
+  setNewPassword(newPassword: any, token: any) {
+    newPassword.token = token;
+    console.log("I am here")
+    const api = `${this.endpoint}/new-password`;
+    console.log(api)
+    return this.http.put<any>(api, newPassword)
+      .subscribe(
+        data => {
+          this.router.navigate(['login-form']);
+        },
+        error => {
+          console.log("It was not possible to chance password!");
+        }
+      )
+
+  }
+
+  getAllBusiness() {
+    const api = `${this.endpoint}/all-business`;
+    return this.http.get<any>(api)
+      .pipe(
+        map(
+          data => {
+            return data;
+          },
+          (error: any) => {
+            window.alert("No business with this name");
+            this.router.navigate(['home']);
+          }
+        ))
+
+  }
 
 }
