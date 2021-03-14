@@ -1,9 +1,9 @@
 import { AfterContentChecked, ChangeDetectorRef , Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { DataService } from '../services/data-services/data.service';
-import * as myGlobals from '../globals';
-import { AuthService } from '../services/auth-services/auth.service';
+import { DataService } from '../../services/data-services/data.service';
+import * as myGlobals from '../../globals';
+import { AuthService } from '../../services/auth-services/auth.service';
 
 @Component({
   selector: 'app-business-profile',
@@ -30,7 +30,7 @@ export class BusinessProfileComponent implements OnInit, AfterContentChecked{
   //Form Group
   userProfile: FormGroup = new FormGroup({});
 
-  constructor(private activatedRoute: ActivatedRoute, public dataService: DataService, private ref: ChangeDetectorRef, public authService: AuthService) {
+  constructor(private activatedRoute: ActivatedRoute, public data: DataService, private ref: ChangeDetectorRef, public auth: AuthService) {
 
 
   }
@@ -49,7 +49,7 @@ export class BusinessProfileComponent implements OnInit, AfterContentChecked{
     })
 
     let id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.dataService.getUserView(id)
+    this.data.getUserView(id)
       .subscribe(
         data => {   
           this.id = data.user._id;
@@ -69,7 +69,7 @@ export class BusinessProfileComponent implements OnInit, AfterContentChecked{
   }
 
   onSubmit() {
-    this.authService.editProfile(this.userProfile.value, this.id);
+    this.auth.editProfile(this.userProfile.value, this.id);
   }
 
   public handleAddressChange(address: any) {

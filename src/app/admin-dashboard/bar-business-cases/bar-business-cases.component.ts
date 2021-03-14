@@ -21,8 +21,8 @@ export class BarBusinessCasesComponent implements OnInit {
 
   initialDate = this.addMonths(new Date(), -this.lastMonths);
 
-  constructor(public dataService: DataService) {
-    this.dataService.getAllBusiness().subscribe(
+  constructor(public data: DataService) {
+    this.data.getAllBusiness().subscribe(
       data => {
         this.getDate(data);
         this.count();

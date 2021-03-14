@@ -26,10 +26,10 @@ export class BusinessUserViewComponent implements OnInit {
   totalCases: number = 0;
   totalCases30Days: number = 0;
 
-  constructor(public dataService: DataService, public router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(public data: DataService, public router: Router, private activatedRoute: ActivatedRoute) {
 
     let id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.dataService.getUserView(id)
+    this.data.getUserView(id)
       .subscribe(
         data => {
           this.businessName = data.user.businessName;

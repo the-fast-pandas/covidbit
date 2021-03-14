@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class FooterComponent implements OnInit {
   loginCredentials: FormGroup = new FormGroup({});
 
-  constructor(public authService: AuthService, public router: Router) { }
+  constructor(public auth: AuthService, public router: Router) { }
 
   Admin: boolean = false;
 
@@ -20,15 +20,15 @@ export class FooterComponent implements OnInit {
       email: new FormControl("", [Validators.required, Validators.email]),
       password: new FormControl("", [Validators.required, Validators.minLength(8)])
     })
-    this.Admin = this.authService.isAdmin;
+    this.Admin = this.auth.isAdmin;
   }
   // Cheks login credentials
   onSubmit() {
-    this.authService.logInAdmin(this.loginCredentials.value);
+    this.auth.logInAdmin(this.loginCredentials.value);
   }
 
   onLogout(){
-    this.authService.doLogoutAdmin();
+    this.auth.doLogoutAdmin();
     window.location.reload();   
   }
 }

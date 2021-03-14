@@ -61,24 +61,7 @@
 
   <div class="info-column">
 
-    <fieldset style="border: 2px solid lightblue;">
-      <legend>Recent News</legend>
-      <div class="news-container">
-        <nb-card size="medium">
-          <nb-list>
-            <nb-list-item *ngFor="let article of articles">
-              <div class="news-section">
-                <h3><a target="_blank" href={{article.url}}>{{article.title}}</a></h3>
-                <p>{{article.description}}</p>
-                <p>{{article.publishedAt | date}} </p>
-              </div>
-            </nb-list-item>
-          </nb-list>
-        </nb-card>
-
-      </div>
-    </fieldset>
-
+    <app-news></app-news>
 
   </div>
 

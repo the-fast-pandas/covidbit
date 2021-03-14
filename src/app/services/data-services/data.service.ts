@@ -86,7 +86,6 @@ export class DataService {
           });;
         },
         (error: any) => {
-          console.log("Not valid loginID!");
           this.router.navigate(['new-password']).then(() => {
             localStorage.setItem('new_password_warning', 'true');
             window.location.reload();
@@ -96,7 +95,6 @@ export class DataService {
   }
 
   checkValidNewPassword(token: any) {
-    console.log(token)
     const api = `${this.endpoint}/check-reset-password/${token}`;
     return this.http.get<any>(api)
       .subscribe(
@@ -111,9 +109,7 @@ export class DataService {
 
   setNewPassword(newPassword: any, token: any) {
     newPassword.token = token;
-    console.log("I am here")
     const api = `${this.endpoint}/new-password`;
-    console.log(api)
     return this.http.put<any>(api, newPassword)
       .subscribe(
         data => {
@@ -142,4 +138,8 @@ export class DataService {
 
   }
 
+  // News headlines about covid
+  getNews() {
+    return this.http.get(`https://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=fd7187b0369b44b1b4f9a03c11a32b9a`)
+  }
 }

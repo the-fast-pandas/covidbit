@@ -19,7 +19,7 @@ export class NewPasswordComponent implements OnInit {
   alert: Boolean = false;
   serverWarning: Boolean = false;
 
-  constructor(public dataService: DataService, public router: Router) { 
+  constructor(public data: DataService, public router: Router) { 
     if (localStorage.getItem('new_password_warning') === 'true') {  // Controls messages from server
       this.serverWarning = true;
     }
@@ -49,12 +49,12 @@ export class NewPasswordComponent implements OnInit {
 
   // Cheks login credentials
   onSubmit() {
-    this.dataService.requestNewPassword(this.loginId.value);
+    this.data.requestNewPassword(this.loginId.value);
   }
 
   onClose() {
     this.alert = false;
-    this.dataService.requestNewPassword(this.loginId.value).unsubscribe();
+    this.data.requestNewPassword(this.loginId.value).unsubscribe();
   }
 
 }

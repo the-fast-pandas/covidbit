@@ -23,7 +23,7 @@ export class LoginFormComponent implements OnInit {
   newPassword: Boolean = false;
   authWarning: Boolean = false;
 
-  constructor(public authService: AuthService, public router: Router) {
+  constructor(public auth: AuthService, public router: Router) {
     if (localStorage.getItem('server_warning') === 'true') {  // Controls messages from server
       this.serverWarning = true;
     } else if (localStorage.getItem('new_password') === 'true') {  // Controls messages from server
@@ -62,12 +62,12 @@ export class LoginFormComponent implements OnInit {
 
   // Cheks login credentials
   onSubmit() {
-    this.authService.logIn(this.loginCredentials.value);
+    this.auth.logIn(this.loginCredentials.value);
   }
 
   onClose() {
     this.alert = false;
-    this.authService.logIn(this.loginCredentials.value).unsubscribe();
+    this.auth.logIn(this.loginCredentials.value).unsubscribe();
     localStorage.removeItem('server_warning'); // Controls messages from server
     localStorage.removeItem('auth_warning');
   }

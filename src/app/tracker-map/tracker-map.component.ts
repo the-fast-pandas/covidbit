@@ -42,9 +42,7 @@ export class TrackerMapComponent implements OnInit {
   @ViewChild('search')
   public searchElementRef!: ElementRef;
 
-  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private http: HttpClient) {
-    this.loadNews();
-  }
+  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {}
 
 
   ngOnInit() {
@@ -131,8 +129,6 @@ export class TrackerMapComponent implements OnInit {
 
   getAddress(lat: number, lng: number) {
     this.geoCoder.geocode({ 'location': { lat: lat, lng: lng } }, (results: { formatted_address: string; }[], status: string) => {
-      console.log(results);
-      console.log(status);
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 12;
@@ -150,18 +146,7 @@ export class TrackerMapComponent implements OnInit {
   //calendar   
   date = new Date();
 
-  //news
-  articles: any
-  loadNews() {
-    this.getNews().subscribe((news: any) => {
-      this.articles = news.articles
-      console.log(this.articles);
-    })
-  }
-
-  getNews() {
-    return this.http.get(`https://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=fd7187b0369b44b1b4f9a03c11a32b9a`)
-  }
+ 
 
 
 

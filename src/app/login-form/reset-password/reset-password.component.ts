@@ -20,7 +20,7 @@ export class ResetPasswordComponent implements OnInit {
   serverWarning: Boolean = false;
   token: string ="";
 
-  constructor(private activatedRoute: ActivatedRoute, public dataService: DataService, public router: Router) {
+  constructor(private activatedRoute: ActivatedRoute, public data: DataService, public router: Router) {
     if (localStorage.getItem('server_warning') === 'true') {  // Controls messages from server
       this.serverWarning = true;
     }
@@ -32,7 +32,7 @@ export class ResetPasswordComponent implements OnInit {
       confirmPassword: new FormControl('', [Validators.required]),
     })
     this.token = this.activatedRoute.snapshot.params['token'];
-    this.dataService.checkValidNewPassword(this.token);
+    this.data.checkValidNewPassword(this.token);
   }
 
   checkLoginForm() {
@@ -50,12 +50,12 @@ export class ResetPasswordComponent implements OnInit {
 
   // Set new password
   onSubmit() {
-    this.dataService.setNewPassword(this.newPassword.value, this.token);
+    this.data.setNewPassword(this.newPassword.value, this.token);
   }
 
   onClose() {
     this.alert = false;
-    this.dataService.setNewPassword(this.newPassword.value, this.token).unsubscribe();
+    this.data.setNewPassword(this.newPassword.value, this.token).unsubscribe();
   }
 
 }

@@ -24,12 +24,12 @@ export class HeaderComponent implements OnInit {
     { title: 'Logout' },
   ];
 
-  constructor(private nbMenuService: NbMenuService, private router: Router, private authService: AuthService) { }
+  constructor(private nbMenuService: NbMenuService, private router: Router, private auth: AuthService) { }
 
   ngOnInit() {
     this.router.events.subscribe(event => {
       if (event.constructor.name === "NavigationEnd") {
-        this.loggedIn = this.authService.isLoggedIn;
+        this.loggedIn = this.auth.isLoggedIn;
         this.businessName = localStorage.getItem('name_header');
         this.id = localStorage.getItem('business_id')
       }
@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
           this.router.navigate(['business-dashboard/' + this.id]);
         }
         if (title == "Logout") {
-          this.authService.doLogout();
+          this.auth.doLogout();
         }
       });
   }
