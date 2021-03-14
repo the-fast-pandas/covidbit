@@ -7,16 +7,21 @@ dotenv.config({path: __dirname + '/.env'}); //variables
 const express = require('express');
 const cors = require('cors');
 var cookieParser = require('cookie-parser');
+const app = express();
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Headers", "Access-Control-Expose-Headers, Content-Type, Accept");
+  next();
+  });
 
-
-
+  //app.use(cors());
 require('./api/models/database'); // Connects database
 const routes = require('./api/routes/index');  
 
-const app = express();
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors());
+
+//
 app.use(cookieParser());
 
 app.use(express.static(__dirname + "/dist/"));  // Directory for the 'hg build'

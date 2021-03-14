@@ -47,6 +47,8 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ConfirmationService } from 'primeng/api';
 import { ChartModule } from 'primeng/chart';
 import { BarBusinessCasesComponent } from './admin-dashboard/bar-business-cases/bar-business-cases.component';
+import {AccordionModule} from 'primeng/accordion';
+import { BarHorizontalComponent } from './tracker-map/bar-horizontal/bar-horizontal.component';    
 
 
 @NgModule({
@@ -74,7 +76,8 @@ import { BarBusinessCasesComponent } from './admin-dashboard/bar-business-cases/
     NewPasswordComponent,
     ResetPasswordComponent,
     ChartBusinessComponent,
-    BarBusinessCasesComponent
+    BarBusinessCasesComponent,
+    BarHorizontalComponent
 
   ],
   imports: [
@@ -107,7 +110,8 @@ import { BarBusinessCasesComponent } from './admin-dashboard/bar-business-cases/
     InputNumberModule,
     InputTextareaModule,
     RadioButtonModule,
-    ButtonModule
+    ButtonModule,
+    AccordionModule
   ],
   providers: [
     {
@@ -116,7 +120,7 @@ import { BarBusinessCasesComponent } from './admin-dashboard/bar-business-cases/
       multi: true,
     },
     [ApiService],
-    [ConfirmationService],
+    [ConfirmationService]
   ],
   bootstrap: [AppComponent]
 })

@@ -90,37 +90,16 @@
 
 
 
-
-<nb-card status="primary">
+<div class="container">
+<nb-card>
   <nb-card-header>COVID-19 Information for Ontario as of {{currentDate}}</nb-card-header>
   <nb-card-body>
-    <div class="row">
 
-      <!-- User Settings Button -->
-      <div class="col-3 within-card">
-        <h5>Total Cases</h5>
-        <h6>{{totalCases | number}}</h6>
-      </div>
-
-      <div class="col-3 within-card">
-        <h5>Total Vaccinations</h5>
-        <h6>{{totalVaccinations | number}}</h6>
-      </div>
-
-      <div class="col-3 within-card">
-        <h5>Total Tests</h5>
-        <h6>{{totalTests | number}}</h6>
-      </div>
-
-      <div class="col-3 within-card">
-        <h5>Total Deaths</h5>
-        <h6>{{totalFatalities | number}}</h6>
-      </div>
-
-    </div>
+    <app-bar-horizontal></app-bar-horizontal>
+    
   </nb-card-body>
 </nb-card>
-
+</div>
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbNARRSTlFSaDp6GyBBM_pkEttwvj18d0&libraries=places&callback=initMap"
   async defer></script> -->
 

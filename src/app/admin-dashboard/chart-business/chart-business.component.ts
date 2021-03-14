@@ -29,12 +29,6 @@ export class ChartBusinessComponent implements OnInit {
           }]
         };
         this.chartOptions = {
-          title: {
-            display: true,
-            text: 'Business by Type',
-            fontSize: 16, 
-            position: 'top'
-          },
           legend: {
             position: 'left',
             labels: {
