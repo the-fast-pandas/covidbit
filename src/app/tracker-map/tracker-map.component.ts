@@ -33,7 +33,7 @@ export class TrackerMapComponent implements OnInit {
 
 
 
-  ngOnInit() {
+  ngOnInit() : void {
 
       this.searchSB = [
           {
@@ -63,8 +63,6 @@ export class TrackerMapComponent implements OnInit {
       
           ]
 
-      
-    
 
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
@@ -97,7 +95,7 @@ export class TrackerMapComponent implements OnInit {
         return res.businessName.toLocaleLowerCase().match(this.businessName.toLocaleLowerCase());
       })
     } else if (this.businessName == ""){
-      this.ngOnInit();
+      // this.ngOnInit();
     }
     
   }
