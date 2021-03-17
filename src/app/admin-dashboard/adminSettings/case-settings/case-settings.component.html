@@ -41,7 +41,7 @@
         <form [formGroup]="caseResults" (ngSubmit)='onSubmit()'>
           <nb-list size="medium" *ngIf="displayCaseList === true">
             <nb-list-item *ngFor="let data of typesList; let i = index">
-              <nb-checkbox (change)="getCheckedValue($event)">{{ data.name }}</nb-checkbox>
+              <nb-checkbox (change)="getCheckedValue($event)">{{ data }}</nb-checkbox>
             </nb-list-item>
           </nb-list>
 

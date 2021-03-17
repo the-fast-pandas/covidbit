@@ -129,27 +129,27 @@
 
             <ng-container>
               <p class="caption status-danger"
-                *ngIf=" searchCheck === true">
+                >
                 Business Not Found!
               </p>
             </ng-container>
 
           </div>
 
-          <ng-container *ngIf="displayList === true">
+          <ng-container>
             <p class="subtitle">Businesses found with the name:  {{businessSearch.get('searchedBusiness')?.value}}</p>
           </ng-container>
 
         </form>
 
         <form [formGroup]="businessList" (ngSubmit)='removeBusiness()'>
-          <nb-list size="medium" *ngIf="displayList === true">
+          <nb-list size="medium" >
             <nb-list-item *ngFor="let type of typesList; let i = index" formArrayName="businesses">
               <nb-checkbox id="caseResults" formControlName={{i}}>{{ type}}</nb-checkbox>
             </nb-list-item>
           </nb-list>
 
-          <div class="buttonSlot" *ngIf="displayList === true">
+          <div class="buttonSlot">
             <button class="button" type="submit" nbButton outline status="success"
               [disabled]="this.businessList.hasError('required', 'businesses')">Remove Business</button>
           </div>
