@@ -4,7 +4,7 @@
 
 
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth-services/auth.service';
 import * as myGlobals from '../../../globals';
 import { AdmService } from '../../../services/adm-services/adm.service';
@@ -22,8 +22,8 @@ export class MapSettingsComponent implements OnInit {
   businessList: FormGroup = new FormGroup({});
   businessLocation = '';
   alert: Boolean = false;
-  searchCheck: Boolean = false;
-  displayList: Boolean = false;
+  searchCheck = false;
+  displayList = false;
 
   businessName: BusinessName = { name: '' };
 
@@ -33,7 +33,11 @@ export class MapSettingsComponent implements OnInit {
   //Business Types Array
   businessTypes = myGlobals.categories;
 
-  constructor(private formBuilder: FormBuilder, public authService: AuthService, public admService: AdmService) { }
+  constructor(private formBuilder: FormBuilder, public authService: AuthService, public admService: AdmService) { 
+    this.businessList = this.formBuilder.group({
+      businesses: this.formBuilder.array([], [Validators.required])
+    })
+  }
 
   ngOnInit(): void {
 
@@ -44,13 +48,11 @@ export class MapSettingsComponent implements OnInit {
       website: new FormControl('', [Validators.required]),
       businessPhone: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')]),
       businessLocation: new FormControl('', [Validators.required]),
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required])
     })
     this.businessSearch = new FormGroup({
       searchedBusiness: new FormControl('', [Validators.required])
-    });
-
-    this.businessList = new FormGroup({
-      businesses: this.formBuilder.array(this.typesList.map(x => !1), Validators.required)
     });
 
   }
@@ -96,6 +98,23 @@ export class MapSettingsComponent implements OnInit {
         }
       }
     );
+  }
+
+  getCheckedValue(event: any) {
+    const checkArray: FormArray = this.businessList.get('businesses') as FormArray;
+
+    if(event.target.checked) {
+      checkArray.push(new FormControl(event.target.value));
+    } else {
+      let i: number = 0;
+      checkArray.controls.forEach((item: AbstractControl) => {
+        if (item.value == event.target.value) {
+          checkArray.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
   }
 
   // Adds business names to typesList

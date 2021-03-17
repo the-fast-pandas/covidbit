@@ -11,6 +11,8 @@ import { BusinessName } from '../../../models/businessName.model';
 })
 export class CaseSettingsComponent implements OnInit {
 
+  genderArray = [{ name: "Male"}, { name: "Female" }];
+
   typesList: Array<String> = [];
 
   displayCaseList = false;
@@ -19,6 +21,7 @@ export class CaseSettingsComponent implements OnInit {
 
   caseResults: FormGroup = new FormGroup({});
   businessSearch: FormGroup = new FormGroup({});
+  newCaseInformation: FormGroup = new FormGroup({});
 
   constructor(private formBuilder: FormBuilder, public admService: AdmService) {
     this.caseResults = this.formBuilder.group({
@@ -28,6 +31,14 @@ export class CaseSettingsComponent implements OnInit {
   businessName: BusinessName = { name: '' };
 
   ngOnInit(): void {
+
+    this.newCaseInformation = new FormGroup({
+      businessName: new FormControl('', [Validators.required]),
+      status: new FormControl('', [Validators.required]),
+      gender: new FormControl('', [Validators.required]),
+      age: new FormControl('', [Validators.required]),
+      acquisition: new FormControl('', [Validators.required])
+    })
 
     this.businessSearch = new FormGroup({
       searchedBusiness: new FormControl('', [Validators.required])
@@ -40,7 +51,7 @@ export class CaseSettingsComponent implements OnInit {
     this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
     this.admService.searchUserAdm(this.businessName).subscribe(
       data => {
-        //this.typesList = data;
+        // this.typesList = data;
         if (this.typesList === []) {
           this.searchCheck = true;
           this.displayCaseList = false;

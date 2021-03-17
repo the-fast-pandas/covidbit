@@ -102,6 +102,32 @@
 
             </div>
 
+            <div class="col" style="text-align: center;">
+              <nb-form-field>
+                <input nbInput type="text" id="input-business-firstName" name="firstName" formControlName='firstName'
+                  placeholder="Enter First Name" fieldSize="medium" fullWidth
+                  [status]="businessCredentials.get('firstName')?.touched ? (businessCredentials.get('firstName')?.invalid ? 'danger' : 'success') : 'basic' ">
+                <nb-icon
+                  *ngIf="businessCredentials.hasError('required','firstName') && businessCredentials.get('firstName')?.touched === true"
+                  nbSuffix icon="alert-circle-outline"></nb-icon>
+                <nb-icon *ngIf="businessCredentials.get('firstName')?.valid === true" nbSuffix icon="checkmark-outline">
+                </nb-icon>
+              </nb-form-field>
+            </div>
+
+            <div class="col" style="text-align: center;">
+              <nb-form-field>
+                <input nbInput type="text" id="input-business-lastName" name="lastName" formControlName='lastName'
+                  placeholder="Enter Last Name" fieldSize="medium" fullWidth
+                  [status]="businessCredentials.get('lastName')?.touched ? (businessCredentials.get('lastName')?.invalid ? 'danger' : 'success') : 'basic' ">
+                <nb-icon
+                  *ngIf="businessCredentials.hasError('required','lastName') && businessCredentials.get('lastName')?.touched === true"
+                  nbSuffix icon="alert-circle-outline"></nb-icon>
+                <nb-icon *ngIf="businessCredentials.get('lastName')?.valid === true" nbSuffix icon="checkmark-outline">
+                </nb-icon>
+              </nb-form-field>
+            </div>
+
           </div>
 
           <br>
@@ -128,15 +154,14 @@
             </nb-form-field>
 
             <ng-container>
-              <p class="caption status-danger"
-                *ngIf=" searchCheck === true">
+              <p class="caption status-danger" *ngIf="searchCheck == true">
                 Business Not Found!
               </p>
             </ng-container>
 
           </div>
 
-          <ng-container *ngIf="displayList === true">
+          <ng-container>
             <p class="subtitle">Businesses found with the name:  {{businessSearch.get('searchedBusiness')?.value}}</p>
           </ng-container>
 
@@ -144,12 +169,20 @@
 
         <form [formGroup]="businessList" (ngSubmit)='removeBusiness()'>
           <nb-list size="medium" *ngIf="displayList === true">
-            <nb-list-item *ngFor="let type of typesList; let i = index" formArrayName="businesses">
-              <nb-checkbox id="caseResults" formControlName={{i}}>{{ type}}</nb-checkbox>
+            <nb-list-item *ngFor="let data of typesList; let i = index">
+              <nb-checkbox (change)="getCheckedValue($event)">{{ data }}</nb-checkbox>
             </nb-list-item>
           </nb-list>
 
-          <div class="buttonSlot" *ngIf="displayList === true">
+          <!-- <form [formGroup]="caseResults" (ngSubmit)='onSubmit()'>
+            <nb-list size="medium" *ngIf="displayCaseList === true">
+              <nb-list-item *ngFor="let data of typesList; let i = index">
+                <nb-checkbox (change)="getCheckedValue($event)">{{ data }}</nb-checkbox>
+              </nb-list-item>
+            </nb-list> -->
+  
+
+          <div class="buttonSlot">
             <button class="button" type="submit" nbButton outline status="success"
               [disabled]="this.businessList.hasError('required', 'businesses')">Remove Business</button>
           </div>
