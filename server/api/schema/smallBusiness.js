@@ -56,6 +56,10 @@ const SmallBusinessSchema = mongoose.Schema({
   resetPasswordExpires:{
     type: Date,
     default: ""
+  },
+  registeredBy:{
+    type:Boolean,
+    default: false
   }
 });
 

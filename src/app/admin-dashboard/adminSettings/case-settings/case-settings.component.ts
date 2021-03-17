@@ -25,6 +25,7 @@ export class CaseSettingsComponent implements OnInit {
 
   newCaseInformation: FormGroup = new FormGroup({});
 
+
   constructor(private formBuilder: FormBuilder, public adm: AdmService) {
     this.caseResults = this.formBuilder.group({
       checkArray: this.formBuilder.array([], [Validators.required])

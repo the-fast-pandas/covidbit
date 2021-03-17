@@ -12,7 +12,7 @@ import { AuthService } from './services/auth-services/auth.service';
 
 export class AppComponent {
   title = 'covidbit';
-  constructor(public authService: AuthService, public router: Router) { }
+  constructor(public auth: AuthService, public router: Router) { }
 
   ngOnInit() {
  

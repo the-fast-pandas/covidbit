@@ -48,12 +48,19 @@ export class AuthService {
   }
 
 
-  // Business user login
+  // Business user/Administrator login
   logIn(user: LoginCredentials) {
     const api = `${this.endpoint}/login-form`;
     return this.http.post<any>(api, user).pipe()
       .subscribe(
-        data => {
+        (data: any) => {
+          if (data.admin.loginId === "admin@myAdmin.ca") {
+            localStorage.removeItem('access_token');
+            localStorage.setItem('admin_token', data.adminToken);
+            this.router.navigate(['/admin-dashboard']).then(() => {
+              window.location.reload();
+            });
+          }else{
           localStorage.setItem('access_token', data.accessToken);
           localStorage.setItem('name_header', data.user.businessName);
           localStorage.setItem('business_id', data.user._id);
@@ -62,8 +69,9 @@ export class AuthService {
               data => {
                 this.router.navigate(['/business-dashboard/' + data.user._id]);
               })
+            }
         },
-        error => {
+        (error: any) => {
           this.router.navigate(['login-form']).then(() => {
             localStorage.setItem('server_warning', 'true');
             window.location.reload();
@@ -72,40 +80,13 @@ export class AuthService {
       )
   }
 
-  // Administrator user login
-  logInAdmin(user: LoginCredentials) {
-    const api = `${this.endpoint}/login-admin`;
-    return this.http.post<any>(api, user)
-      .subscribe(
-        data => {
-          localStorage.removeItem('access_token');
-          localStorage.setItem('admin_token', data.adminToken);
-          this.router.navigate(['/admin-dashboard']).then(() => {
-            window.location.reload();
-          });
-        },
-        error => {
-          console.log("Not valid administrator credentials!");
-        }
-      )
-  }
-
   // Business User Logout
   doLogout() {
-    let removeToken = localStorage.removeItem('access_token');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('admin_token');
     localStorage.removeItem('name_header');
     localStorage.removeItem('business_id');
-    if (removeToken == null) {
-      this.router.navigate(['login-form']);
-    }
-  }
-
-  // Administrator Logout
-  doLogoutAdmin() {
-    let removeToken = localStorage.removeItem('admin_token');
-    if (removeToken == null) {
-      this.router.navigate(['home']);
-    }
+    this.router.navigate(['login-form']);
   }
 
   // Get business user Dashboard
@@ -138,6 +119,7 @@ export class AuthService {
       )
   }
 
+  // Business User is allowed to add safety measures
   addSafety(safety: any, id: String) {
     const api = `${this.endpoint}/add-safety/${id}`;
     return this.http.put<any>(api, safety)
@@ -151,15 +133,22 @@ export class AuthService {
       )
   }
 
+  // Retrieve local storage
   getToken() {
     return localStorage.getItem('access_token');
   }
+  getBusinesName() {
+    return localStorage.getItem('name_header');
+  }
+  getId(){
+    return localStorage.getItem('business_id');
+  }
 
+  // Check if it is authenticated
   get isLoggedIn(): boolean {
     let authToken = localStorage.getItem('access_token');
     return (authToken !== null) ? true : false;
   }
-
   get isAdmin(): boolean {
     let authToken = localStorage.getItem('admin_token');
     return (authToken !== null) ? true : false;

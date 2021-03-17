@@ -22,7 +22,6 @@ export class AdminDashboardComponent implements OnInit {
     //Show settings Tab
     let elementId: string = (event.target as Element).id;
     this.settingsType = elementId;
-    console.log(this.settingsType)
     
   }
 

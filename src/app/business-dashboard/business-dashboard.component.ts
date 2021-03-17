@@ -51,9 +51,9 @@ export class BusinessDashboardComponent implements OnInit {
     }
   };
 
-  constructor(public dataService: DataService, public router: Router, private activatedRoute: ActivatedRoute, public authService: AuthService) {
+  constructor(public data: DataService, public router: Router, private activatedRoute: ActivatedRoute, public auth: AuthService) {
     let id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.dataService.getUserView(id)
+    this.data.getUserView(id)
       .subscribe(
         data => {
           this.id = data.user._id;
@@ -82,7 +82,7 @@ export class BusinessDashboardComponent implements OnInit {
       description: this.safetyMeasures.get('description')?.value
     }
     this.safetyMeasureList.push(safetyMeasure);
-    this.authService.addSafety(safetyMeasure, this.id);
+    this.auth.addSafety(safetyMeasure, this.id);
     this.safetyMeasures.get('title')?.reset();
     this.safetyMeasures.get('description')?.reset();
   }

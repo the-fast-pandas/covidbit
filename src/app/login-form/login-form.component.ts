@@ -1,7 +1,6 @@
 // Server - CovidBit - Fast Pandas
-// Created:                2021, John T
+// Created:  10,  January, 2021, John Turkson, component implementation
 // Modified: 08, February, 2021, Teresa Costa, added integration with authentication, database
-//           04, March,    2021, Teresa Costa, added warnings from the server (local_storage)
 
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
@@ -21,10 +20,16 @@ export class LoginFormComponent implements OnInit {
   // Error warnings
   alert: Boolean = false;
   serverWarning: Boolean = false;
+  newPassword: Boolean = false;
+  authWarning: Boolean = false;
 
-  constructor(public authService: AuthService, public router: Router) { 
+  constructor(public auth: AuthService, public router: Router) {
     if (localStorage.getItem('server_warning') === 'true') {  // Controls messages from server
       this.serverWarning = true;
+    } else if (localStorage.getItem('new_password') === 'true') {  // Controls messages from server
+      this.newPassword = true;
+    } else if (localStorage.getItem('auth_warning') === 'true') {  // Controls messages from server
+      this.authWarning = true;
     }
   }
 
@@ -34,6 +39,7 @@ export class LoginFormComponent implements OnInit {
       password: new FormControl("", [Validators.required, Validators.minLength(8)])
     })
     localStorage.removeItem('server_warning'); // Controls messages from server
+    localStorage.removeItem('auth_warning');
   }
 
   checkLoginForm() {
@@ -48,15 +54,22 @@ export class LoginFormComponent implements OnInit {
   // Closes the warning box for the server errors
   onCloseServer() {
     this.serverWarning = false;
+    this.newPassword = false;
+    this.authWarning = false;
+    localStorage.removeItem('new_password');
+    localStorage.removeItem('auth_warning');
   }
 
   // Cheks login credentials
   onSubmit() {
-    this.authService.logIn(this.loginCredentials.value);
+    this.auth.logIn(this.loginCredentials.value);
   }
 
   onClose() {
     this.alert = false;
-    this.authService.logIn(this.loginCredentials.value).unsubscribe();
+    this.auth.logIn(this.loginCredentials.value).unsubscribe();
+    localStorage.removeItem('server_warning'); // Controls messages from server
+    localStorage.removeItem('auth_warning');
   }
+ 
 }

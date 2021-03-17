@@ -50,7 +50,6 @@ const editUserProfile = function (req, res) {
 }
 
 const addSafety = function (req, res) {
-    console.log("hi")
     let id = req.params.id;
     let mySafety = [];
     SmallBusiness.findById(id, function (error, user) {
@@ -66,7 +65,6 @@ const addSafety = function (req, res) {
             safety["description"] = req.body.description;
             mySafety = user.safetyMeasures;
             mySafety.push(safety);
-            console.log(mySafety);
             let newvalues = { $set: { safetyMeasures: mySafety } };
             SmallBusiness.updateOne({ "_id": id }, newvalues, function (error, user) {
                 if (error) {
@@ -88,7 +86,6 @@ const addSafety = function (req, res) {
 const addCertification = function (req, res) {
 
     let id = req.params.id;
-    console.log(`${id}`);
 
     let newvalues = {
         $set: {

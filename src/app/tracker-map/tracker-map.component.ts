@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core'
 import { MapsAPILoader } from '@agm/core';
 import { HttpClient } from '@angular/common/http';
 import { searchSB } from '../models/searchSB.model';
-import { ApiService } from '../api.service'
 
 
 @Component({
@@ -43,9 +42,7 @@ export class TrackerMapComponent implements OnInit {
   @ViewChild('search')
   public searchElementRef!: ElementRef;
 
-  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private http: HttpClient, private apiService: ApiService) {
-    this.loadNews();
-  }
+  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {}
 
 
   ngOnInit() {
@@ -105,35 +102,6 @@ export class TrackerMapComponent implements OnInit {
       });
     });
 
-    //Call COVID API
-    this.apiService.getCaseData().subscribe((data) => {
-      console.log("Connection Made")
-      this.caseInformation = data;
-
-      //Check for ON (Ontario) Province Prefix
-      for (let i = 0; i < this.caseInformation.data.length; i++) {
-        if (this.caseInformation.data[i].province == "ON") {
-
-          //Store API Data in Varibales (All Total Data)
-          this.currentDate = this.caseInformation.data[i].date;
-          this.totalCases = this.caseInformation.data[i].total_cases;
-          this.totalCriticals = this.caseInformation.data[i].total_criticals;
-          this.totalFatalities = this.caseInformation.data[i].total_fatalities;
-          this.totalHospitalizations = this.caseInformation.data[i].total_hospitalizations;
-          this.totalRecoveries = this.caseInformation.data[i].total_recoveries;
-          this.totalTests = this.caseInformation.data[i].total_tests;
-          this.totalVaccinations = this.caseInformation.data[i].total_vaccinations;
-          this.totalVaccinated = this.caseInformation.data[i].total_vaccinated;
-          this.totalVaccinesDistributed = this.caseInformation.data[i].total_vaccines_distributed;
-          return
-        } else {
-          console.log("false")
-          return
-        }
-      }
-
-    })
-
   }
 
   Search() {
@@ -161,8 +129,6 @@ export class TrackerMapComponent implements OnInit {
 
   getAddress(lat: number, lng: number) {
     this.geoCoder.geocode({ 'location': { lat: lat, lng: lng } }, (results: { formatted_address: string; }[], status: string) => {
-      console.log(results);
-      console.log(status);
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 12;
@@ -180,18 +146,7 @@ export class TrackerMapComponent implements OnInit {
   //calendar   
   date = new Date();
 
-  //news
-  articles: any
-  loadNews() {
-    this.getNews().subscribe((news: any) => {
-      this.articles = news.articles
-      console.log(this.articles);
-    })
-  }
-
-  getNews() {
-    return this.http.get(`https://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=fd7187b0369b44b1b4f9a03c11a32b9a`)
-  }
+ 
 
 
 
