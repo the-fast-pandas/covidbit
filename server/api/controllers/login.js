@@ -9,10 +9,31 @@ const crypto = require('crypto');
 // MongoDb shemas
 const SmallBusiness = require('../schema/smallBusiness');
 const emailService = require('../models/email');
+const Administrator = require('../schema/administrator');
 
 // Controls the login for a business user
 const loginUser = function (req, res) {
     const { email, password } = req.body;
+    if (email === "admin@myAdmin.ca"){
+        Administrator.findOne({ "loginId": email }, function (error, admin) {
+            if (error) {
+              throw error;
+            }
+            if (!admin) {
+              return res.status(401).json({ message: "Incorrect LoginId!" });
+            }
+            if (admin) {
+              if (password == admin.password) {
+                const payload = { admin: { id: admin.id } };
+                const adminToken = jwt.sign(payload, process.env.SECRET_ADMIN, { expiresIn: '200m' });
+                return res.status(200).json({ adminToken, admin });
+              } else {
+                return res.status(401).json({ message: "Incorrect Password!" });
+              }
+            }
+          })
+
+    }else{
     SmallBusiness.findOne({ "loginId": email }, function (error, user) {
         if (error) {
             throw error;
@@ -36,6 +57,7 @@ const loginUser = function (req, res) {
             })
         }
     })
+}
 }
 
 const forgotPassword = function (req, res) {

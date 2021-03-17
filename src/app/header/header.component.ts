@@ -17,7 +17,8 @@ import { AuthService } from '../services/auth-services/auth.service';
 export class HeaderComponent implements OnInit {
 
   loggedIn: boolean = false;
-  businessName: any = "Business Name";
+  loggedInAdm: boolean = false;
+  businessName: any = " ";
   id: any = "9";
   items: Array<any> = [
     { title: 'Profile' },
@@ -29,9 +30,16 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.router.events.subscribe(event => {
       if (event.constructor.name === "NavigationEnd") {
-        this.loggedIn = this.auth.isLoggedIn;
-        this.businessName = localStorage.getItem('name_header');
-        this.id = localStorage.getItem('business_id')
+        if (this.auth.isLoggedIn){
+          this.loggedIn = this.auth.isLoggedIn;
+          this.businessName = localStorage.getItem('name_header');
+          this.id = localStorage.getItem('business_id')
+        }else if (this.auth.isAdmin){
+          this.loggedIn = this.auth.isAdmin;
+          this.businessName = "Administrator"
+
+        }
+       
       }
     })
 
@@ -42,7 +50,11 @@ export class HeaderComponent implements OnInit {
       )
       .subscribe(title => {
         if (title == "Profile") {
+          if (this.auth.isLoggedIn) {
           this.router.navigate(['business-dashboard/' + this.id]);
+        }else if  (this.auth.isAdmin){
+          this.router.navigate(['admin-dashboard']);
+        }
         }
         if (title == "Logout") {
           this.auth.doLogout();

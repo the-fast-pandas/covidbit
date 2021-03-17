@@ -24,11 +24,8 @@ export class FooterComponent implements OnInit {
   }
   // Cheks login credentials
   onSubmit() {
-    this.auth.logInAdmin(this.loginCredentials.value);
   }
 
-  onLogout(){
-    this.auth.doLogoutAdmin();
-    window.location.reload();   
+  onLogout(){ 
   }
 }
