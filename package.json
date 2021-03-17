@@ -27,6 +27,7 @@
     "@nebular/eva-icons": "7.0.0",
     "@nebular/theme": "^7.0.0",
     "@types/googlemaps": "^3.39.12",
+    "bcrypt": "^5.0.1",
     "bootstrap": "^4.6.0",
     "chart.js": "^2.9.3",
     "cookie-parser": "^1.4.5",
