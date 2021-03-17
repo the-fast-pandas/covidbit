@@ -13,11 +13,32 @@ const searchUserView = function (req, res) {
             throw error;
         }
         if (!user) {
-            return res.status(401).json({ message: "This business user does not exist!"  });
+            return res.status(401).json({ message: "This business user does not exist!" });
         }
         if (user) {
             id = user.id;
             return res.status(200).json({ id });
+        }
+    })
+}
+
+const getAll = function (req, res) {
+    SmallBusiness.find({}, function (error, users) {
+        if (error) {
+            throw error;
+        }
+        if (!users) {
+            return res.status(401).json({ message: "This business user does not exist!" });
+        }
+        if (users) {
+            let myUsers = [];
+            for (let i = 0; i < Object.keys(users).length; i++) {
+                let singleUser = {};
+                singleUser["businessType"] = users[i].businessType;
+                singleUser["id"] = users[i]._id;
+                myUsers.push(singleUser);
+            }
+            return res.status(200).json({ myUsers });
         }
     })
 }
@@ -37,4 +58,4 @@ const getUserView = function (req, res) {
     })
 }
 
-module.exports = { getUserView, searchUserView};
+module.exports = { getUserView, searchUserView, getAll };

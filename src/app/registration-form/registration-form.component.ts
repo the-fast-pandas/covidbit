@@ -29,7 +29,7 @@ export class RegistrationFormComponent implements OnInit {
   businessLocation = '';
   safetyMeasureList: any = [];
 
-  constructor(public authService: AuthService, public router: Router, public dataService: DataService) {
+  constructor(public auth: AuthService, public router: Router, public data: DataService) {
     if (localStorage.getItem('server_warning') === 'true') {  // Controls messages from server
       this.serverWarning = true;
     }
@@ -59,7 +59,7 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.authService.registerUser(this.userCredentials.value, false);
+    this.auth.registerUser(this.userCredentials.value, false);
   }
 
   checkRegistrationForm() {
@@ -67,7 +67,7 @@ export class RegistrationFormComponent implements OnInit {
       this.alert = true;
     }
     else {
-      if (this.dataService.getValidUser(this.userCredentials.value)) {
+      if (this.data.getValidUser(this.userCredentials.value)) {
         this.alert = false;
       } else {
         this.alert = true;
@@ -101,7 +101,7 @@ export class RegistrationFormComponent implements OnInit {
     this.safetyMeasureList.push(safetyMeasure);
     this.userCredentials.get('safetyMeasures.title')?.reset()
     this.userCredentials.get('safetyMeasures.description')?.reset()
-    //console.log(this.userCredentials.value);  // this returns safetyMeasures: {title: null, description: null}
+    
   }
 
   public handleAddressChange(address: any) {

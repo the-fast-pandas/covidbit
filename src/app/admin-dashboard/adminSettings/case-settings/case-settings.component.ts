@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators, AbstractControl } from '@angular/forms';
-import { ValueTransformer } from '@angular/compiler/src/util';
 import { AdmService } from '../../../services/adm-services/adm.service';
 import { BusinessName } from '../../../models/businessName.model';
+
 
 @Component({
   selector: 'app-case-settings',
@@ -21,14 +21,16 @@ export class CaseSettingsComponent implements OnInit {
 
   caseResults: FormGroup = new FormGroup({});
   businessSearch: FormGroup = new FormGroup({});
+  businessName: BusinessName = { name: '' };
+
   newCaseInformation: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder, public admService: AdmService) {
+  constructor(private formBuilder: FormBuilder, public adm: AdmService) {
     this.caseResults = this.formBuilder.group({
       checkArray: this.formBuilder.array([], [Validators.required])
     })
-   }
-  businessName: BusinessName = { name: '' };
+  }
+
 
   ngOnInit(): void {
 
@@ -49,7 +51,7 @@ export class CaseSettingsComponent implements OnInit {
   searchForBusiness() {
 
     this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
-    this.admService.searchUserAdm(this.businessName).subscribe(
+    this.adm.searchUserAdm(this.businessName).subscribe(
       data => {
         // this.typesList = data;
         if (this.typesList === []) {
@@ -71,7 +73,7 @@ export class CaseSettingsComponent implements OnInit {
   convertToValue(key: string) {
     return this.caseResults.value[key].map((x: any, i: any) => !1)
   }
-  
+
   tabReset() {
     this.displayCaseList = false;
     this.searchCheck = false;
@@ -81,7 +83,7 @@ export class CaseSettingsComponent implements OnInit {
   getCheckedValue(event: any) {
     const checkArray: FormArray = this.caseResults.get('checkArray') as FormArray;
 
-    if(event.target.checked) {
+    if (event.target.checked) {
       checkArray.push(new FormControl(event.target.value));
     } else {
       let i: number = 0;
@@ -95,7 +97,7 @@ export class CaseSettingsComponent implements OnInit {
     }
   }
 
-  onSubmit(){
+  onSubmit() {
     console.log(this.caseResults.value);
   }
 

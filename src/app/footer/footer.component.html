@@ -11,32 +11,6 @@
             Teresa Costa, John Turkson, Valentina Derksen, Adilah Ismail, Yevgeniya Anasheva
         </p>
     </div>
-    <div *ngIf="!Admin" class="column">
 
-        <form [formGroup]="loginCredentials" (ngSubmit)="onSubmit()" class="form-components">
-
-            <!-- Email Input Field -->
-            <div class="form-control-group">
-                <input nbInput id="input-name" type="email" formControlName="email" placeholder="Email" fullWidth
-                    fieldSize="large">
-            </div>
-
-            <!-- Password Input Field -->
-            <div class="form-control-group">
-                <input nbInput id="input-password" type="password" formControlName="password" placeholder="Password"
-                    fullWidth fieldSize="large">
-
-            </div>
-
-            <div class="form-control-group">
-                <button class="button" type="submit" nbButton fullWidth outline status="primary">LOGIN ADM</button>
-            </div>
-        </form>
-    </div>
-    <form *ngIf="Admin" (ngSubmit)="onLogout()" class="column">
-        <div class="form-control-group">
-            <button class="button" type="submit" nbButton fullWidth outline status="primary">LOGOUT ADM</button>
-        </div>
-    </form>
 
 </div>
