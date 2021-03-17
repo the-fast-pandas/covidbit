@@ -9,9 +9,32 @@ button {
 a {
     text-decoration: none;
 }
-@media only screen and (max-width: 600px) {
-    .navigation-buttons {
-        display: inline-block;
-        left: 2rem;
+
+@media only screen and (min-width: 600px) {
+    nb-icon {
+        display: none;
     }
-}
+    nb-sidebar {
+        display: none;
+    }
+  }
+
+
+@media only screen and (max-width: 600px) {
+    h2  {
+        display: none;
+    }
+    .navigation-buttons {
+        display: none;
+    }
+  }
+
+  .sidebar-toggle {
+    padding-right: 1.25rem;
+    text-decoration: none;
+    color: var(--text-hint-color);
+    font-size: 3.5rem;
+  }
+  
+  
+  
