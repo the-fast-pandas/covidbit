@@ -23,7 +23,7 @@ export class CaseSettingsComponent implements OnInit {
 
 
 
-  constructor(private formBuilder: FormBuilder, public admService: AdmService) {
+  constructor(private formBuilder: FormBuilder, public adm: AdmService) {
     this.caseResults = this.formBuilder.group({
       checkArray: this.formBuilder.array([], [Validators.required])
     })
@@ -40,7 +40,7 @@ export class CaseSettingsComponent implements OnInit {
   searchForBusiness() {
 
     this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
-    this.admService.searchUserAdm(this.businessName).subscribe(
+    this.adm.searchUserAdm(this.businessName).subscribe(
       data => {
         //this.typesList = data;
         if (this.typesList === []) {

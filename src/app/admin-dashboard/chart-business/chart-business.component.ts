@@ -15,8 +15,8 @@ export class ChartBusinessComponent implements OnInit {
   chartLabel: Array<string> = [];
   chartCount: Array<number> = [];
 
-  constructor(public dataService: DataService) {
-    this.dataService.getAllBusiness().subscribe(
+  constructor(public data: DataService) {
+    this.data.getAllBusiness().subscribe(
       data => {
         this.getTypes(data);
         this.count();
@@ -29,12 +29,6 @@ export class ChartBusinessComponent implements OnInit {
           }]
         };
         this.chartOptions = {
-          title: {
-            display: true,
-            text: 'Business by Type',
-            fontSize: 16, 
-            position: 'top'
-          },
           legend: {
             position: 'left',
             labels: {

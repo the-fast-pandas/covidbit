@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../../services/data-services/data.service';
-import * as myGlobals from '../../../globals';
+import { DataService } from '../../services/data-services/data.service';
+import * as myGlobals from '../../globals';
 
 @Component({
   selector: 'app-bar-business-cases',
@@ -21,8 +21,8 @@ export class BarBusinessCasesComponent implements OnInit {
 
   initialDate = this.addMonths(new Date(), -this.lastMonths);
 
-  constructor(public dataService: DataService) {
-    this.dataService.getAllBusiness().subscribe(
+  constructor(public data: DataService) {
+    this.data.getAllBusiness().subscribe(
       data => {
         this.getDate(data);
         this.count();

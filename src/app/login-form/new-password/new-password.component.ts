@@ -19,8 +19,8 @@ export class NewPasswordComponent implements OnInit {
   alert: Boolean = false;
   serverWarning: Boolean = false;
 
-  constructor(public dataService: DataService, public router: Router) { 
-    if (localStorage.getItem('server_warning') === 'true') {  // Controls messages from server
+  constructor(public data: DataService, public router: Router) { 
+    if (localStorage.getItem('new_password_warning') === 'true') {  // Controls messages from server
       this.serverWarning = true;
     }
   }
@@ -29,6 +29,7 @@ export class NewPasswordComponent implements OnInit {
     this. loginId = new FormGroup({
       email: new FormControl("", [Validators.required, Validators.email]),
     })
+    localStorage.removeItem('new_password_warning');
   }
 
   checkLoginForm() {
@@ -42,15 +43,18 @@ export class NewPasswordComponent implements OnInit {
 
   // Closes the warning box for the server errors
   onCloseServer() {
+    this.serverWarning = false;
+    localStorage.removeItem('new_password_warning');
   }
 
   // Cheks login credentials
   onSubmit() {
-    this.dataService.requestNewPassword(this.loginId.value);
+    this.data.requestNewPassword(this.loginId.value);
   }
 
   onClose() {
     this.alert = false;
+    this.data.requestNewPassword(this.loginId.value).unsubscribe();
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
-import { DataService } from '../services/data-services/data.service';
-import { AuthService } from '../services/auth-services/auth.service';
+import { DataService } from '../../services/data-services/data.service';
+import { AuthService } from '../../services/auth-services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -26,9 +26,9 @@ export class CertificationFormComponent implements OnInit {
   webSite: String = 'to be added';
   businessType: String = 'Type of Business';
 
-  constructor(public authService: AuthService, public router: Router, public dataService: DataService, private activatedRoute: ActivatedRoute) { 
+  constructor(public auth: AuthService, public router: Router, public data: DataService, private activatedRoute: ActivatedRoute) { 
     let id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.dataService.getUserView(id)
+    this.data.getUserView(id)
       .subscribe(
         data => {
           this.id = data.user._id;
@@ -44,7 +44,7 @@ export class CertificationFormComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.userCredentials.value);
-    //this.authService.addCertification(this.userCredentials.value, false);
+    //this.auth.addCertification(this.userCredentials.value, false);
   }
   
   // toggle(checked: boolean) {

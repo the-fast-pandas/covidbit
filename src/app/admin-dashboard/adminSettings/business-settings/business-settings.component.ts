@@ -33,7 +33,7 @@ export class MapSettingsComponent implements OnInit {
   //Business Types Array
   businessTypes = myGlobals.categories;
 
-  constructor(private formBuilder: FormBuilder, public authService: AuthService, public admService: AdmService) { }
+  constructor(private formBuilder: FormBuilder, public auth: AuthService, public adm: AdmService) { }
 
   ngOnInit(): void {
 
@@ -68,23 +68,22 @@ export class MapSettingsComponent implements OnInit {
 
   // Controls adding/register a business
   addBusiness() {
-    this.authService.registerUser(this.businessCredentials.value, true);
+    this.auth.registerUser(this.businessCredentials.value, true);
     this.alert = true;
     this.businessCredentials.reset();
   }
 
   // Controls delete of a Business User
   removeBusiness() {
-    this.admService.deleteUserAdm(this.idList);
+    this.adm.deleteUserAdm(this.idList);
   }
 
   // Search business by name
   // Controls search business for delete
   searchForBusiness() {
     this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
-    this.admService.searchUserAdm(this.businessName).subscribe(
+    this.adm.searchUserAdm(this.businessName).subscribe(
       data => {
-        console.log(data.myUsers);
         this.getNames(data);
         this.getId(data);
         if (this.typesList === []) {
