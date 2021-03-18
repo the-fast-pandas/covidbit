@@ -49,6 +49,7 @@ import { ChartModule } from 'primeng/chart';
 import { BarBusinessCasesComponent } from './admin-dashboard/adminSettings/bar-business-cases/bar-business-cases.component';
 import { AddCaseComponent } from './business-dashboard/add-case/add-case.component';
 import { TableCasesComponent } from './business-dashboard/table-cases/table-cases.component';
+import { EditCaseComponent } from './business-dashboard/edit-case/edit-case.component';
 
 
 @NgModule({
@@ -79,6 +80,7 @@ import { TableCasesComponent } from './business-dashboard/table-cases/table-case
     BarBusinessCasesComponent,
     AddCaseComponent,
     TableCasesComponent,
+    EditCaseComponent,
 
   ],
   imports: [

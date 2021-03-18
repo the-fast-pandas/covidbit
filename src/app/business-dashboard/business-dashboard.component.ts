@@ -10,7 +10,7 @@ import { AuthService } from '../services/auth-services/auth.service';
 import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme'
 import { AddCaseComponent } from './add-case/add-case.component';
 import { TableCasesComponent } from './table-cases/table-cases.component';
-
+import { EditCaseComponent } from './edit-case/edit-case.component';
 
 
 // http://localhost:4200/business-dashboard/:6021f5ef579ec8fa794be159
