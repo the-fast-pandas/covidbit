@@ -61,15 +61,23 @@
      <!-- Add Safety Measure -->
      <nb-card size="tiny">
        <nb-card-body>
-         <form [formGroup]='safetyMeasures'>
-             <label nbLabel class="label" for="input-safetyMeasureTitle">Add safety Measure:</label>
-             <input nbInput type="text" id="input-safetyMeasureTitle" fieldSize="small" formControlName="title" fullWidth placeholder="Name of safety Measure" >
-             <label nbLabel class="label" for="input-safetyMeasureDescription"></label>
-             <textarea nbInput type="text" id="input-safetyMeasureDescription" formControlName="description" fullWidth placeholder="Desciption of safety Measure"></textarea>
-             <button nbButton size="small" nbButton id="addMeasure" outline status="primary"
-             [disabled]="this.safetyMeasures.get('title')?.invalid || this.safetyMeasures.get('description')?.invalid" 
-             (click)="onAddMeasure()">ADD safety MEASURE</button>
-         </form>
+        <nb-tabset (changeTab)="tabReset()">
+          <nb-tab tabTitle="Add">
+            <form [formGroup]='safetyMeasures'>
+                <input nbInput type="text" id="input-safetyMeasureTitle" fieldSize="small" formControlName="title" fullWidth placeholder="Name of safety Measure" >
+                <label nbLabel class="label" for="input-safetyMeasureDescription"></label>
+                <textarea nbInput type="text" id="input-safetyMeasureDescription" formControlName="description" fullWidth placeholder="Desciption of safety Measure"></textarea>
+                <button nbButton size="small" nbButton id="addMeasure" outline status="primary"
+                [disabled]="this.safetyMeasures.get('title')?.invalid || this.safetyMeasures.get('description')?.invalid" 
+                (click)="onAddMeasure()">Add safety measure</button>
+            </form>
+          </nb-tab>
+          <nb-tab tabTitle="Delete">
+            <nb-select multiple placeholder="Multiple Select">
+              <nb-option *ngFor="let type of safetyMeasuresList" [value]='type.title' >{{type.title}}</nb-option>
+            </nb-select>
+          </nb-tab>
+          </nb-tabset>
        </nb-card-body>
      </nb-card>
    </div>

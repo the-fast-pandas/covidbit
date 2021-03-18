@@ -30,14 +30,9 @@ interface TreeNode<T> {
   templateUrl: './business-dashboard.component.html',
   styleUrls: ['./business-dashboard.component.scss'],
 })
+
 export class BusinessDashboardComponent implements OnInit {
-  Cases: Array<Case> = [
-    {dateReported: 'Mar 11, 2021', status: 'Under Investigation', gender: 'Male',  age: 45, acquisition: 'Workplace Outbreak'},
-    {dateReported: 'Mar 12, 2021', status: 'Recovered', gender: 'Female',  age: 35, acquisition: 'Travel'},
-    {dateReported: 'Mar 13, 2021', status: 'Self-Isolating', gender: 'Female',  age: 65, acquisition: 'Close Contact'},
-  ];
-
-
+  
   //Form Groups
   safetyMeasures: FormGroup = new FormGroup({});
   safetyMeasureList: any = [];
@@ -45,8 +40,6 @@ export class BusinessDashboardComponent implements OnInit {
   caseReportedList: FormGroup = new FormGroup({});
   private fb: FormBuilder = new FormBuilder();
   dateControl = new FormControl(new Date());
-
-  editable: boolean = false;
 
   // Business Profile Form Variables
   id: String = "";
@@ -95,6 +88,12 @@ export class BusinessDashboardComponent implements OnInit {
     {name: 'Prefer not to say'},
   ];
 
+  safetyMeasuresList = [
+    {title: 'safety measures 1', description: 'safety measures 1'},
+    {title: 'safety measures 2', description: 'safety measures 2'},
+    {title: 'safety measures 3', description: 'safety measures 3'},
+  ]
+  
   constructor(public dataService: DataService, public router: Router, private activatedRoute: ActivatedRoute, public authService: AuthService) {
     let id = this.activatedRoute.snapshot.paramMap.get('id');
     this.dataService.getUserView(id)
@@ -125,19 +124,6 @@ export class BusinessDashboardComponent implements OnInit {
       gender: new FormControl('', [Validators.required]),
       age: new FormControl('', [Validators.required, Validators.min(1), Validators.max(110) ]),
     });
-    this.caseReportedList = this.fb.group({
-      Cases: this.fb.array(
-        this.Cases.map(obj => 
-          this.fb.group({
-            dateReported: [obj.dateReported],
-            status: [obj.status],
-            acquisition: [obj.acquisition],
-            gender: [obj.gender],
-            age: [obj.age],
-          })
-          )
-        )
-    });
   }
 
   // ADD Safety Measure
@@ -150,12 +136,6 @@ export class BusinessDashboardComponent implements OnInit {
     this.authService.addSafety(safetyMeasure, this.id);
     this.safetyMeasures.get('title')?.reset();
     this.safetyMeasures.get('description')?.reset();
-  }
-
-  // submit ADD Case
-  onSubmit() {
-    //this.authService.editProfile(this.caseReported.value, this.id);
-    console.log("Form Value: ", this.caseReported.value);
   }
 
   tabReset() {
