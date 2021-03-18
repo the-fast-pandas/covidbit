@@ -13,7 +13,9 @@ export class CaseSettingsComponent implements OnInit {
 
   genderArray = [{ name: "Male"}, { name: "Female" }];
 
-  typesList: Array<String> = [];
+  foundBusinesses: Array<String> = [];
+  casesIDList: Array<String> = [];
+  listOfBusinesses: Array<String> = [];
 
   displayCaseList = false;
   searchCheck = false
@@ -46,15 +48,36 @@ export class CaseSettingsComponent implements OnInit {
       searchedBusiness: new FormControl('', [Validators.required])
     });
 
+    //Fill Dropdown List with businesses from the Database
+    this.adm.searchUserAdm(this.businessName).subscribe(
+      data => {
+        console.log(data.myUsers);
+        this.fillDropdownList(data);
+        console.log(this.listOfBusinesses);
+      }
+    );
+
   }
 
   searchForBusiness() {
+    //Clear Arrays that hold information
+    this.foundBusinesses = [];
+    this.casesIDList = [];
 
     this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
     this.adm.searchUserAdm(this.businessName).subscribe(
       data => {
-        // this.typesList = data;
-        if (this.typesList === []) {
+        console.log(data)
+        this.getBusinesses(data);
+        // this.getId(data);
+        console.log(this.foundBusinesses);
+        console.log(this.casesIDList);
+
+        if (this.businessSearch.get('searchedBusiness')?.value == '') {
+          this.foundBusinesses = [];
+        }
+
+        if (this.foundBusinesses.length === 0) {
           this.searchCheck = true;
           this.displayCaseList = false;
         } else {
@@ -94,6 +117,23 @@ export class CaseSettingsComponent implements OnInit {
         }
         i++;
       });
+    }
+  }
+
+  fillDropdownList(data: any) {
+    for (let i = 0; i < data.myUsers.length; i++) {
+        this.listOfBusinesses.push(data.myUsers[i].businessName);
+    }
+  }
+
+  getBusinesses(data: any) {
+    for (let i = 0; i < Object.keys(data).length; i++) {
+
+      if (data.myUsers[i].businessName == this.businessSearch.get('searchedBusiness')?.value) {
+        this.foundBusinesses.push(data.myUsers[i].businessName);
+        this.casesIDList.push(data.myUsers[i]._id);
+      }
+
     }
   }
 

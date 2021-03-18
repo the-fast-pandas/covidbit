@@ -12,24 +12,23 @@
 
           <div class="row">
 
+
+            
             <div class="col" style="text-align: center;">
 
               <div class="editor">
                 <nb-form-field>
-                  <input nbInput type="text" id="input-business-name" name="businessName" formControlName='businessName'
-                    placeholder="Enter Business Name" fieldSize="medium" fullWidth
+                  <nb-select formControlName="businessName" placeholder="Select Business" name="businessName"
+                    fullWidth="true" fieldSize="medium"
                     [status]="newCaseInformation.get('businessName')?.touched ? (newCaseInformation.get('businessName')?.invalid ? 'danger' : 'success') : 'basic' ">
-                  <nb-icon
-                    *ngIf="newCaseInformation.hasError('required','businessName') && newCaseInformation.get('businessName')?.touched === true"
-                    nbSuffix icon="alert-circle-outline"></nb-icon>
-                  <nb-icon *ngIf="newCaseInformation.get('businessName')?.valid === true" nbSuffix
-                    icon="checkmark-outline"></nb-icon>
+                    <nb-option *ngFor="let name of listOfBusinesses" [value]='name'>{{name}}</nb-option>
+                  </nb-select>
                 </nb-form-field>
               </div>
 
             </div>
 
-
+            
             <div class="col">
               <nb-form-field>
                 <input nbInput type="text" id="input-case-status" name="email" formControlName='status'
@@ -124,7 +123,7 @@
 
         <form [formGroup]="caseResults" (ngSubmit)='onSubmit()'>
           <nb-list size="medium" *ngIf="displayCaseList === true">
-            <nb-list-item *ngFor="let data of typesList; let i = index">
+            <nb-list-item *ngFor="let data of foundBusinesses; let i = index">
               <nb-checkbox (change)="getCheckedValue($event)">{{ data }}</nb-checkbox>
             </nb-list-item>
           </nb-list>
