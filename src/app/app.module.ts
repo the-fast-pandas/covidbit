@@ -47,6 +47,8 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ConfirmationService } from 'primeng/api';
 import { ChartModule } from 'primeng/chart';
 import { BarBusinessCasesComponent } from './admin-dashboard/adminSettings/bar-business-cases/bar-business-cases.component';
+import { AddCaseComponent } from './business-dashboard/add-case/add-case.component';
+import { TableCasesComponent } from './business-dashboard/table-cases/table-cases.component';
 
 
 @NgModule({
@@ -74,7 +76,9 @@ import { BarBusinessCasesComponent } from './admin-dashboard/adminSettings/bar-b
     NewPasswordComponent,
     ResetPasswordComponent,
     ChartBusinessComponent,
-    BarBusinessCasesComponent
+    BarBusinessCasesComponent,
+    AddCaseComponent,
+    TableCasesComponent,
 
   ],
   imports: [

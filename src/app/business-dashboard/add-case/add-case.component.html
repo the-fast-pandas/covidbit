@@ -1,0 +1,41 @@
+<form class="form-inline" [formGroup]='caseReported' (ngSubmit)="onSubmit()">
+    <!-- Date picker -->        
+    <div class="form-control-group">
+      <input nbInput id="dateReported" name="dateReported" fieldSize="medium" placeholder="Pick Date"
+      [nbDatepicker]="formcontrol" [formControl]="dateControl" formControlName='dateReported' required>
+      <nb-datepicker #formcontrol></nb-datepicker>
+    </div>
+
+    <!-- Case Status Dropdown Menu -->
+    <div class="form-control-group">
+      <nb-select placeholder="Choose Case Status" formControlName='status' name="status" required>
+      <nb-option *ngFor="let type of statusType" [value]='type.name'>{{type.name}}</nb-option>
+      </nb-select>
+    </div>
+
+    <!-- Acquisition Type Dropdown Menu -->
+    <div class="form-control-group">
+      <nb-select placeholder="Choose acquisition" formControlName='acquisition' name="acquisition" required>
+      <nb-option *ngFor="let type of acquisitionType" [value]='type.name'>{{type.name}}</nb-option>
+      </nb-select>
+    </div>
+
+    <!-- Gender Dropdown Menu -->
+    <div class="form-control-group">
+      <nb-select placeholder="Choose Gender" formControlName='gender' required name="gender" required>
+      <nb-option *ngFor="let type of genderType" [value]='type.name'>{{type.name}}</nb-option>
+      </nb-select>
+    </div>
+
+    <!--Age input field-->
+    <div class="form-control-group">
+      <input nbInput type="number" id="age" placeholder="Age" name="age" formControlName='age'  fieldSize="medium" required min="1" max="110" >
+    </div>
+
+    <div class="form-control-group">
+      <button nbButton size="medium" type="submit" outline status="primary"
+      [disabled]="this.caseReported.get('age')?.invalid || this.caseReported.get('gender')?.invalid
+      || this.caseReported.get('acquisition')?.invalid || this.caseReported.get('status')?.invalid 
+      || this.caseReported.get('dateReported')?.invalid">Add Case</button>
+    </div>
+  </form>
