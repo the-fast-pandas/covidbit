@@ -38,6 +38,10 @@ import { ChartBusinessComponent } from './admin-dashboard/chart-business/chart-b
 import { BarBusinessCasesComponent } from './admin-dashboard/bar-business-cases/bar-business-cases.component';
 import { BarHorizontalComponent } from './tracker-map/bar-horizontal/bar-horizontal.component';
 import { NewsComponent } from './tracker-map/news/news.component';
+import { AddCaseComponent } from './business-dashboard/add-case/add-case.component';
+import { TableCasesComponent } from './business-dashboard/table-cases/table-cases.component';
+import { EditCaseComponent } from './business-dashboard/edit-case/edit-case.component';
+
 
 @NgModule({
   declarations: [
@@ -66,7 +70,10 @@ import { NewsComponent } from './tracker-map/news/news.component';
     ChartBusinessComponent,
     BarBusinessCasesComponent,
     BarHorizontalComponent,
-    NewsComponent
+    NewsComponent,
+    AddCaseComponent,
+    TableCasesComponent,
+    EditCaseComponent,
 
   ],
   imports: [

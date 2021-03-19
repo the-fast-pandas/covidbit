@@ -132,7 +132,22 @@ export class DataService {
           },
           (error: any) => {
             window.alert("No business with this name");
-            this.router.navigate(['home']);
+          }
+        ))
+
+  }
+
+
+  getAllCases() {
+    const api = `${this.endpoint}/all-cases`;
+    return this.http.get<any>(api)
+      .pipe(
+        map(
+          data => {
+            return data;
+          },
+          (error: any) => {
+            window.alert("No cases in databse");
           }
         ))
 

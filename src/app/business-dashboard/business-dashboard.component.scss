@@ -15,6 +15,19 @@
     margin: 0 0.5rem;
   }
 
+  .form-inline {  
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+  }
+  
+  .form-inline .form-control-group{
+    vertical-align: middle;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    margin-left: 20px;
+  }
+
   @media only screen and (max-width: 900px) {
     .card-row {
         display: flex;
