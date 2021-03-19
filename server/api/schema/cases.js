@@ -4,23 +4,27 @@
 const mongoose = require("mongoose");
 
 const CasesSchema = mongoose.Schema({
+    businessId: {
+        type: String,
+        required: true
+    },
     businessName: {
-        type: Date,
+        type: String,
         required: true
     },
     status: {
         type: String,
         default: 'Unknown'
     },
-    gender:{
+    gender: {
         type: String,
         default: 'Unknown'
     },
-    age:{
+    age: {
         type: Number,
         default: -1
     },
-    acquisition:{
+    acquisition: {
         type: String,
         default: 'Unknown'
     }
