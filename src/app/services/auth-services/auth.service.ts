@@ -54,7 +54,7 @@ export class AuthService {
     return this.http.post<any>(api, user).pipe()
       .subscribe(
         (data: any) => {
-          if (data.admin.loginId === "admin@myAdmin.ca") {
+          if (data.admin !== undefined && data.admin.loginId === "admin@myAdmin.ca") {
             localStorage.removeItem('access_token');
             localStorage.setItem('admin_token', data.adminToken);
             this.router.navigate(['/admin-dashboard']).then(() => {

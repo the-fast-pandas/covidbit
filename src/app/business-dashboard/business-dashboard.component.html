@@ -40,7 +40,10 @@
    <div class="card-col">
      <!-- Display list of Safety Measures -->
      <nb-card size="small">
-       <nb-card-header><h5>Safety Measures</h5></nb-card-header>
+       <nb-card-header>
+         <h5>Safety Measures</h5>
+         <a href routerLink="/certification-form/{{id}}" routerLinkActive="active">Apply for Certification</a>
+      </nb-card-header>
        <nb-card-body>
            <div class="form-control-group" class="column">
              <div class="safetyMeasureList">
@@ -58,19 +61,23 @@
      <!-- Add Safety Measure -->
      <nb-card size="tiny">
        <nb-card-body>
-         <form [formGroup]='safetyMeasures'>
-           <div class="form-control-group" >
-             <label nbLabel class="label" for="input-safetyMeasureTitle">Add safety Measure:</label>
-             <input nbInput type="text" id="input-safetyMeasureTitle" fieldSize="small" formControlName="title" fullWidth placeholder="Name of safety Measure" >
-           </div>
-           <div class="form-control-group">
-             <label nbLabel class="label" for="input-safetyMeasureDescription"></label>
-             <textarea nbInput type="text" id="input-safetyMeasureDescription" formControlName="description" fullWidth placeholder="Desciption of safety Measure"></textarea>
-             <button nbButton size="small" nbButton id="addMeasure" outline status="primary"
-             [disabled]="this.safetyMeasures.get('title')?.invalid || this.safetyMeasures.get('description')?.invalid" 
-             (click)="onAddMeasure()">ADD safety MEASURE</button>
-           </div>
-         </form>
+        <nb-tabset (changeTab)="tabReset()">
+          <nb-tab tabTitle="Add">
+            <form [formGroup]='safetyMeasures'>
+                <input nbInput type="text" id="input-safetyMeasureTitle" fieldSize="small" formControlName="title" fullWidth placeholder="Name of safety Measure" >
+                <label nbLabel class="label" for="input-safetyMeasureDescription"></label>
+                <textarea nbInput type="text" id="input-safetyMeasureDescription" formControlName="description" fullWidth placeholder="Desciption of safety Measure"></textarea>
+                <button nbButton size="small" nbButton id="addMeasure" outline status="primary"
+                [disabled]="this.safetyMeasures.get('title')?.invalid || this.safetyMeasures.get('description')?.invalid" 
+                (click)="onAddMeasure()">Add safety measure</button>
+            </form>
+          </nb-tab>
+          <nb-tab tabTitle="Delete">
+            <nb-select multiple placeholder="Multiple Select">
+              <nb-option *ngFor="let type of safetyMeasuresList" [value]='type.title' >{{type.title}}</nb-option>
+            </nb-select>
+          </nb-tab>
+          </nb-tabset>
        </nb-card-body>
      </nb-card>
    </div>
@@ -82,8 +89,19 @@
      <nb-card size="large">
        <nb-card-header><h5>Reported Cases</h5></nb-card-header>
        <nb-card-body>
-         <ng2-smart-table [settings]="settings"></ng2-smart-table>
-       </nb-card-body>
+          <nb-tabset (changeTab)="tabReset()">
+            
+            <nb-tab tabTitle="Add Reported Case">
+              <app-add-case></app-add-case>
+              <app-table-cases></app-table-cases>
+            </nb-tab>
+
+            <nb-tab tabTitle="Update Reported Case">
+              <app-edit-case></app-edit-case>
+            </nb-tab>
+            
+        </nb-tabset>
+      </nb-card-body>
      </nb-card>
    </div>
  </div>

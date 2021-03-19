@@ -21,7 +21,9 @@ import {
   NbAccordionModule,
   NbListModule,
   NbDialogModule, NbCalendarModule,
-  NbTabsetModule
+  NbTabsetModule,
+  NbDatepickerModule,
+  NbTreeGridModule,
   
 } from '@nebular/theme';
 
@@ -53,7 +55,9 @@ const NebularModules = [
   NbDialogModule.forRoot(),
   NbContextMenuModule,
   NbCalendarModule,
-  NbTabsetModule
+  NbTabsetModule,
+  NbDatepickerModule.forRoot(),
+  NbTreeGridModule,
 ];
 
 @NgModule({
