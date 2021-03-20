@@ -44,7 +44,7 @@ export class CertificationFormComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.userCredentials.value);
-    //this.authService.addCertification(this.userCredentials.value, false);
+    this.authService.addCertification(this.userCredentials.value, this.id);
   }
   
   // toggle(checked: boolean) {

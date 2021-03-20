@@ -1,10 +1,6 @@
 p {
     text-align: center;
 }
-.left-column {
-  position: relative;
-  top: 10rem; 
-}
 a {
   text-decoration: none;
 }
@@ -32,12 +28,20 @@ a {
   .checkbox{
       margin: 2rem 0;
   }
-
-  .column {
+  .left-column {
+    margin-left: 4rem;
     float: left;
-    width: 50%;
+    width: 10%;
   }
-  
+  .middle-column {
+    margin-left: 5rem;
+    float: left;
+    width: 35%;
+  }
+  .right-column {
+    float: left;
+    width: 40%;
+  }
   /* Clear floats after the columns */
   .row:after {
     content: "";
