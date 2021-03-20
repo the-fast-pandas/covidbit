@@ -17,4 +17,8 @@ export class ApiService {
     return this.httpClient.get(`https://api.covid19tracker.ca/summary/split`,{headers: this.corsHeaders});
   }
 
+  public getFatalities() {
+    return this.httpClient.get(`https://api.covid19tracker.ca/fatalities?province=ON&per_page=1000`,{headers: this.corsHeaders});
+  }
+
 }
