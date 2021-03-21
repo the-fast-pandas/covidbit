@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { EChartsOption } from 'echarts';
 import { ApiService } from '../../services/api-covid-services/api.service'
 import * as echarts from 'echarts'
 
@@ -16,22 +15,13 @@ export class LineGraphComponent implements OnInit {
   labelList = ['Tests', 'Cases', 'Hospitalizations', 'Recoveries', 'Deaths', 'Vaccinations', 'People Vacinated']
 
   //COVID-19 Tracker API Variables
-  caseInformation: any;
   case: any;
-  currentDate: any;
-  totalCases: any
-  totalCriticals: any
-  totalFatalities: any
-  totalHospitalizations: any;
-  totalRecoveries: any;
-  totalTests: any
-  totalVaccinations: any
-  totalVaccinated: any
-  totalVaccinesDistributed: any
+
 
   initialDate = new Date();
 
   dataChart: any = [];
+  dataChartCase: any = [];
 
   chartOption: any = (<any>echarts).format;
 
@@ -39,23 +29,7 @@ export class LineGraphComponent implements OnInit {
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.apiService.getCaseData().subscribe((data) => {  //Call COVID API
-      this.caseInformation = data;
-      for (let i = 0; i < this.caseInformation.data.length; i++) {   //Check for ON (Ontario) Province Prefix
-        if (this.caseInformation.data[i].province == "ON") {
-          this.currentDate = this.caseInformation.data[i].date;
-          this.totalCases = this.caseInformation.data[i].total_cases;
-          this.totalCriticals = this.caseInformation.data[i].total_criticals;
-          this.totalFatalities = this.caseInformation.data[i].total_fatalities;
-          this.totalHospitalizations = this.caseInformation.data[i].total_hospitalizations;
-          this.totalRecoveries = this.caseInformation.data[i].total_recoveries;
-          this.totalTests = this.caseInformation.data[i].total_tests;
-          this.totalVaccinations = this.caseInformation.data[i].total_vaccinations;
-          this.totalVaccinated = this.caseInformation.data[i].total_vaccinated;
-          this.totalVaccinesDistributed = this.caseInformation.data[i].total_vaccines_distributed;
-        }
-      }
-    })
+    
 
     this.apiService.getFatalities().subscribe((data) => {
       this.case = data;
@@ -73,8 +47,26 @@ export class LineGraphComponent implements OnInit {
       this.dataChart.push(five);
       this.dataChart.push(six);
       this.dataChart.push(seven);
+      this.apiService.getCases(1).subscribe(
+        (dataOne) => {
+        this.case = dataOne;
+        console.log(this.case);
+        let oneCase = this.count("2021-02-03", this.case)
+        let twoCase = this.count("2021-02-02", this.case)
+        let threeCase = this.count("2021-02-01", this.case)
+        let fourCase = this.count("2021-01-31", this.case)
+        let fiveCase = this.count("2021-01-30", this.case)
+        let sixCase = this.count("2021-01-29", this.case)
+        let sevenCase = this.count("2021-01-28", this.case)
+        this.dataChartCase.push(oneCase);
+        this.dataChartCase.push(twoCase);
+        this.dataChartCase.push(threeCase);
+        this.dataChartCase.push(fourCase);
+        this.dataChartCase.push(fiveCase);
+        this.dataChartCase.push(sixCase);
+        this.dataChartCase.push(sevenCase);
+  
 
-      console.log(this.dataChart)
       this.chartOption = {
         xAxis: {
           type: 'category',
@@ -89,9 +81,14 @@ export class LineGraphComponent implements OnInit {
             data: this.dataChart,
             type: 'line',
           },
+          {
+            title: "Cases",
+            data: this.dataChartCase,
+            type: 'line',
+          },
         ],
       };
-
+    })
 
     }) //Call COVID API
 
@@ -101,6 +98,7 @@ export class LineGraphComponent implements OnInit {
     let cnt = 0;
     for (var i = 0; i <= myList.data.length - 1; i++) {
       let sub = myList.data[i].date.substring(0, 10);
+      console.log(sub)
       if (sub == date) {
         cnt++
       }

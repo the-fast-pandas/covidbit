@@ -43,6 +43,7 @@ import { EditCaseComponent } from './business-dashboard/edit-case/edit-case.comp
 import { LineGraphComponent } from './tracker-map/line-graph/line-graph.component';
 
 import { NgxEchartsModule } from 'ngx-echarts';
+import { StatsComponent } from './tracker-map/stats/stats.component';
 
 
 @NgModule({
@@ -76,6 +77,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
     TableCasesComponent,
     EditCaseComponent,
     LineGraphComponent,
+    StatsComponent,
 
   ],
   imports: [

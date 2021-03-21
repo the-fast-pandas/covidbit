@@ -66,16 +66,16 @@
   </div>
 </div>
 <div class="container">
-  <nb-card>
-    <nb-card-header>COVID-19 Information for Ontario as of {{currentDate}}
-
-    </nb-card-header>
+  <nb-card [style]="{width:'48%', float:'right'}">
+  
     <nb-card-body>
 
-
-      <app-line-graph></app-line-graph>
-
+      <app-stats></app-stats>
     </nb-card-body>
+ 
+  </nb-card>
+  <nb-card [style]="{width:'48%', float:'left'}">
+      <app-line-graph></app-line-graph>
   </nb-card>
 </div>
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbNARRSTlFSaDp6GyBBM_pkEttwvj18d0&libraries=places&callback=initMap"
