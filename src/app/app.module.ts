@@ -36,11 +36,14 @@ import { NewPasswordComponent } from './login-form/new-password/new-password.com
 import { ResetPasswordComponent } from './login-form/reset-password/reset-password.component';
 import { ChartBusinessComponent } from './admin-dashboard/chart-business/chart-business.component'
 import { BarBusinessCasesComponent } from './admin-dashboard/bar-business-cases/bar-business-cases.component';
-import { BarHorizontalComponent } from './tracker-map/bar-horizontal/bar-horizontal.component';
 import { NewsComponent } from './tracker-map/news/news.component';
 import { AddCaseComponent } from './business-dashboard/add-case/add-case.component';
 import { TableCasesComponent } from './business-dashboard/table-cases/table-cases.component';
 import { EditCaseComponent } from './business-dashboard/edit-case/edit-case.component';
+import { LineGraphComponent } from './tracker-map/line-graph/line-graph.component';
+
+import { NgxEchartsModule } from 'ngx-echarts';
+import { StatsComponent } from './tracker-map/stats/stats.component';
 
 
 @NgModule({
@@ -69,11 +72,12 @@ import { EditCaseComponent } from './business-dashboard/edit-case/edit-case.comp
     ResetPasswordComponent,
     ChartBusinessComponent,
     BarBusinessCasesComponent,
-    BarHorizontalComponent,
     NewsComponent,
     AddCaseComponent,
     TableCasesComponent,
     EditCaseComponent,
+    LineGraphComponent,
+    StatsComponent,
 
   ],
   imports: [
@@ -92,6 +96,9 @@ import { EditCaseComponent } from './business-dashboard/edit-case/edit-case.comp
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAbNARRSTlFSaDp6GyBBM_pkEttwvj18d0',
       libraries: ['places']
+    }),
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'), 
     }),
   ],
   providers: [

@@ -58,27 +58,19 @@
 
 
   </div>
+</div>
+<div class="container">
+  <nb-card [style]="{width:'48%', float:'right'}">
+  
+    <nb-card-body>
 
-  <br>
-
-  <div class="row">
-
-    <div class="col-8">
-      <nb-card>
-        <nb-card-header>COVID-19 Information for Ontario</nb-card-header>
-        <nb-card-body>
-
-          <app-bar-horizontal></app-bar-horizontal>
-
-        </nb-card-body>
-      </nb-card>
-    </div>
-
-    <div class="col-4">
-      <nb-calendar [(date)]="date"></nb-calendar>
-    </div>
-
-  </div>
+      <app-stats></app-stats>
+    </nb-card-body>
+ 
+  </nb-card>
+  <nb-card [style]="{width:'48%', float:'left'}">
+      <app-line-graph></app-line-graph>
+  </nb-card>
 
 </div>
 

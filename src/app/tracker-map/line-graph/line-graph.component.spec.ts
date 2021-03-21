@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BarHorizontalComponent } from './bar-horizontal.component';
+import { LineGraphComponent } from './line-graph.component';
 
-describe('BarHorizontalComponent', () => {
-  let component: BarHorizontalComponent;
-  let fixture: ComponentFixture<BarHorizontalComponent>;
+describe('LineGraphComponent', () => {
+  let component: LineGraphComponent;
+  let fixture: ComponentFixture<LineGraphComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BarHorizontalComponent ]
+      declarations: [ LineGraphComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BarHorizontalComponent);
+    fixture = TestBed.createComponent(LineGraphComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
