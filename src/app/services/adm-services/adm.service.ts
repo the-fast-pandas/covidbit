@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { BusinessNameandLocation } from 'src/app/models/businessName&Location.model';
 import { BusinessName } from '../../models/businessName.model';
 
 
@@ -36,6 +37,20 @@ export class AdmService {
         ))
   }
 
+  //Search for Business Name and Location
+  searchBusinessNameLocationAdm(business: BusinessName) {
+    const api = `${this.endpoint}/search-nameandLocation-adm`;
+    return this.http.post<any>(api, business)
+      .pipe(
+        map(
+          data => {
+            return data;
+          },
+          (error: any) => {
+            window.alert("No business with this name.");
+          }
+        ))
+  }
   // Delete a business user
   deleteUserAdm(id: any): Observable<any> {
     const api = `${this.endpoint}/delete-business-user/${id}`;

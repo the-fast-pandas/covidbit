@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 const CasesSchema = mongoose.Schema({
     businessName: {
-        type: Date,
+        type: String,
         required: true
     },
     status: {

@@ -59,6 +59,29 @@ const searchUserAdm = function (req, res) {
   })
 }
 
+const searchBusinessNameLocationAdm = function (req, res) {
+  const { name } = req.body;
+  SmallBusiness.find({ "businessName": { $regex: name } }, function (error, users) {
+    if (error) {
+      throw error;
+    }
+    if (!users) {
+      return res.status(401).json({ message: "This business user does not exist!" });
+    }
+    if (users) {
+      let myUsers = [];
+      for (let i = 0; i < Object.keys(users).length; i++) {
+        let singleUser = {};
+        singleUser["businessName"] = users[i].businessName;
+        singleUser["location"] = users[i].location;
+        singleUser["_id"] = users[i]._id;
+        myUsers.push(singleUser);
+      }
+      return res.status(200).json({ myUsers });
+    }
+  })
+}
+
 // Administrator can delete a user
 const deleteUserAdm = function (req, res) {
   const id  = req.params.id;
@@ -109,4 +132,4 @@ const deleteUserCaseAdm = function (req, res) {
   })
 }
 
-module.exports = { searchUserAdm, deleteUserAdm, searchUserCasesAdm, deleteUserCaseAdm, loginAdmin };
+module.exports = { searchUserAdm, deleteUserAdm, searchUserCasesAdm, deleteUserCaseAdm, loginAdmin, searchBusinessNameLocationAdm };

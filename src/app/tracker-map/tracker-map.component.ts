@@ -2,6 +2,10 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core'
 import { MapsAPILoader } from '@agm/core';
 import { HttpClient } from '@angular/common/http';
 import { searchSB } from '../models/searchSB.model';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AdmService } from '../services/adm-services/adm.service';
+import { BusinessName } from '../models/businessName.model';
+
 
 
 @Component({
@@ -12,6 +16,9 @@ import { searchSB } from '../models/searchSB.model';
 
 
 export class TrackerMapComponent implements OnInit {
+
+  //BusinessName Form Group
+  businessSearch: FormGroup = new FormGroup({});
 
   //data
   searchSB: searchSB[] = [];
@@ -39,10 +46,13 @@ export class TrackerMapComponent implements OnInit {
   totalVaccinated: any
   totalVaccinesDistributed: any
 
+  businessNameDB: BusinessName = { name: '' };
+  locationToBeSearched: String = ''
+
   @ViewChild('search')
   public searchElementRef!: ElementRef;
 
-  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {}
+  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, public adm: AdmService) {}
 
 
   ngOnInit() {
@@ -75,7 +85,10 @@ export class TrackerMapComponent implements OnInit {
 
     ]
 
-
+    this.businessSearch = new FormGroup({
+      businessName: new FormControl('', [Validators.required]),
+      searchLocation: new FormControl('')
+    })
 
 
     //load Places Autocomplete
@@ -102,6 +115,33 @@ export class TrackerMapComponent implements OnInit {
       });
     });
 
+  }
+
+  onSubmit(){
+    console.log(this.businessSearch.get('businessName')?.value);
+
+    this.adm.searchBusinessNameLocationAdm(this.businessNameDB).subscribe(
+      data => {
+        console.log(data.myUsers);
+        this.getBusinessLocation(data);
+        // console.log(this.locationToBeSearched);
+        this.businessSearch.get("searchLocation")?.setValue(this.locationToBeSearched);
+        console.log(this.businessSearch.get("searchLocation")?.value);   
+        this.searchElementRef.nativeElement.focus();
+
+      }
+    );
+
+  }
+
+  getBusinessLocation(data: any) {
+    for (let i = 0; i < data.myUsers.length; i++) {
+
+      if (data.myUsers[i].businessName == this.businessSearch.get('businessName')?.value) {
+        this.locationToBeSearched = data.myUsers[i].location;
+      }
+
+    }
   }
 
   Search() {
