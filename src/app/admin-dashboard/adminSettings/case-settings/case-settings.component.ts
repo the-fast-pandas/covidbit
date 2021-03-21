@@ -65,18 +65,10 @@ export class CaseSettingsComponent implements OnInit {
     this.casesIDList = [];
 
     this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
-    this.adm.searchUserAdm(this.businessName).subscribe(
+    this.adm.searchUserCases(this.businessName).subscribe(
       data => {
         console.log(data)
-        this.getBusinesses(data);
-        // this.getId(data);
-        console.log(this.foundBusinesses);
-        console.log(this.casesIDList);
-
-        if (this.businessSearch.get('searchedBusiness')?.value == '') {
-          this.foundBusinesses = [];
-        }
-
+        
         if (this.foundBusinesses.length === 0) {
           this.searchCheck = true;
           this.displayCaseList = false;

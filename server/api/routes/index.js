@@ -47,6 +47,7 @@ router.put('/add-safety/:id', authLog.authLogin, ctrlDashUser.addSafety);
 router.post('/login-admin', ctrlDashAdmin.loginAdmin);
 // Administrator Dashboard
 router.post('/search-users-adm', ctrlDashAdmin.searchUserAdm);
+router.post('/search-nameandLocation-adm', ctrlDashAdmin.searchBusinessNameLocationAdm);
 router.delete('/delete-business-user/:id', ctrlDashAdmin.deleteUserAdm); 
 router.post('/search-cases-adm', ctrlDashAdmin.searchUserCasesAdm);
 router.delete('/cases-user-adm/:id', ctrlDashAdmin. deleteUserCaseAdm); 
