@@ -21,6 +21,8 @@ router.get('/tracker-map');
 // Small Business View
 router.post('/search', ctrlViewBus.searchUserView);
 router.get('/business-user-view/:id', ctrlViewBus.getUserView);
+router.get('/all-business', ctrlViewBus.getAllBusiness);
+router.get('/all-cases', ctrlViewBus.getAllCases);
 
 ////////   BUSINESS USER  ////////
 
@@ -30,7 +32,8 @@ router.post('/registration-form', ctrlReg.registerUser);
 router.post('/check-user', ctrlReg.checkUser);
 router.post('/certification-form/:id', authLog.authLogin, ctrlDashUser.addCertification);
 router.post('/forgot-password', ctrlLog.forgotPassword);
-router.post('/reset-password', ctrlLog.resetPassword);
+router.get('/check-reset-password/:token', ctrlLog.checkResetPassword);
+router.put('/new-password', ctrlLog.resetPassword);
 
 // Small business dashoard
 router.get('/business-dashboard/:id', authLog.authLogin, ctrlDashUser.getUserDashboard);

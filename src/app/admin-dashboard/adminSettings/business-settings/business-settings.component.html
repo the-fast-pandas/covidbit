@@ -1,6 +1,6 @@
 <!-- Map Management Card -->
 <nb-card>
-  <nb-card-header>Map Management Settings</nb-card-header>
+  <nb-card-header>Business Management Settings</nb-card-header>
   <nb-card-body>
     <nb-alert status="success" closable (close)="onClose()"*ngIf="alert">
       Business Successfully Created!
@@ -91,7 +91,7 @@
               <nb-form-field>
                 <input formControlName="businessLocation" class="locationLabel" nbInput ngx-google-places-autocomplete
                   #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" id="input-businessLocation"
-                  placeholder="Enter Business location" fullWidth fieldSize="large"
+                  placeholder="Enter Business location" fullWidth fieldSize="medium"
                   [status]="businessCredentials.get('businessLocation')?.touched ? (businessCredentials.get('businessLocation')?.invalid ? 'danger' : 'success') : 'basic' " />
                 <nb-icon
                   *ngIf="businessCredentials.hasError('required','businessLocation') && businessCredentials.get('businessLocation')?.touched === true"
@@ -102,6 +102,36 @@
 
             </div>
 
+          </div>
+
+          <br>
+
+          <div class="row">
+            <div class="col" style="text-align: center;">
+              <nb-form-field>
+                <input nbInput type="text" id="input-business-firstName" name="firstName" formControlName='firstName'
+                  placeholder="Enter First Name" fieldSize="medium" fullWidth
+                  [status]="businessCredentials.get('firstName')?.touched ? (businessCredentials.get('firstName')?.invalid ? 'danger' : 'success') : 'basic' ">
+                <nb-icon
+                  *ngIf="businessCredentials.hasError('required','firstName') && businessCredentials.get('firstName')?.touched === true"
+                  nbSuffix icon="alert-circle-outline"></nb-icon>
+                <nb-icon *ngIf="businessCredentials.get('firstName')?.valid === true" nbSuffix icon="checkmark-outline">
+                </nb-icon>
+              </nb-form-field>
+            </div>
+
+            <div class="col" style="text-align: center;">
+              <nb-form-field>
+                <input nbInput type="text" id="input-business-lastName" name="lastName" formControlName='lastName'
+                  placeholder="Enter Last Name" fieldSize="medium" fullWidth
+                  [status]="businessCredentials.get('lastName')?.touched ? (businessCredentials.get('lastName')?.invalid ? 'danger' : 'success') : 'basic' ">
+                <nb-icon
+                  *ngIf="businessCredentials.hasError('required','lastName') && businessCredentials.get('lastName')?.touched === true"
+                  nbSuffix icon="alert-circle-outline"></nb-icon>
+                <nb-icon *ngIf="businessCredentials.get('lastName')?.valid === true" nbSuffix icon="checkmark-outline">
+                </nb-icon>
+              </nb-form-field>
+            </div>
           </div>
 
           <br>
@@ -128,28 +158,32 @@
             </nb-form-field>
 
             <ng-container>
-              <p class="caption status-danger"
-                *ngIf=" searchCheck === true">
+              <p class="caption status-danger" *ngIf="searchCheck === true">
                 Business Not Found!
               </p>
             </ng-container>
 
           </div>
 
+          <!-- <ng-container *ngIf="searchCheck === true">
+            <p class="subtitle">A Business with the name "{{businessSearch.get('searchedBusiness')?.value}}" was not found!</p>
+          </ng-container> -->
+
           <ng-container *ngIf="displayList === true">
-            <p class="subtitle">Businesses found with the name:  {{businessSearch.get('searchedBusiness')?.value}}</p>
+            <p class="subtitle">Business found with the name:  {{businessSearch.get('searchedBusiness')?.value}}</p>
           </ng-container>
 
         </form>
 
         <form [formGroup]="businessList" (ngSubmit)='removeBusiness()'>
           <nb-list size="medium" *ngIf="displayList === true">
-            <nb-list-item *ngFor="let type of typesList; let i = index" formArrayName="businesses">
-              <nb-checkbox id="caseResults" formControlName={{i}}>{{ type}}</nb-checkbox>
+            <nb-list-item *ngFor="let data of typesList; let i = index">
+              <nb-checkbox (change)="getCheckedValue($event)">{{ data }}</nb-checkbox>
             </nb-list-item>
           </nb-list>
 
-          <div class="buttonSlot" *ngIf="displayList === true">
+      
+          <div class="buttonSlot" *ngIf="typesList.length > 0 || idList.length > 0">
             <button class="button" type="submit" nbButton outline status="success"
               [disabled]="this.businessList.hasError('required', 'businesses')">Remove Business</button>
           </div>

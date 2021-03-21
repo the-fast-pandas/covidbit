@@ -4,14 +4,14 @@
 
 
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth-services/auth.service';
 import * as myGlobals from '../../../globals';
 import { AdmService } from '../../../services/adm-services/adm.service';
 import { BusinessName } from '../../../models/businessName.model';
 
 @Component({
-  selector: 'app-buisness-settings',
+  selector: 'app-business-settings',
   templateUrl: './business-settings.component.html',
   styleUrls: ['./business-settings.component.scss']
 })
@@ -22,8 +22,8 @@ export class MapSettingsComponent implements OnInit {
   businessList: FormGroup = new FormGroup({});
   businessLocation = '';
   alert: Boolean = false;
-  searchCheck: Boolean = false;
-  displayList: Boolean = false;
+  searchCheck = false;
+  displayList = false;
 
   businessName: BusinessName = { name: '' };
 
@@ -33,7 +33,11 @@ export class MapSettingsComponent implements OnInit {
   //Business Types Array
   businessTypes = myGlobals.categories;
 
-  constructor(private formBuilder: FormBuilder, public authService: AuthService, public admService: AdmService) { }
+  constructor(private formBuilder: FormBuilder, public auth: AuthService, public adm: AdmService) {
+    this.businessList = this.formBuilder.group({
+      businesses: this.formBuilder.array([], [Validators.required])
+    })
+   }
 
   ngOnInit(): void {
 
@@ -44,13 +48,11 @@ export class MapSettingsComponent implements OnInit {
       website: new FormControl('', [Validators.required]),
       businessPhone: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')]),
       businessLocation: new FormControl('', [Validators.required]),
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required])
     })
     this.businessSearch = new FormGroup({
       searchedBusiness: new FormControl('', [Validators.required])
-    });
-
-    this.businessList = new FormGroup({
-      businesses: this.formBuilder.array(this.typesList.map(x => !1), Validators.required)
     });
 
   }
@@ -68,26 +70,37 @@ export class MapSettingsComponent implements OnInit {
 
   // Controls adding/register a business
   addBusiness() {
-    this.authService.registerUser(this.businessCredentials.value, true);
+    this.auth.registerUser(this.businessCredentials.value, true);
+    console.log(this.businessCredentials.value);
     this.alert = true;
     this.businessCredentials.reset();
   }
 
   // Controls delete of a Business User
   removeBusiness() {
-    this.admService.deleteUserAdm(this.idList);
+    this.adm.deleteUserAdm(this.idList);
   }
 
   // Search business by name
   // Controls search business for delete
   searchForBusiness() {
+    this.typesList = [];
+    this.idList = [];
+
     this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
-    this.admService.searchUserAdm(this.businessName).subscribe(
+    this.adm.searchUserAdm(this.businessName).subscribe(
       data => {
-        console.log(data.myUsers);
+        console.log(data)
         this.getNames(data);
-        this.getId(data);
-        if (this.typesList === []) {
+        // this.getId(data);
+        console.log(this.typesList);
+        console.log(this.idList);
+
+        if (this.businessSearch.get('searchedBusiness')?.value == '') {
+          this.typesList = [];
+        }
+
+        if (this.typesList.length === 0) {
           this.searchCheck = true;
           this.displayList = false;
         } else {
@@ -98,19 +111,41 @@ export class MapSettingsComponent implements OnInit {
     );
   }
 
+  getCheckedValue(event: any) {
+    const checkArray: FormArray = this.businessList.get('businesses') as FormArray;
+
+    if(event.target.checked) {
+      checkArray.push(new FormControl(event.target.value));
+    } else {
+      let i: number = 0;
+      checkArray.controls.forEach((item: AbstractControl) => {
+        if (item.value == event.target.value) {
+          checkArray.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
+  }
+
   // Adds business names to typesList
   getNames(data: any) {
     for (let i = 0; i < Object.keys(data).length; i++) {
-      this.typesList.push(data.myUsers[i].businessName);
+
+      if (data.myUsers[i].businessName == this.businessSearch.get('searchedBusiness')?.value) {
+        this.typesList.push(data.myUsers[i].businessName);
+        this.idList.push(data.myUsers[i]._id);
+      }
+
     }
   }
 
   // Get businesses id
-  getId(data: any) {
-    for (let i = 0; i < Object.keys(data).length; i++) {
-      this.idList.push(data.myUsers[i]._id);
-    }
-  }
+  // getId(data: any) {
+  //   for (let i = 0; i < Object.keys(data).length; i++) {
+  //     this.idList.push(data.myUsers[i]._id);
+  //   }
+  // }
 
   onClose() {
     this.alert = false;

@@ -1,10 +1,11 @@
-<h1 class="page-header">Admin Dashboard</h1>
+
 
 <!-- Row One -->
+<div class="container">
 <div class="row">
   <div class="col-12">
     <nb-card status="primary">
-      <nb-card-header>Administrator Settings</nb-card-header>
+      <nb-card-header><h1>Admin Dashboard</h1></nb-card-header>
       <nb-card-body>
         <div class="row">
 
@@ -16,7 +17,7 @@
 
           <!-- Map Settings Button -->
           <div class="col-6 within-card">
-            <h5>Business Map Settings</h5>
+            <h5>Business Admin Settings</h5>
             <button id="mapManagement" nbButton (click)="settingsOpened($event)">Settings</button>
           </div>
         </div>
@@ -31,8 +32,29 @@
         <app-case-settings *ngIf="settingsType === 'caseManagment'"></app-case-settings>
 
         <!-- Map Management Card -->
-       <app-buisness-settings *ngIf="settingsType === 'mapManagement'"></app-buisness-settings>
+        <app-business-settings *ngIf="settingsType === 'mapManagement'"></app-business-settings>
       </div>
     </div>
 
   </div>
+</div>
+</div>
+
+<div class="container">
+  <nb-card [style]="{width:'48%', float:'right'}">
+    <nb-card-header>
+      <h5>Data Activity (last 6 months)</h5> 
+    </nb-card-header>
+    <nb-card-body>
+  <app-bar-business-cases></app-bar-business-cases>
+  </nb-card-body>
+  </nb-card>
+  <nb-card [style]="{width:'48%', float:'left'}">
+    <nb-card-header>
+      <h5>Business by Type</h5>
+    </nb-card-header>
+    <nb-card-body>
+  <app-chart-business></app-chart-business>
+  </nb-card-body>
+  </nb-card>
+</div>
