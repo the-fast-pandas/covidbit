@@ -154,4 +154,17 @@ export class AuthService {
     return (authToken !== null) ? true : false;
   }
 
+  addCertification(certification: any, id: String) {
+    const api = `${this.endpoint}/certification-form/${id}`;
+    return this.http.put<any>(api, certification)
+      .subscribe(
+        data => {
+          return data;
+        },
+        error => {
+          console.log("It was not possible to add certification!");
+        }
+      )
+  }
+
 }
