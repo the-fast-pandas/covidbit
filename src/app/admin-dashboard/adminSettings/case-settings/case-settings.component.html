@@ -121,10 +121,11 @@
 
         </form>
 
-        <form [formGroup]="caseResults" (ngSubmit)='onSubmit()'>
+        <form [formGroup]="caseResults" (ngSubmit)='onSubmit()' novalidate>
           <nb-list size="medium" *ngIf="displayCaseList === true">
-            <nb-list-item *ngFor="let data of foundBusinesses; let i = index">
-              <nb-checkbox (change)="getCheckedValue($event)">{{ data }}</nb-checkbox>
+            <nb-list-item *ngFor="let data of foundBusinessCases; let i = index">
+              <input id="casesInputBoxes" nbCheckbox type="checkbox" (change)="getCheckedValue($event)" [value]="data._id">
+              <p style="font-weight: bold;">Case #{{i + 1}}   Status: {{ data.status }},   Acquisition: {{data.acquisition}},   Age: {{data.age}},   Gender: {{data.gender}}</p>
             </nb-list-item>
           </nb-list>
 

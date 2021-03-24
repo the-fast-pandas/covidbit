@@ -14,6 +14,7 @@ export class CaseSettingsComponent implements OnInit {
   genderArray = [{ name: "Male"}, { name: "Female" }];
 
   foundBusinesses: Array<String> = [];
+  foundBusinessCases: Array<any> = [];
   casesIDList: Array<String> = [];
   listOfBusinesses: Array<String> = [];
 
@@ -61,15 +62,17 @@ export class CaseSettingsComponent implements OnInit {
 
   searchForBusiness() {
     //Clear Arrays that hold information
-    this.foundBusinesses = [];
+    this.foundBusinessCases = [];
     this.casesIDList = [];
 
     this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
     this.adm.searchUserCases(this.businessName).subscribe(
       data => {
-        console.log(data)
+        this.getCases(data)
+        console.log(this.foundBusinessCases)
+        console.log(this.casesIDList)
         
-        if (this.foundBusinesses.length === 0) {
+        if (this.foundBusinessCases.length === 0) {
           this.searchCheck = true;
           this.displayCaseList = false;
         } else {
@@ -80,9 +83,9 @@ export class CaseSettingsComponent implements OnInit {
     );
   }
 
-  toggle(checked: Boolean) {
-    this.checked = checked;
-    console.log(checked);
+  toggle(checked: any) {
+    this.casesIDList.push(checked.value);
+    // console.log(this.casesIDList);
   }
 
   convertToValue(key: string) {
@@ -129,8 +132,24 @@ export class CaseSettingsComponent implements OnInit {
     }
   }
 
+  getCases(data: any) {
+    for (let i = 0; i < data.cases.length; i++) {
+
+      if (data.cases[i].businessName == this.businessSearch.get('searchedBusiness')?.value) {
+        this.foundBusinessCases.push(data.cases[i]);
+        this.casesIDList.push(data.cases[i]._id);
+      }
+
+    }
+  }
+
+  removeCases(){
+    this.adm.deleteUserCaseAdm(this.caseResults.value)
+  }
+
   onSubmit() {
-    console.log(this.caseResults.value);
+    this.adm.deleteUserCaseAdm(this.caseResults.value);
+    console.log(this.caseResults.value)
   }
 
 }
