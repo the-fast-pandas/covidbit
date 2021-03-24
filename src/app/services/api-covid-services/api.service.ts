@@ -24,5 +24,6 @@ export class ApiService {
   public getCases(page: any) {
     return this.httpClient.get(`https://api.covid19tracker.ca/cases?province=ON&per_page=1000&page=` + page,{headers: this.corsHeaders});
   }
+  
 
 }

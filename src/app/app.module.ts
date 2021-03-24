@@ -44,6 +44,10 @@ import { LineGraphComponent } from './tracker-map/line-graph/line-graph.componen
 
 import { NgxEchartsModule } from 'ngx-echarts';
 import { StatsComponent } from './tracker-map/stats/stats.component';
+import { StatsCanadaComponent } from './tracker-map/stats-canada/stats-canada.component';
+import { OntarioCanadaComponent } from './tracker-map/ontario-canada/ontario-canada.component';
+import { OntarioCanadaDeathComponent } from './tracker-map/ontario-canada-death/ontario-canada-death.component';
+
 
 
 @NgModule({
@@ -78,6 +82,10 @@ import { StatsComponent } from './tracker-map/stats/stats.component';
     EditCaseComponent,
     LineGraphComponent,
     StatsComponent,
+    StatsCanadaComponent,
+    OntarioCanadaComponent,
+    OntarioCanadaDeathComponent,
+
 
   ],
   imports: [
