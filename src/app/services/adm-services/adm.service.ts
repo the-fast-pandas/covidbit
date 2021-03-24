@@ -85,6 +85,7 @@ export class AdmService {
 
   // Delete a case
   deleteUserCaseAdm(id: any): Observable<any> {
+    console.log(id);
     const api = `${this.endpoint}/cases-user-adm/${id}`;
     return this.http.delete<any>(api, id)
       .pipe(
