@@ -24,6 +24,7 @@ import {
   NbTabsetModule,
   NbDatepickerModule,
   NbTreeGridModule,
+  NbRadioModule,
   
 } from '@nebular/theme';
 
@@ -58,6 +59,7 @@ const NebularModules = [
   NbTabsetModule,
   NbDatepickerModule.forRoot(),
   NbTreeGridModule,
+  NbRadioModule
 ];
 
 @NgModule({
