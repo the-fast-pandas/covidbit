@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OntarioCanadaDeathComponent } from './ontario-canada-death.component';
+import { HealthRegionCasesComponent } from './health-region-cases.component';
 
-describe('OntarioCanadaDeathComponent', () => {
-  let component: OntarioCanadaDeathComponent;
-  let fixture: ComponentFixture<OntarioCanadaDeathComponent>;
+describe('HealthRegionComponent', () => {
+  let component: HealthRegionCasesComponent;
+  let fixture: ComponentFixture<HealthRegionCasesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OntarioCanadaDeathComponent ]
+      declarations: [ HealthRegionCasesComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OntarioCanadaDeathComponent);
+    fixture = TestBed.createComponent(HealthRegionCasesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

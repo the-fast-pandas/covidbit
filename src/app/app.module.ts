@@ -40,13 +40,21 @@ import { NewsComponent } from './tracker-map/news/news.component';
 import { AddCaseComponent } from './business-dashboard/add-case/add-case.component';
 import { TableCasesComponent } from './business-dashboard/table-cases/table-cases.component';
 import { EditCaseComponent } from './business-dashboard/edit-case/edit-case.component';
-import { LineGraphComponent } from './tracker-map/line-graph/line-graph.component';
+
 
 import { NgxEchartsModule } from 'ngx-echarts';
-import { StatsComponent } from './tracker-map/stats/stats.component';
-import { StatsCanadaComponent } from './tracker-map/stats-canada/stats-canada.component';
+
+import { StatsComponent } from './tracker-map/graphs/stats/stats.component';
+import { StatsCanadaComponent } from './tracker-map/graphs/stats-canada/stats-canada.component';
 import { OntarioCanadaComponent } from './tracker-map/ontario-canada/ontario-canada.component';
-import { OntarioCanadaDeathComponent } from './tracker-map/ontario-canada-death/ontario-canada-death.component';
+import { LineGraphCanadaComponent } from './tracker-map/graphs/line-graph-canada/line-graph-canada.component';
+import { LineGraphComponent } from './tracker-map/graphs/line-graph/line-graph.component';
+import { BarHealthRegionCasesComponent } from './tracker-map/graphs/bar-health-region-cases/bar-health-region-cases.component';
+import { HealthRegionCasesComponent } from './tracker-map/graphs/health-region-cases/health-region-cases.component';
+import { HealthRegionMortalityComponent } from './tracker-map/graphs/health-region-mortality/health-region-mortality.component';
+import { BarHealthRegionMortalityComponent } from './tracker-map/graphs/bar-health-region-mortality/bar-health-region-mortality.component';
+import { BarOntarioCanadaComponent } from './tracker-map/graphs/bar-ontario-canada/bar-ontario-canada.component';
+import { BarOntarioCanadaVaccinesComponent } from './tracker-map/graphs/bar-ontario-canada-vaccines/bar-ontario-canada-vaccines.component';
 
 
 
@@ -84,7 +92,13 @@ import { OntarioCanadaDeathComponent } from './tracker-map/ontario-canada-death/
     StatsComponent,
     StatsCanadaComponent,
     OntarioCanadaComponent,
-    OntarioCanadaDeathComponent,
+    LineGraphCanadaComponent,
+    BarHealthRegionCasesComponent,
+    HealthRegionCasesComponent,
+    HealthRegionMortalityComponent,
+    BarHealthRegionMortalityComponent,
+    BarOntarioCanadaComponent,
+    BarOntarioCanadaVaccinesComponent
 
 
   ],
@@ -106,7 +120,7 @@ import { OntarioCanadaDeathComponent } from './tracker-map/ontario-canada-death/
       libraries: ['places']
     }),
     NgxEchartsModule.forRoot({
-      echarts: () => import('echarts'), 
+      echarts: () => import('echarts'),
     }),
   ],
   providers: [
