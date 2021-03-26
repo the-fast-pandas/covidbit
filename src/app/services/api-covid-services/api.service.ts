@@ -36,4 +36,9 @@ export class ApiService {
   public getAllData() {
     return this.httpClient.get(`https://api.opencovid.ca/summary`,{headers: this.corsHeaders});
   }
+
+  public getLocationCoords(address: any) {
+    return this.httpClient.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCfGrP0EDXKbazT9t2wkaDP9aKB4ykK2AU`, {headers: this.corsHeaders});
+  }
+
 }

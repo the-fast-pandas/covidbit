@@ -4,7 +4,6 @@
 
     <div class="col-sm" style="text-align: center;">
 
-
       <form [formGroup]="businessSearch" (ngSubmit)="onSubmit()">
         <nb-form-field>
           <input type="text" formControlName="businessName" name="businessName" id="input-business-name"
@@ -14,13 +13,6 @@
             <nb-icon icon="search-outline"></nb-icon>
           </button>
         </nb-form-field>
-
-        <!-- search -->
-        <div class="search-form">
-          <input type="text" id="googleSearchField" formControlName="searchLocation" class="search-overlay"
-            placeholder="Enter name of business" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
-            #search>
-        </div>
 
       </form>
 
@@ -177,6 +169,10 @@
     </nb-card-body>
   </nb-card>
 </div>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+
+
 <!--  
 
 

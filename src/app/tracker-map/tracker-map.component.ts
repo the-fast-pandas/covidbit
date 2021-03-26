@@ -5,7 +5,8 @@ import { searchSB } from '../models/searchSB.model';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdmService } from '../services/adm-services/adm.service';
 import { BusinessName } from '../models/businessName.model';
-
+import * as $ from "jquery"
+import { ApiService } from '../services/api-covid-services/api.service';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { BusinessName } from '../models/businessName.model';
 
 
 export class TrackerMapComponent implements OnInit {
+  [x: string]: any;
 
   //BusinessName Form Group
   businessSearch: FormGroup = new FormGroup({});
@@ -49,10 +51,7 @@ export class TrackerMapComponent implements OnInit {
   businessNameDB: BusinessName = { name: '' };
   locationToBeSearched: String = ''
 
-  @ViewChild('search')
-  public searchElementRef!: ElementRef;
-
-  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, public adm: AdmService) {}
+  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, public adm: AdmService, private apiService: ApiService) {}
 
 
   ngOnInit() {
@@ -89,43 +88,19 @@ export class TrackerMapComponent implements OnInit {
       businessName: new FormControl('', [Validators.required]),
       searchLocation: new FormControl('')
     })
-
-
-    //load Places Autocomplete
-    this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder;
-
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-
-          //set latitude, longitude and zoom
-          this.lat = place.geometry.location.lat();
-          this.lng = place.geometry.location.lng();
-          this.zoom = 12;
-        });
-      });
-    });
-
-  }
+  
+}
 
   onSubmit(){
-  
-
     this.adm.searchBusinessNameLocationAdm(this.businessNameDB).subscribe(
       data => {
+        console.log(data);
         this.getBusinessLocation(data);
         this.businessSearch.get("searchLocation")?.setValue(this.locationToBeSearched);
-        this.searchElementRef.nativeElement.focus();
-
+        this.apiService.getLocationCoords(this.locationToBeSearched).subscribe((data) => {
+          console.log(data);
+          this.getCoords(data)
+        })
       }
     );
 
@@ -137,6 +112,19 @@ export class TrackerMapComponent implements OnInit {
       if (data.myUsers[i].businessName == this.businessSearch.get('businessName')?.value) {
         this.locationToBeSearched = data.myUsers[i].location;
       }
+
+    }
+  }
+
+  getCoords(data: any) {
+    for (let i = 0; i < data.results.length; i++) {
+
+      console.log(data.results[0].geometry.location.lat);
+      console.log(data.results[0].geometry.location.lng);
+
+      this.lat = data.results[0].geometry.location.lat;
+      this.lng = data.results[0].geometry.location.lng;
+      this.zoom = 12;
 
     }
   }
@@ -180,12 +168,9 @@ export class TrackerMapComponent implements OnInit {
     });
   }
 
+
   //calendar   
   date = new Date();
 
  
-
-
-
-
 }
