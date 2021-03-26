@@ -1,5 +1,6 @@
 // Server - CovidBit - Fast Pandas
 // Created: 31, January, 2021, Teresa Costa
+// Edit: 25, March, 2021, Adilah, HTML Template
 
 const nodemailer = require("nodemailer");
 
@@ -302,12 +303,12 @@ const emailRegistration = function (email, businessName) {
             </body></html>`,
         attachments: [{
             filename: 'welcome-handshakers.png',
-            path: __dirname + '/welcome-handshakers.png',
+            path: __dirname + '/images/welcome-handshakers.png',
             cid: 'handshakers'
         },
         {
             filename: 'covidbit-logo.png',
-            path: __dirname + '/covidbit-logo.png',
+            path: __dirname + '/images/covidbit-logo.png',
             cid: 'covidbit-logo'
         }
         ]
