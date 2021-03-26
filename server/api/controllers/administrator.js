@@ -84,13 +84,13 @@ const searchBusinessNameLocationAdm = function (req, res) {
 
 // Administrator can delete a user
 const deleteUserAdm = function (req, res) {
-  const id  = req.params.id;
+  const id = req.params.id;
   SmallBusiness.remove(id, function (error, user) {
     if (error) {
       throw error;
     }
     if (!user) {
-      return res.status(401).json({ message: "This business user does not exist!"  });
+      return res.status(401).json({ message: "This business user does not exist!" });
     }
     if (user) {
       return res.status(200).json({ users });
@@ -118,7 +118,7 @@ const searchUserCasesAdm = function (req, res) {
 
 // Administrator can delete a case
 const deleteUserCaseAdm = function (req, res) {
-  const id  = req.params.id;
+  const id = req.params.id;
   Cases.remove(id, function (error, cases) {
     if (error) {
       throw error;
@@ -132,4 +132,31 @@ const deleteUserCaseAdm = function (req, res) {
   })
 }
 
-module.exports = { searchUserAdm, deleteUserAdm, searchUserCasesAdm, deleteUserCaseAdm, loginAdmin, searchBusinessNameLocationAdm };
+const addCasesAdm = function (req, res) {
+
+  newCase = new Case({
+    loginId,
+    password,
+    businessName,
+    firstName,
+    lastName,
+    businessType,
+    phoneNumber,
+    location,
+    safetyM,
+    registeredBy
+  });
+
+
+
+  newCase.save(function (error) {
+    if (error) {
+      throw error;
+    }
+    return res.status(200).json({ newCase });
+  });
+
+
+}
+
+module.exports = { searchUserAdm, deleteUserAdm, searchUserCasesAdm, deleteUserCaseAdm, loginAdmin, searchBusinessNameLocationAdm, addCasesAdm };

@@ -11,23 +11,30 @@ export const categories = [
 ]
 
 export const background = [
-  "#12232E",
-  "#007CC7",
-  "#4DA8DA",
-  "#203647",
-  "#12232E",
-  "#007CC7",
-  "#4DA8DA",
-  "#203647"
+  "#37393A",
+  "#475966",
+  "#577892",
+  "#77B6EA",
+  "#9FC5E4",
+  "#C7D3DD",
+  "#CFCED3",
+  "#D6C9C9",
+  "#DFDCDE",
+  "#E8EEF2"
 ]
 
 export const hoverBackground = [
-  "#EEFBFB",
-  "#EEFBFB",
-  "#EEFBFB",
-  "#EEFBFB",
-  "#EEFBFB",
-  "#EEFBFB"
+  "#E8EEF2",
+  "#DFDCDE",
+  "#D6C9C9",
+  "#CFCED3",
+  "#C7D3DD",
+  "#9FC5E4",
+  "#77B6EA",
+  "#577892",
+  "#475966"
 ]
 
 export const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'September', 'October', 'November', 'December']
+
+export const GTA = ["Halton", "Peel", "York", "Durham", "Toronto"];

@@ -30,7 +30,7 @@ export class RegistrationFormComponent implements OnInit {
   safetyMeasureList: any = [];
 
   constructor(public auth: AuthService, public router: Router, public data: DataService) {
-    if (localStorage.getItem('server_warning') === 'true') {  // Controls messages from server
+    if (localStorage.getItem('server_warning') === 'true') { 
       this.serverWarning = true;
     }
   }
@@ -75,11 +75,6 @@ export class RegistrationFormComponent implements OnInit {
     }
   }
 
-  // Closes the warning box for the server errors
-  onCloseServer() {
-    this.serverWarning = false;
-  }
-
   checkBusinessInfoForm() {
     if (this.userCredentials.controls.businessDetails.invalid) {
       this.alert = true;
@@ -88,25 +83,26 @@ export class RegistrationFormComponent implements OnInit {
     }
   }
 
-  onClose() {
-    this.alert = false;
-  }
-
   onAddMeasure() {
-
-    const safetyMeasure = {
+    let safetyMeasure = {
       title: this.userCredentials.get('safetyMeasures.title')?.value,
       description: this.userCredentials.get('safetyMeasures.description')?.value
     }
     this.safetyMeasureList.push(safetyMeasure);
     this.userCredentials.get('safetyMeasures.title')?.reset()
     this.userCredentials.get('safetyMeasures.description')?.reset()
-    
   }
 
   public handleAddressChange(address: any) {
-
     this.userCredentials.get('businessDetails.businessLocation')?.setValue(address.formatted_address);
+  }
+
+  onCloseServer() {
+    this.serverWarning = false;
+  }
+
+  onClose() {
+    this.alert = false;
   }
 
 }

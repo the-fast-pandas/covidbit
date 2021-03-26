@@ -5,9 +5,7 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 // Nodemailer
-const email = require('../templates/registrationUser');
-const emailAdmin = require('../templates/resgistrationAdmin');
-const emailService = require('../models/email');
+const emailService = require('../models/emailRegistration');
 // Schemas
 const SmallBusiness = require('../schema/smallBusiness');
 
@@ -17,7 +15,6 @@ const registerUser = function (req, res) {
   let password, loginId, businessName, businessType, firstName, lastName, phoneNumber, location, safetyM, emailSend;
 
   if (req.body.registeredBy == true) {
-
     password = 'fakefake';
     loginId = req.body.email;
     businessName = req.body.businessName;
@@ -26,13 +23,11 @@ const registerUser = function (req, res) {
     lastName = req.body.lastName;
     phoneNumber = req.body.businessPhone;
     location = req.body.businessLocation;
-    safetyMeasures = [];
-    emailSend = emailAdmin.confirmRegistrationAdm;
+    safetyM = [];
+    registeredBy = true;
 
   } else {
-
     const { accountDetails, businessDetails, safetyMeasures } = req.body;
-
     password = accountDetails.password;
     loginId = accountDetails.email;
     businessName = accountDetails.businessName;
@@ -41,9 +36,10 @@ const registerUser = function (req, res) {
     lastName = accountDetails.lastName;
     phoneNumber = businessDetails.businessPhone;
     location = businessDetails.businessLocation;
-    safetyMeasures = safetyMeasures;
-    emailSend = email.confirmRegistration;
+    safetyM = safetyMeasures;
+    registeredBy = false;
   }
+
   SmallBusiness.findOne({ "loginId": loginId }, function (error, user) { // checks if the user already exists
     if (error) {
       throw error;
@@ -61,7 +57,8 @@ const registerUser = function (req, res) {
         businessType,
         phoneNumber,
         location,
-        safetyMeasures
+        safetyM,
+        registeredBy
       });
       bcrypt.genSalt(saltRounds, function (error, salt) {  //sets password with hash
         if (error) {
@@ -77,7 +74,7 @@ const registerUser = function (req, res) {
               if (error) {
                 throw error;
               }
-              emailService.email(newBusiness.businessName, 'covidbitreg@gmail.com', emailSend, 'COVIDBIT Website Registration Request');
+              emailService.emailRegistration( 'covidbitreg@gmail.com', newBusiness.businessName);
               return res.status(200).json({ newBusiness });
             });
           }

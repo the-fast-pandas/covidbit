@@ -2,7 +2,7 @@
 <nb-card>
   <nb-card-header>Business Management Settings</nb-card-header>
   <nb-card-body>
-    <nb-alert status="success" closable (close)="onClose()"*ngIf="alert">
+    <nb-alert status="success" closable (close)="onClose()" *ngIf="alert">
       Business Successfully Created!
     </nb-alert>
 
@@ -151,7 +151,7 @@
           <div class="editor">
             <nb-form-field>
               <input nbInput placeholder="Search For Business" id="businessSearch" formControlName="searchedBusiness">
-    
+
               <button type="submit" nbSuffix nbButton ghost>
                 <nb-icon icon="search-outline"></nb-icon>
               </button>
@@ -165,14 +165,6 @@
 
           </div>
 
-          <!-- <ng-container *ngIf="searchCheck === true">
-            <p class="subtitle">A Business with the name "{{businessSearch.get('searchedBusiness')?.value}}" was not found!</p>
-          </ng-container> -->
-
-          <ng-container *ngIf="displayList === true">
-            <p class="subtitle">Business found with the name:  {{businessSearch.get('searchedBusiness')?.value}}</p>
-          </ng-container>
-
         </form>
 
         <form [formGroup]="businessList" (ngSubmit)='removeBusiness()'>
@@ -182,7 +174,7 @@
             </nb-list-item>
           </nb-list>
 
-      
+
           <div class="buttonSlot" *ngIf="typesList.length > 0 || idList.length > 0">
             <button class="button" type="submit" nbButton outline status="success"
               [disabled]="this.businessList.hasError('required', 'businesses')">Remove Business</button>
@@ -190,6 +182,15 @@
 
         </form>
 
+      </nb-tab>
+
+      <nb-tab tabTitle="Invite A Business">
+        <form [formGroup]="businessInvitation" (ngSubmit)="inviteBusiness()">
+          <input formControlName="email" class="locationLabel" nbInput id="input-businessLocation"
+            placeholder="Enter Business Email" fullWidth fieldSize="medium" />
+
+          <button class="button" type="submit" nbButton outline>Invite Business</button>
+        </form>
       </nb-tab>
 
     </nb-tabset>

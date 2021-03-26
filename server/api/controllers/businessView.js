@@ -54,7 +54,6 @@ const getAllCases = function (req, res) {
             return res.status(401).json({ message: "There is no cases in database!" });
         }
         if (cases) {
-            console.log(cases)
             let myCases = [];
             for (let i = 0; i < Object.keys(cases).length; i++) {
                 let singleCase = {};
