@@ -16,7 +16,12 @@ import { PolicyComponent } from './static-pages/policy/policy.component';
 import { TermsComponent } from './static-pages/terms/terms.component';
 import { NewPasswordComponent } from './login-form/new-password/new-password.component';
 import { ResetPasswordComponent } from './login-form/reset-password/reset-password.component';
+
+import { ReviewComponent } from './review/review.component';
+import { ReviewConfirmationComponent } from './review/review-confirmation/review-confirmation.component';
+
 import { AboutUsComponent } from './static-pages/about-us/about-us.component';
+
 // Guards
 import { AuthGuard } from "./services/auth-services/auth.guard";
 import { AdminGuard } from "./services/auth-services/admin.guard";
@@ -62,7 +67,7 @@ const routes: Routes = [
   {
     path: 'business-profile/:id',
     component: BusinessProfileComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   {
     path: 'certification-form/:id',
@@ -84,6 +89,14 @@ const routes: Routes = [
   {
     path: 'tracker-map',
     component: TrackerMapComponent
+  },
+  {
+    path: 'review',
+    component: ReviewComponent
+  },
+  {
+    path: 'reviewConfirmation',
+    component: ReviewConfirmationComponent
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },

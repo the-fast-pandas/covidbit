@@ -138,6 +138,24 @@ export class BusinessDashboardComponent implements OnInit {
     this.safetyMeasures.get('description')?.reset();
   }
 
+  itemsToRemove: any = [];
+  selectedItems(i){
+    let obj = this.safetyMeasuresList[i];
+    this.itemsToRemove.push(obj);
+    console.log(this.itemsToRemove);
+  }
+  // DELETE Safety Measure
+  onDeleteMeasure(){
+    for (let i = 0 ; i<this.safetyMeasureList.length; i++){
+      for (let x=0; x<this.selectedItems.length; x++){
+        if(this.selectedItems[x]===this.safetyMeasureList[i]){
+          this.safetyMeasureList.splice(i,1);
+        }
+      }
+    } console.log(this.safetyMeasureList);
+  }
+
+
   tabReset() {
     this.displayList = false;
     this.searchCheck = false;

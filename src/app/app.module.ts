@@ -44,6 +44,10 @@ import { EditCaseComponent } from './business-dashboard/edit-case/edit-case.comp
 
 import { NgxEchartsModule } from 'ngx-echarts';
 
+import { ReviewComponent } from './review/review.component';
+import { ReviewConfirmationComponent } from './review/review-confirmation/review-confirmation.component';
+
+
 import { StatsComponent } from './tracker-map/graphs/stats/stats.component';
 import { StatsCanadaComponent } from './tracker-map/graphs/stats-canada/stats-canada.component';
 import { OntarioCanadaComponent } from './tracker-map/ontario-canada/ontario-canada.component';
@@ -56,6 +60,7 @@ import { BarHealthRegionMortalityComponent } from './tracker-map/graphs/bar-heal
 import { BarOntarioCanadaComponent } from './tracker-map/graphs/bar-ontario-canada/bar-ontario-canada.component';
 import { BarOntarioCanadaVaccinesComponent } from './tracker-map/graphs/bar-ontario-canada-vaccines/bar-ontario-canada-vaccines.component';
 import { AboutUsComponent } from './static-pages/about-us/about-us.component';
+
 
 
 
@@ -91,6 +96,8 @@ import { AboutUsComponent } from './static-pages/about-us/about-us.component';
     EditCaseComponent,
     LineGraphComponent,
     StatsComponent,
+    ReviewComponent,
+    ReviewConfirmationComponent,
     StatsCanadaComponent,
     OntarioCanadaComponent,
     LineGraphCanadaComponent,
