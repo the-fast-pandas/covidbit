@@ -8,56 +8,57 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 // MongoDb shemas
 const SmallBusiness = require('../schema/smallBusiness');
-const emailService = require('../models/email');
+const emailService = require('../models/emailForgotPassword');
 const Administrator = require('../schema/administrator');
 
 // Controls the login for a business user
 const loginUser = function (req, res) {
     const { email, password } = req.body;
-    if (email === "admin@myAdmin.ca"){
+    if (email === "admin@myAdmin.ca") {
         Administrator.findOne({ "loginId": email }, function (error, admin) {
             if (error) {
-              throw error;
+                throw error;
             }
             if (!admin) {
-              return res.status(401).json({ message: "Incorrect LoginId!" });
+                return res.status(401).json({ message: "Incorrect LoginId!" });
             }
             if (admin) {
-              if (password == admin.password) {
-                const payload = { admin: { id: admin.id } };
-                const adminToken = jwt.sign(payload, process.env.SECRET_ADMIN, { expiresIn: '200m' });
-                return res.status(200).json({ adminToken, admin });
-              } else {
-                return res.status(401).json({ message: "Incorrect Password!" });
-              }
-            }
-          })
-
-    }else{
-    SmallBusiness.findOne({ "loginId": email }, function (error, user) {
-        if (error) {
-            throw error;
-        }
-        if (!user) {
-            return res.status(401).json({ message: "Incorrect LoginId!" });
-        }
-        if (user) {
-            bcrypt.compare(password, user.password, function (error, result) {
-                if (error) {
-                    throw error;
-                }
-                if (!result) {
+                if (password == admin.password) {
+           
+                    const payload = { admin: { id: admin.id } };
+                    const adminToken = jwt.sign(payload, process.env.SECRET_ADMIN, { expiresIn: '200m' });
+                    return res.status(200).json({ adminToken, admin });
+                } else {
                     return res.status(401).json({ message: "Incorrect Password!" });
                 }
-                if (result) {
-                    const payload = { "id": user.id };
-                    const accessToken = jwt.sign(payload, process.env.TOKEN_SECRET, { noTimestamp: true, expiresIn: '1h' });
-                    return res.status(200).json({ accessToken, user });
-                }
-            })
-        }
-    })
-}
+            }
+        })
+
+    } else {
+        SmallBusiness.findOne({ "loginId": email }, function (error, user) {
+            if (error) {
+                throw error;
+            }
+            if (!user) {
+                return res.status(401).json({ message: "Incorrect LoginId!" });
+            }
+            if (user) {
+                bcrypt.compare(password, user.password, function (error, result) {
+                    if (error) {
+                        throw error;
+                    }
+                    if (!result) {
+                        return res.status(401).json({ message: "Incorrect Password!" });
+                    }
+                    if (result) {
+                        const payload = { "id": user.id };
+                        const accessToken = jwt.sign(payload, process.env.TOKEN_SECRET, { noTimestamp: true, expiresIn: '1h' });
+                        return res.status(200).json({ accessToken, user });
+                    }
+                })
+            }
+        })
+    }
 }
 
 const forgotPassword = function (req, res) {
@@ -84,8 +85,9 @@ const forgotPassword = function (req, res) {
                     return res.status(401).json({ message: "User not found!" });
                 }
                 if (user) {
-                    const emailSend = 'http://localhost:4200/reset-password/' + token;
-                    emailService.email(user.businessName, 'covidbitreg@gmail.com', emailSend, 'COVIDBIT Website Registration Request');
+                    const businessName = user.businessName;
+                    const userToken = 'http://localhost:4200/reset-password/' + token;
+                    emailService.emailChangePassword('covidbitreg@gmail.com', userToken, businessName);
                     return res.status(200).json({ user });
                 }
             })

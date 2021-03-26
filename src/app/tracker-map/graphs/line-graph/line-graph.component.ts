@@ -1,6 +1,10 @@
+// Server - CovidBit - Fast Pandas
+// Created: 17, March, 2021, Teresa Costa
+
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api-covid-services/api.service'
 import * as echarts from 'echarts'
+declare const formatDate: any;
 
 @Component({
   selector: 'app-line-graph',
@@ -8,42 +12,39 @@ import * as echarts from 'echarts'
   styleUrls: ['./line-graph.component.scss']
 })
 export class LineGraphComponent implements OnInit {
-  // bar 
-  basicData: any;
-  basicOptions: any;
-
-  //COVID-19 Tracker API Variables
+  //Class Variables
+  //API data
   casesData: any;
   fatalities: any;
-
-
-  initialDate = new Date();
-
-  dataChartFatalities: any = [];
-  dataChartCase: any = [];
-  dateLabel: any = [];
-
-  chartOption: any = (<any>echarts).format;
-
+  //Chart
+  chart: any = (<any>echarts).format;
+  dataChartFatalities: Array<String> = [];
+  dataChartCase: Array<String> = [];
+  //Dates
+  today: Date = new Date(new Date().setDate(new Date().getDate() - 1));
+  sevenDays: Date = new Date(new Date().setDate(new Date().getDate() - 7));
+  formatToday: String = "";
+  formatSevenDays: String = "";
 
   constructor(private apiService: ApiService) {
-    this.apiService.getFatalitiesCanada("10-3-2021", "25-03-2021").subscribe((dataMortality) => {
-      this.fatalities = dataMortality;
-      this.countFatalities();
-      this.apiService.getCasesCanada("10-3-2021", "25-03-2021").subscribe((dataCases) => {
-        this.casesData = dataCases;
-        this.countCases();
-      this.createGraph();
-    })
-  })
+    this.formatToday = formatDate(this.today);
+    this.formatSevenDays = formatDate(this.sevenDays);
   }
 
   ngOnInit() {
-
+    this.apiService.getFatalitiesCanada(this.formatSevenDays, this.formatToday).subscribe((dataMortality) => {
+      this.fatalities = dataMortality;
+      this.countFatalities();
+      this.apiService.getCasesCanada(this.formatSevenDays, this.formatToday).subscribe((dataCases) => {
+        this.casesData = dataCases;
+        this.countCases();
+        this.createGraph();
+      })
+    })
   }
 
   createGraph() {
-    this.chartOption = {
+    this.chart = {
       xAxis: {
         type: 'category',
         data: [],
@@ -77,10 +78,11 @@ export class LineGraphComponent implements OnInit {
       ],
     };
   }
+
   countFatalities() {
     for (var i = 0; i <= this.fatalities.mortality.length - 1; i++) {
       if (this.fatalities.mortality[i].province === "Ontario") {
-        this.dataChartFatalities.push(this.fatalities.mortality[i].deaths)
+        this.dataChartFatalities.push(this.fatalities.mortality[i].cumulative_deaths)
       }
     }
   }
@@ -88,7 +90,7 @@ export class LineGraphComponent implements OnInit {
   countCases() {
     for (var i = 0; i <= this.casesData.cases.length - 1; i++) {
       if (this.casesData.cases[i].province === "Ontario") {
-        this.dataChartCase.push(this.casesData.cases[i].cases)
+        this.dataChartCase.push(this.casesData.cases[i].cumulative_cases)
       }
     }
   }

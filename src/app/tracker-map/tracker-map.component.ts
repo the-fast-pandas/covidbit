@@ -173,4 +173,8 @@ export class TrackerMapComponent implements OnInit {
   date = new Date();
 
  
+
+
+
+
 }

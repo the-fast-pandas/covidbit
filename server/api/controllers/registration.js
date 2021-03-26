@@ -5,9 +5,7 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 // Nodemailer
-const email = require('../templates/registrationUser');
-const emailAdmin = require('../templates/resgistrationAdmin');
-const emailService = require('../models/email');
+const emailService = require('../models/emailRegistration');
 // Schemas
 const SmallBusiness = require('../schema/smallBusiness');
 
@@ -26,7 +24,6 @@ const registerUser = function (req, res) {
     phoneNumber = req.body.businessPhone;
     location = req.body.businessLocation;
     safetyM = [];
-    emailSend = emailAdmin.confirmRegistrationAdm;
     registeredBy = true;
 
   } else {
@@ -40,7 +37,6 @@ const registerUser = function (req, res) {
     phoneNumber = businessDetails.businessPhone;
     location = businessDetails.businessLocation;
     safetyM = safetyMeasures;
-    emailSend = email.confirmRegistration;
     registeredBy = false;
   }
 
@@ -78,7 +74,7 @@ const registerUser = function (req, res) {
               if (error) {
                 throw error;
               }
-              emailService.email(newBusiness.businessName, 'covidbitreg@gmail.com', emailSend, 'COVIDBIT Website Registration Request');
+              emailService.emailRegistration( 'covidbitreg@gmail.com', newBusiness.businessName);
               return res.status(200).json({ newBusiness });
             });
           }

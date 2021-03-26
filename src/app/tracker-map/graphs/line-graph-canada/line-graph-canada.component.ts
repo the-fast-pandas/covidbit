@@ -1,7 +1,10 @@
+// Server - CovidBit - Fast Pandas
+// Created: 17, March, 2021, Teresa Costa
+
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api-covid-services/api.service';
 import * as echarts from 'echarts'
-
+declare const formatDate: any;
 
 @Component({
   selector: 'app-line-graph-canada',
@@ -9,29 +12,30 @@ import * as echarts from 'echarts'
   styleUrls: ['./line-graph-canada.component.scss']
 })
 export class LineGraphCanadaComponent implements OnInit {
-  // bar 
-  basicData: any;
-  basicOptions: any;
-
-  //COVID-19 Tracker API Variables
+  //Class Variables
+  //API data
   casesData: any;
   fatalities: any;
-
-
-  initialDate = new Date();
-
+  //Chart
+  chart: any = (<any>echarts).format;
   dataChartFatalities: any = [];
   dataChartCase: any = [];
-  dateLabel: any = [];
-
-  chartOption: any = (<any>echarts).format;
-
+  //Dates
+  today: Date = new Date(new Date().setDate(new Date().getDate() - 1));
+  sevenDays: Date = new Date(new Date().setDate(new Date().getDate() - 7));
+  formatToday: String = "";
+  formatSevenDays: String = "";
 
   constructor(private apiService: ApiService) {
-    this.apiService.getFatalitiesCanada("10-3-2021", "25-03-2021").subscribe((dataMortality) => {
+    this.formatToday = formatDate(this.today);
+    this.formatSevenDays = formatDate(this.sevenDays);
+  }
+
+  ngOnInit() {
+    this.apiService.getFatalitiesCanada(this.formatSevenDays, this.formatToday).subscribe((dataMortality) => {
       this.fatalities = dataMortality;
       this.countFatalities();
-      this.apiService.getCasesCanada("10-3-2021", "25-03-2021").subscribe((dataCases) => {
+      this.apiService.getCasesCanada(this.formatSevenDays, this.formatToday).subscribe((dataCases) => {
         this.casesData = dataCases;
         this.countCases();
         this.createGraph();
@@ -39,12 +43,9 @@ export class LineGraphCanadaComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
-
-  }
 
   createGraph() {
-    this.chartOption = {
+    this.chart = {
       xAxis: {
         type: 'category',
         data: [],
@@ -55,24 +56,24 @@ export class LineGraphCanadaComponent implements OnInit {
       series: [
         {
           title: "Fatalities",
-          data: [this.dataChartFatalities[7],
-          this.dataChartFatalities[6],
-          this.dataChartFatalities[5],
-          this.dataChartFatalities[4],
-          this.dataChartFatalities[3],
+          data: [this.dataChartFatalities[1],
           this.dataChartFatalities[2],
-          this.dataChartFatalities[1]],
+          this.dataChartFatalities[3],
+          this.dataChartFatalities[4],
+          this.dataChartFatalities[5],
+          this.dataChartFatalities[6],
+          this.dataChartFatalities[7]],
           type: 'line',
         },
         {
           title: "Cases",
-          data: [this.dataChartCase[7],
-          this.dataChartCase[6],
-          this.dataChartCase[5],
-          this.dataChartCase[4],
-          this.dataChartCase[3],
+          data: [this.dataChartCase[1],
           this.dataChartCase[2],
-          this.dataChartCase[1]],
+          this.dataChartCase[3],
+          this.dataChartCase[4],
+          this.dataChartCase[5],
+          this.dataChartCase[6],
+          this.dataChartCase[7]],
           type: 'line',
         },
       ],
@@ -87,9 +88,9 @@ export class LineGraphCanadaComponent implements OnInit {
           this.dataChartFatalities.push(cnt)
         }
         date = this.fatalities.mortality[i].date_death_report;
-        cnt += this.fatalities.mortality[i].deaths;
+        cnt += this.fatalities.mortality[i].cumulative_deaths;
       } else {
-        cnt += this.fatalities.mortality[i].deaths;
+        cnt += this.fatalities.mortality[i].cumulative_deaths;
       }
     }
 
@@ -105,9 +106,9 @@ export class LineGraphCanadaComponent implements OnInit {
           this.dataChartCase.push(cnt)
         }
         date = this.casesData.cases[i].date_report;
-        cnt += this.casesData.cases[i].cases;
+        cnt += this.casesData.cases[i].cumulative_cases;
       } else {
-        cnt += this.casesData.cases[i].cases;
+        cnt += this.casesData.cases[i].cumulative_cases;
       }
     }
   }
