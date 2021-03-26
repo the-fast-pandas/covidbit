@@ -1,10 +1,10 @@
 // Server - CovidBit - Fast Pandas
 // Created: 31, January, 2021, Teresa Costa
+// Edit: 25, March, 2021, Adilah, HTML Template
 
 const nodemailer = require("nodemailer");
 
 const emailChangePassword = function (email, url, businessName) {
-
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -12,10 +12,11 @@ const emailChangePassword = function (email, url, businessName) {
             pass: 'FASTPANDAS'
         }
     });
+
     const mailOptions = {
         from: 'covidbitreg@gmail.com',
         to: email,
-        subject: 'COVIDBIT Website Registration Request',
+        subject: 'COVIDBIT Website Reset PAssword',
         html: `<!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     
@@ -451,12 +452,12 @@ const emailChangePassword = function (email, url, businessName) {
     </html>`,
         attachments: [{
             filename: 'lock4.png',
-            path: __dirname + '/lock4.png',
+            path: __dirname + '/images/lock4.png',
             cid: 'lock4'
         },
         {
             filename: 'covidbit-logo.png',
-            path: __dirname + '/covidbit-logo.png',
+            path: __dirname + '/images/covidbit-logo.png',
             cid: 'covidbit-logo'
         }
         ]
@@ -473,14 +474,3 @@ const emailChangePassword = function (email, url, businessName) {
 }
 
 module.exports = { emailChangePassword };
-
-/*
- to: user.email,
-                from: email,
-                template: 'forgot-password-email',
-                subject: 'Password help has arrived!',
-                context: {
-                    url: 'http://localhost:3000/auth/reset_password?token=' + token,
-                    name: user.fullName.split(' ')[0]
-                }
-            };*/

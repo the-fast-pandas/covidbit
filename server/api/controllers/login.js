@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 // MongoDb shemas
 const SmallBusiness = require('../schema/smallBusiness');
-const emailService = require('../models/emailForgotPassword');
+const emailService = require('../models/emailService/emailForgotPassword');
 const Administrator = require('../schema/administrator');
 
 // Controls the login for a business user
@@ -24,7 +24,6 @@ const loginUser = function (req, res) {
             }
             if (admin) {
                 if (password == admin.password) {
-           
                     const payload = { admin: { id: admin.id } };
                     const adminToken = jwt.sign(payload, process.env.SECRET_ADMIN, { expiresIn: '200m' });
                     return res.status(200).json({ adminToken, admin });

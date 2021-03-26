@@ -47,10 +47,6 @@ export class CertificationFormComponent implements OnInit {
     this.auth.addCertification(this.userCredentials.value, this.id);
   }
   
-  // toggle(checked: boolean) {
-  //   this.acceptedGuidelines = checked;
-  // }
-
   ngOnInit(): void {
 
     this.userCredentials = new FormGroup({

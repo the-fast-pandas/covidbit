@@ -163,10 +163,12 @@ export class AuthService {
 
   addCertification(certification: any, id: String) {
     const api = `${this.endpoint}/certification-form/${id}`;
-    return this.http.put<any>(api, certification)
+    return this.http.post<any>(api, certification)
       .subscribe(
         data => {
-          return data;
+          this.router.navigate(['/business-dashboard/' + data.id]).then(() => {
+            window.location.reload();
+          });
         },
         error => {
           console.log("It was not possible to add certification!");

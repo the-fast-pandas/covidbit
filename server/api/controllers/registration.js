@@ -5,16 +5,20 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 // Nodemailer
-const emailService = require('../models/emailRegistration');
+const emailService = require('../models/emailService/emailRegistration');
+const emailServiceAdm = require('../models/emailService/emailRegistrationAdm');
 // Schemas
 const SmallBusiness = require('../schema/smallBusiness');
 
 // Registration of a new business user
 const registerUser = function (req, res) {
 
-  let password, loginId, businessName, businessType, firstName, lastName, phoneNumber, location, safetyM, emailSend;
+  let password, loginId, businessName, businessType, firstName, lastName, phoneNumber, location, safetyM;
 
-  if (req.body.registeredBy == true) {
+  let registered = req.body.registeredBy;
+
+  if (registered == true) {
+
     password = 'fakefake';
     loginId = req.body.email;
     businessName = req.body.businessName;
@@ -24,7 +28,9 @@ const registerUser = function (req, res) {
     phoneNumber = req.body.businessPhone;
     location = req.body.businessLocation;
     safetyM = [];
-    registeredBy = true;
+    registeredBy = registered;
+    resetPassword = crypto.randomBytes(64).toString('hex');
+    resetPasswordExpires = Date.now() + 86400000;
 
   } else {
     const { accountDetails, businessDetails, safetyMeasures } = req.body;
@@ -38,6 +44,8 @@ const registerUser = function (req, res) {
     location = businessDetails.businessLocation;
     safetyM = safetyMeasures;
     registeredBy = false;
+    resetPassword = "";
+    resetPasswordExpires = "";
   }
 
   SmallBusiness.findOne({ "loginId": loginId }, function (error, user) { // checks if the user already exists
@@ -74,7 +82,12 @@ const registerUser = function (req, res) {
               if (error) {
                 throw error;
               }
-              emailService.emailRegistration( 'covidbitreg@gmail.com', newBusiness.businessName);
+              if (registered) {
+                const userToken = 'http://localhost:4200/reset-password/' + token;
+                emailServiceAdm.emailRegistrationAdm('covidbitreg@gmail.com', newBusiness.businessName, userToken);
+              } else {
+                emailService.emailRegistration('covidbitreg@gmail.com', newBusiness.businessName);
+              }
               return res.status(200).json({ newBusiness });
             });
           }
