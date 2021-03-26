@@ -16,6 +16,7 @@ import { PolicyComponent } from './static-pages/policy/policy.component';
 import { TermsComponent } from './static-pages/terms/terms.component';
 import { NewPasswordComponent } from './login-form/new-password/new-password.component';
 import { ResetPasswordComponent } from './login-form/reset-password/reset-password.component';
+import { AboutUsComponent } from './static-pages/about-us/about-us.component';
 // Guards
 import { AuthGuard } from "./services/auth-services/auth.guard";
 import { AdminGuard } from "./services/auth-services/admin.guard";
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'policy',
     component: PolicyComponent
+  },
+  {
+    path: 'about-us',
+    component: AboutUsComponent
   },
   {
     path: 'registration-form',
@@ -52,7 +57,7 @@ const routes: Routes = [
   {
     path: 'business-dashboard/:id',
     component: BusinessDashboardComponent,
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'business-profile/:id',
@@ -70,7 +75,7 @@ const routes: Routes = [
   {
     path: 'admin-dashboard',
     component: AdminDashboardComponent,
-    // canActivate: [AdminGuard]
+    canActivate: [AdminGuard]
   },
   {
     path: 'search-page',

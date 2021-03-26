@@ -118,15 +118,12 @@ export class TrackerMapComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.businessSearch.get('businessName')?.value);
+  
 
     this.adm.searchBusinessNameLocationAdm(this.businessNameDB).subscribe(
       data => {
-        console.log(data.myUsers);
         this.getBusinessLocation(data);
-        // console.log(this.locationToBeSearched);
         this.businessSearch.get("searchLocation")?.setValue(this.locationToBeSearched);
-        console.log(this.businessSearch.get("searchLocation")?.value);   
         this.searchElementRef.nativeElement.focus();
 
       }

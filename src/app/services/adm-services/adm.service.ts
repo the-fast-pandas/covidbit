@@ -4,11 +4,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { BusinessNameandLocation } from 'src/app/models/businessName&Location.model';
 import { BusinessName } from '../../models/businessName.model';
-
+import { Cases } from '../../models/case.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +14,15 @@ import { BusinessName } from '../../models/businessName.model';
 export class AdmService {
 
   endpoint: string = 'http://localhost:2000/api';
-  headers = new HttpHeaders().set('Content-Type', 'application/json');
+  headers  = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST,GET,OPTIONS, PUT, DELETE',
+    'Access-Control-Allow-Headers': 'Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization'
+  });
+
+
 
   constructor(private http: HttpClient, public router: Router) { }
 
@@ -52,9 +58,9 @@ export class AdmService {
         ))
   }
   // Delete a business user
-  deleteUserAdm(id: any): Observable<any> {
+  deleteUserAdm(id: any) {
     const api = `${this.endpoint}/delete-business-user/${id}`;
-    return this.http.delete<any>(api, id)
+    return this.http.delete<any>(api, { headers: this.headers })
       .pipe(
         map(
           data => {
@@ -67,6 +73,19 @@ export class AdmService {
   }
 
   ////////////   CASES    //////////////
+  addUserCase(data: Cases) {
+    const api = `${this.endpoint}/add-business-case`;
+    return this.http.post<any>(api, data, { headers: this.headers })
+      .subscribe(
+        (data) => {
+          this.router.navigate(['admin-dashboard']);
+        },
+        (error: any) => {
+          this.router.navigate(['admin-dashboard']);
+
+        }
+      )
+  }
 
   // Returns data for cases by business name
   searchUserCases(business: BusinessName) {
@@ -84,10 +103,10 @@ export class AdmService {
   }
 
   // Delete a case
-  deleteUserCaseAdm(id: any): Observable<any> {
+  deleteUserCaseAdm(id: any) {
     console.log(id);
     const api = `${this.endpoint}/cases-user-adm/${id}`;
-    return this.http.delete<any>(api, id)
+    return this.http.delete<any>(api, { headers: this.headers })
       .pipe(
         map(
           data => {
@@ -97,5 +116,8 @@ export class AdmService {
             window.alert("No case to delete.");
           }
         ))
+
   }
+
+
 }

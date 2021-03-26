@@ -17,7 +17,6 @@ const registerUser = function (req, res) {
   let password, loginId, businessName, businessType, firstName, lastName, phoneNumber, location, safetyM, emailSend;
 
   if (req.body.registeredBy == true) {
-
     password = 'fakefake';
     loginId = req.body.email;
     businessName = req.body.businessName;
@@ -26,13 +25,12 @@ const registerUser = function (req, res) {
     lastName = req.body.lastName;
     phoneNumber = req.body.businessPhone;
     location = req.body.businessLocation;
-    safetyMeasures = [];
+    safetyM = [];
     emailSend = emailAdmin.confirmRegistrationAdm;
+    registeredBy = true;
 
   } else {
-
     const { accountDetails, businessDetails, safetyMeasures } = req.body;
-
     password = accountDetails.password;
     loginId = accountDetails.email;
     businessName = accountDetails.businessName;
@@ -41,9 +39,11 @@ const registerUser = function (req, res) {
     lastName = accountDetails.lastName;
     phoneNumber = businessDetails.businessPhone;
     location = businessDetails.businessLocation;
-    safetyMeasures = safetyMeasures;
+    safetyM = safetyMeasures;
     emailSend = email.confirmRegistration;
+    registeredBy = false;
   }
+
   SmallBusiness.findOne({ "loginId": loginId }, function (error, user) { // checks if the user already exists
     if (error) {
       throw error;
@@ -61,7 +61,8 @@ const registerUser = function (req, res) {
         businessType,
         phoneNumber,
         location,
-        safetyMeasures
+        safetyM,
+        registeredBy
       });
       bcrypt.genSalt(saltRounds, function (error, salt) {  //sets password with hash
         if (error) {

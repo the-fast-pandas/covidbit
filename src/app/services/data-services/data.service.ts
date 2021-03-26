@@ -17,7 +17,13 @@ import { LoginId } from '../../models/loginId';
 export class DataService {
 
   endpoint: string = 'http://localhost:2000/api';
-  headers = new HttpHeaders().set('Content-Type', 'application/json');
+  headers  = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST,GET,OPTIONS, PUT, DELETE',
+    'Access-Control-Allow-Headers': 'Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization'
+  });
 
   constructor(private http: HttpClient, public router: Router) { }
 
