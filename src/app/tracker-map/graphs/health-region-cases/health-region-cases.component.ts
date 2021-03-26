@@ -1,7 +1,11 @@
+// Server - CovidBit - Fast Pandas
+// Created: 23, March, 2021, Teresa Costa
+
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api-covid-services/api.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 import * as myGlobals from '../../../globals';
+declare const formatDate: any;
 
 @Component({
   selector: 'app-health-region-cases',
@@ -9,15 +13,25 @@ import * as myGlobals from '../../../globals';
   styleUrls: ['./health-region-cases.component.scss']
 })
 export class HealthRegionCasesComponent implements OnInit {
+
+  // Class Variables
+  // Chart
   chartData: any;
   chartOptions: any;
-  typesList: Array<string> = [];
-  chartLabel: Array<string> = ["Hamilton", "Peel", "Toronto", "York"];
-  chartCount: Array<number> = [];
   caseData: any;
+  chartLabel: Array<string> = myGlobals.GTA;
+  chartCount: Array<number> = [];
+
+  // Set date
+  today: Date = new Date(new Date().setDate(new Date().getDate()-1));
+  formatToday: String = "";
 
   constructor(public data: DataService, private apiService: ApiService) {
-    this.apiService.getHealthRegion("24-03-2021").subscribe((dataOne) => {
+    this.formatToday = formatDate(this.today );
+  }
+
+  ngOnInit() {
+    this.apiService.getHealthRegion(this.formatToday).subscribe((dataOne) => {
       this.caseData = dataOne;
       for (let i = 0; i < this.chartLabel.length; i++) {
         this.countCasesHealthRegion(this.chartLabel[i]);
@@ -36,15 +50,11 @@ export class HealthRegionCasesComponent implements OnInit {
           labels: {
             fontColor: 'rgb(255, 99, 132)'
           }
-
-
         }
       };
     }
     )
   }
-
-  ngOnInit() { }
 
   countCasesHealthRegion(myRegion) {
     let cnt = 0;
@@ -54,7 +64,7 @@ export class HealthRegionCasesComponent implements OnInit {
         this.chartCount.push(cnt);
       }
     }
-
-
   }
+
+
 }
