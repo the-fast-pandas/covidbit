@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api-covid-services/api.service';
+import * as myGlobals from '../../../globals';
 
 @Component({
   selector: 'app-bar-ontario-canada-vaccines',
@@ -30,12 +31,12 @@ export class BarOntarioCanadaVaccinesComponent implements OnInit {
         datasets: [
           {
             label: 'Ontario',
-            backgroundColor: '#42A5F5',
+            backgroundColor: myGlobals.background[4],
             data: [this.distributedVaccinesOntario, this.appliedVaccinesOntario]
           },
           {
             label: 'Canada',
-            backgroundColor: '#FFA726',
+            backgroundColor: myGlobals.background[5],
             data: [this.distributedVaccines, this.appliedVaccines]
           }
         ]

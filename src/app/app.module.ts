@@ -55,6 +55,7 @@ import { HealthRegionMortalityComponent } from './tracker-map/graphs/health-regi
 import { BarHealthRegionMortalityComponent } from './tracker-map/graphs/bar-health-region-mortality/bar-health-region-mortality.component';
 import { BarOntarioCanadaComponent } from './tracker-map/graphs/bar-ontario-canada/bar-ontario-canada.component';
 import { BarOntarioCanadaVaccinesComponent } from './tracker-map/graphs/bar-ontario-canada-vaccines/bar-ontario-canada-vaccines.component';
+import { AboutUsComponent } from './static-pages/about-us/about-us.component';
 
 
 
@@ -98,7 +99,8 @@ import { BarOntarioCanadaVaccinesComponent } from './tracker-map/graphs/bar-onta
     HealthRegionMortalityComponent,
     BarHealthRegionMortalityComponent,
     BarOntarioCanadaComponent,
-    BarOntarioCanadaVaccinesComponent
+    BarOntarioCanadaVaccinesComponent,
+    AboutUsComponent
 
 
   ],

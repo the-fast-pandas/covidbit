@@ -61,133 +61,127 @@
 </div>
 
 <!-- Ontario Tab -->
-<nb-tabset>
-  <nb-tab tabTitle="Ontario">
-    <div class="container">
-      <nb-card [style]="{width:'30%', float:'right'}">
+<div class="container">
+  <nb-card status="primary">
 
-        <nb-card-body>
-          <app-stats></app-stats>
-        </nb-card-body>
+    <nb-card-body>
+      <nb-tabset>
+        <nb-tab tabTitle="Ontario">
+          <div class="container">
+            <nb-card [style]="{width:'28%', float:'right'}">
 
-      </nb-card>
+              <nb-card-body>
+                <app-stats></app-stats>
+              </nb-card-body>
 
-      <nb-card [style]="{width:'70%', float:'right'}">
+            </nb-card>
 
-        <nb-card-body>
-          <app-line-graph></app-line-graph>
-        </nb-card-body>
+            <nb-card [style]="{width:'68%', float:'left'}">
 
-      </nb-card>
-    </div>
-  </nb-tab>
+              <nb-card-body>
+                <app-line-graph></app-line-graph>
+              </nb-card-body>
 
-  <!-- Canada Tab -->
-  <nb-tab tabTitle="Canada">
-    <div class="container">
-      <nb-card [style]="{width:'30%', float:'right'}">
+            </nb-card>
+          </div>
+        </nb-tab>
 
-        <nb-card-body>
-          <app-stats-canada></app-stats-canada>
-        </nb-card-body>
+        <!-- Canada Tab -->
+        <nb-tab tabTitle="Canada">
+          <div class="container">
+            <nb-card [style]="{width:'28%', float:'right'}">
 
-      </nb-card>
+              <nb-card-body>
+                <app-stats-canada></app-stats-canada>
+              </nb-card-body>
 
-      <nb-card [style]="{width:'70%', float:'right'}">
+            </nb-card>
 
-        <nb-card-body>
-          <app-line-graph-canada></app-line-graph-canada>
-        </nb-card-body>
+            <nb-card [style]="{width:'68%', float:'left'}">
 
-      </nb-card>
-    </div>
-  </nb-tab>
+              <nb-card-body>
+                <app-line-graph-canada></app-line-graph-canada>
+              </nb-card-body>
 
-  <!-- GTA Cases-->
-  <nb-tab tabTitle="GTA: Cases">
-    <div class="container">
-      <nb-card [style]="{width:'50%', float:'right'}">
+            </nb-card>
+          </div>
+        </nb-tab>
 
-        <nb-card-body>
-          <app-bar-health-region-cases></app-bar-health-region-cases>
-        </nb-card-body>
+        <!-- GTA Cases-->
+        <nb-tab tabTitle="GTA: Cases">
+          <div class="container">
+            <nb-card [style]="{width:'48%', float:'right'}">
 
-      </nb-card>
+              <nb-card-body>
+                <app-bar-health-region-cases></app-bar-health-region-cases>
+              </nb-card-body>
 
-      <nb-card [style]="{width:'50%', float:'right'}">
+            </nb-card>
 
-        <nb-card-body>
-          <app-health-region-cases></app-health-region-cases>
-        </nb-card-body>
+            <nb-card [style]="{width:'48%', float:'left'}">
 
-      </nb-card>
-    </div>
-  </nb-tab>
+              <nb-card-body>
+                <app-health-region-cases></app-health-region-cases>
+              </nb-card-body>
 
-  <!-- GTA Fatalities-->
-  <nb-tab tabTitle="GTA: Fatalities">
-    <div class="container">
-      <nb-card [style]="{width:'50%', float:'right'}">
+            </nb-card>
+          </div>
+        </nb-tab>
 
-        <nb-card-body>
-          <app-bar-health-region-mortality></app-bar-health-region-mortality>
-        </nb-card-body>
+        <!-- GTA Fatalities-->
+        <nb-tab tabTitle="GTA: Fatalities">
+          <div class="container">
+            <nb-card [style]="{width:'48%', float:'right'}">
 
-      </nb-card>
+              <nb-card-body>
+                <app-bar-health-region-mortality></app-bar-health-region-mortality>
+              </nb-card-body>
 
-      <nb-card [style]="{width:'50%', float:'right'}">
+            </nb-card>
 
-        <nb-card-body>
-          <app-health-region-mortality></app-health-region-mortality>
-        </nb-card-body>
+            <nb-card [style]="{width:'48%', float:'left'}">
 
-      </nb-card>
-    </div>
-  </nb-tab>
+              <nb-card-body>
+                <app-health-region-mortality></app-health-region-mortality>
+              </nb-card-body>
 
-
-
-  <!-- GTA Fatalities-->
-  <nb-tab tabTitle="Ontario x Canada: cases">
-    <div class="container">
-      <nb-card [style]="{width:'100%', float:'right'}">
-
-        <nb-card-body>
-          <app-bar-ontario-canada></app-bar-ontario-canada>
-        </nb-card-body>
-
-      </nb-card>
-
-      
-    </div>
-  </nb-tab>
-
-    <!-- GTA Fatalities-->
-    <nb-tab tabTitle="Ontario x Canada: vaccines">
-      <div class="container">
-        <nb-card [style]="{width:'100%', float:'right'}">
-  
-          <nb-card-body>
-            <app-bar-ontario-canada-vaccines></app-bar-ontario-canada-vaccines>
-          </nb-card-body>
-  
-        </nb-card>
-  
-        
-      </div>
-    </nb-tab>
+            </nb-card>
+          </div>
+        </nb-tab>
 
 
 
-  <div class="container">
+        <!-- GTA Fatalities-->
+        <nb-tab tabTitle="Ontario x Canada">
+          <div class="container">
+            <nb-card [style]="{width:'48%', float:'right'}">
+
+              <nb-card-body>
+                <app-bar-ontario-canada></app-bar-ontario-canada>
+              </nb-card-body>
+
+            </nb-card>
+            <nb-card [style]="{width:'48%', float:'left'}">
+
+              <nb-card-body>
+                <app-bar-ontario-canada-vaccines></app-bar-ontario-canada-vaccines>
+              </nb-card-body>
+
+            </nb-card>
+
+          </div>
+        </nb-tab>
 
 
-  </div>
-  <!--  
+      </nb-tabset>
+    </nb-card-body>
+  </nb-card>
+</div>
+<!--  
 
 
  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbNARRSTlFSaDp6GyBBM_pkEttwvj18d0&libraries=places&callback=initMap"
   async defer></script> -->
 
-  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbNARRSTlFSaDp6GyBBM_pkEttwvj18d0&libraries=places&callback=initMap"
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbNARRSTlFSaDp6GyBBM_pkEttwvj18d0&libraries=places&callback=initMap"
   async defer></script> -->
