@@ -69,6 +69,7 @@ export class HeaderComponent implements OnInit {
         }
         if (title == "Logout") {
           this.auth.doLogout();
+          this.loggedIn = false;
         }
       });
   }

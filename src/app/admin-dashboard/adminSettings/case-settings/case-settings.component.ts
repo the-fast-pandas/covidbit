@@ -52,9 +52,9 @@ export class CaseSettingsComponent implements OnInit {
     //Fill Dropdown List with businesses from the Database
     this.adm.searchUserAdm(this.businessName).subscribe(
       data => {
-        console.log(data.myUsers);
+ 
         this.fillDropdownList(data);
-        console.log(this.listOfBusinesses);
+   
       }
     );
 
@@ -69,8 +69,7 @@ export class CaseSettingsComponent implements OnInit {
     this.adm.searchUserCases(this.businessName).subscribe(
       data => {
         this.getCases(data)
-        console.log(this.foundBusinessCases)
-        console.log(this.casesIDList)
+
         
         if (this.foundBusinessCases.length === 0) {
           this.searchCheck = true;
@@ -85,7 +84,6 @@ export class CaseSettingsComponent implements OnInit {
 
   toggle(checked: any) {
     this.casesIDList.push(checked.value);
-    // console.log(this.casesIDList);
   }
 
   convertToValue(key: string) {
@@ -148,8 +146,9 @@ export class CaseSettingsComponent implements OnInit {
   }
 
   onSubmit() {
-    this.adm.deleteUserCaseAdm(this.caseResults.value);
-    console.log(this.caseResults.value)
+    this.adm.addUserCase(this.newCaseInformation.value);
+    //this.alert = true;
+    this.newCaseInformation.reset();
   }
 
 }
