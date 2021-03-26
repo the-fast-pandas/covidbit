@@ -44,6 +44,8 @@ import { LineGraphComponent } from './tracker-map/line-graph/line-graph.componen
 
 import { NgxEchartsModule } from 'ngx-echarts';
 import { StatsComponent } from './tracker-map/stats/stats.component';
+import { ReviewComponent } from './review/review.component';
+import { ReviewConfirmationComponent } from './review/review-confirmation/review-confirmation.component';
 
 
 @NgModule({
@@ -78,6 +80,8 @@ import { StatsComponent } from './tracker-map/stats/stats.component';
     EditCaseComponent,
     LineGraphComponent,
     StatsComponent,
+    ReviewComponent,
+    ReviewConfirmationComponent,
 
   ],
   imports: [
