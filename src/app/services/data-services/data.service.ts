@@ -63,6 +63,22 @@ export class DataService {
         ))
   }
 
+   // Get User Business View
+   getMapInfo(id: any): Observable<any> {
+    const api = `${this.endpoint}/tracker-map-view/${id}`;
+    return this.http.get<any>(api, id)
+      .pipe(
+        map(
+          data => {
+            return data;
+          },
+          (error: any) => {
+            window.alert("No business with this name");
+            this.router.navigate(['home']);
+          }
+        ))
+  }
+
   // Get a valid User for Registration 
   getValidUser(user: LoginCredentials) {
     const api = `${this.endpoint}/check-user`;

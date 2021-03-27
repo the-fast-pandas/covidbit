@@ -85,3 +85,12 @@ nb-card {
 .within-card {
   text-align: center;
 }
+
+.my-text {
+  font-family: nb-theme(font-family-primary);
+  color: nb-theme(text-basic-color);
+}
+
+#businessLink:hover{
+  color: #2c2c2c;
+}
