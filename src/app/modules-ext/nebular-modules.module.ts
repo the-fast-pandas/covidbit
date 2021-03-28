@@ -39,7 +39,7 @@ const NebularModules = [
   NbSidebarModule,
   NbMenuModule.forRoot(),
   NbMenuModule,
-  NbThemeModule.forRoot({ name: 'default' }),
+  // NbThemeModule.forRoot({ name: 'default' }),
   NbThemeModule,
   NbCardModule,
   NbInputModule,

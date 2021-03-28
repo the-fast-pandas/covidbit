@@ -18,6 +18,7 @@ router.get("/status", function (req, res) {
 
 // Tracking Map
 router.get('/tracker-map');
+router.get('/tracker-map-view/:id', ctrlViewBus.getMapCardInfo);
 // Small Business View
 router.post('/search', ctrlViewBus.searchUserView);
 router.get('/business-user-view/:id', ctrlViewBus.getUserView);
