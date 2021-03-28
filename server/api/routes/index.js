@@ -53,6 +53,7 @@ router.delete('/delete-business-user/:id', ctrlDashAdmin.deleteUserAdm);
 router.post('/search-cases-adm', ctrlDashAdmin.searchUserCasesAdm);
 router.delete('/cases-user-adm/:id', ctrlDashAdmin. deleteUserCaseAdm); 
 router.post('/add-business-case', ctrlDashAdmin.addCasesAdm )
+router.post('/invite-user', ctrlDashAdmin.inviteNewUser)
 
 
 module.exports = router;

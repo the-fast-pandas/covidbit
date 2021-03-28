@@ -1,3 +1,6 @@
+<!-- Server - CovidBit - Fast Pandas
+     Created:  16, February, 2021, John Turkson -->
+
 <!-- Map Management Card -->
 <nb-card>
   <nb-card-header>Business Management Settings</nb-card-header>
@@ -169,13 +172,13 @@
 
         <form [formGroup]="businessList" (ngSubmit)='removeBusiness()'>
           <nb-list size="medium" *ngIf="displayList === true">
-            <nb-list-item *ngFor="let data of typesList; let i = index">
+            <nb-list-item *ngFor="let data of namesList; let i = index">
               <nb-checkbox (change)="getCheckedValue($event)">{{ data }}</nb-checkbox>
             </nb-list-item>
           </nb-list>
 
 
-          <div class="buttonSlot" *ngIf="typesList.length > 0 || idList.length > 0">
+          <div class="buttonSlot" *ngIf="namesList.length > 0 || idList.length > 0">
             <button class="button" type="submit" nbButton outline status="success"
               [disabled]="this.businessList.hasError('required', 'businesses')">Remove Business</button>
           </div>
@@ -186,10 +189,11 @@
 
       <nb-tab tabTitle="Invite A Business">
         <form [formGroup]="businessInvitation" (ngSubmit)="inviteBusiness()">
-          <input formControlName="email" class="locationLabel" nbInput id="input-businessLocation"
+          <input formControlName="emailInvitation" class="locationLabel" nbInput id="input-emailInvitation"
             placeholder="Enter Business Email" fullWidth fieldSize="medium" />
 
-          <button class="button" type="submit" nbButton outline>Invite Business</button>
+          <button class="button" type="submit" nbButton outline status="success"
+          [disabled]="this.businessInvitation.hasError('required', 'emailInvitation')">Invite Business</button>
         </form>
       </nb-tab>
 

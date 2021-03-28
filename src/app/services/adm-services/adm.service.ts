@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { BusinessName } from '../../models/businessName.model';
 import { Cases } from '../../models/case.model';
+import { Email } from '../../models/email.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ import { Cases } from '../../models/case.model';
 export class AdmService {
 
   endpoint: string = 'http://localhost:2000/api';
-  headers  = new HttpHeaders({
+  headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -41,6 +42,23 @@ export class AdmService {
             window.alert("No business with this name.");
           }
         ))
+  }
+
+  inviteUser(email: Email) {
+    const api = `${this.endpoint}/invite-user`;
+    console.log(email)
+
+    return this.http.post<any>(api, email)
+      .pipe(
+        map(
+          data => {
+            return data;
+          },
+          (error: any) => {
+            window.alert("Not possible to send invitation");
+          }
+        )
+      )
   }
 
   //Search for Business Name and Location

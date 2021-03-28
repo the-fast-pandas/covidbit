@@ -7,6 +7,8 @@ const jwt = require("jsonwebtoken"); // Nodejs modules
 const SmallBusiness = require('../schema/smallBusiness');
 const Cases = require('../schema/cases');
 const Administrator = require('../schema/administrator');
+const Invitation = require('../schema/invitations');
+const emailInvitation = require('../models/emailService/emailInvitation')
 
 ///////////  AUTHENTICATION  ///////////
 
@@ -116,6 +118,23 @@ const searchUserCasesAdm = function (req, res) {
   })
 }
 
+const inviteNewUser = function (req, res) {
+  const { email } = req.body;
+  newInvitation = new Invitation({
+    email
+  })
+  newInvitation.save(function (error) {
+    if (error) {
+      throw error;
+    }
+    console.log("Here")
+    emailInvitation.emailInvitation('covidbitreg@gmail.com', "Small Business");
+    return res.status(200).json({ newInvitation });
+  });
+
+
+}
+
 // Administrator can delete a case
 const deleteUserCaseAdm = function (req, res) {
   const id = req.params.id;
@@ -159,4 +178,4 @@ const addCasesAdm = function (req, res) {
 
 }
 
-module.exports = { searchUserAdm, deleteUserAdm, searchUserCasesAdm, deleteUserCaseAdm, loginAdmin, searchBusinessNameLocationAdm, addCasesAdm };
+module.exports = { searchUserAdm, deleteUserAdm, searchUserCasesAdm, deleteUserCaseAdm, loginAdmin, searchBusinessNameLocationAdm, addCasesAdm, inviteNewUser };
