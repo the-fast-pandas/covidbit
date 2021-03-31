@@ -1,8 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, Validators, AbstractControl } from '@angular/forms';
-import { AdmService } from '../../../services/adm-services/adm.service';
-import { BusinessName } from '../../../models/businessName.model';
+// Server - CovidBit - Fast Pandas
+// Created:  16, February, 2021, John Turkson
+// Modified: 04, March, 2021, Teresa Costa: backend integration, global variables
+//           20, March, 2021, John Turkson: improvements on backend/frontend integration
+//           28, March, 2021, Teresa Costa: delete works
 
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+// Local Service
+import { AdmService } from '../../../services/adm-services/adm.service';
+// Models
+import { BusinessName } from '../../../models/businessName.model';
+import * as myGlobals from '../../../globals';
 
 @Component({
   selector: 'app-case-settings',
@@ -11,22 +19,29 @@ import { BusinessName } from '../../../models/businessName.model';
 })
 export class CaseSettingsComponent implements OnInit {
 
-  genderArray = [{ name: "Male"}, { name: "Female" }];
+  //Gender Types
+  genderArray = myGlobals.gender;
+  statusList = myGlobals.statusCases;
+  acquisitionList = myGlobals.acquisitionType;
+
+  // Form instances
+  caseResults: FormGroup = new FormGroup({});
+  businessSearch: FormGroup = new FormGroup({});
+  newCaseInformation: FormGroup = new FormGroup({});
+
+  businessName: BusinessName = { name: '' };
+
+  // Check boolean
+  displayCaseList: Boolean = false;
+  searchCheck: Boolean = false
+  checked: Boolean = false;
+  alertCaseRemoved: Boolean = false;
+  alertCaseAdded: Boolean = false;
 
   foundBusinesses: Array<String> = [];
   foundBusinessCases: Array<any> = [];
   casesIDList: Array<String> = [];
   listOfBusinesses: Array<String> = [];
-
-  displayCaseList = false;
-  searchCheck = false
-  checked: Boolean = false;
-
-  caseResults: FormGroup = new FormGroup({});
-  businessSearch: FormGroup = new FormGroup({});
-  businessName: BusinessName = { name: '' };
-
-  newCaseInformation: FormGroup = new FormGroup({});
 
   constructor(private formBuilder: FormBuilder, public adm: AdmService) {
     this.caseResults = this.formBuilder.group({
@@ -34,9 +49,7 @@ export class CaseSettingsComponent implements OnInit {
     })
   }
 
-
   ngOnInit(): void {
-
     this.newCaseInformation = new FormGroup({
       businessName: new FormControl('', [Validators.required]),
       status: new FormControl('', [Validators.required]),
@@ -44,33 +57,31 @@ export class CaseSettingsComponent implements OnInit {
       age: new FormControl('', [Validators.required]),
       acquisition: new FormControl('', [Validators.required])
     })
-
     this.businessSearch = new FormGroup({
       searchedBusiness: new FormControl('', [Validators.required])
     });
-
-    //Fill Dropdown List with businesses from the Database
-    this.adm.searchUserAdm(this.businessName).subscribe(
+    this.adm.searchUserAdm(this.businessName).subscribe(//Fill Dropdown List with businesses from the Database
       data => {
- 
         this.fillDropdownList(data);
-   
       }
     );
-
   }
 
+  addCase() {
+    this.adm.addUserCase(this.newCaseInformation.value);
+    this.alertCaseAdded = true;
+    this.newCaseInformation.reset();
+  }
+
+  // (ngSubmit)
   searchForBusiness() {
     //Clear Arrays that hold information
     this.foundBusinessCases = [];
     this.casesIDList = [];
-
     this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
     this.adm.searchUserCases(this.businessName).subscribe(
       data => {
         this.getCases(data)
-
-        
         if (this.foundBusinessCases.length === 0) {
           this.searchCheck = true;
           this.displayCaseList = false;
@@ -82,46 +93,72 @@ export class CaseSettingsComponent implements OnInit {
     );
   }
 
-  toggle(checked: any) {
-    this.casesIDList.push(checked.value);
-  }
-
-  convertToValue(key: string) {
-    return this.caseResults.value[key].map((x: any, i: any) => !1)
-  }
-
+  // (changeTab) handler
   tabReset() {
     this.displayCaseList = false;
     this.searchCheck = false;
     this.businessSearch.get('searchedBusiness')?.setValue('');
   }
 
+  // (change) handler
   getCheckedValue(event: any) {
     const checkArray: FormArray = this.caseResults.get('checkArray') as FormArray;
-
     if (event.target.checked) {
       checkArray.push(new FormControl(event.target.value));
     } else {
-      let i: number = 0;
-      checkArray.controls.forEach((item: AbstractControl) => {
-        if (item.value == event.target.value) {
-          checkArray.removeAt(i);
-          return;
-        }
-        i++;
-      });
+      let index: number = 0;
+      checkArray.controls.forEach(
+        (item: AbstractControl) => {
+          if (item.value == event.target.value) {
+            checkArray.removeAt(index);
+            return;
+          }
+          index++;
+        });
     }
   }
 
+  // (ngSubmit)
+  removeCases() {
+    this.adm.deleteUserCaseAdm(this.caseResults.value).subscribe(
+      data => {
+
+      }
+    );
+  }
+
+  // Called by ngOnInit()
+  // Fills the dropdown for business users
   fillDropdownList(data: any) {
     for (let i = 0; i < data.myUsers.length; i++) {
-        this.listOfBusinesses.push(data.myUsers[i].businessName);
+      this.listOfBusinesses.push(data.myUsers[i].businessName);
     }
   }
 
+  // Called by searchForBusiness()
+  // Gets an id list for cases for a specific user
+  getCases(data: any) {
+    for (let i = 0; i < data.cases.length; i++) {
+      if (data.cases[i] !== undefined) {
+        if (data.cases[i].businessName == this.businessSearch.get('searchedBusiness')?.value) {
+          this.foundBusinessCases.push(data.cases[i]);
+          this.casesIDList.push(data.cases[i]._id);
+        }
+      }
+    }
+  }
+
+  // Removes alert messages
+  onClose() {
+    this.alertCaseRemoved = false;
+    this.alertCaseAdded = false;
+  }
+
+  toggle(checked: any) {
+    this.casesIDList.push(checked.value);
+  }
   getBusinesses(data: any) {
     for (let i = 0; i < Object.keys(data).length; i++) {
-
       if (data.myUsers[i].businessName == this.businessSearch.get('searchedBusiness')?.value) {
         this.foundBusinesses.push(data.myUsers[i].businessName);
         this.casesIDList.push(data.myUsers[i]._id);
@@ -129,26 +166,7 @@ export class CaseSettingsComponent implements OnInit {
 
     }
   }
-
-  getCases(data: any) {
-    for (let i = 0; i < data.cases.length; i++) {
-
-      if (data.cases[i].businessName == this.businessSearch.get('searchedBusiness')?.value) {
-        this.foundBusinessCases.push(data.cases[i]);
-        this.casesIDList.push(data.cases[i]._id);
-      }
-
-    }
+  convertToValue(key: string) {
+    return this.caseResults.value[key].map((x: any, i: any) => !1)
   }
-
-  removeCases(){
-    this.adm.deleteUserCaseAdm(this.caseResults.value)
-  }
-
-  onSubmit() {
-    this.adm.addUserCase(this.newCaseInformation.value);
-    //this.alert = true;
-    this.newCaseInformation.reset();
-  }
-
 }

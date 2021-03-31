@@ -86,8 +86,8 @@ const searchBusinessNameLocationAdm = function (req, res) {
 
 // Administrator can delete a user
 const deleteUserAdm = function (req, res) {
-  const id = req.params.id;
-  SmallBusiness.remove(id, function (error, user) {
+  let idList = req.body;
+  SmallBusiness.deleteMany({ '_id': { '$in': idList } }, function (error, user) {
     if (error) {
       throw error;
     }
@@ -95,7 +95,7 @@ const deleteUserAdm = function (req, res) {
       return res.status(401).json({ message: "This business user does not exist!" });
     }
     if (user) {
-      return res.status(200).json({ users });
+      return res.status(200).json("Remove");
     }
   })
 }
@@ -127,7 +127,6 @@ const inviteNewUser = function (req, res) {
     if (error) {
       throw error;
     }
-    console.log("Here")
     emailInvitation.emailInvitation('covidbitreg@gmail.com', "Small Business");
     return res.status(200).json({ newInvitation });
   });
@@ -137,44 +136,47 @@ const inviteNewUser = function (req, res) {
 
 // Administrator can delete a case
 const deleteUserCaseAdm = function (req, res) {
-  const id = req.params.id;
-  Cases.remove(id, function (error, cases) {
+  let idList = req.body;
+  Cases.deleteMany({ '_id': { '$in': idList } }, function (error, myCase) {
     if (error) {
       throw error;
     }
-    if (!cases) {
-      return res.status(401).json({ message: "Business User not found" });
+    if (!myCase) {
+      return res.status(401).json({ message: "This case does not exist!" });
     }
-    if (cases) {
-      return res.status(200).json({ cases });
+    if (myCase) {
+      return res.status(200).json("Remove");
     }
   })
 }
 
 const addCasesAdm = function (req, res) {
-
-  newCase = new Case({
-    loginId,
-    password,
-    businessName,
-    firstName,
-    lastName,
-    businessType,
-    phoneNumber,
-    location,
-    safetyM,
-    registeredBy
-  });
-
-
-
-  newCase.save(function (error) {
+  const { businessName, status, gender, age, acquisition } = req.body;
+  SmallBusiness.findOne({ "businessName": businessName }, function (error, user) {
     if (error) {
       throw error;
     }
-    return res.status(200).json({ newCase });
-  });
-
+    if (!user) {
+      return res.status(401).json({ message: "This business user does not exist!" });
+    }
+    if (user) {
+      const businessId = user._id;
+      newCase = new Cases({
+        businessId,
+        businessName,
+        status,
+        gender,
+        age,
+        acquisition
+      });
+      newCase.save(function (error) {
+        if (error) {
+          throw error;
+        }
+        return res.status(200).json({ newCase });
+      });
+    }
+  })
 
 }
 

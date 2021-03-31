@@ -38,3 +38,21 @@ export const hoverBackground = [
 export const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'September', 'October', 'November', 'December']
 
 export const GTA = ["Halton", "Peel", "York", "Durham", "Toronto"];
+
+export const gender = [{ name: "Male" }, { name: "Female" }, { name: 'Prefer not to say' }];
+
+export const statusCases = [
+  { name: 'Under Investigation' },
+  { name: 'Recovered' },
+  { name: 'Self-Isolating' },
+  { name: 'Hospitalized' },
+  { name: 'Deceased' },
+  { name: 'Hospitalized-ICU' },
+];
+
+export const acquisitionType = [{ name: 'Travel' },
+{ name: 'Workplace Outbreak' },
+{ name: 'Close Contact' },
+{ name: 'Local Transmission' },
+{ name: 'Institutional Outbreak' },
+{ name: 'Unknown' }]

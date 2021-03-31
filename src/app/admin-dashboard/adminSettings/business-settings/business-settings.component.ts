@@ -1,13 +1,15 @@
 // Server - CovidBit - Fast Pandas
 // Created:  16, February, 2021, John Turkson
 // Modified: 04, March, 2021, Teresa Costa: backend integration, global variables
-//           20, March, 2021, John Turkson: improvements on backend/frontend integration, added invitations component
+//           20, March, 2021, John Turkson: improvements on backend/frontend integration
+//           28, March, 2021, Teresa Costa: added invitations component, delete works
 
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 // Local Service
 import { AuthService } from '../../../services/auth-services/auth.service';
 import { AdmService } from '../../../services/adm-services/adm.service';
+// Models
 import { BusinessName } from '../../../models/businessName.model';
 import { Email } from '../../../models/email.model';
 import * as myGlobals from '../../../globals';
@@ -33,9 +35,11 @@ export class MapSettingsComponent implements OnInit {
   businessName: BusinessName = { name: '' };
 
   // Check boolean
-  alert: Boolean = false;
-  searchCheck = false;
-  displayList = false;
+  alertBusinessCreated: Boolean = false;
+  alertBusinessRemoved: Boolean = false;
+  alertBusinessInvitationSent: Boolean = false
+  searchCheck: Boolean = false;
+  displayList: Boolean = false;
 
   namesList: Array<String> = [];
   idList: Array<String> = [];
@@ -73,13 +77,20 @@ export class MapSettingsComponent implements OnInit {
   // (ngSubmit)
   addBusiness() {
     this.auth.registerUser(this.businessCredentials.value, true);
-    this.alert = true;
+    this.alertBusinessCreated = true;
     this.businessCredentials.reset();
   }
 
   // (ngSubmit)
   removeBusiness() {
-    this.adm.deleteUserAdm(this.idList);
+    this.adm.deleteUserAdm(this.idList).subscribe(
+      data => {
+        this.alertBusinessRemoved = true;
+        this.businessSearch.reset();
+        this.namesList = [];
+        this.idList = [];
+      }
+    );
   }
 
   // (change) handler
@@ -88,14 +99,15 @@ export class MapSettingsComponent implements OnInit {
     if (event.target.checked) {
       checkArray.push(new FormControl(event.target.value));
     } else {
-      let i: number = 0;
-      checkArray.controls.forEach((item: AbstractControl) => {
-        if (item.value == event.target.value) {
-          checkArray.removeAt(i);
-          return;
-        }
-        i++;
-      });
+      let index: number = 0;
+      checkArray.controls.forEach(
+        (item: AbstractControl) => {
+          if (item.value == event.target.value) {
+            checkArray.removeAt(index);
+            return;
+          }
+          index++;
+        });
     }
   }
 
@@ -105,6 +117,7 @@ export class MapSettingsComponent implements OnInit {
     console.log(this.emailInvitation)
     this.adm.inviteUser(this.emailInvitation).subscribe(
       data => {
+        this.alertBusinessInvitationSent = true;
         this.businessInvitation.reset();
       }
     )
@@ -113,7 +126,6 @@ export class MapSettingsComponent implements OnInit {
   // (ngSubmit)
   searchForBusiness() {
     this.namesList = [];
-    this.idList = [];
     this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
     this.adm.searchUserAdm(this.businessName).subscribe(
       data => {
@@ -141,18 +153,23 @@ export class MapSettingsComponent implements OnInit {
   }
 
   // Called by searchForBusiness()
-  // Returns a list of names and a a list of correspondent id
+  // Returns a list of names and a a list of correspondent ids
   getNames(data: any) {
     for (let i = 0; i < Object.keys(data).length; i++) {
-      if (data.myUsers[i].businessName == this.businessSearch.get('searchedBusiness')?.value) {
-        this.namesList.push(data.myUsers[i].businessName);
-        this.idList.push(data.myUsers[i]._id);
+      if (data.myUsers[i] !== undefined) {
+        if (data.myUsers[i].businessName == this.businessSearch.get('searchedBusiness')?.value) {
+          this.namesList.push(data.myUsers[i].businessName);
+          this.idList.push(data.myUsers[i]._id);
+        }
       }
     }
   }
 
+  // Removes alert messages
   onClose() {
-    this.alert = false;
+    this.alertBusinessCreated = false;
+    this.alertBusinessRemoved = false;
+    this.alertBusinessInvitationSent = false;
   }
 
 }

@@ -75,23 +75,26 @@ export class AdmService {
           }
         ))
   }
+
   // Delete a business user
-  deleteUserAdm(id: any) {
-    const api = `${this.endpoint}/delete-business-user/${id}`;
-    return this.http.delete<any>(api, { headers: this.headers })
+  deleteUserAdm(id: Array<String>) {
+    const api = `${this.endpoint}/remove-business`;
+    return this.http.post<String>(api, id)
       .pipe(
         map(
           data => {
-            return true;
+            return data;
           },
           (error: any) => {
             window.alert("No business user to delete.");
           }
-        ))
+        )
+      )
   }
 
   ////////////   CASES    //////////////
   addUserCase(data: Cases) {
+    console.log(data)
     const api = `${this.endpoint}/add-business-case`;
     return this.http.post<any>(api, data, { headers: this.headers })
       .subscribe(
@@ -104,7 +107,6 @@ export class AdmService {
         }
       )
   }
-
   // Returns data for cases by business name
   searchUserCases(business: BusinessName) {
     const api = `${this.endpoint}/search-cases-adm`;
@@ -119,23 +121,19 @@ export class AdmService {
           }
         ))
   }
-
-  // Delete a case
-  deleteUserCaseAdm(id: any) {
-    console.log(id);
-    const api = `${this.endpoint}/cases-user-adm/${id}`;
-    return this.http.delete<any>(api, { headers: this.headers })
+  // Delete a business user
+  deleteUserCaseAdm(id: Array<String>) {
+    const api = `${this.endpoint}/remove-case`;
+    return this.http.post<String>(api, id)
       .pipe(
         map(
           data => {
-            return true;
+            return data;
           },
           (error: any) => {
             window.alert("No case to delete.");
           }
-        ))
-
+        )
+      )
   }
-
-
 }

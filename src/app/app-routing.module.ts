@@ -6,7 +6,6 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { NotFoundComponent } from './static-pages/not-found/not-found.component'
 import { BusinessProfileComponent } from './business-dashboard/business-profile/business-profile.component';
-import { SearchPageComponent } from './search-page/search-page.component';
 import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { TrackerMapComponent } from './tracker-map/tracker-map.component';
@@ -81,10 +80,6 @@ const routes: Routes = [
     path: 'admin-dashboard',
     component: AdminDashboardComponent,
     canActivate: [AdminGuard]
-  },
-  {
-    path: 'search-page',
-    component: SearchPageComponent
   },
   {
     path: 'tracker-map',

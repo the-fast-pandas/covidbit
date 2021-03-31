@@ -9,6 +9,7 @@ const emailService = require('../models/emailService/emailRegistration');
 const emailServiceAdm = require('../models/emailService/emailRegistrationAdm');
 // Schemas
 const SmallBusiness = require('../schema/smallBusiness');
+const crypto = require('crypto');
 
 // Registration of a new business user
 const registerUser = function (req, res) {
@@ -83,7 +84,7 @@ const registerUser = function (req, res) {
                 throw error;
               }
               if (registered) {
-                const userToken = 'http://localhost:4200/reset-password/' + token;
+                const userToken = 'http://localhost:4200/reset-password/' + resetPassword;
                 emailServiceAdm.emailRegistrationAdm('covidbitreg@gmail.com', newBusiness.businessName, userToken);
               } else {
                 emailService.emailRegistration('covidbitreg@gmail.com', newBusiness.businessName);
