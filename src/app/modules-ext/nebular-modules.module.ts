@@ -1,3 +1,5 @@
+// Controls the modules from the default template Nebula
+
 import { NgModule } from '@angular/core';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {

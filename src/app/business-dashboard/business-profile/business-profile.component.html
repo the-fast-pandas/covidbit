@@ -1,3 +1,6 @@
+<!-- Server - CovidBit - Fast Pandas
+     Created:  10, February, 2021, Valya Derksen-->
+
 <nb-card>
     <nb-card-body>
         <h1 class="businessProfile-header">Edit Profile</h1>
@@ -14,7 +17,6 @@
                                     placeholder="Business Name" fullWidth fieldSize="large" [(ngModel)]="businessName"
                                     name="businessName"
                                     [status]="userProfile.get('businessName')?.dirty ? (userProfile.get('businessName')?.invalid ? 'danger' : 'success') : 'basic'">
-
                                 <ng-container>
                                     <p class="caption status-danger"
                                         *ngIf=" userProfile.hasError('required','businessName') && userProfile.get('businessName')?.touched">
@@ -22,7 +24,6 @@
                                     </p>
                                 </ng-container>
                             </div>
-
 
                             <!-- Manager name Input Field -->
                             <div class="form-control-group">
@@ -33,7 +34,6 @@
                                         placeholder="First Name" fullWidth fieldSize="large" [(ngModel)]="firstName"
                                         name="firstName"
                                         [status]="userProfile.get('firstName')?.dirty ? (userProfile.get('firstName')?.invalid ? 'danger' : 'success') : 'basic'">
-
                                     <ng-container>
                                         <p class="caption status-danger"
                                             *ngIf=" userProfile.hasError('required','firstName') && userProfile.get('firstName')?.touched">
@@ -46,7 +46,6 @@
                                         placeholder="Last Name" fullWidth fieldSize="large" [(ngModel)]="lastName"
                                         name="lastName"
                                         [status]="userProfile.get('lastName')?.dirty ? (userProfile.get('lastName')?.invalid ? 'danger' : 'success') : 'basic'">
-
                                     <ng-container>
                                         <p class="caption status-danger"
                                             *ngIf=" userProfile.hasError('required','lastName') && userProfile.get('lastName')?.touched">
@@ -67,45 +66,38 @@
                                     <nb-option *ngFor="let type of businessTypes" [value]='type.name'>{{type.name}}
                                     </nb-option>
                                 </nb-select>
-
                                 <ng-container>
                                     <p class="caption status-danger"
                                         *ngIf="userProfile.hasError('required', 'businessType') && userProfile.get('businessType')?.touched">
                                         Please select a business type
                                     </p>
                                 </ng-container>
-
                             </div>
 
                             <!-- Location Input Field -->
                             <div class="form-control-group">
                                 <label nbLabel class="label" for="input-businessLocation">Business Location:</label>
-
                                 <input class="locationLabel" nbInput ngx-google-places-autocomplete
                                     #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"
                                     id="input-businessLocation" formControlName='businessLocation'
                                     placeholder="Enter a location" fullWidth fieldSize="large"
                                     [(ngModel)]="businessLocation" name="businessLocation" [status]="userProfile.get('businessLocation')?.dirty ? (!userProfile.hasError('required', 'businessLocation') ? 'success' : 'danger') :
                                (userProfile.hasError('required', 'businessLocation') ? 'basic' : 'danger')" />
-
                                 <ng-container>
                                     <p class="caption status-danger"
                                         *ngIf="userProfile.hasError('required', 'businessLocation')&& userProfile.get('businessLocation')?.touched">
                                         Location required!
                                     </p>
                                 </ng-container>
-
                             </div>
 
                             <!-- Phone number Input Field -->
                             <div class="form-control-group">
                                 <label nbLabel class="label" for="input-businessPhone">Business Phone Number:</label>
-
                                 <input nbInput type="tel" id="input-businessPhone" formControlName='businessPhone'
                                     required placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" fullWidth
                                     fieldSize="large" [(ngModel)]="businessPhone" name="businessPhone"
                                     [status]="userProfile.get('businessPhone')?.dirty ? (userProfile.get('businessPhone')?.invalid ? 'danger' : 'success') : 'basic'">
-
                                 <ng-container>
                                     <p class="caption status-danger"
                                         *ngIf="userProfile.hasError('required', 'businessPhone') && userProfile.get('businessPhone')?.touched">
@@ -121,12 +113,10 @@
                             <!-- Email Input Field -->
                             <div class="form-control-group">
                                 <label nbLabel class="label" for="input-email">Email:</label>
-
                                 <input nbInput id="input-name" type="email" formControlName="email" required
                                     placeholder="Ex. helloworld@example.com" fullWidth fieldSize="large"
                                     [(ngModel)]="email" name="email"
                                     [status]="userProfile.get('email')?.dirty ? (userProfile.get('email')?.invalid ? 'danger' : 'success') : 'basic' ">
-
                                 <ng-container>
                                     <p class="caption status-danger"
                                         *ngIf="userProfile.hasError('required', 'email') && userProfile.get('email')?.touched">
@@ -141,12 +131,10 @@
                             <!-- Web site Input Field -->
                             <div class="form-control-group">
                                 <label nbLabel class="label" for="input-webSite">Web site:</label>
-
                                 <input nbInput id="input-webSite" type="url" formControlName="webSite"
                                     placeholder="https://..." pattern="https://.*" fullWidth fieldSize="large"
                                     [(ngModel)]="webSite" name="webSite"
                                     [status]="userProfile.get('webSite')?.dirty ? (userProfile.get('webSite')?.invalid ? 'danger' : 'success') : 'basic' ">
-
                                 <ng-container>
                                     <p class="caption status-danger"
                                         *ngIf="userProfile.hasError('required', 'webSite') && userProfile.get('webSite')?.touched">
@@ -164,7 +152,6 @@
                                     nbButton outline status="danger">Cancel</button>
                             </div>
                         </form>
-
                     </nb-card-body>
                 </nb-card>
             </div>

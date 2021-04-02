@@ -175,6 +175,20 @@ export class DataService {
 
   }
 
+  // Business User is allowed to add safety measures
+  addReview(review: any, id: String) {
+    const api = `${this.endpoint}/add-review/${id}`;
+    return this.http.put<any>(api, review)
+      .subscribe(
+        data => {
+          return data;
+        },
+        error => {
+          console.log("It was not possible to add review!");
+        }
+      )
+  }
+
   // News headlines about covid
   getNews() {
     return this.http.get(`https://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=fd7187b0369b44b1b4f9a03c11a32b9a`)

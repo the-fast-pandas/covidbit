@@ -1,3 +1,7 @@
+// Server - CovidBit - Fast Pandas
+// Created:  10, February, 2021, Valya Derksen
+// Modified: 01, April, 2021, Teresa Costa: backend integration, added global variables
+
 import { Component, OnInit } from '@angular/core';
 
 interface Case {
@@ -19,12 +23,12 @@ interface TreeNode<T> {
 })
 export class TableCasesComponent implements OnInit {
 
+  // Table settings
+  allColumns = [ 'dateReported', 'status', 'acquisition', 'gender', 'age'];
+
   constructor() {}
 
   ngOnInit(): void {}
-
-  // Table settings
-  allColumns = [ 'dateReported', 'status', 'acquisition', 'gender', 'age'];
 
   data: TreeNode<Case>[] = [
     {

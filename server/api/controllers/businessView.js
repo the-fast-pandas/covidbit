@@ -101,4 +101,37 @@ const getMapCardInfo = function (req, res) {
     })
 }
 
-module.exports = { getUserView, searchUserView, getAllBusiness, getAllCases, getMapCardInfo };
+const addReview = function (req, res) {
+    let id = req.params.id;
+    let myReview = [];
+    SmallBusiness.findById(id, function (error, user) {
+        if (error) {
+            throw error;
+        }
+        if (!user) {
+            return res.status(401).json({ message: "This business does not exist!" });
+        }
+        if (user) {
+            let review = {};
+            review["username"] = req.body.username;
+            review["comment"] = req.body.comment;
+            myReview = user.reviews;
+            myReview.push(review);
+            let newvalues = { $set: { reviews: myReview } };
+            SmallBusiness.updateOne({ "_id": id }, newvalues, function (error, user) {
+                if (error) {
+                    throw error;
+                }
+                if (!user) {
+                    return res.status(401).json({ message: "This business does not exist!" });
+                }
+                if (user) {
+                    return res.status(200).json({ id });
+                }
+            })
+        }
+    })
+
+}
+
+module.exports = { getUserView, searchUserView, getAllBusiness, getAllCases, getMapCardInfo, addReview };

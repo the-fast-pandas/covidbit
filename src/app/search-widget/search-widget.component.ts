@@ -1,7 +1,13 @@
-import { Component, OnInit, Output } from '@angular/core';
+// Server - CovidBit - Fast Pandas
+// Created: 20, February, 2021, Yevgeniya Anasheva
+// Modified: 01, March, 2021, Teresa Costa, backend integration
+
+import { Component, OnInit} from '@angular/core';
 import { NbSearchService } from '@nebular/theme';
+// Local Services
 import { DataService  } from '../services/data-services/data.service'
 import { BusinessName } from '../models/businessName.model';
+import * as myGlobals from '../globals';
 
 @Component({
   selector: 'app-search-widget',
@@ -10,10 +16,8 @@ import { BusinessName } from '../models/businessName.model';
 })
 export class SearchWidgetComponent implements OnInit {
 
-  //@Output() searchSubmitted = new EventEmitter();
-
-  searchQuery = '';
-  businessName: BusinessName = { name: '' };
+  searchQuery: any = myGlobals.emptyField;
+  businessName: BusinessName = { name: myGlobals.emptyField };
 
   constructor(private searchService: NbSearchService, public data: DataService) { 
     this.searchService.onSearchSubmit()
@@ -26,13 +30,6 @@ export class SearchWidgetComponent implements OnInit {
       })
   }
 
-  onSubmit(value: string) {
-    // code
-    //this.searchService.search(value);
-  }
-
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
 }

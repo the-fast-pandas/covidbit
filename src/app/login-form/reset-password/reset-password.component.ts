@@ -3,8 +3,10 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
-import { DataService } from '../../services/data-services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
+// Local Services
+import { DataService } from '../../services/data-services/data.service';
+import * as myGlobals from '../../globals';
 
 @Component({
   selector: 'app-reset-password',
@@ -13,15 +15,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ResetPasswordComponent implements OnInit {
 
+  // Form variable
   newPassword: FormGroup = new FormGroup({});
 
-  // Error warnings
+  // Allows for access
+  token: String = myGlobals.emptyField;
+
+  // Alert Control
   alert: Boolean = false;
   serverWarning: Boolean = false;
-  token: string ="";
 
   constructor(private activatedRoute: ActivatedRoute, public data: DataService, public router: Router) {
-    if (localStorage.getItem('server_warning') === 'true') {  // Controls messages from server
+    if (localStorage.getItem('server_warning') === 'true') {
       this.serverWarning = true;
     }
   }
@@ -35,6 +40,7 @@ export class ResetPasswordComponent implements OnInit {
     this.data.checkValidNewPassword(this.token);
   }
 
+  // Checks for form validation
   checkLoginForm() {
     if (this.newPassword.controls.invalid) {
       this.alert = true;
@@ -44,11 +50,7 @@ export class ResetPasswordComponent implements OnInit {
     }
   }
 
-  // Closes the warning box for the server errors
-  onCloseServer() {
-  }
-
-  // Set new password
+  // Submits login credentials
   onSubmit() {
     this.data.setNewPassword(this.newPassword.value, this.token);
   }
@@ -57,5 +59,5 @@ export class ResetPasswordComponent implements OnInit {
     this.alert = false;
     this.data.setNewPassword(this.newPassword.value, this.token).unsubscribe();
   }
-
+  
 }

@@ -12,6 +12,7 @@ import { AdmService } from '../../../services/adm-services/adm.service';
 // Models
 import { BusinessName } from '../../../models/businessName.model';
 import { Email } from '../../../models/email.model';
+import { SafetyMeasures } from '../../../models/safetyMeasures.model';
 import * as myGlobals from '../../../globals';
 
 @Component({
@@ -43,6 +44,7 @@ export class MapSettingsComponent implements OnInit {
 
   namesList: Array<String> = [];
   idList: Array<String> = [];
+  safetyMeasures: Array<SafetyMeasures> = [];
 
   constructor(private formBuilder: FormBuilder, public auth: AuthService, public adm: AdmService) {
     this.businessList = this.formBuilder.group({
@@ -76,7 +78,7 @@ export class MapSettingsComponent implements OnInit {
 
   // (ngSubmit)
   addBusiness() {
-    this.auth.registerUser(this.businessCredentials.value, true);
+    this.auth.registerUser(this.businessCredentials.value, this.safetyMeasures, true);
     this.alertBusinessCreated = true;
     this.businessCredentials.reset();
   }

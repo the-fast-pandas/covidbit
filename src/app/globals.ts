@@ -56,3 +56,5 @@ export const acquisitionType = [{ name: 'Travel' },
 { name: 'Local Transmission' },
 { name: 'Institutional Outbreak' },
 { name: 'Unknown' }]
+
+export const emptyField = "(no data)"

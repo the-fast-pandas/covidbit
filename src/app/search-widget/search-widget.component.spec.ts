@@ -1,5 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// Server - CovidBit - Fast Pandas
+// Created: 20, February, 2021, Yevgeniya Anasheva
 
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SearchWidgetComponent } from './search-widget.component';
 
 describe('SearchWidgetComponent', () => {

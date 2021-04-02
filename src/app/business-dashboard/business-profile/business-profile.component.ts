@@ -1,9 +1,14 @@
-import { AfterContentChecked, ChangeDetectorRef , Component, OnInit } from '@angular/core';
+// Server - CovidBit - Fast Pandas
+// Created:  10, February, 2021, Valya Derksen
+// Modified: 25, February, 2021, Teresa Costa: backend integration, added global variables
+
+import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+// Local Services
 import { DataService } from '../../services/data-services/data.service';
-import * as myGlobals from '../../globals';
 import { AuthService } from '../../services/auth-services/auth.service';
+import * as myGlobals from '../../globals';
 
 @Component({
   selector: 'app-business-profile',
@@ -11,32 +16,28 @@ import { AuthService } from '../../services/auth-services/auth.service';
   styleUrls: ['./business-profile.component.scss']
 })
 
-export class BusinessProfileComponent implements OnInit, AfterContentChecked{
-
-  // some dummy data
-  id: String = ' ';
-  businessName: String = '';
-  firstName: String = '';
-  lastName: String = '';
-  businessLocation: String = '';
-  businessPhone: String = '';
-  email: String = '';
-  webSite: String = '';
-  businessType: String = '';
-
-  //Business Types Array
-  businessTypes = myGlobals.categories;
+export class BusinessProfileComponent implements OnInit, AfterContentChecked {
 
   //Form Group
   userProfile: FormGroup = new FormGroup({});
 
-  constructor(private activatedRoute: ActivatedRoute, public data: DataService, private ref: ChangeDetectorRef, public auth: AuthService) {
+  // Initialization Data
+  id: String = myGlobals.emptyField;
+  businessName: String = myGlobals.emptyField;
+  firstName: String = myGlobals.emptyField;
+  lastName: String = myGlobals.emptyField;
+  businessLocation: String = myGlobals.emptyField;
+  businessPhone: String = myGlobals.emptyField;
+  email: String = myGlobals.emptyField;
+  webSite: String = myGlobals.emptyField;
+  businessType: String = myGlobals.emptyField;
 
+  //Business Types Array
+  businessTypes = myGlobals.categories;
 
-  }
+  constructor(private activatedRoute: ActivatedRoute, public data: DataService, private ref: ChangeDetectorRef, public auth: AuthService) { }
 
   ngOnInit(): void {
-
     this.userProfile = new FormGroup({
       businessName: new FormControl('', [Validators.required]),
       firstName: new FormControl('', [Validators.required]),
@@ -45,13 +46,13 @@ export class BusinessProfileComponent implements OnInit, AfterContentChecked{
       businessLocation: new FormControl('', [Validators.required]),
       businessPhone: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      webSite: new FormControl('' , [Validators.required, Validators.pattern("https://.*")])
+      webSite: new FormControl('')
     })
 
     let id = this.activatedRoute.snapshot.paramMap.get('id');
     this.data.getUserView(id)
       .subscribe(
-        data => {   
+        data => {
           this.id = data.user._id;
           this.businessName = data.user.businessName;
           this.firstName = data.user.firstName;
@@ -64,10 +65,12 @@ export class BusinessProfileComponent implements OnInit, AfterContentChecked{
         })
   }
 
+  // Detects chnages many by the user
   ngAfterContentChecked() {
     this.ref.detectChanges();
   }
 
+  // Form is submited with new changes
   onSubmit() {
     this.auth.editProfile(this.userProfile.value, this.id);
   }
@@ -75,5 +78,4 @@ export class BusinessProfileComponent implements OnInit, AfterContentChecked{
   public handleAddressChange(address: any) {
     this.userProfile.get('businessLocation')?.setValue(address.formatted_address);
   }
-
 }

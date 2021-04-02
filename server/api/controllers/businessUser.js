@@ -23,6 +23,7 @@ const getUserDashboard = function (req, res) {
 // Business User can edit profile
 // Returns business user id
 const editUserProfile = function (req, res) {
+    console.log("Here")
     let id = req.params.id;
     let newvalues = {
         $set: {
@@ -114,10 +115,6 @@ const addCases = function (req, res) {
     })
 }
 
-
-
-
-//DON'T FORGET TO EXPORT
 //method to submit
 const addCertification = function (req, res) {
 
@@ -141,5 +138,7 @@ const addCertification = function (req, res) {
         }
     })
 }
+
+
 
 module.exports = { getUserDashboard, editUserProfile, addSafety, addCertification, addCases };

@@ -43,8 +43,8 @@ import { EditCaseComponent } from './business-dashboard/edit-case/edit-case.comp
 
 import { NgxEchartsModule } from 'ngx-echarts';
 
-import { ReviewComponent } from './review/review.component';
-import { ReviewConfirmationComponent } from './review/review-confirmation/review-confirmation.component';
+import { ReviewComponent } from './business-user-view/review/review.component';
+import { ReviewConfirmationComponent } from './business-user-view/review/review-confirmation/review-confirmation.component';
 
 
 import { StatsComponent } from './tracker-map/graphs/stats/stats.component';

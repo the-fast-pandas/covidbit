@@ -60,7 +60,11 @@ const SmallBusinessSchema = mongoose.Schema({
   registeredBy:{
     type:Boolean,
     default: false
-  }
+  },
+  reviews: {
+    type: Array,
+    default: []
+  },
 });
 
 module.exports = mongoose.model('smallbusiness', SmallBusinessSchema, 'SmallBusiness');

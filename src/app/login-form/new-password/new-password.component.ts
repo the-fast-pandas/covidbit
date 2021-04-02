@@ -3,8 +3,9 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
-import { DataService } from '../../services/data-services/data.service';
 import { Router } from '@angular/router';
+// Local Services
+import { DataService } from '../../services/data-services/data.service';
 
 @Component({
   selector: 'app-new-password',
@@ -13,14 +14,15 @@ import { Router } from '@angular/router';
 })
 export class NewPasswordComponent implements OnInit {
 
+  // Form variable
   loginId: FormGroup = new FormGroup({});
 
-  // Error warnings
+  // Alert Control
   alert: Boolean = false;
   serverWarning: Boolean = false;
 
   constructor(public data: DataService, public router: Router) { 
-    if (localStorage.getItem('new_password_warning') === 'true') {  // Controls messages from server
+    if (localStorage.getItem('new_password_warning') === 'true') {  
       this.serverWarning = true;
     }
   }
@@ -47,7 +49,7 @@ export class NewPasswordComponent implements OnInit {
     localStorage.removeItem('new_password_warning');
   }
 
-  // Cheks login credentials
+  // Checks login credentials
   onSubmit() {
     this.data.requestNewPassword(this.loginId.value);
   }

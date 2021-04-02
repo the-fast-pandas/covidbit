@@ -4,6 +4,7 @@
 
 import { Injectable } from '@angular/core';
 import { LoginCredentials } from '../../models/logincredentials.model';
+import { SafetyMeasures } from '../../models/safetyMeasures.model';
 import { SmallBusiness } from '../../models/smallBusiness.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -16,7 +17,7 @@ import { map } from 'rxjs/operators';
 
 export class AuthService {
   endpoint: string = 'http://localhost:2000/api';
-  headers  = new HttpHeaders({
+  headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -28,10 +29,10 @@ export class AuthService {
   constructor(private http: HttpClient, public router: Router) { }
 
   // Business User Registration
-  registerUser(user: SmallBusiness, registeredBy: Boolean) {
+  registerUser(user: SmallBusiness, safetyMeasures: Array<SafetyMeasures>, registeredBy: Boolean) {
     user.registeredBy = registeredBy;
     const api = `${this.endpoint}/registration-form`;
-    return this.http.post<any>(api, user)
+    return this.http.post<any>(api, { user, safetyMeasures })
       .subscribe(
         (data: SmallBusiness) => {
           if (registeredBy == true) {
@@ -67,16 +68,16 @@ export class AuthService {
             this.router.navigate(['/admin-dashboard']).then(() => {
               window.location.reload();
             });
-          }else{
-          localStorage.setItem('access_token', data.accessToken);
-          localStorage.setItem('name_header', data.user.businessName);
-          localStorage.setItem('business_id', data.user._id);
-          this.getUserDashboard(data.user._id)
-            .subscribe(
-              data => {
-                this.router.navigate(['/business-dashboard/' + data.user._id]);
-              })
-            }
+          } else {
+            localStorage.setItem('access_token', data.accessToken);
+            localStorage.setItem('name_header', data.user.businessName);
+            localStorage.setItem('business_id', data.user._id);
+            this.getUserDashboard(data.user._id)
+              .subscribe(
+                data => {
+                  this.router.navigate(['/business-dashboard/' + data.user._id]);
+                })
+          }
         },
         (error: any) => {
           this.router.navigate(['login-form']).then(() => {
@@ -112,6 +113,7 @@ export class AuthService {
 
   // Edit the Business Profile
   editProfile(user: SmallBusiness, id: String) {
+    console.log("Here")
     const api = `${this.endpoint}/edit-profile/${id}`;
     return this.http.put<any>(api, user)
       .subscribe(
@@ -147,7 +149,7 @@ export class AuthService {
   getBusinesName() {
     return localStorage.getItem('name_header');
   }
-  getId(){
+  getId() {
     return localStorage.getItem('business_id');
   }
 

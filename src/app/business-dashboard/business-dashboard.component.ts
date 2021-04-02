@@ -3,28 +3,11 @@
 // Modified: 25, February, 2021, Teresa Costa: backend integration
 
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms'
+import { Validators, FormControl, FormGroup,FormBuilder } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../services/data-services/data.service';
 import { AuthService } from '../services/auth-services/auth.service';
-import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme'
-import { AddCaseComponent } from './add-case/add-case.component';
-import { TableCasesComponent } from './table-cases/table-cases.component';
-import { EditCaseComponent } from './edit-case/edit-case.component';
 
-
-// http://localhost:4200/business-dashboard/:6021f5ef579ec8fa794be159
-interface Case {
-  dateReported: string;
-  status: string;
-  gender: string;
-  age: number;
-  acquisition: string;
-  items?: number;
-}
-interface TreeNode<T> {
-  data: T;
-}
 @Component({
   selector: 'app-business-dashboard',
   templateUrl: './business-dashboard.component.html',
@@ -38,7 +21,6 @@ export class BusinessDashboardComponent implements OnInit {
   safetyMeasureList: any = [];
   caseReported: FormGroup = new FormGroup({});
   caseReportedList: FormGroup = new FormGroup({});
-  private fb: FormBuilder = new FormBuilder();
   dateControl = new FormControl(new Date());
 
   // Business Profile Form Variables
@@ -54,45 +36,7 @@ export class BusinessDashboardComponent implements OnInit {
   searchCheck: Boolean = false;
   displayList: Boolean = false;
 
-  // Reported Case Form Variables
-  case = {
-    dateReported: '',
-    status: '',
-    gender: '',
-    acquisition: '',
-    age: 1,
-  }
-
-  // Acquisition options Array
-  acquisitionType = [
-    {name: 'Travel'},
-    {name: 'Workplace Outbreak'},
-    {name: 'Close Contact'},
-    {name: 'Local Transmission'},
-    {name: 'Institutional Outbreak'},
-    {name: 'Unknown'},
-  ];
-  // Case Status options Array
-  statusType = [
-    {name: 'Under Investigation'},
-    {name: 'Recovered'},
-    {name: 'Self-Isolating'},
-    {name: 'Hospitalized'},
-    {name: 'Deceased'},
-    {name: 'Hospitalized-ICU'},
-  ];
-  // Gender options Array
-  genderType = [
-    {name: 'Male'},
-    {name: 'Female'},
-    {name: 'Prefer not to say'},
-  ];
-
-  safetyMeasuresList = [
-    {title: 'safety measures 1', description: 'safety measures 1'},
-    {title: 'safety measures 2', description: 'safety measures 2'},
-    {title: 'safety measures 3', description: 'safety measures 3'},
-  ]
+  safetyMeasuresList = []
   
   constructor(public dataS: DataService, public router: Router, private activatedRoute: ActivatedRoute, public auth: AuthService) {
     let id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -161,12 +105,4 @@ export class BusinessDashboardComponent implements OnInit {
     this.searchCheck = false;
   }
 
-  // Table settings
-  allColumns = [ 'dateReported', 'status', 'acquisition', 'gender', 'age'];
-
-  data: TreeNode<Case>[] = [
-    {
-      data: { dateReported: 'Mar 13, 2021', status: 'Under Investigation', gender: 'Male',  age: 45, acquisition: 'Workplace Outbreak'},
-    },
-  ];
 }

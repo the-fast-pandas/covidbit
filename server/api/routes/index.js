@@ -42,6 +42,8 @@ router.get('/edit-profile/:id', authLog.authLogin, ctrlDashUser.getUserDashboard
 router.put('/edit-profile/:id', authLog.authLogin, ctrlDashUser.editUserProfile);
 router.put('/add-safety/:id', authLog.authLogin, ctrlDashUser.addSafety);
 
+router.put('add-review/:id',ctrlViewBus.addReview);
+
 ////////   ADMINISTRATOR  ////////
 
 // Administrator login
