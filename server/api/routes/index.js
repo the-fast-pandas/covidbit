@@ -49,10 +49,12 @@ router.post('/login-admin', ctrlDashAdmin.loginAdmin);
 // Administrator Dashboard
 router.post('/search-users-adm', ctrlDashAdmin.searchUserAdm);
 router.post('/search-nameandLocation-adm', ctrlDashAdmin.searchBusinessNameLocationAdm);
-router.delete('/delete-business-user/:id', ctrlDashAdmin.deleteUserAdm); 
+
 router.post('/search-cases-adm', ctrlDashAdmin.searchUserCasesAdm);
-router.delete('/cases-user-adm/:id', ctrlDashAdmin. deleteUserCaseAdm); 
+
 router.post('/add-business-case', ctrlDashAdmin.addCasesAdm )
+router.post('/invite-user', ctrlDashAdmin.inviteNewUser)
 
-
+router.post('/remove-business', ctrlDashAdmin.deleteUserAdm); 
+router.post('/remove-cases', ctrlDashAdmin.deleteUserCaseAdm);
 module.exports = router;

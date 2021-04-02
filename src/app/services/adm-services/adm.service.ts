@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { BusinessName } from '../../models/businessName.model';
 import { Cases } from '../../models/case.model';
+import { Email } from '../../models/email.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ import { Cases } from '../../models/case.model';
 export class AdmService {
 
   endpoint: string = 'http://localhost:2000/api';
-  headers  = new HttpHeaders({
+  headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -43,6 +44,23 @@ export class AdmService {
         ))
   }
 
+  inviteUser(email: Email) {
+    const api = `${this.endpoint}/invite-user`;
+    console.log(email)
+
+    return this.http.post<any>(api, email)
+      .pipe(
+        map(
+          data => {
+            return data;
+          },
+          (error: any) => {
+            window.alert("Not possible to send invitation");
+          }
+        )
+      )
+  }
+
   //Search for Business Name and Location
   searchBusinessNameLocationAdm(business: BusinessName) {
     const api = `${this.endpoint}/search-nameandLocation-adm`;
@@ -57,23 +75,26 @@ export class AdmService {
           }
         ))
   }
+
   // Delete a business user
-  deleteUserAdm(id: any) {
-    const api = `${this.endpoint}/delete-business-user/${id}`;
-    return this.http.delete<any>(api, { headers: this.headers })
+  deleteUserAdm(id: Array<String>) {
+    const api = `${this.endpoint}/remove-business`;
+    return this.http.post<String>(api, id)
       .pipe(
         map(
           data => {
-            return true;
+            return data;
           },
           (error: any) => {
             window.alert("No business user to delete.");
           }
-        ))
+        )
+      )
   }
 
   ////////////   CASES    //////////////
   addUserCase(data: Cases) {
+    console.log(data)
     const api = `${this.endpoint}/add-business-case`;
     return this.http.post<any>(api, data, { headers: this.headers })
       .subscribe(
@@ -86,7 +107,6 @@ export class AdmService {
         }
       )
   }
-
   // Returns data for cases by business name
   searchUserCases(business: BusinessName) {
     const api = `${this.endpoint}/search-cases-adm`;
@@ -101,23 +121,19 @@ export class AdmService {
           }
         ))
   }
-
-  // Delete a case
-  deleteUserCaseAdm(id: any) {
-    console.log(id);
-    const api = `${this.endpoint}/cases-user-adm/${id}`;
-    return this.http.delete<any>(api, { headers: this.headers })
+  // Delete a business user
+  deleteUserCaseAdm(id: Array<String>) {
+    const api = `${this.endpoint}/remove-case`;
+    return this.http.post<String>(api, id)
       .pipe(
         map(
           data => {
-            return true;
+            return data;
           },
           (error: any) => {
             window.alert("No case to delete.");
           }
-        ))
-
+        )
+      )
   }
-
-
 }

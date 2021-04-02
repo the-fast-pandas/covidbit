@@ -1,4 +1,8 @@
+// Server - CovidBit - Fast Pandas
+// Created:  01, March, 2021, Teresa Costa
+
 import { Component, OnInit } from '@angular/core';
+// local Service
 import { DataService } from '../../services/data-services/data.service';
 import * as myGlobals from '../../globals';
 
@@ -9,11 +13,14 @@ import * as myGlobals from '../../globals';
 })
 export class ChartBusinessComponent implements OnInit {
 
+  typesList: Array<string> = [];
+
+  // Chart Instances
   chartData: any;
   chartOptions: any;
-  typesList: Array<string> = [];
   chartLabel: Array<string> = [];
   chartCount: Array<number> = [];
+  typesLabelPostion: String = 'left';
 
   constructor(public data: DataService) {
     this.data.getAllBusiness().subscribe(
@@ -30,12 +37,10 @@ export class ChartBusinessComponent implements OnInit {
         };
         this.chartOptions = {
           legend: {
-            position: 'left',
+            position: this.typesLabelPostion,
             labels: {
               fontColor: 'rgb(255, 99, 132)'
             }
-
-
           }
         };
       }
@@ -44,19 +49,22 @@ export class ChartBusinessComponent implements OnInit {
 
   ngOnInit() { }
 
+  // Called by Constructor
+  // Lsit the types of Business
   getTypes(data: any) {
     for (let i = 0; i < Object.keys(data.myUsers).length; i++) {
       this.typesList.push(data.myUsers[i].businessType);
     }
   }
 
+  // Called by Constructor
+  // Counts the quantity of each type
   count() {
     this.typesList.sort();
     let current = "";
     let cnt = 0;
     for (var i = 0; i <= this.typesList.length; i++) {
       if (this.typesList[i] != current) {
-
         if (cnt > 0) {
           this.chartLabel.push(current);
           this.chartCount.push(cnt);
@@ -67,7 +75,6 @@ export class ChartBusinessComponent implements OnInit {
         cnt++;
       }
     }
-
   }
 
 }

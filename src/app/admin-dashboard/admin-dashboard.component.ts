@@ -1,6 +1,9 @@
-import { Component, OnInit, Input} from '@angular/core';
-import { NbDialogConfig, NbDialogService, NbMenuService } from '@nebular/theme';
-import { CaseSettingsComponent } from './adminSettings/case-settings/case-settings.component'
+// Server - CovidBit - Fast Pandas
+// Created:  16, February, 2021, John Turkson
+
+
+import { Component, OnInit } from '@angular/core';
+import { NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -9,21 +12,17 @@ import { CaseSettingsComponent } from './adminSettings/case-settings/case-settin
 })
 export class AdminDashboardComponent implements OnInit {
 
+  openSettings: Boolean = false;
+  settingsType: string = '';
 
   constructor(public dialogService: NbDialogService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
-  openSettings = false;
-  settingsType = '';
-
-  settingsOpened(event: Event){
-    //Show settings Tab
+  // (click) handler
+  // Show settings Tab
+  settingsOpened(event: Event) {
     let elementId: string = (event.target as Element).id;
     this.settingsType = elementId;
-    
   }
-
-
 }
