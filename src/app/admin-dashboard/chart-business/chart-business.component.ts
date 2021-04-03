@@ -52,8 +52,8 @@ export class ChartBusinessComponent implements OnInit {
   // Called by Constructor
   // Lsit the types of Business
   getTypes(data: any) {
-    for (let i = 0; i < Object.keys(data.myUsers).length; i++) {
-      this.typesList.push(data.myUsers[i].businessType);
+    for (let i = 0; i < Object.keys(data.users).length; i++) {
+      this.typesList.push(data.users[i].businessType);
     }
   }
 

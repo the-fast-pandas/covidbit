@@ -24,7 +24,7 @@ export class BusinessUserViewComponent implements OnInit {
   id: String = myGlobals.emptyField;
 
   safetyMeasureList: Array<SafetyMeasures> = [];
-  safetyMeasure: SafetyMeasures = { title: myGlobals.emptyField, description: myGlobals.emptyField , confirmed: myGlobals.emptyField}
+  safetyMeasure: SafetyMeasures = { title: myGlobals.emptyField, description: myGlobals.emptyField, confirmed: myGlobals.emptyField }
   totalCases: number = 0;
   totalCases30Days: number = 0;
 
@@ -35,24 +35,28 @@ export class BusinessUserViewComponent implements OnInit {
     this.data.getUserView(this.id)
       .subscribe(
         data => {
-          this.getSafetyMeasures(data);
           this.businessName = data.user.businessName;
           this.businessPhoneNumber = data.user.phoneNumber;
           this.businessAddress = data.user.location;
           this.businessWebsite = data.user.loginId;
           this.businessType = data.user.businessType;
+          this.data.getAllSafety().subscribe(
+            safety => {
+              this.getSafetyMeasures(safety);
+            })
         })
   }
 
   ngOnInit(): void { }
 
   // Extracts all the User Safety Measures
-  getSafetyMeasures(data) {
-    const size = data.user.safetyMeasures.length;
-    for (let i = 0; i < size; i++) {
-      this.safetyMeasure['title'] = data.user.safetyMeasures[i].title;
-      this.safetyMeasure['description'] = data.user.safetyMeasures[i].description;
-      this.safetyMeasureList.push(this.safetyMeasure)
+  getSafetyMeasures(data: any) {
+    for (let i = 0; i < Object.keys(data.safeties).length; i++) {
+      if (this.id === data.safeties[i].businessId) {
+        this.safetyMeasure["title"] = data.safeties[i].title;
+        this.safetyMeasure["description"] = data.safeties[i].title;
+        this.safetyMeasureList.push(this.safetyMeasure);
+      }
     }
   }
 }

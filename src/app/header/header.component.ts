@@ -1,13 +1,14 @@
 // Server - CovidBit - Fast Pandas
-// Created:               2021, Yevgeniya Anasheva
-// Changed: 15, February, 2021, Teresa Costa, added integration with authentication, typescript variables
-
+// Created: 10, February, 2021, Yevgeniya Anasheva
+// Changed: 15, March, 2021, Teresa Costa, added integration with authentication, typescript variables, sidebar
 
 import { Component, OnInit } from '@angular/core';
 import { NbMenuItem, NbMenuService, NbSidebarService } from '@nebular/theme';
 import { filter, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+// Local Service
 import { AuthService } from '../services/auth-services/auth.service';
+import * as myGlobals from '../globals';
 
 @Component({
   selector: 'app-header',
@@ -16,11 +17,13 @@ import { AuthService } from '../services/auth-services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  loggedIn: boolean = false;
-  loggedInAdm: boolean = false;
-  businessName: any = " ";
-  id: any = "9";
+  businessName: String = myGlobals.emptyField;
+  id: String = myGlobals.emptyField;
+
   itemsTitle: Array<any> = [{ title: 'Profile' }, { title: 'Logout' }];
+  itemsTitleAdm: Array<any> = [{ title: 'Dashboard' }, { title: 'Logout' }];
+
+  // Sidebar Variables
   itemsMenu: Array<any> = [{
     title: 'Home',
     link: '/home',
@@ -30,8 +33,12 @@ export class HeaderComponent implements OnInit {
     title: 'Tracker Map',
     link: '/tracker-map',
   }]
-
   items: NbMenuItem[] = this.itemsMenu;
+
+  // Nav Type Control
+  loggedIn: Boolean = false;
+  loggedInBusiness: Boolean = false;
+  loggedInAdm: Boolean = false;
 
   constructor(private nbMenuService: NbMenuService, private router: Router, private auth: AuthService, private readonly sidebarService: NbSidebarService) { }
 
@@ -42,15 +49,15 @@ export class HeaderComponent implements OnInit {
         if (this.auth.isLoggedIn) {
           this.addMenu(2);
           this.loggedIn = this.auth.isLoggedIn;
-          this.businessName = localStorage.getItem('name_header');
-          this.id = localStorage.getItem('business_id')
+          this.loggedInBusiness = this.auth.isLoggedIn;
+          this.businessName = localStorage.getItem('name_header') || myGlobals.emptyField;
+          this.id = localStorage.getItem('business_id') || myGlobals.emptyField;
         } else if (this.auth.isAdmin) {
           this.addMenu(3);
           this.loggedIn = this.auth.isAdmin;
+          this.loggedInAdm = this.auth.isAdmin;
           this.businessName = "Administrator"
-
         }
-
       }
     })
 
@@ -73,22 +80,23 @@ export class HeaderComponent implements OnInit {
         }
       });
   }
-  toggleSidebar(): boolean {
+  toggleSidebar(): Boolean {
     this.sidebarService.toggle();
     return false;
   }
 
+  // Control Sidebar for Smartphone View
   addMenu(section) {
     let menuItem = {};
     if (section === 1) {
       menuItem = { title: "Login", link: "/login-form" }
       this.itemsMenu.push(menuItem);
     } else if (section === 2) {
-      menuItem = { title: "Profile", link: 'business-dashboard/' + this.id }
+      menuItem = { title: "Profile", link: '/business-dashboard/' + this.id }
       this.itemsMenu.pop();
       this.itemsMenu.push(menuItem);
     } else if (section === 3) {
-      menuItem = { title: "Admin", link: '/admin-dashboard' }
+      menuItem = { title: "Dashboard", link: '/admin-dashboard' }
       this.itemsMenu.pop();
       this.itemsMenu.push(menuItem);
     }

@@ -33,7 +33,7 @@ export class EditCaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.businessName.name = localStorage.getItem('name_header') || myGlobals.emptyField;
-    this.adm.searchUserCases(this.businessName).subscribe(
+    this.adm.getUserCases(this.businessName).subscribe(
       data => {
         this.getCases(data);
         this.caseForm = this.fb.group({

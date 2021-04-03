@@ -1,5 +1,5 @@
 // Server - CovidBit - Fast Pandas
-// Created:               2021, Yevgeniya Anasheva
+// Created: 10 February,2021, Yevgeniya Anasheva
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';

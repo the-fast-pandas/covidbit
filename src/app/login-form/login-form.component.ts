@@ -54,9 +54,9 @@ export class LoginFormComponent implements OnInit {
     }
   }
 
-  // Submits login credentials
+  // SubmitsloginForm credentials
   onSubmit() {
-    this.auth.logIn(this.loginCredentials.value);
+    this.auth.loginForm(this.loginCredentials.value);
   }
 
   // Closes the warning box for the server errors
@@ -70,7 +70,7 @@ export class LoginFormComponent implements OnInit {
 
   onClose() {
     this.alert = false;
-    this.auth.logIn(this.loginCredentials.value).unsubscribe();
+    this.auth.loginForm(this.loginCredentials.value).unsubscribe();
     localStorage.removeItem('server_warning'); // Controls messages from server
     localStorage.removeItem('auth_warning');
   }

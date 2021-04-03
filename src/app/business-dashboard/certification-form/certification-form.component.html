@@ -1,34 +1,46 @@
+<!-- Server - CovidBit - Fast Pandas
+     Created: 20, MArch, 2021, Yevgeniya Anasheva-->
+
 <nb-card>
   <nb-card-body>
     <form [formGroup]='userCredentials' (ngSubmit)='onSubmit()' class="form-components">
       <nb-stepper orientation="horizontal" disableStepNavigation>
-        <nb-step label="Guidelines" formGroupName="guidelines">
 
+        <!--First Step-->
+        <nb-step label="Guidelines" formGroupName="guidelines">
           <h1 class="register-header">Apply for Certification</h1>
-          <p class="form-control-group">COVIDBIT Team is not responsible for the information you enter. This certification is <strong>NOT</strong>
-            official health standards certification 
-            and the safety measures you enter are your own responsibility. 
+          <p class="form-control-group">COVIDBIT Team is not responsible for the information you enter. This
+            certification is <strong>NOT</strong>
+            official health standards certification
+            and the safety measures you enter are your own responsibility.
             The safety measures entered by businesses are to help people safely use the offered services, and should not
-            be treated as false advertisement. 
-            COVID-19 is a serious topic and any misdirection or misinformation will be taken down, followed by necessary measures. <br>
+            be treated as false advertisement.
+            COVID-19 is a serious topic and any misdirection or misinformation will be taken down, followed by necessary
+            measures. <br>
             By accepting this agreement you indicate that you take all the responsibility upon yourself. <br>
             <strong>To receive certification, you need to have at least 3 safety measures. </strong>
           </p>
           <p class="form-control-group"><strong>For more information, please visit: </strong>
-            <a href="https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html" target="_blank" >Canadian Government COVID-19 website</a>
-            and 
-            <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019" target="_blank" >the World Health Organization (WHO)</a>
+            <a href="https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html"
+              target="_blank">Canadian Government COVID-19 website</a>
+            and
+            <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019" target="_blank">the World Health
+              Organization (WHO)</a>
           </p>
           <div class="form-control-group">
-            <input type="checkbox" [(ngModel)]="acceptedGuidelines" (click)="acceptGuidelines()"> &nbsp;&nbsp; I've read the guidelines and accept the agreement
+            <input type="checkbox" [(ngModel)]="acceptedGuidelines" (click)="acceptGuidelines()"> &nbsp;&nbsp; I've read
+            the guidelines and accept the agreement
           </div>
-          
           <div class="form-control-group">
-            <button class="button" type="button" nbButton nbStepperNext fullWidth outline status="primary" *ngIf="acceptedGuidelines">NEXT</button>
-            <button class="button" type="button" nbButton nbStepperNext fullWidth outline status="primary" *ngIf="!acceptedGuidelines" disabled>NEXT</button>
-            <button class="button" type="button" nbButton fullWidth outline status="primary" (click)="backClicked()">BACK</button>
+            <button class="button" type="button" nbButton nbStepperNext fullWidth outline status="primary"
+              *ngIf="acceptedGuidelines">NEXT</button>
+            <button class="button" type="button" nbButton nbStepperNext fullWidth outline status="primary"
+              *ngIf="!acceptedGuidelines" disabled>NEXT</button>
+            <button class="button" type="button" nbButton fullWidth outline status="primary"
+              (click)="backClicked()">BACK</button>
           </div>
 
+          <!--Second step-->
         </nb-step>
         <nb-step label="Certification" formGroupName="safetyMeasures">
           <div class="form-control-group">
@@ -38,20 +50,18 @@
               <strong>Last Name: </strong> {{lastName}} <br>
               <strong>Location: </strong> {{businessLocation}} <br>
               <strong>Business Type: </strong> {{businessType}} <br>
-              <strong>Safety Measures: </strong> 
+              <strong>Safety Measures: </strong>
               <span *ngFor="let safetyMeasure of safetyMeasureList">
-                <span>{{safetyMeasure}}</span>
+                <span>{{safetyMeasure.title}}</span>
               </span>
               <br>
             </p>
           </div>
-
           <div class="form-control-group">
-            <button class="button" type="button" nbButton nbStepperPrevious fullWidth outline status="primary">PREVIOUS</button>
+            <button class="button" type="button" nbButton nbStepperPrevious fullWidth outline
+              status="primary">PREVIOUS</button>
             <button class="button" type="submit" nbButton fullWidth outline status="primary">SUBMIT</button>
           </div>
-          
-          
         </nb-step>
 
       </nb-stepper>

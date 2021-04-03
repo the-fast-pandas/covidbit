@@ -60,7 +60,7 @@ export class CaseSettingsComponent implements OnInit {
     this.businessSearch = new FormGroup({
       searchedBusiness: new FormControl('', [Validators.required])
     });
-    this.adm.searchUserAdm(this.businessName).subscribe(//Fill Dropdown List with businesses from the Database
+    this.adm.getUserAdm(this.businessName).subscribe(//Fill Dropdown List with businesses from the Database
       data => {
         this.fillDropdownList(data);
       }
@@ -68,7 +68,7 @@ export class CaseSettingsComponent implements OnInit {
   }
 
   addCase() {
-    this.adm.addUserCase(this.newCaseInformation.value);
+    this.adm.addUserCasesAdm(this.newCaseInformation.value);
     this.alertCaseAdded = true;
     this.newCaseInformation.reset();
   }
@@ -79,7 +79,7 @@ export class CaseSettingsComponent implements OnInit {
     this.foundBusinessCases = [];
     this.casesIDList = [];
     this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
-    this.adm.searchUserCases(this.businessName).subscribe(
+    this.adm.getUserCases(this.businessName).subscribe(
       data => {
         this.getCases(data)
         if (this.foundBusinessCases.length === 0) {
@@ -120,8 +120,13 @@ export class CaseSettingsComponent implements OnInit {
 
   // (ngSubmit)
   removeCases() {
-    this.adm.deleteUserCaseAdm(this.caseResults.value).subscribe(
+    let removeList = this.caseResults.value.checkArray;
+    this.adm.deleteUserCasesAdm(removeList).subscribe(
       data => {
+        this.alertCaseRemoved = true;
+        this.businessSearch.reset();
+        this.caseResults.reset();
+        this.casesIDList = [];
 
       }
     );
@@ -130,8 +135,8 @@ export class CaseSettingsComponent implements OnInit {
   // Called by ngOnInit()
   // Fills the dropdown for business users
   fillDropdownList(data: any) {
-    for (let i = 0; i < data.myUsers.length; i++) {
-      this.listOfBusinesses.push(data.myUsers[i].businessName);
+    for (let i = 0; i < data.users.length; i++) {
+      this.listOfBusinesses.push(data.users[i].businessName);
     }
   }
 

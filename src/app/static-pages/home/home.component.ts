@@ -1,5 +1,5 @@
 // Server - CovidBit - Fast Pandas
-// Created:               2021, Adilah
+// Created: 15 February, 2021, Adilah
 
 import { Component, OnInit } from '@angular/core';
 
@@ -11,7 +11,6 @@ export class HomeComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }

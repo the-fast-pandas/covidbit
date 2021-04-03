@@ -1,7 +1,6 @@
 // Server - CovidBit - Fast Pandas
 // Created:  16, February, 2021, John Turkson
 
-
 import { Component, OnInit } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 

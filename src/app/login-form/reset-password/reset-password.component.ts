@@ -50,7 +50,7 @@ export class ResetPasswordComponent implements OnInit {
     }
   }
 
-  // Submits login credentials
+  // SubmitsloginForm credentials
   onSubmit() {
     this.data.setNewPassword(this.newPassword.value, this.token);
   }

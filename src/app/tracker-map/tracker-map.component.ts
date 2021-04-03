@@ -125,7 +125,7 @@ export class TrackerMapComponent implements OnInit {
       }
     );
 
-    this.adm.searchUserCases(this.businessNameDB).subscribe(data => {
+    this.adm.getUserCases(this.businessNameDB).subscribe(data => {
       console.log(data);
       this.getCases(data);
       console.log(this.foundBusinessCases);

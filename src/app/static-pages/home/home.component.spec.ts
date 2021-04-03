@@ -1,5 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// Server - CovidBit - Fast Pandas
+// Created: 15 February, 2021, Adilah
 
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {

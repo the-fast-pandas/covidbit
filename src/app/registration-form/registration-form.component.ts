@@ -64,7 +64,7 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.auth.registerUser(this.userCredentials.value, this.safetyMeasures, false);
+    this.auth.registrationForm(this.userCredentials.value, this.safetyMeasures, false);
   }
 
   checkRegistrationForm() {

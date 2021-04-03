@@ -175,6 +175,22 @@ export class DataService {
 
   }
 
+
+  getAllSafety() {
+    const api = `${this.endpoint}/all-safety`;
+    return this.http.get<any>(api)
+      .pipe(
+        map(
+          data => {
+            return data;
+          },
+          (error: any) => {
+            window.alert("No Safety Measures in database!");
+          }
+        ))
+
+  }
+
   // Business User is allowed to add safety measures
   addReview(review: any, id: String) {
     const api = `${this.endpoint}/add-review/${id}`;

@@ -49,7 +49,7 @@ export class NewPasswordComponent implements OnInit {
     localStorage.removeItem('new_password_warning');
   }
 
-  // Checks login credentials
+  // ChecksloginForm credentials
   onSubmit() {
     this.data.requestNewPassword(this.loginId.value);
   }
