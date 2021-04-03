@@ -1,0 +1,199 @@
+<!-- Map Management Card -->
+<nb-card>
+  <nb-card-header>Business Management Settings</nb-card-header>
+  <nb-card-body>
+    <nb-alert status="success" closable (close)="onClose()" *ngIf="alert">
+      Business Successfully Created!
+    </nb-alert>
+
+    <!-- Map Managment Tabset -->
+    <nb-tabset (changeTab)="tabReset()">
+      <nb-tab tabTitle="Add New Business">
+        <form [formGroup]='businessCredentials' (ngSubmit)="addBusiness()">
+
+          <!-- First row of Fields -->
+          <div class="row">
+
+            <div class="col" style="text-align: center;">
+
+              <div class="editor">
+                <nb-form-field>
+                  <input nbInput type="text" id="input-business-name" name="businessName" formControlName='businessName'
+                    placeholder="Enter Business Name" fieldSize="medium" fullWidth
+                    [status]="businessCredentials.get('businessName')?.touched ? (businessCredentials.get('businessName')?.invalid ? 'danger' : 'success') : 'basic' ">
+                  <nb-icon
+                    *ngIf="businessCredentials.hasError('required','businessName') && businessCredentials.get('businessName')?.touched === true"
+                    nbSuffix icon="alert-circle-outline"></nb-icon>
+                  <nb-icon *ngIf="businessCredentials.get('businessName')?.valid === true" nbSuffix
+                    icon="checkmark-outline"></nb-icon>
+                </nb-form-field>
+              </div>
+
+            </div>
+
+            <div class="col">
+              <nb-form-field>
+                <input nbInput type="text" id="input-business-email" name="email" formControlName='email'
+                  placeholder="Enter Business Email" fieldSize="medium" fullWidth
+                  [status]="businessCredentials.get('email')?.touched ? (businessCredentials.get('email')?.invalid ? 'danger' : 'success') : 'basic' ">
+                <nb-icon
+                  *ngIf="businessCredentials.hasError('required','email') && businessCredentials.get('email')?.touched === true"
+                  nbSuffix icon="alert-circle-outline"></nb-icon>
+                <nb-icon *ngIf="businessCredentials.get('email')?.valid === true" nbSuffix icon="checkmark-outline">
+                </nb-icon>
+              </nb-form-field>
+            </div>
+
+            <div class="col">
+              <nb-form-field>
+                <nb-select formControlName="businessType" placeholder="Select Business Type" name="businessType"
+                  fullWidth="true" fieldSize="large"
+                  [status]="businessCredentials.get('businessType')?.touched ? (businessCredentials.get('businessType')?.invalid ? 'danger' : 'success') : 'basic' ">
+                  <nb-option *ngFor="let type of businessTypes" [value]='type.name'>{{type.name}}</nb-option>
+                </nb-select>
+              </nb-form-field>
+            </div>
+
+          </div>
+
+          <!-- Second row of Fields -->
+          <div class="row">
+
+            <div class="col" style="text-align: center;">
+              <nb-form-field>
+                <input nbInput type="text" id="input-business-website" name="website" formControlName='website'
+                  placeholder="Enter Website URL" fieldSize="medium" fullWidth
+                  [status]="businessCredentials.get('website')?.touched ? (businessCredentials.get('website')?.invalid ? 'danger' : 'success') : 'basic' ">
+                <nb-icon
+                  *ngIf="businessCredentials.hasError('required','website') && businessCredentials.get('website')?.touched === true"
+                  nbSuffix icon="alert-circle-outline"></nb-icon>
+                <nb-icon *ngIf="businessCredentials.get('website')?.valid === true" nbSuffix icon="checkmark-outline">
+                </nb-icon>
+              </nb-form-field>
+            </div>
+
+            <div class="col">
+              <nb-form-field>
+                <input nbInput type="text" id="input-business-phoneNumber" name="phoneNumber"
+                  formControlName='businessPhone' placeholder="Enter Phone Number (i.e 123-456-7890)" fieldSize="medium"
+                  fullWidth
+                  [status]="businessCredentials.get('businessPhone')?.touched ? (businessCredentials.get('businessPhone')?.invalid ? 'danger' : 'success') : 'basic' ">
+                <nb-icon
+                  *ngIf="businessCredentials.hasError('required','businessPhone') && businessCredentials.get('businessPhone')?.touched === true"
+                  nbSuffix icon="alert-circle-outline"></nb-icon>
+                <nb-icon *ngIf="businessCredentials.get('businessPhone')?.valid === true" nbSuffix
+                  icon="checkmark-outline"></nb-icon>
+              </nb-form-field>
+            </div>
+
+            <div class="col">
+
+              <nb-form-field>
+                <input formControlName="businessLocation" class="locationLabel" nbInput ngx-google-places-autocomplete
+                  #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" id="input-businessLocation"
+                  placeholder="Enter Business location" fullWidth fieldSize="medium"
+                  [status]="businessCredentials.get('businessLocation')?.touched ? (businessCredentials.get('businessLocation')?.invalid ? 'danger' : 'success') : 'basic' " />
+                <nb-icon
+                  *ngIf="businessCredentials.hasError('required','businessLocation') && businessCredentials.get('businessLocation')?.touched === true"
+                  nbSuffix icon="alert-circle-outline"></nb-icon>
+                <nb-icon *ngIf="businessCredentials.get('businessLocation')?.valid === true" nbSuffix
+                  icon="checkmark-outline"></nb-icon>
+              </nb-form-field>
+
+            </div>
+
+          </div>
+
+          <br>
+
+          <div class="row">
+            <div class="col" style="text-align: center;">
+              <nb-form-field>
+                <input nbInput type="text" id="input-business-firstName" name="firstName" formControlName='firstName'
+                  placeholder="Enter First Name" fieldSize="medium" fullWidth
+                  [status]="businessCredentials.get('firstName')?.touched ? (businessCredentials.get('firstName')?.invalid ? 'danger' : 'success') : 'basic' ">
+                <nb-icon
+                  *ngIf="businessCredentials.hasError('required','firstName') && businessCredentials.get('firstName')?.touched === true"
+                  nbSuffix icon="alert-circle-outline"></nb-icon>
+                <nb-icon *ngIf="businessCredentials.get('firstName')?.valid === true" nbSuffix icon="checkmark-outline">
+                </nb-icon>
+              </nb-form-field>
+            </div>
+
+            <div class="col" style="text-align: center;">
+              <nb-form-field>
+                <input nbInput type="text" id="input-business-lastName" name="lastName" formControlName='lastName'
+                  placeholder="Enter Last Name" fieldSize="medium" fullWidth
+                  [status]="businessCredentials.get('lastName')?.touched ? (businessCredentials.get('lastName')?.invalid ? 'danger' : 'success') : 'basic' ">
+                <nb-icon
+                  *ngIf="businessCredentials.hasError('required','lastName') && businessCredentials.get('lastName')?.touched === true"
+                  nbSuffix icon="alert-circle-outline"></nb-icon>
+                <nb-icon *ngIf="businessCredentials.get('lastName')?.valid === true" nbSuffix icon="checkmark-outline">
+                </nb-icon>
+              </nb-form-field>
+            </div>
+          </div>
+
+          <br>
+
+          <div class="buttonSlot">
+            <button class="button" type="submit" nbButton outline status="success"
+              [disabled]="this.businessCredentials.invalid">Add Business</button>
+          </div>
+
+        </form>
+      </nb-tab>
+
+      <!-- Remove Business Tab -->
+      <nb-tab tabTitle="Remove A Business">
+
+        <form [formGroup]="businessSearch" (ngSubmit)="searchForBusiness()">
+          <div class="editor">
+            <nb-form-field>
+              <input nbInput placeholder="Search For Business" id="businessSearch" formControlName="searchedBusiness">
+
+              <button type="submit" nbSuffix nbButton ghost>
+                <nb-icon icon="search-outline"></nb-icon>
+              </button>
+            </nb-form-field>
+
+            <ng-container>
+              <p class="caption status-danger" *ngIf="searchCheck === true">
+                Business Not Found!
+              </p>
+            </ng-container>
+
+          </div>
+
+        </form>
+
+        <form [formGroup]="businessList" (ngSubmit)='removeBusiness()'>
+          <nb-list size="medium" *ngIf="displayList === true">
+            <nb-list-item *ngFor="let data of typesList; let i = index">
+              <nb-checkbox (change)="getCheckedValue($event)">{{ data }}</nb-checkbox>
+            </nb-list-item>
+          </nb-list>
+
+
+          <div class="buttonSlot" *ngIf="typesList.length > 0 || idList.length > 0">
+            <button class="button" type="submit" nbButton outline status="success"
+              [disabled]="this.businessList.hasError('required', 'businesses')">Remove Business</button>
+          </div>
+
+        </form>
+
+      </nb-tab>
+
+      <nb-tab tabTitle="Invite A Business">
+        <form [formGroup]="businessInvitation" (ngSubmit)="inviteBusiness()">
+          <input formControlName="email" class="locationLabel" nbInput id="input-businessLocation"
+            placeholder="Enter Business Email" fullWidth fieldSize="medium" />
+
+          <button class="button" type="submit" nbButton outline>Invite Business</button>
+        </form>
+      </nb-tab>
+
+    </nb-tabset>
+
+  </nb-card-body>
+</nb-card>

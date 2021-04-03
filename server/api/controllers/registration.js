@@ -1,33 +1,66 @@
 // Server - CovidBit - Fast Pandas
+// REGISTRATION for small business user
 // Created: 03, February, 2021, Teresa Costa
-// Modified: 08, February, 2021, Teresa Costa: frontend integration, registerUser changed to match schema
 
 const bcrypt = require('bcrypt');
-const jwt = require("jsonwebtoken")
-const SmallBusiness = require('../schema/smallBusiness');
-const emailService = require('../models/email');
 const saltRounds = 10;
+// Nodemailer
+const emailService = require('../models/emailRegistration');
+// Schemas
+const SmallBusiness = require('../schema/smallBusiness');
 
+// Registration of a new business user
 const registerUser = function (req, res) {
-  const { accountDetails, businessDetails, safteyMeasures } = req.body;
-  const password = accountDetails.password;
-  const loginId = accountDetails.email;
-  const businessName = accountDetails.businessName;
 
-  SmallBusiness.findOne({ "loginId": loginId }, function (error, user) {
+  let password, loginId, businessName, businessType, firstName, lastName, phoneNumber, location, safetyM, emailSend;
+
+  if (req.body.registeredBy == true) {
+    password = 'fakefake';
+    loginId = req.body.email;
+    businessName = req.body.businessName;
+    businessType = req.body.businessType;
+    firstName = req.body.firstName;
+    lastName = req.body.lastName;
+    phoneNumber = req.body.businessPhone;
+    location = req.body.businessLocation;
+    safetyM = [];
+    registeredBy = true;
+
+  } else {
+    const { accountDetails, businessDetails, safetyMeasures } = req.body;
+    password = accountDetails.password;
+    loginId = accountDetails.email;
+    businessName = accountDetails.businessName;
+    businessType = accountDetails.businessType;
+    firstName = accountDetails.firstName;
+    lastName = accountDetails.lastName;
+    phoneNumber = businessDetails.businessPhone;
+    location = businessDetails.businessLocation;
+    safetyM = safetyMeasures;
+    registeredBy = false;
+  }
+
+  SmallBusiness.findOne({ "loginId": loginId }, function (error, user) { // checks if the user already exists
     if (error) {
       throw error;
     }
     if (user) {
-      return res.status(400).json({ message: "User Already Exists" });
+      return res.status(401).json({ message: "This business user already exists!" });
     }
     if (!user) {
       newBusiness = new SmallBusiness({
         loginId,
         password,
-        businessName
+        businessName,
+        firstName,
+        lastName,
+        businessType,
+        phoneNumber,
+        location,
+        safetyM,
+        registeredBy
       });
-      bcrypt.genSalt(saltRounds, function (error, salt) {
+      bcrypt.genSalt(saltRounds, function (error, salt) {  //sets password with hash
         if (error) {
           throw error;
         }
@@ -41,14 +74,8 @@ const registerUser = function (req, res) {
               if (error) {
                 throw error;
               }
-              emailService.sendEmail('myemail@provider.com', emailService.registrationInvite);
-              const payload = {
-                user: {
-                  id: newBusiness.id
-                }
-              };
-              const token = jwt.sign(payload, "ilikemypandasfast", { expiresIn: 1000 });
-              return res.status(200).json({ token });
+              emailService.emailRegistration( 'covidbitreg@gmail.com', newBusiness.businessName);
+              return res.status(200).json({ newBusiness });
             });
           }
         });
@@ -57,4 +84,19 @@ const registerUser = function (req, res) {
   })
 }
 
-module.exports = { registerUser };
+// Checks if a user already exists (for the first step of the registration form)
+const checkUser = function (req, res) {
+  const { accountDetails } = req.body;
+  const loginId = accountDetails.email;
+  SmallBusiness.findOne({ "loginId": loginId }, function (error, user) {
+    if (error) {
+      throw error;
+    }
+    if (user) {
+      return res.status(401).json({ message: "This business user already exists!" });
+    }
+    return res.status(200).json({ loginId });
+  })
+}
+
+module.exports = { registerUser, checkUser };

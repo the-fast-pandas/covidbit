@@ -1,20 +1,47 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+// Components
+import { HomeComponent } from './static-pages/home/home.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
-import { NotFoundComponent } from './not-found/not-found.component'
-import { BusinessProfileComponent } from './business-profile/business-profile.component';
-import { AuthGuard } from "./auth-services/auth.guard";
+import { NotFoundComponent } from './static-pages/not-found/not-found.component'
+import { BusinessProfileComponent } from './business-dashboard/business-profile/business-profile.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { BusinessDashboardComponent } from './business-dashboard/business-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { TrackerMapComponent } from './tracker-map/tracker-map.component';
+import { BusinessUserViewComponent } from './business-user-view/business-user-view.component';
+import { CertificationFormComponent } from './business-dashboard/certification-form/certification-form.component';
+import { PolicyComponent } from './static-pages/policy/policy.component';
+import { TermsComponent } from './static-pages/terms/terms.component';
+import { NewPasswordComponent } from './login-form/new-password/new-password.component';
+import { ResetPasswordComponent } from './login-form/reset-password/reset-password.component';
+
+import { ReviewComponent } from './review/review.component';
+import { ReviewConfirmationComponent } from './review/review-confirmation/review-confirmation.component';
+
+import { AboutUsComponent } from './static-pages/about-us/about-us.component';
+
+// Guards
+import { AuthGuard } from "./services/auth-services/auth.guard";
+import { AdminGuard } from "./services/auth-services/admin.guard";
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+  },
+  {
+    path: 'terms',
+    component: TermsComponent
+  },
+  {
+    path: 'policy',
+    component: PolicyComponent
+  },
+  {
+    path: 'about-us',
+    component: AboutUsComponent
   },
   {
     path: 'registration-form',
@@ -25,36 +52,53 @@ const routes: Routes = [
     component: LoginFormComponent
   },
   {
-    path: 'business-profile',
+    path: 'new-password',
+    component: NewPasswordComponent
+  },
+  {
+    path: 'reset-password/:token',
+    component: ResetPasswordComponent
+  },
+  {
+    path: 'business-dashboard/:id',
+    component: BusinessDashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'business-profile/:id',
     component: BusinessProfileComponent,
-   // canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   {
-    path: 'business-dashboard',
-    component: BusinessDashboardComponent
+    path: 'certification-form/:id',
+    component: CertificationFormComponent
   },
   {
-    path: '',
-    component: HomeComponent
+    path: 'business-user-view/:id',
+    component: BusinessUserViewComponent
+  },
+  {
+    path: 'admin-dashboard',
+    component: AdminDashboardComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: 'search-page',
     component: SearchPageComponent
   },
   {
-    path: 'business-dashboard',
-    component: BusinessDashboardComponent
-  },
-  {
-    path: 'admin-dashboard',
-    component: AdminDashboardComponent
-  },
-  {
     path: 'tracker-map',
     component: TrackerMapComponent
   },
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
-
+  {
+    path: 'review',
+    component: ReviewComponent
+  },
+  {
+    path: 'reviewConfirmation',
+    component: ReviewConfirmationComponent
+  },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
 ];
 

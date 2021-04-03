@@ -1,0 +1,142 @@
+<!-- Case Managment Card -->
+<nb-card>
+  <nb-card-header>Case Management Settings</nb-card-header>
+  <nb-card-body>
+
+    <!-- Case Managment Tabset -->
+    <nb-tabset (changeTab)="tabReset()">
+
+      <!-- Add Case -->
+      <nb-tab tabTitle="Add Case">
+        <form [formGroup]="newCaseInformation" (ngSubmit)="onSubmit()">
+
+          <div class="row">
+
+
+            
+            <div class="col" style="text-align: center;">
+
+              <div class="editor">
+                <nb-form-field>
+                  <nb-select formControlName="businessName" placeholder="Select Business" name="businessName"
+                    fullWidth="true" fieldSize="medium"
+                    [status]="newCaseInformation.get('businessName')?.touched ? (newCaseInformation.get('businessName')?.invalid ? 'danger' : 'success') : 'basic' ">
+                    <nb-option *ngFor="let name of listOfBusinesses" [value]='name'>{{name}}</nb-option>
+                  </nb-select>
+                </nb-form-field>
+              </div>
+
+            </div>
+
+            
+            <div class="col">
+              <nb-form-field>
+                <input nbInput type="text" id="input-case-status" name="email" formControlName='status'
+                  placeholder="Enter Status" fieldSize="medium" fullWidth
+                  [status]="newCaseInformation.get('status')?.touched ? (newCaseInformation.get('status')?.invalid ? 'danger' : 'success') : 'basic' ">
+                <nb-icon
+                  *ngIf="newCaseInformation.hasError('required','status') && newCaseInformation.get('status')?.touched === true"
+                  nbSuffix icon="alert-circle-outline"></nb-icon>
+                <nb-icon *ngIf="newCaseInformation.get('status')?.valid === true" nbSuffix icon="checkmark-outline">
+                </nb-icon>
+              </nb-form-field>
+            </div>
+
+            <div class="col">
+              <nb-form-field>
+                <nb-select formControlName="gender" placeholder="Select Gender" name="gender"
+                  fullWidth="true" fieldSize="medium"
+                  [status]="newCaseInformation.get('gender')?.touched ? (newCaseInformation.get('gender')?.invalid ? 'danger' : 'success') : 'basic' ">
+                  <nb-option *ngFor="let gender of genderArray" [value]='gender.name'>{{gender.name}}</nb-option>
+                </nb-select>
+              </nb-form-field>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col">
+              <nb-form-field>
+                <input nbInput type="number" id="input-case-age" name="age" formControlName='age'
+                  placeholder="Enter Age" fieldSize="medium" fullWidth
+                  [status]="newCaseInformation.get('age')?.touched ? (newCaseInformation.get('age')?.invalid ? 'danger' : 'success') : 'basic' ">
+                <nb-icon
+                  *ngIf="newCaseInformation.hasError('required','age') && newCaseInformation.get('age')?.touched === true"
+                  nbSuffix icon="alert-circle-outline"></nb-icon>
+                <nb-icon *ngIf="newCaseInformation.get('age')?.valid === true" nbSuffix icon="checkmark-outline">
+                </nb-icon>
+              </nb-form-field>
+            </div>
+
+            <div class="col">
+              <nb-form-field>
+                <input nbInput type="text" id="input-case-acquisition" name="acquisition" formControlName='acquisition'
+                  placeholder="Enter Acquisition" fieldSize="medium" fullWidth
+                  [status]="newCaseInformation.get('acquisition')?.touched ? (newCaseInformation.get('acquisition')?.invalid ? 'danger' : 'success') : 'basic' ">
+                <nb-icon
+                  *ngIf="newCaseInformation.hasError('required','acquisition') && newCaseInformation.get('acquisition')?.touched === true"
+                  nbSuffix icon="alert-circle-outline"></nb-icon>
+                <nb-icon *ngIf="newCaseInformation.get('acquisition')?.valid === true" nbSuffix icon="checkmark-outline">
+                </nb-icon>
+              </nb-form-field>
+            </div>
+
+          </div>
+
+          <div class="buttonSlot">
+            <button class="button" type="submit" nbButton outline status="success"
+              [disabled]="this.newCaseInformation.invalid">Add Case</button>
+          </div>
+
+        </form>
+
+      </nb-tab>
+
+
+      <!-- Remove Case -->
+      <nb-tab tabTitle="Remove Case">
+
+        <form [formGroup]="businessSearch" (ngSubmit)="searchForBusiness()">
+          <div class="editor">
+            <nb-form-field>
+              <input nbInput placeholder="Search For Business" id="businessSearch" formControlName="searchedBusiness">
+
+              <button type="submit" nbSuffix nbButton ghost>
+                <nb-icon icon="search-outline"></nb-icon>
+              </button>
+            </nb-form-field>
+
+            <ng-container>
+              <p class="caption status-danger" *ngIf=" searchCheck === true">
+                Business Not Found!
+              </p>
+            </ng-container>
+
+          </div>
+
+          <ng-container *ngIf="displayCaseList === true">
+            <p class="subtitle">Displaying Cases from: {{businessSearch.get('searchedBusiness')?.value}}</p>
+          </ng-container>
+
+        </form>
+
+        <form [formGroup]="caseResults" (ngSubmit)='onSubmit()' novalidate>
+          <nb-list size="medium" *ngIf="displayCaseList === true">
+            <nb-list-item *ngFor="let data of foundBusinessCases; let i = index">
+              <input id="casesInputBoxes" nbCheckbox type="checkbox" (change)="getCheckedValue($event)" [value]="data._id">
+              <p style="font-weight: bold;">Case #{{i + 1}}   Status: {{ data.status }},   Acquisition: {{data.acquisition}},   Age: {{data.age}},   Gender: {{data.gender}}</p>
+            </nb-list-item>
+          </nb-list>
+
+          <div class="buttonSlot" *ngIf="displayCaseList === true">
+            <button class="button" type="submit" nbButton outline status="success"
+              [disabled]="this.caseResults.hasError('required', 'checkArray')">Remove Case</button>
+          </div>
+
+        </form>
+      </nb-tab>
+    </nb-tabset>
+
+  </nb-card-body>
+</nb-card>

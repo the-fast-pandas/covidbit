@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NbMenuItem, NbSidebarService } from '@nebular/theme';
+import { Router } from '@angular/router';
+import { AuthService } from './services/auth-services/auth.service';
+
 
 @Component({
   selector: 'app-root',
@@ -10,5 +12,9 @@ import { NbMenuItem, NbSidebarService } from '@nebular/theme';
 
 export class AppComponent {
   title = 'covidbit';
-  constructor() { }
+  constructor(public auth: AuthService, public router: Router) { }
+
+  ngOnInit() {
+ 
+  }
 }

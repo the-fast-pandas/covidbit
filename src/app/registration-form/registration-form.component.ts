@@ -1,11 +1,13 @@
 // Server - CovidBit - Fast Pandas
 // Created:                2021, John T
-// Modified: 08, February, 2021, Teresa Costa: backend integration
+// Modified: 08, February, 2021, Teresa Costa: backend integration (checks database for user, registeres a new user in database)
 
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
-import { AuthService } from '../auth-services/auth.service';
+import { AuthService } from '../services/auth-services/auth.service';
+import { DataService } from '../services/data-services/data.service';
 import { Router } from '@angular/router';
+import * as myGlobals from '../globals';
 
 @Component({
   selector: 'app-registration-form',
@@ -15,30 +17,25 @@ import { Router } from '@angular/router';
 
 export class RegistrationFormComponent implements OnInit {
 
+  // Error warnings
   alert: Boolean = false;
+  serverWarning: Boolean = false;
 
   //Business Types Array
-  businessTypes = [
-    { name: "Restaurant" },
-    { name: "Boutique" },
-    { name: "Specialized Skill" },
-    { name: "Food and Hospitality" },
-    { name: "IT and Internet" },
-    { name: "Business" },
-    { name: "Labor" }
-  ]
+  businessTypes = myGlobals.categories;
 
   //Form Groups
   userCredentials: FormGroup = new FormGroup({});
-  tester: FormGroup = new FormGroup({});
   businessLocation = '';
-  registeredUser: any;
-  safteyMeasureList: any = [];
+  safetyMeasureList: any = [];
 
-  constructor(public authService: AuthService, public router: Router) { }
+  constructor(public auth: AuthService, public router: Router, public data: DataService) {
+    if (localStorage.getItem('server_warning') === 'true') { 
+      this.serverWarning = true;
+    }
+  }
 
   ngOnInit(): void {
-
     this.userCredentials = new FormGroup({
       accountDetails: new FormGroup({
         businessName: new FormControl('', [Validators.required]),
@@ -53,28 +50,29 @@ export class RegistrationFormComponent implements OnInit {
         businessPhone: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')]),
         businessLocation: new FormControl('', [Validators.required])
       }),
-      safteyMeasures: new FormGroup({
+      safetyMeasures: new FormGroup({
         title: new FormControl('', [Validators.required]),
         description: new FormControl('', [Validators.required])
       })
     })
-
+    localStorage.removeItem('server_warning'); // Controls messages from server
   }
 
   onSubmit(): void {
-    console.log(this.userCredentials.value);
-    this.authService.signUp(this.userCredentials.value);
+    this.auth.registerUser(this.userCredentials.value, false);
   }
 
   checkRegistrationForm() {
-
     if (this.userCredentials.controls.accountDetails.invalid) {
       this.alert = true;
     }
     else {
-      this.alert = false;
+      if (this.data.getValidUser(this.userCredentials.value)) {
+        this.alert = false;
+      } else {
+        this.alert = true;
+      }
     }
-
   }
 
   checkBusinessInfoForm() {
@@ -85,24 +83,26 @@ export class RegistrationFormComponent implements OnInit {
     }
   }
 
-  onClose() {
-    this.alert = false;
-  }
-
   onAddMeasure() {
-
-    const safteyMeasure = {
-      title: this.userCredentials.get('safteyMeasures.title')?.value,
-      description: this.userCredentials.get('safteyMeasures.description')?.value
+    let safetyMeasure = {
+      title: this.userCredentials.get('safetyMeasures.title')?.value,
+      description: this.userCredentials.get('safetyMeasures.description')?.value
     }
-    this.safteyMeasureList.push(safteyMeasure);
-    this.userCredentials.get('safteyMeasures.title')?.reset()
-    this.userCredentials.get('safteyMeasures.description')?.reset()
+    this.safetyMeasureList.push(safetyMeasure);
+    this.userCredentials.get('safetyMeasures.title')?.reset()
+    this.userCredentials.get('safetyMeasures.description')?.reset()
   }
 
   public handleAddressChange(address: any) {
-
     this.userCredentials.get('businessDetails.businessLocation')?.setValue(address.formatted_address);
+  }
+
+  onCloseServer() {
+    this.serverWarning = false;
+  }
+
+  onClose() {
+    this.alert = false;
   }
 
 }

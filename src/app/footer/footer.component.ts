@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Validators, FormControl, FormGroup } from '@angular/forms'
+import { AuthService } from '../services/auth-services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -6,10 +9,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
+  loginCredentials: FormGroup = new FormGroup({});
 
-  constructor() { }
+  constructor(public auth: AuthService, public router: Router) { }
+
+  Admin: boolean = false;
 
   ngOnInit(): void {
+    this.loginCredentials = new FormGroup({
+      email: new FormControl("", [Validators.required, Validators.email]),
+      password: new FormControl("", [Validators.required, Validators.minLength(8)])
+    })
+    this.Admin = this.auth.isAdmin;
+  }
+  // Cheks login credentials
+  onSubmit() {
   }
 
+  onLogout(){ 
+  }
 }

@@ -1,7 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { MapsAPILoader} from '@agm/core';
+import { MapsAPILoader } from '@agm/core';
 import { HttpClient } from '@angular/common/http';
 import { searchSB } from '../models/searchSB.model';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AdmService } from '../services/adm-services/adm.service';
+import { BusinessName } from '../models/businessName.model';
+
+
 
 @Component({
   selector: 'app-tracker-map',
@@ -11,57 +16,79 @@ import { searchSB } from '../models/searchSB.model';
 
 
 export class TrackerMapComponent implements OnInit {
-  
+
+  //BusinessName Form Group
+  businessSearch: FormGroup = new FormGroup({});
+
   //data
-  searchSB : searchSB[] = [];
+  searchSB: searchSB[] = [];
   businessName!: string;
 
   //map
   title: string = 'COVIDBIT project';
   lat: number = 43.651070;
-  lng: number = -79.347015; 
+  lng: number = -79.347015;
   zoom: number = 10;
   address: string | undefined;
   private geoCoder!: google.maps.Geocoder;
 
 
+  //COVID-19 Tracker API Variables
+  caseInformation: any;
+  currentDate: any;
+  totalCases: any
+  totalCriticals: any
+  totalFatalities: any
+  totalHospitalizations: any;
+  totalRecoveries: any;
+  totalTests: any
+  totalVaccinations: any
+  totalVaccinated: any
+  totalVaccinesDistributed: any
+
+  businessNameDB: BusinessName = { name: '' };
+  locationToBeSearched: String = ''
+
   @ViewChild('search')
   public searchElementRef!: ElementRef;
-  constructor ( private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private http:HttpClient) { 
-    this.loadNews();
-  }
 
+  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, public adm: AdmService) {}
 
 
   ngOnInit() : void {
 
-      this.searchSB = [
-          {
-              "ID": 1,
-              "businessName": "CN Tower",
-              "businessLocation": "290 Bremner Blvd",
-              "category": "Entertainment",
-              "cases": 0,
-              "employees": "100"
-          },
-          {
-              "ID": 2,
-              "businessName": "Queen Street Warehouse",
-              "businessLocation": "232 Queen St W",
-              "category": "Restaurant",
-              "cases": 10,
-              "employees": "10-50"
-          },
-          {
-              "ID": 3,
-              "businessName": "Maha's Egyptian Brunch",
-              "businessLocation": "226 Greenwood Ave",
-              "category": "Restaurant",
-              "cases": 2,
-              "employees": "1-10"
-          } 
-      
-          ]
+    this.searchSB = [
+      {
+        "ID": 1,
+        "businessName": "CN Tower",
+        "businessLocation": "290 Bremner Blvd",
+        "category": "Entertainment",
+        "cases": 0,
+        "employees": "100"
+      },
+      {
+        "ID": 2,
+        "businessName": "Queen Street Warehouse",
+        "businessLocation": "232 Queen St W",
+        "category": "Restaurant",
+        "cases": 10,
+        "employees": "10-50"
+      },
+      {
+        "ID": 3,
+        "businessName": "Maha's Egyptian Brunch",
+        "businessLocation": "226 Greenwood Ave",
+        "category": "Restaurant",
+        "cases": 2,
+        "employees": "1-10"
+      }
+
+    ]
+
+    this.businessSearch = new FormGroup({
+      businessName: new FormControl('', [Validators.required]),
+      searchLocation: new FormControl('')
+    })
 
 
     //load Places Autocomplete
@@ -87,17 +114,42 @@ export class TrackerMapComponent implements OnInit {
         });
       });
     });
+
+  }
+
+  onSubmit(){
+  
+
+    this.adm.searchBusinessNameLocationAdm(this.businessNameDB).subscribe(
+      data => {
+        this.getBusinessLocation(data);
+        this.businessSearch.get("searchLocation")?.setValue(this.locationToBeSearched);
+        this.searchElementRef.nativeElement.focus();
+
+      }
+    );
+
+  }
+
+  getBusinessLocation(data: any) {
+    for (let i = 0; i < data.myUsers.length; i++) {
+
+      if (data.myUsers[i].businessName == this.businessSearch.get('businessName')?.value) {
+        this.locationToBeSearched = data.myUsers[i].location;
+      }
+
+    }
   }
 
   Search() {
-    if(this.businessName != ""){
-      this.searchSB = this.searchSB.filter(res=>{
+    if (this.businessName != "") {
+      this.searchSB = this.searchSB.filter(res => {
         return res.businessName.toLocaleLowerCase().match(this.businessName.toLocaleLowerCase());
       })
-    } else if (this.businessName == ""){
-      // this.ngOnInit();
+    } else if (this.businessName == "") {
+      this.ngOnInit();
     }
-    
+
   }
 
   // Get Current Location Coordinates
@@ -114,8 +166,6 @@ export class TrackerMapComponent implements OnInit {
 
   getAddress(lat: number, lng: number) {
     this.geoCoder.geocode({ 'location': { lat: lat, lng: lng } }, (results: { formatted_address: string; }[], status: string) => {
-      console.log(results);
-      console.log(status);
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 12;
@@ -133,20 +183,9 @@ export class TrackerMapComponent implements OnInit {
   //calendar   
   date = new Date();
 
-  //news
-  articles : any
-    loadNews(){
-      this.getNews().subscribe( (news: any) =>{
-        this.articles = news.articles 
-        console.log(this.articles);
-      })
-  }
-
-  getNews(){
-    return this.http.get(`https://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=fd7187b0369b44b1b4f9a03c11a32b9a`)
-  }
+ 
 
 
 
-  
+
 }
