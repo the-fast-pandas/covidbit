@@ -10,4 +10,4 @@ const InvitationsSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("invitations", InvitationsSchema, 'Invitations');
+module.exports = mongoose.model('invitations', InvitationsSchema, 'Invitations');

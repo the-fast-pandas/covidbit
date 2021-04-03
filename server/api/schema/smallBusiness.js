@@ -40,10 +40,6 @@ const SmallBusinessSchema = mongoose.Schema({
     type: String,
     default: " "
   },
-  safetyMeasures: {
-    type: Array,
-    default: []
-  },
   certification: {
     type: Boolean,
     default: false,

@@ -2,6 +2,7 @@
 // REGISTRATION for small business user
 // Created: 03, February, 2021, Teresa Costa
 
+// Security
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 // Nodemailer
@@ -12,7 +13,7 @@ const SmallBusiness = require('../schema/smallBusiness');
 const crypto = require('crypto');
 
 // Registration of a new business user
-const registerUser = function (req, res) {
+const registrationForm = function (req, res) {
 
   let password, loginId, businessName, businessType, firstName, lastName, phoneNumber, location;
   let safetyMeasures = [];
@@ -112,4 +113,4 @@ const checkUser = function (req, res) {
   })
 }
 
-module.exports = { registerUser, checkUser };
+module.exports = { registrationForm, checkUser };

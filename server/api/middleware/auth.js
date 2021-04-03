@@ -6,11 +6,12 @@ const jwt = require("jsonwebtoken");
 
 const authLogin = function (req, res, next) {
     const authHeader = req.headers.authorization;
+    console.log("Header: ", authHeader)
     if (authHeader) {
         const token = authHeader.split(" ")[1];
         jwt.verify(token, process.env.TOKEN_SECRET, (error, user) => {
             if (error) {
-                return res.status(401).json({ message: "User not authenticated!"});
+                return res.status(401).json({ message: "User not authenticated!" });
             }
             req.user = user;
             next();
@@ -22,11 +23,12 @@ const authLogin = function (req, res, next) {
 
 const authAdmin = function (req, res, next) {
     const authHeader = req.headers.authorization;
+    console.log("Header: ", authHeader)
     if (authHeader) {
         const token = authHeader.split(" ")[1];
         jwt.verify(token, process.env.SECRET_ADMIN, (error, user) => {
             if (error) {
-                return res.status(401).json({ message: "Admin not authenticated!"});
+                return res.status(401).json({ message: "Admin not authenticated!" });
             }
             req.user = user;
             next();
