@@ -7,6 +7,7 @@ import { AdmService } from '../services/adm-services/adm.service';
 import { BusinessName } from '../models/businessName.model';
 import { ApiService } from '../services/api-covid-services/api.service';
 import { DataService } from '../services/data-services/data.service';
+import { BusinessNameandLocation } from '../models/businessName&Location.model';
 
 
 @Component({
@@ -29,10 +30,12 @@ export class TrackerMapComponent implements OnInit {
   //map
   title: string = 'COVIDBIT project';
   lat!: number
-  lng!: number 
+  lng!: number
+  latTest: number = 43.8563158
+  lngTest: number = -79.5085383
   zoom: number = 10;
-  address: string | undefined;
-  private geoCoder!: google.maps.Geocoder;
+  mapMarkers: Array<any> = [];
+  markerInfo: BusinessNameandLocation = {name: '', location: ''};
 
   businessNameDB: BusinessName = { name: '' };
   locationToBeSearched: String = '';
@@ -46,9 +49,15 @@ export class TrackerMapComponent implements OnInit {
   cardBusinessLocation: String = ''; 
   foundBusinessCases: Array<any> = [];
 
+
   constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, public adm: AdmService, private apiService: ApiService, public searchService: DataService) {}
 
   ngOnInit() {
+
+    this.adm.searchBusinessNameLocationAdm(this.businessNameDB).subscribe(    
+      data => {
+        console.log(data);
+      });
 
     this.lat = 43.795246;
     this.lng = -79.3499;
@@ -150,8 +159,8 @@ export class TrackerMapComponent implements OnInit {
   getCoords(data: any) {
     for (let i = 0; i < data.results.length; i++) {
 
-      // console.log(data.results[0].geometry.location.lat);
-      // console.log(data.results[0].geometry.location.lng);
+      console.log(data.results[0].geometry.location.lat);
+      console.log(data.results[0].geometry.location.lng);
 
       this.lat = data.results[0].geometry.location.lat;
       this.lng = data.results[0].geometry.location.lng;

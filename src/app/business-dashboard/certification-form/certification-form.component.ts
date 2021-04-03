@@ -3,6 +3,7 @@ import { Validators, FormControl, FormGroup } from '@angular/forms'
 import { DataService } from '../../services/data-services/data.service';
 import { AuthService } from '../../services/auth-services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-certification-form',
@@ -26,7 +27,7 @@ export class CertificationFormComponent implements OnInit {
   webSite: String = 'to be added';
   businessType: String = 'Type of Business';
 
-  constructor(public auth: AuthService, public router: Router, public data: DataService, private activatedRoute: ActivatedRoute) { 
+  constructor(public auth: AuthService, public router: Router, public data: DataService, private activatedRoute: ActivatedRoute, private location: Location) { 
     let id = this.activatedRoute.snapshot.paramMap.get('id');
     this.data.getUserView(id)
       .subscribe(
@@ -58,6 +59,17 @@ export class CertificationFormComponent implements OnInit {
         description: new FormControl('', [Validators.required])
       })
     })
+  }
+
+  backClicked() {
+    this.location.back();
+  }
+
+  acceptGuidelines() {
+    if(this.acceptedGuidelines)
+      this.acceptedGuidelines = false;
+    else
+      this.acceptedGuidelines = true;
   }
 
   onAddMeasure() {
