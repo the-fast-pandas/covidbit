@@ -1,7 +1,7 @@
 <nb-card>
   <nb-card-body>
     <form [formGroup]='userCredentials' (ngSubmit)='onSubmit()' class="form-components">
-      <nb-stepper orientation="horizontal">
+      <nb-stepper orientation="horizontal" disableStepNavigation>
         <nb-step label="Guidelines" formGroupName="guidelines">
 
           <h1 class="register-header">Apply for Certification</h1>
@@ -20,11 +20,13 @@
             <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019" target="_blank" >the World Health Organization (WHO)</a>
           </p>
           <div class="form-control-group">
-            <input type="checkbox" [(ngModel)]="acceptedGuidelines"> &nbsp;&nbsp; I've read the guidelines and accept the agreement
+            <input type="checkbox" [(ngModel)]="acceptedGuidelines" (click)="acceptGuidelines()"> &nbsp;&nbsp; I've read the guidelines and accept the agreement
           </div>
           
           <div class="form-control-group">
-            <button class="button" type="button" nbButton nbStepperNext fullWidth outline status="primary" >NEXT</button>
+            <button class="button" type="button" nbButton nbStepperNext fullWidth outline status="primary" *ngIf="acceptedGuidelines">NEXT</button>
+            <button class="button" type="button" nbButton nbStepperNext fullWidth outline status="primary" *ngIf="!acceptedGuidelines" disabled>NEXT</button>
+            <button class="button" type="button" nbButton fullWidth outline status="primary" (click)="backClicked()">BACK</button>
           </div>
 
         </nb-step>
@@ -36,7 +38,11 @@
               <strong>Last Name: </strong> {{lastName}} <br>
               <strong>Location: </strong> {{businessLocation}} <br>
               <strong>Business Type: </strong> {{businessType}} <br>
-              <strong>Safety Measures: </strong> <br>
+              <strong>Safety Measures: </strong> 
+              <span *ngFor="let safetyMeasure of safetyMeasureList">
+                <span>{{safetyMeasure}}</span>
+              </span>
+              <br>
             </p>
           </div>
 
