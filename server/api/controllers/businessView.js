@@ -37,6 +37,8 @@ const getAllBusiness = function (req, res) {
                 let singleUser = {};
                 singleUser["businessType"] = users[i].businessType;
                 singleUser["id"] = users[i]._id;
+                singleUser["location"] = users[i].location;
+                singleUser["businessName"] = users[i].businessName;
                 myUsers.push(singleUser);
             }
             return res.status(200).json({ myUsers });

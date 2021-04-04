@@ -6,6 +6,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AdmService } from '../services/adm-services/adm.service';
 import { DataService } from '../services/data-services/data.service';
 
 @Component({
@@ -26,7 +27,12 @@ export class BusinessUserViewComponent implements OnInit {
   totalCases: number = 0;
   totalCases30Days: number = 0;
 
-  constructor(public data: DataService, public router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(public data: DataService, public router: Router, private activatedRoute: ActivatedRoute, public adm: AdmService) {
+
+    
+  }
+
+  ngOnInit(): void {
 
     let id = this.activatedRoute.snapshot.paramMap.get('id');
     this.data.getUserView(id)
@@ -37,10 +43,12 @@ export class BusinessUserViewComponent implements OnInit {
           this.businessAddress = data.user.location;
           this.businessWebsite = data.user.loginId;
           this.businessType = data.user.businessType;
-        })
-  }
 
-  ngOnInit(): void {
+          this.adm.searchUserCases({name: data.user.businessName}).subscribe(caseData => {
+            this.totalCases= caseData.cases.length;
+          });
+
+        })
 
     safetyMeasures: new FormGroup({
       title: new FormControl('', [Validators.required]),
@@ -52,7 +60,8 @@ export class BusinessUserViewComponent implements OnInit {
       description: "safety Measure Description"
     }
 
-    this.safetyMeasureList.push(safetyMeasure)
+    this.safetyMeasureList.push(safetyMeasure);
+
 
   }
 }  

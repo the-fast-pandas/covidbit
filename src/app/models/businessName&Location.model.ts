@@ -3,5 +3,11 @@
 
 export interface BusinessNameandLocation {
     name: String;
+    businessType: String;
     location: String;
+    lat: number; 
+    lng: number;
+    id: String;
+    cases: number;
+    animation: any;
 }

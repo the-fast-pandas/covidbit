@@ -8,6 +8,7 @@ import { BusinessName } from '../models/businessName.model';
 import { ApiService } from '../services/api-covid-services/api.service';
 import { DataService } from '../services/data-services/data.service';
 import { BusinessNameandLocation } from '../models/businessName&Location.model';
+import { number } from 'echarts';
 
 
 @Component({
@@ -18,7 +19,6 @@ import { BusinessNameandLocation } from '../models/businessName&Location.model';
 
 
 export class TrackerMapComponent implements OnInit {
-  [x: string]: any;
 
   //BusinessName Form Group
   businessSearch: FormGroup = new FormGroup({});
@@ -29,15 +29,16 @@ export class TrackerMapComponent implements OnInit {
 
   //map
   title: string = 'COVIDBIT project';
-  lat!: number
-  lng!: number
+  lat!: any
+  lng!: any
   latTest: number = 43.8563158
   lngTest: number = -79.5085383
   zoom: number = 10;
   mapMarkers: Array<any> = [];
-  markerInfo: BusinessNameandLocation = {name: '', location: ''};
+  markerInfo!: BusinessNameandLocation
 
   businessNameDB: BusinessName = { name: '' };
+  businessNameSearch: BusinessName = { name: '' };
   locationToBeSearched: String = '';
   searchedBusinessID: String = '';
 
@@ -49,47 +50,28 @@ export class TrackerMapComponent implements OnInit {
   cardBusinessLocation: String = ''; 
   foundBusinessCases: Array<any> = [];
 
+  markers: BusinessNameandLocation[] = [];
+  mapMarkerCaseCount!: number;
+  userLocationMarkerAnimation: any = 'DROP';
+  validSearch = false;
+  indexToChange!: number
 
-  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, public adm: AdmService, private apiService: ApiService, public searchService: DataService) {}
+  @ViewChild('infoWindow') markerInfoWindow;
+
+
+  constructor(public adm: AdmService, private apiService: ApiService, public searchService: DataService) {}
 
   ngOnInit() {
 
-    this.adm.searchBusinessNameLocationAdm(this.businessNameDB).subscribe(    
+    this.searchService.getAllBusiness().subscribe(    
       data => {
-        console.log(data);
+        // console.log(data);
+        this.initializeMapMarkers(data);
       });
 
     this.lat = 43.795246;
     this.lng = -79.3499;
     this.cardBusinessName = "COVIDBIT";
-
-    this.searchSB = [
-      {
-        "ID": 1,
-        "businessName": "CN Tower",
-        "businessLocation": "290 Bremner Blvd",
-        "category": "Entertainment",
-        "cases": 0,
-        "employees": "100"
-      },
-      {
-        "ID": 2,
-        "businessName": "Queen Street Warehouse",
-        "businessLocation": "232 Queen St W",
-        "category": "Restaurant",
-        "cases": 10,
-        "employees": "10-50"
-      },
-      {
-        "ID": 3,
-        "businessName": "Maha's Egyptian Brunch",
-        "businessLocation": "226 Greenwood Ave",
-        "category": "Restaurant",
-        "cases": 2,
-        "employees": "1-10"
-      }
-
-    ]
 
     this.businessSearch = new FormGroup({
       businessName: new FormControl('', [Validators.required]),
@@ -98,85 +80,97 @@ export class TrackerMapComponent implements OnInit {
   
 }
 
-  onSubmit(){
-    //Check if Business Name Entered Is in the Database
-    this.adm.searchBusinessNameLocationAdm(this.businessNameDB).subscribe(
-      data => {
-        console.log(data);
+  onSubmit() {
 
-        //Get Business Location and Store it
-        this.getBusinessLocation(data);
+    let searchedBusiness = this.markers.find(e => e.name === this.businessSearch.get('businessName')?.value);
+    // console.log(searchedBusiness);
 
-        //Get Lat and Long of Business' Address 
-        this.apiService.getLocationCoords(this.locationToBeSearched).subscribe((data) => {
-          
-          //Set Lat and Long of google map
-          this.getCoords(data)
-
-        })
-      
-        //Get Business Info for Map Marker Information Card
-        this.searchService.getMapInfo(this.searchedBusinessID).subscribe((data) => {
-          console.log(data);
-          this.setMapInfoCard(data);
-          this.endpoint = `http://localhost:4200/business-user-view/${this.searchedBusinessID}`
-        })
-
-      }
-    );
-
-    this.adm.searchUserCases(this.businessNameDB).subscribe(data => {
-      console.log(data);
-      this.getCases(data);
-      console.log(this.foundBusinessCases);
-    });
-
-  }
-
-  //Set Business Location 
-  getBusinessLocation(data: any) {
-    for (let i = 0; i < data.myUsers.length; i++) {
-
-      if (data.myUsers[i].businessName == this.businessSearch.get('businessName')?.value) {
-        this.locationToBeSearched = data.myUsers[i].location;
-        this.searchedBusinessID = data.myUsers[i]._id;
-      }
-
-    }
-  }
-
-  getCases(data: any) {
-    for (let i = 0; i < data.cases.length; i++) {
-
-      if (data.cases[i].businessName == this.businessSearch.get('businessName')?.value) {
-        this.foundBusinessCases.push(data.cases[i]);
-      }
-
-    }
-  }
-
-  //Set Coordinates for Google Map based on Business' Address
-  getCoords(data: any) {
-    for (let i = 0; i < data.results.length; i++) {
-
-      console.log(data.results[0].geometry.location.lat);
-      console.log(data.results[0].geometry.location.lng);
-
-      this.lat = data.results[0].geometry.location.lat;
-      this.lng = data.results[0].geometry.location.lng;
+    if (this.businessSearch.get('businessName')?.value === searchedBusiness?.name) {
+      this.validSearch = false;
+      this.lat = searchedBusiness?.lat;
+      this.lng = searchedBusiness?.lng;
       this.zoom = 12;
 
+      let foundIndex = this.markers.findIndex(x => x.id == searchedBusiness?.id);
+      this.markers[foundIndex].animation = 'BOUNCE';
+
+      function quickChange(index, array){
+        array[index].animation = 'DROP';
+      }
+
+      setTimeout(quickChange, 2000, foundIndex, this.markers);
+
+      
+
+    } else {
+      this.validSearch = true;
+    }
+
+  }
+
+  initializeMapMarkers(data: any){
+     for (let i = 0; i < data.myUsers.length; i++) {
+       
+      let newMarker = {} as BusinessNameandLocation;
+
+      //Set Business Info
+      newMarker.name = data.myUsers[i].businessName;
+      newMarker.location = data.myUsers[i].location;
+      newMarker.businessType = data.myUsers[i].businessType;
+      newMarker.id = data.myUsers[i].id;
+      newMarker.animation = 'DROP';
+
+      //Make Call to Google API to get Coords of the businesses location/address
+      this.apiService.getLocationCoords(data.myUsers[i].location).subscribe((geoInfo) => {
+          
+      //Set Lat and Long of google map to businesses map marker lat and lng
+       newMarker.lat = this.setMarkerLat(geoInfo);
+       newMarker.lng = this.setMarkerLng(geoInfo)
+
+      })
+
+      //Set Businesses Map Marker Case Count
+     let toBeSearched = {name: data.myUsers[i].businessName}
+
+     this.adm.searchUserCases(toBeSearched).subscribe(caseData => {
+      // console.log(caseData);
+      newMarker.cases = caseData.cases.length;
+    });
+    
+    
+
+      //Add Map Marker to Marker Array
+      this.markers.push(newMarker);
+
+     }
+
+     console.log(this.markers);
+
+  }
+
+  //Map Marker Helper Functions
+  setMarkerLat(coordsData: any) {
+    for (let i = 0; i < coordsData.results.length; i++) {
+      return coordsData.results[0].geometry.location.lat;
     }
   }
 
-  setMapInfoCard(data: any){
-    this.cardBusinessName = data.foundBusiness.businessName;
-    this.cardBusinessLocation = data.foundBusiness.location;
-    this.cardBusinessType = data.foundBusiness.businessType;
-    this.cardCertification = data.foundBusiness.certification;
+  setMarkerLng(coordsData: any) {
+    for (let i = 0; i < coordsData.results.length; i++) {
+       return coordsData.results[0].geometry.location.lng;
+    }
   }
 
-  //calendar   
-  date = new Date();
+   markerOver(m: BusinessNameandLocation) {
+    m.animation = 'BOUNCE';
+  }
+
+  markerOut(m: BusinessNameandLocation) {
+    m.animation = '';
+  }
+
+  changeAnimation(index: number) {
+    this.markers[this.indexToChange].animation = 'DROP';
+  }
 
 }

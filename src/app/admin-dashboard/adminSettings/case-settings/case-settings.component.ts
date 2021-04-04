@@ -32,8 +32,8 @@ export class CaseSettingsComponent implements OnInit {
   businessName: BusinessName = { name: '' };
 
   // Check boolean
-  displayCaseList: Boolean = false;
-  searchCheck: Boolean = false
+  displayCaseList = false;
+  searchCheck = false
   checked: Boolean = false;
   alertCaseRemoved: Boolean = false;
   alertCaseAdded: Boolean = false;
