@@ -1,8 +1,15 @@
+// Server - CovidBit - Fast Pandas
+// Created: 20, MArch, 2021, Yevgeniya Anasheva
+
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
+import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+// Local Services
 import { DataService } from '../../services/data-services/data.service';
 import { AuthService } from '../../services/auth-services/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { SafetyMeasures } from '../../models/safetyMeasures.model';
+import * as myGlobals from '../../globals';
 
 @Component({
   selector: 'app-certification-form',
@@ -11,22 +18,27 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class CertificationFormComponent implements OnInit {
 
+  // From Group
   userCredentials: FormGroup = new FormGroup({});
-  safetyMeasureList: any = [];
-  acceptedGuidelines: Boolean = false;
 
   // Form Variables
-  id: String = "";
-  businessName: String = 'What is your name?';
-  firstName: String = 'James';
-  lastName: String = 'Bond';
-  businessLocation: String = 'Where are you?';
-  businessPhone: String = 'Add a Phone';
-  email: String = 'myemail@host.com.ca';
-  webSite: String = 'to be added';
-  businessType: String = 'Type of Business';
+  id: String = myGlobals.emptyField;
+  businessName: String = myGlobals.emptyField;
+  firstName: String = myGlobals.emptyField;
+  lastName: String = myGlobals.emptyField;
+  businessLocation: String = myGlobals.emptyField;
+  businessPhone: String = myGlobals.emptyField;
+  email: String = myGlobals.emptyField;
+  webSite: String = myGlobals.emptyField;
+  businessType: String = myGlobals.emptyField;
 
-  constructor(public auth: AuthService, public router: Router, public data: DataService, private activatedRoute: ActivatedRoute) { 
+  // Alert Control
+  acceptedGuidelines: Boolean = false;
+
+  safetyMeasureList: Array<SafetyMeasures> = [];
+  safetyMeasure: SafetyMeasures = { title: myGlobals.emptyField, description: myGlobals.emptyField , confirmed: myGlobals.emptyField}
+
+  constructor(public auth: AuthService, public router: Router, public data: DataService, private activatedRoute: ActivatedRoute, private location: Location) { 
     let id = this.activatedRoute.snapshot.paramMap.get('id');
     this.data.getUserView(id)
       .subscribe(
@@ -42,13 +54,7 @@ export class CertificationFormComponent implements OnInit {
         })
   }
 
-  onSubmit(): void {
-    console.log(this.userCredentials.value);
-    this.auth.addCertification(this.userCredentials.value, this.id);
-  }
-  
   ngOnInit(): void {
-
     this.userCredentials = new FormGroup({
       guidelines: new FormGroup({
         acceptedGuidelines: new FormControl('', [Validators.required])
@@ -60,15 +66,19 @@ export class CertificationFormComponent implements OnInit {
     })
   }
 
-  onAddMeasure() {
+  onSubmit(): void {
+    this.auth.addCertification(this.userCredentials.value, this.id);
+  }
 
-    const safetyMeasure = {
-      title: this.userCredentials.get('safetyMeasures.title')?.value,
-      description: this.userCredentials.get('safetyMeasures.description')?.value
-    }
-    this.safetyMeasureList.push(safetyMeasure);
-    this.userCredentials.get('safetyMeasures.title')?.reset()
-    this.userCredentials.get('safetyMeasures.description')?.reset()
+  backClicked() {
+    this.location.back();
+  }
+
+  acceptGuidelines() {
+    if(this.acceptedGuidelines)
+      this.acceptedGuidelines = false;
+    else
+      this.acceptedGuidelines = true;
   }
 
 }

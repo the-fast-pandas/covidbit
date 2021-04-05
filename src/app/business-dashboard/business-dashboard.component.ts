@@ -3,28 +3,14 @@
 // Modified: 25, February, 2021, Teresa Costa: backend integration
 
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms'
+import { Validators, FormControl, FormGroup } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
+// Local Services
 import { DataService } from '../services/data-services/data.service';
 import { AuthService } from '../services/auth-services/auth.service';
-import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme'
-import { AddCaseComponent } from './add-case/add-case.component';
-import { TableCasesComponent } from './table-cases/table-cases.component';
-import { EditCaseComponent } from './edit-case/edit-case.component';
+import { SafetyMeasures } from '../models/safetyMeasures.model';
+import * as myGlobals from '../globals';
 
-
-// http://localhost:4200/business-dashboard/:6021f5ef579ec8fa794be159
-interface Case {
-  dateReported: string;
-  status: string;
-  gender: string;
-  age: number;
-  acquisition: string;
-  items?: number;
-}
-interface TreeNode<T> {
-  data: T;
-}
 @Component({
   selector: 'app-business-dashboard',
   templateUrl: './business-dashboard.component.html',
@@ -32,84 +18,51 @@ interface TreeNode<T> {
 })
 
 export class BusinessDashboardComponent implements OnInit {
-  
+
   //Form Groups
   safetyMeasures: FormGroup = new FormGroup({});
-  safetyMeasureList: any = [];
-  caseReported: FormGroup = new FormGroup({});
-  caseReportedList: FormGroup = new FormGroup({});
-  private fb: FormBuilder = new FormBuilder();
-  dateControl = new FormControl(new Date());
 
   // Business Profile Form Variables
-  id: String = "";
-  businessName: String = '';
-  firstName: String = '';
-  lastName: String = '';
-  businessLocation: String = '';
-  businessPhone: String = '';
-  email: String = '';
-  webSite: String = '';
-  businessType: String = '';
+  businessName: String = myGlobals.emptyField;
+  businessPhone: String = myGlobals.emptyField;
+  businessAddress: String = myGlobals.emptyField;
+  webSite: String = myGlobals.emptyField;
+  businessType: String = myGlobals.emptyField;
+  id: String = myGlobals.emptyField;
+  firstName: String = myGlobals.emptyField;
+  lastName: String = myGlobals.emptyField;
+  businessLocation: String = myGlobals.emptyField;
+  email: String = myGlobals.emptyField;
+  certification: boolean = false;
+
+  // Alert Control
   searchCheck: Boolean = false;
   displayList: Boolean = false;
 
-  // Reported Case Form Variables
-  case = {
-    dateReported: '',
-    status: '',
-    gender: '',
-    acquisition: '',
-    age: 1,
-  }
+  safetyMeasureList: Array<SafetyMeasures> = [];
+  safetyMeasure: SafetyMeasures = { title: myGlobals.emptyField, description: myGlobals.emptyField, confirmed: myGlobals.emptyField }
+  safetyIdList: Array<String> = [];
+  itemsToRemove: Array<SafetyMeasures> = [];
 
-  // Acquisition options Array
-  acquisitionType = [
-    {name: 'Travel'},
-    {name: 'Workplace Outbreak'},
-    {name: 'Close Contact'},
-    {name: 'Local Transmission'},
-    {name: 'Institutional Outbreak'},
-    {name: 'Unknown'},
-  ];
-  // Case Status options Array
-  statusType = [
-    {name: 'Under Investigation'},
-    {name: 'Recovered'},
-    {name: 'Self-Isolating'},
-    {name: 'Hospitalized'},
-    {name: 'Deceased'},
-    {name: 'Hospitalized-ICU'},
-  ];
-  // Gender options Array
-  genderType = [
-    {name: 'Male'},
-    {name: 'Female'},
-    {name: 'Prefer not to say'},
-  ];
-
-  safetyMeasuresList = [
-    {title: 'safety measures 1', description: 'safety measures 1'},
-    {title: 'safety measures 2', description: 'safety measures 2'},
-    {title: 'safety measures 3', description: 'safety measures 3'},
-  ]
-  
   constructor(public dataS: DataService, public router: Router, private activatedRoute: ActivatedRoute, public auth: AuthService) {
-    let id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.dataS.getUserView(id)
-      .subscribe(
-        data => {
-          this.id = data.user._id;
-          this.businessName = data.user.businessName;
-          this.firstName = data.user.firstName;
-          this.lastName = data.user.lastName;
-          this.businessPhone = data.user.phoneNumber;
-          this.businessLocation = data.user.location;
-          this.email = data.user.loginId;
-          this.businessType = data.user.businessType;
-          this.webSite = data.user.website;
-          this.safetyMeasureList = data.user.safetyMeasures;
-        })
+    this.id = this.activatedRoute.snapshot.paramMap.get('id') || myGlobals.emptyField;
+    this.dataS.getUserView(this.id).subscribe(
+      user => {
+        this.id = user.user._id;
+        this.businessName = user.user.businessName;
+        this.firstName = user.user.firstName;
+        this.lastName = user.user.lastName;
+        this.businessPhone = user.user.phoneNumber;
+        this.businessLocation = user.user.location;
+        this.email = user.user.loginId;
+        this.businessType = user.user.businessType;
+        this.webSite = user.user.website;
+        this.certification = user.user.certification;
+        this.dataS.getAllSafety().subscribe(
+          safety => {
+            this.getSafety(safety);
+          })
+      })
   }
 
   ngOnInit(): void {
@@ -117,20 +70,25 @@ export class BusinessDashboardComponent implements OnInit {
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required])
     });
-    this.caseReported = new FormGroup({
-      dateReported: new FormControl('', [Validators.required]),
-      status: new FormControl('', [Validators.required]),
-      acquisition: new FormControl('', [Validators.required]),
-      gender: new FormControl('', [Validators.required]),
-      age: new FormControl('', [Validators.required, Validators.min(1), Validators.max(110) ]),
-    });
+  }
+
+  getSafety(data: any) {
+    for (let i = 0; i < Object.keys(data.safeties).length; i++) {
+      if (this.id === data.safeties[i].businessId) {
+        this.safetyMeasure["title"] = data.safeties[i].title;
+        this.safetyMeasure["description"] = data.safeties[i].title;
+        this.safetyMeasureList.push(this.safetyMeasure);
+        this.safetyIdList.push(data.safeties[i]._id);
+      }
+    }
   }
 
   // ADD Safety Measure
   onAddMeasure() {
     const safetyMeasure = {
       title: this.safetyMeasures.get('title')?.value,
-      description: this.safetyMeasures.get('description')?.value
+      description: this.safetyMeasures.get('description')?.value,
+      confirmed: ""
     }
     this.safetyMeasureList.push(safetyMeasure);
     this.auth.addSafety(safetyMeasure, this.id);
@@ -138,35 +96,31 @@ export class BusinessDashboardComponent implements OnInit {
     this.safetyMeasures.get('description')?.reset();
   }
 
-  itemsToRemove: any = [];
-  selectedItems(i){
-    let obj = this.safetyMeasuresList[i];
+
+  selectedItems(index: any) {
+    let obj = this.safetyMeasureList[index];
     this.itemsToRemove.push(obj);
-    console.log(this.itemsToRemove);
-  }
-  // DELETE Safety Measure
-  onDeleteMeasure(){
-    for (let i = 0 ; i<this.safetyMeasureList.length; i++){
-      for (let x=0; x<this.selectedItems.length; x++){
-        if(this.selectedItems[x]===this.safetyMeasureList[i]){
-          this.safetyMeasureList.splice(i,1);
-        }
-      }
-    } console.log(this.safetyMeasureList);
   }
 
+  // DELETE Safety Measure
+  onDeleteMeasure() {
+    for (let i = 0; i < this.safetyMeasureList.length; i++) {
+      for (let x = 0; x < this.itemsToRemove.length; x++) {
+        if (this.itemsToRemove[x] !== undefined) {
+          if (this.itemsToRemove[x].title === this.safetyMeasureList[i].title &&
+            this.itemsToRemove[x].description === this.safetyMeasureList[i].description) {
+            this.auth.deleteSafety(this.safetyIdList[i]).subscribe(
+              data => { this.safetyMeasureList.splice(i, 1); }
+            )
+          }
+        }
+      }
+    }
+  }
 
   tabReset() {
     this.displayList = false;
     this.searchCheck = false;
   }
 
-  // Table settings
-  allColumns = [ 'dateReported', 'status', 'acquisition', 'gender', 'age'];
-
-  data: TreeNode<Case>[] = [
-    {
-      data: { dateReported: 'Mar 13, 2021', status: 'Under Investigation', gender: 'Male',  age: 45, acquisition: 'Workplace Outbreak'},
-    },
-  ];
 }

@@ -1,7 +1,8 @@
 // Server - CovidBit - Fast Pandas
-// LOGIN for small business user
+//loginForm for small business user
 // Created: 03, February, 2021, Teresa Costa
 
+// Security
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
@@ -11,7 +12,7 @@ const SmallBusiness = require('../schema/smallBusiness');
 const emailService = require('../models/emailService/emailForgotPassword');
 const Administrator = require('../schema/administrator');
 
-// Controls the login for a business user
+// Controls theloginForm for a business user and administrator
 const loginUser = function (req, res) {
     const { email, password } = req.body;
     if (email === "admin@myAdmin.ca") {
@@ -24,15 +25,14 @@ const loginUser = function (req, res) {
             }
             if (admin) {
                 if (password == admin.password) {
-                    const payload = { admin: { id: admin.id } };
-                    const adminToken = jwt.sign(payload, process.env.SECRET_ADMIN, { expiresIn: '200m' });
+                    const payload = { "id": admin.id };
+                    const adminToken = jwt.sign(payload, process.env.SECRET_ADMIN, { noTimestamp: true, expiresIn: '200m' });
                     return res.status(200).json({ adminToken, admin });
-                } else {
-                    return res.status(401).json({ message: "Incorrect Password!" });
                 }
+                return res.status(401).json({ message: "Incorrect Password!" });
+
             }
         })
-
     } else {
         SmallBusiness.findOne({ "loginId": email }, function (error, user) {
             if (error) {

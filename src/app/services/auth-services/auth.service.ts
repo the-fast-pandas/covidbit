@@ -1,14 +1,16 @@
 // Server - CovidBit - Fast Pandas
 // Created: 08, February, 2021, Teresa Costa
-// Changed: 03, March, 2021, Teresa Costa: added authentication for administrator
 
 import { Injectable } from '@angular/core';
-import { LoginCredentials } from '../../models/logincredentials.model';
-import { SmallBusiness } from '../../models/smallBusiness.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+// Local services
+import { LoginCredentials } from '../../models/logincredentials.model';
+import { SafetyMeasures } from '../../models/safetyMeasures.model';
+import { SmallBusiness } from '../../models/smallBusiness.model';
+import { DataService } from '../data-services/data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,7 @@ import { map } from 'rxjs/operators';
 
 export class AuthService {
   endpoint: string = 'http://localhost:2000/api';
-  headers  = new HttpHeaders({
+  headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -24,90 +26,64 @@ export class AuthService {
     'Access-Control-Allow-Headers': 'Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization'
   });
 
+  constructor(private http: HttpClient, public router: Router, public data: DataService) { }
 
-  constructor(private http: HttpClient, public router: Router) { }
-
-  // Business User Registration
-  registerUser(user: SmallBusiness, registeredBy: Boolean) {
+  // Business User Registration (Administrator/ New Business User)
+  registrationForm(user: SmallBusiness, safetyMeasures: Array<SafetyMeasures>, registeredBy: Boolean) {
     user.registeredBy = registeredBy;
     const api = `${this.endpoint}/registration-form`;
-    return this.http.post<any>(api, user)
-      .subscribe(
-        (data: SmallBusiness) => {
-          if (registeredBy == true) {
-            this.router.navigate(['admin-dashboard']);
-          } else {
-            this.router.navigate(['login-form']);
-          }
-        },
-        (error: any) => {
-          if (registeredBy == true) {
-            window.alert("Registration of new user not Allowed!");
-            this.router.navigate(['admin-dashboard']);
-          } else {
-            this.router.navigate(['registration-form']).then(() => {
-              localStorage.setItem('server_warning', 'true');
-              window.location.reload();
-            });
-          }
+    return this.http.post<any>(api, { user, safetyMeasures }).subscribe(
+      (data: SmallBusiness) => {
+        if (registeredBy == true) {
+          this.router.navigate(['admin-dashboard']);
+        } else {
+          this.router.navigate(['login-form']);
         }
-      )
+      },
+      (error: any) => {
+        if (registeredBy == true) {
+          window.alert("Registration of new user not Allowed!");
+          this.router.navigate(['admin-dashboard']);
+        } else {
+          this.router.navigate(['registration-form']).then(() => {
+            localStorage.setItem('server_warning', 'true');
+            window.location.reload();
+          });
+        }
+      }
+    )
   }
 
-
-  // Business user/Administrator login
-  logIn(user: LoginCredentials) {
+  // Business user/Administrator login Form
+  loginForm(user: LoginCredentials) {
     const api = `${this.endpoint}/login-form`;
-    return this.http.post<any>(api, user).pipe()
-      .subscribe(
-        (data: any) => {
-          if (data.admin !== undefined && data.admin.loginId === "admin@myAdmin.ca") {
-            localStorage.removeItem('access_token');
-            localStorage.setItem('admin_token', data.adminToken);
-            this.router.navigate(['/admin-dashboard']).then(() => {
-              window.location.reload();
-            });
-          }else{
+    return this.http.post<any>(api, user).pipe().subscribe(
+      (data: any) => {
+        if (data.admin !== undefined && data.admin.loginId === "admin@myAdmin.ca") {
+          localStorage.removeItem('access_token');
+          localStorage.setItem('admin_token', data.adminToken);
+          this.router.navigate(['/admin-dashboard']).then(() => {
+            window.location.reload();
+          });
+        } else {
           localStorage.setItem('access_token', data.accessToken);
           localStorage.setItem('name_header', data.user.businessName);
           localStorage.setItem('business_id', data.user._id);
-          this.getUserDashboard(data.user._id)
+          this.data.getUserView(data.user._id)
             .subscribe(
               data => {
                 this.router.navigate(['/business-dashboard/' + data.user._id]);
-              })
-            }
-        },
-        (error: any) => {
-          this.router.navigate(['login-form']).then(() => {
-            localStorage.setItem('server_warning', 'true');
-            window.location.reload();
-          });;
+              }
+            )
         }
-      )
-  }
-
-  // Business User Logout
-  doLogout() {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('admin_token');
-    localStorage.removeItem('name_header');
-    localStorage.removeItem('business_id');
-    this.router.navigate(['login-form']);
-  }
-
-  // Get business user Dashboard
-  getUserDashboard(id: any): Observable<any> {
-    const api = `${this.endpoint}/business-dashboard/${id}`;
-    return this.http.get<any>(api, { headers: this.headers }).pipe(
-      map(
-        data => {
-          return data;
-        },
-        (error: any) => {
-          this.router.navigate(['login-form']);
-        }
-      ))
+      },
+      (error: any) => {
+        this.router.navigate(['login-form']).then(() => {
+          localStorage.setItem('server_warning', 'true');
+          window.location.reload();
+        });;
+      }
+    )
   }
 
   // Edit the Business Profile
@@ -142,13 +118,22 @@ export class AuthService {
 
   // Retrieve local storage
   getToken() {
-    return localStorage.getItem('access_token');
+    return localStorage.getItem('access_token') || localStorage.getItem('admin_token');
   }
   getBusinesName() {
     return localStorage.getItem('name_header');
   }
-  getId(){
+  getId() {
     return localStorage.getItem('business_id');
+  }
+
+  // Business User Logout
+  doLogout() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('admin_token');
+    localStorage.removeItem('name_header');
+    localStorage.removeItem('business_id');
+    this.router.navigate(['login-form']);
   }
 
   // Check if it is authenticated
@@ -173,6 +158,21 @@ export class AuthService {
         error => {
           console.log("It was not possible to add certification!");
         }
+      )
+  }
+
+  deleteSafety(id: String) {
+    const api = `${this.endpoint}/remove-safety`;
+    return this.http.post<String>(api, id)
+      .pipe(
+        map(
+          data => {
+            return data;
+          },
+          (error: any) => {
+            window.alert("No case to delete.");
+          }
+        )
       )
   }
 

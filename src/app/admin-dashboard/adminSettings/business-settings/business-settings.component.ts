@@ -12,6 +12,7 @@ import { AdmService } from '../../../services/adm-services/adm.service';
 // Models
 import { BusinessName } from '../../../models/businessName.model';
 import { Email } from '../../../models/email.model';
+import { SafetyMeasures } from '../../../models/safetyMeasures.model';
 import * as myGlobals from '../../../globals';
 
 @Component({
@@ -32,7 +33,7 @@ export class MapSettingsComponent implements OnInit {
 
   businessLocation = '';
   emailInvitation: Email = { email: '' };
-  businessName: BusinessName = { name: '' };
+  businessName: BusinessName = { name: 'empty' };
 
   // Check boolean
   alertBusinessCreated: Boolean = false;
@@ -43,6 +44,7 @@ export class MapSettingsComponent implements OnInit {
 
   namesList: Array<String> = [];
   idList: Array<String> = [];
+  safetyMeasures: Array<SafetyMeasures> = [];
 
   constructor(private formBuilder: FormBuilder, public auth: AuthService, public adm: AdmService) {
     this.businessList = this.formBuilder.group({
@@ -76,7 +78,7 @@ export class MapSettingsComponent implements OnInit {
 
   // (ngSubmit)
   addBusiness() {
-    this.auth.registerUser(this.businessCredentials.value, true);
+    this.auth.registrationForm(this.businessCredentials.value, this.safetyMeasures, true);
     this.alertBusinessCreated = true;
     this.businessCredentials.reset();
   }
@@ -114,8 +116,7 @@ export class MapSettingsComponent implements OnInit {
   // (ngSubmit)
   inviteBusiness() {
     this.emailInvitation.email = this.businessInvitation.get('emailInvitation')?.value;
-    console.log(this.emailInvitation)
-    this.adm.inviteUser(this.emailInvitation).subscribe(
+    this.adm.inviteNewUser(this.emailInvitation).subscribe(
       data => {
         this.alertBusinessInvitationSent = true;
         this.businessInvitation.reset();
@@ -127,7 +128,7 @@ export class MapSettingsComponent implements OnInit {
   searchForBusiness() {
     this.namesList = [];
     this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
-    this.adm.searchUserAdm(this.businessName).subscribe(
+    this.adm.getUserAdm(this.businessName).subscribe(
       data => {
         this.getNames(data);
         if (this.businessSearch.get('searchedBusiness')?.value == '') {
@@ -156,10 +157,10 @@ export class MapSettingsComponent implements OnInit {
   // Returns a list of names and a a list of correspondent ids
   getNames(data: any) {
     for (let i = 0; i < Object.keys(data).length; i++) {
-      if (data.myUsers[i] !== undefined) {
-        if (data.myUsers[i].businessName == this.businessSearch.get('searchedBusiness')?.value) {
-          this.namesList.push(data.myUsers[i].businessName);
-          this.idList.push(data.myUsers[i]._id);
+      if (data.users[i] !== undefined) {
+        if (data.users[i].businessName === this.businessSearch.get('searchedBusiness')?.value) {
+          this.namesList.push(data.users[i].businessName);
+          this.idList.push(data.users[i]._id);
         }
       }
     }

@@ -2,14 +2,17 @@
 // BUSINESS USER DASHBOARD
 // Created: 09, February, 2021, Teresa Costa
 
+// MongoDB Schemas
 const SmallBusiness = require('../schema/smallBusiness');
 const Cases = require('../schema/cases');
+const SafetyMeasures = require('../schema/safetyMeasures');
 
-// Returns information for a business user associated to an id
-const getUserDashboard = function (req, res) {
+// Gets a business user by id
+// Returns information for the business user
+const getUser = function (req, res) {
     SmallBusiness.findById(req.params.id, function (error, user) {
         if (error) {
-            throw error;
+            return res.status(404).json({ message: "Server error!" });
         }
         if (!user) {
             return res.status(401).json({ message: "This business does not exist!" });
@@ -20,11 +23,11 @@ const getUserDashboard = function (req, res) {
     })
 }
 
-// Business User can edit profile
-// Returns business user id
-const editUserProfile = function (req, res) {
-    let id = req.params.id;
-    let newvalues = {
+// Edits a business user profile by id
+// Returns the user id
+const editUser = function (req, res) {
+    const id = req.params.id;
+    const newvalues = {
         $set: {
             businessName: req.body.businessName,
             firstName: req.body.firstName,
@@ -38,7 +41,7 @@ const editUserProfile = function (req, res) {
     };
     SmallBusiness.updateOne({ "_id": id }, newvalues, function (error, user) {
         if (error) {
-            throw error;
+            return res.status(404).json({ message: "Server error!" });
         }
         if (!user) {
             return res.status(401).json({ message: "This business does not exist!" });
@@ -49,86 +52,60 @@ const editUserProfile = function (req, res) {
     })
 }
 
+// Adds a safety measure by business id
+// Returns the new safety meausre
 const addSafety = function (req, res) {
-    let id = req.params.id;
-    let mySafety = [];
-    SmallBusiness.findById(id, function (error, user) {
+    const { title, description } = req.body;
+    SmallBusiness.findById(req.params.id, function (error, user) {
         if (error) {
-            throw error;
+            return res.status(404).json({ message: "Server error!" });
         }
         if (!user) {
-            return res.status(401).json({ message: "This business does not exist!" });
+            return res.status(401).json({ message: "This business user does not exist!" });
         }
         if (user) {
-            let safety = {};
-            safety["title"] = req.body.title;
-            safety["description"] = req.body.description;
-            mySafety = user.safetyMeasures;
-            mySafety.push(safety);
-            let newvalues = { $set: { safetyMeasures: mySafety } };
-            SmallBusiness.updateOne({ "_id": id }, newvalues, function (error, user) {
-                if (error) {
-                    throw error;
-                }
-                if (!user) {
-                    return res.status(401).json({ message: "This business does not exist!" });
-                }
-                if (user) {
-                    return res.status(200).json({ id });
-                }
-            })
-        }
-    })
-}
+            const businessId = user._id;
 
-const addCases = function (req, res) {
-    let id = req.params.id;
-    SmallBusiness.findById(id, function (error, user) {
-        if (error) {
-            throw error;
-        }
-        if (!user) {
-            return res.status(401).json({ message: "This business does not exist!" });
-        }
-        if (user) {
-            let businessName = req.body.businessName;
-            let status = req.body.status;
-            let gender = req.body.gender;
-            let age = req.body.age;
-            let acquisition = req.body.acquisition;
-            newCase = new Cases({
-                id,
-                businessName,
-                status,
-                gender,
-                age,
-                acquisition
+            newSafety = new SafetyMeasures({
+                businessId,
+                title,
+                description
             });
-            newCase.save(function (error) {
+            newSafety.save(function (error) {
                 if (error) {
-                    throw error;
+                    return res.status(404).json({ message: "Server error!" });
                 }
-                return res.status(200).json({ newCase });
-            })
+                return res.status(200).json({ newSafety });
+            });
         }
     })
 }
 
+// Administrator can delete multiple users based on id
+// Returns an array of deleted users
+const deleteSafety = function (req, res) {
+    const idList = req.body;
+    SafetyMeasures.deleteMany({ '_id': { '$in': idList } }, function (error, safeties) {
+        if (error) {
+            return res.status(404).json({ message: "Server error!" });
+        }
+        if (!safeties) {
+            return res.status(401).json({ message: "This safety measure does not exist!" });
+        }
+        if (safeties) {
+            return res.status(200).json(safeties);
+        }
+    })
+}
 
-
-
-//DON'T FORGET TO EXPORT
 //method to submit
 const addCertification = function (req, res) {
-
     let id = req.params.id;
-
     let newvalues = {
         $set: {
             certification: true
         }
     };
-
     SmallBusiness.updateOne({ "_id": id }, newvalues, function (error, user) {
         if (error) {
             throw error;
@@ -142,4 +119,6 @@ const addCertification = function (req, res) {
     })
 }
 
-module.exports = { getUserDashboard, editUserProfile, addSafety, addCertification, addCases };
+
+
+module.exports = { getUser, editUser, addSafety, addCertification, deleteSafety };

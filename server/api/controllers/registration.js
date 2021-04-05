@@ -2,6 +2,7 @@
 // REGISTRATION for small business user
 // Created: 03, February, 2021, Teresa Costa
 
+// Security
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 // Nodemailer
@@ -12,13 +13,13 @@ const SmallBusiness = require('../schema/smallBusiness');
 const crypto = require('crypto');
 
 // Registration of a new business user
-const registerUser = function (req, res) {
+const registrationForm = function (req, res) {
 
-  let password, loginId, businessName, businessType, firstName, lastName, phoneNumber, location, safetyM;
+  let password, loginId, businessName, businessType, firstName, lastName, phoneNumber, location;
+  let safetyMeasures = [];
+  let registeredBy = req.body.registeredBy;
 
-  let registered = req.body.registeredBy;
-
-  if (registered == true) {
+  if (registeredBy == true) {
 
     password = 'fakefake';
     loginId = req.body.email;
@@ -28,13 +29,12 @@ const registerUser = function (req, res) {
     lastName = req.body.lastName;
     phoneNumber = req.body.businessPhone;
     location = req.body.businessLocation;
-    safetyM = [];
-    registeredBy = registered;
     resetPassword = crypto.randomBytes(64).toString('hex');
     resetPasswordExpires = Date.now() + 86400000;
 
   } else {
-    const { accountDetails, businessDetails, safetyMeasures } = req.body;
+    const { accountDetails, businessDetails } = req.body.user;
+  
     password = accountDetails.password;
     loginId = accountDetails.email;
     businessName = accountDetails.businessName;
@@ -43,12 +43,10 @@ const registerUser = function (req, res) {
     lastName = accountDetails.lastName;
     phoneNumber = businessDetails.businessPhone;
     location = businessDetails.businessLocation;
-    safetyM = safetyMeasures;
-    registeredBy = false;
+    safetyMeasures = req.body.safetyMeasures;
     resetPassword = "";
     resetPasswordExpires = "";
   }
-
   SmallBusiness.findOne({ "loginId": loginId }, function (error, user) { // checks if the user already exists
     if (error) {
       throw error;
@@ -66,7 +64,7 @@ const registerUser = function (req, res) {
         businessType,
         phoneNumber,
         location,
-        safetyM,
+        safetyMeasures,
         registeredBy
       });
       bcrypt.genSalt(saltRounds, function (error, salt) {  //sets password with hash
@@ -83,7 +81,7 @@ const registerUser = function (req, res) {
               if (error) {
                 throw error;
               }
-              if (registered) {
+              if (registeredBy == true) {
                 const userToken = 'http://localhost:4200/reset-password/' + resetPassword;
                 emailServiceAdm.emailRegistrationAdm('covidbitreg@gmail.com', newBusiness.businessName, userToken);
               } else {
@@ -113,4 +111,4 @@ const checkUser = function (req, res) {
   })
 }
 
-module.exports = { registerUser, checkUser };
+module.exports = { registrationForm, checkUser };

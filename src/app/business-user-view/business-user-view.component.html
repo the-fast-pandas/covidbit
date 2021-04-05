@@ -1,3 +1,6 @@
+<!-- Server - CovidBit - Fast Pandas
+     Created:  20, February, 2021, John Turkson-->
+
 <!-- Row One -->
 <div class="row">
   <div class="col-8">
@@ -42,7 +45,6 @@
         </div>
       </nb-card-body>
     </nb-card>
-
   </div>
 
   <!-- safety Measures List Card -->
@@ -56,7 +58,6 @@
         </nb-accordion-item>
       </nb-accordion>
     </nb-card>
-
   </div>
 </div>
 
@@ -85,8 +86,10 @@
   </div>
   <div class="col-4">
     <nb-card>
-      <nb-card-header><h5>Reviews</h5>
-        <a href routerLink="/review" routerLinkActive="active">Add a review</a></nb-card-header>
+      <nb-card-header>
+        <h5>Reviews</h5>
+        <a href routerLink="/review/{{id}}" routerLinkActive="active">Add a review</a>
+      </nb-card-header>
       <nb-card-body class="icon-container">
       </nb-card-body>
     </nb-card>

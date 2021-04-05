@@ -16,8 +16,8 @@ import { TermsComponent } from './static-pages/terms/terms.component';
 import { NewPasswordComponent } from './login-form/new-password/new-password.component';
 import { ResetPasswordComponent } from './login-form/reset-password/reset-password.component';
 
-import { ReviewComponent } from './review/review.component';
-import { ReviewConfirmationComponent } from './review/review-confirmation/review-confirmation.component';
+import { ReviewComponent } from './business-user-view/review/review.component';
+import { ReviewConfirmationComponent } from './business-user-view/review/review-confirmation/review-confirmation.component';
 
 import { AboutUsComponent } from './static-pages/about-us/about-us.component';
 
@@ -86,7 +86,7 @@ const routes: Routes = [
     component: TrackerMapComponent
   },
   {
-    path: 'review',
+    path: 'review/:id',
     component: ReviewComponent
   },
   {

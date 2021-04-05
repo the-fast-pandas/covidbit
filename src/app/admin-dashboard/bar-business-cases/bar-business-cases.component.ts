@@ -32,12 +32,12 @@ export class BarBusinessCasesComponent implements OnInit {
 
   constructor(public data: DataService) {
     this.data.getAllBusiness().subscribe(
-      users => {
-        this.getDate(users.myUsers, this.monthListBusiness);
+      myUsers => {
+        this.getDate(myUsers.users, this.monthListBusiness);
         this.count(this.monthListBusiness, this.chartCountBusiness);
         this.data.getAllCases().subscribe(
-          cases => {
-            this.getDate(cases.myCases, this.monthListCases);
+          myCases => {
+            this.getDate(myCases.cases, this.monthListCases);
             this.count(this.monthListCases, this.chartCountCases);
             this.getLabels();
             this.getGraph();
@@ -71,9 +71,11 @@ export class BarBusinessCasesComponent implements OnInit {
   // Gets the months (last three for cases and Business)
   getDate(typeData: any, myList: Array<number>) {
     for (let i = 0; i < Object.keys(typeData).length; i++) {
-      let date = new Date(parseInt(typeData[i].id.substring(0, 8), 16) * 1000);
-      if (date > this.initialDate) {
-        myList.push(date.getMonth());
+      if (typeData[i]._id !== undefined) {
+        let date = new Date(parseInt(typeData[i]._id.substring(0, 8), 16) * 1000);
+        if (date > this.initialDate) {
+          myList.push(date.getMonth());
+        }
       }
     }
   }

@@ -1,3 +1,5 @@
+// Controls the modules from Primeng, responsable for the graphs
+
 import { NgModule } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';

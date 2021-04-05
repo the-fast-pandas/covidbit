@@ -1,12 +1,14 @@
 // Server - CovidBit - Fast Pandas
-// Created:                2021, John T
+// Created:  01, February, 2021, John Turkson
 // Modified: 08, February, 2021, Teresa Costa: backend integration (checks database for user, registeres a new user in database)
 
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms'
+import { Router } from '@angular/router';
+// Local Services
 import { AuthService } from '../services/auth-services/auth.service';
 import { DataService } from '../services/data-services/data.service';
-import { Router } from '@angular/router';
+import { SafetyMeasures } from '../models/safetyMeasures.model';
 import * as myGlobals from '../globals';
 
 @Component({
@@ -17,20 +19,23 @@ import * as myGlobals from '../globals';
 
 export class RegistrationFormComponent implements OnInit {
 
-  // Error warnings
+  // Alert Control
   alert: Boolean = false;
   serverWarning: Boolean = false;
 
   //Business Types Array
   businessTypes = myGlobals.categories;
 
-  //Form Groups
+  //Form Group
   userCredentials: FormGroup = new FormGroup({});
-  businessLocation = '';
-  safetyMeasureList: any = [];
+
+  businessLocation: String = myGlobals.emptyField;
+
+  safetyMeasures: Array<SafetyMeasures> = [];
+  safetyMeasure: SafetyMeasures = { title: myGlobals.emptyField, description: myGlobals.emptyField , confirmed: myGlobals.emptyField}
 
   constructor(public auth: AuthService, public router: Router, public data: DataService) {
-    if (localStorage.getItem('server_warning') === 'true') { 
+    if (localStorage.getItem('server_warning') === 'true') {
       this.serverWarning = true;
     }
   }
@@ -59,7 +64,7 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.auth.registerUser(this.userCredentials.value, false);
+    this.auth.registrationForm(this.userCredentials.value, this.safetyMeasures, false);
   }
 
   checkRegistrationForm() {
@@ -84,11 +89,9 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onAddMeasure() {
-    let safetyMeasure = {
-      title: this.userCredentials.get('safetyMeasures.title')?.value,
-      description: this.userCredentials.get('safetyMeasures.description')?.value
-    }
-    this.safetyMeasureList.push(safetyMeasure);
+    this.safetyMeasure.title = this.userCredentials.get('safetyMeasures.title')?.value;
+    this.safetyMeasure.description = this.userCredentials.get('safetyMeasures.description')?.value;
+    this.safetyMeasures.push(this.safetyMeasure);
     this.userCredentials.get('safetyMeasures.title')?.reset()
     this.userCredentials.get('safetyMeasures.description')?.reset()
   }

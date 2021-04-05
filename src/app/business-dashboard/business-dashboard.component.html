@@ -74,7 +74,7 @@
           </nb-tab>
           <nb-tab tabTitle="Delete">
             <nb-select multiple placeholder="Multiple Select" >
-              <nb-option *ngFor="let type of safetyMeasuresList; index as i" [value]='type.title' (click)="selectedItems(i)">{{type.title}}</nb-option>
+              <nb-option *ngFor="let type of safetyMeasureList; index as i" [value]='type.title' (click)="selectedItems(i)">{{type.title}}</nb-option>
             </nb-select>
             <div>
               <button nbButton size="small" nbButton id="deleteMeasure" outline status="primary"

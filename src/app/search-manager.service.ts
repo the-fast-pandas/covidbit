@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BusinessSearch } from './search-widget/BusinessSearch';
+import { BusinessSearch } from './models/BusinessSearch';
 
 let perPage = 6;
 

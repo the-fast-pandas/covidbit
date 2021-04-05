@@ -40,10 +40,6 @@ const SmallBusinessSchema = mongoose.Schema({
     type: String,
     default: " "
   },
-  safetyMeasures: {
-    type: Array,
-    default: []
-  },
   certification: {
     type: Boolean,
     default: false,
@@ -60,7 +56,11 @@ const SmallBusinessSchema = mongoose.Schema({
   registeredBy:{
     type:Boolean,
     default: false
-  }
+  },
+  reviews: {
+    type: Array,
+    default: []
+  },
 });
 
 module.exports = mongoose.model('smallbusiness', SmallBusinessSchema, 'SmallBusiness');

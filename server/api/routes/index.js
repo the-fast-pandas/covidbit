@@ -19,17 +19,20 @@ router.get("/status", function (req, res) {
 // Tracking Map
 router.get('/tracker-map');
 router.get('/tracker-map-view/:id', ctrlViewBus.getMapCardInfo);
+router.post('/search-nameandLocation-adm', ctrlDashAdmin.searchBusinessNameLocationAdm);
+
 // Small Business View
 router.post('/search', ctrlViewBus.searchUserView);
-router.get('/business-user-view/:id', ctrlViewBus.getUserView);
+router.get('/business-user-view/:id', ctrlDashUser.getUser);
 router.get('/all-business', ctrlViewBus.getAllBusiness);
 router.get('/all-cases', ctrlViewBus.getAllCases);
+router.get('/all-safety', ctrlViewBus.getAllSafety);
+
 
 ////////   BUSINESS USER  ////////
-
-// Login/registration
+//loginForm/registration
 router.post('/login-form', ctrlLog.loginUser);
-router.post('/registration-form', ctrlReg.registerUser);
+router.post('/registration-form', ctrlReg.registrationForm);
 router.post('/check-user', ctrlReg.checkUser);
 router.post('/certification-form/:id', authLog.authLogin, ctrlDashUser.addCertification);
 router.post('/forgot-password', ctrlLog.forgotPassword);
@@ -37,24 +40,27 @@ router.get('/check-reset-password/:token', ctrlLog.checkResetPassword);
 router.put('/new-password', ctrlLog.resetPassword);
 
 // Small business dashoard
-router.get('/business-dashboard/:id', authLog.authLogin, ctrlDashUser.getUserDashboard);
-router.get('/edit-profile/:id', authLog.authLogin, ctrlDashUser.getUserDashboard);
-router.put('/edit-profile/:id', authLog.authLogin, ctrlDashUser.editUserProfile);
+router.get('/business-dashboard/:id', authLog.authLogin, ctrlDashUser.getUser);
+router.get('/edit-profile/:id', authLog.authLogin, ctrlDashUser.getUser);
+router.put('/edit-profile/:id', authLog.authLogin, ctrlDashUser.editUser);
 router.put('/add-safety/:id', authLog.authLogin, ctrlDashUser.addSafety);
+router.post('/remove-safety',authLog.authLogin, ctrlDashUser.deleteSafety);
+
+//add review
+router.put('add-review/:id', ctrlViewBus.addReview);
+//add case
+//edit case
 
 ////////   ADMINISTRATOR  ////////
+router.post('/get-user-adm', authLog.authAdmin, ctrlDashAdmin.getUserAdm);
+router.post('/get-user-cases', authLog.authAdmin, ctrlDashAdmin.getUserCasesAdm);
+router.post('/delete-user-adm', authLog.authAdmin, ctrlDashAdmin.deleteUserAdm);
+router.post('/delete-user-cases-adm', authLog.authAdmin, ctrlDashAdmin.deleteUserCasesAdm);
+router.post('/add-user-cases-adm', authLog.authAdmin, ctrlDashAdmin.addUserCasesAdm);
+router.post('/invite-new-user', authLog.authAdmin, ctrlDashAdmin.inviteNewUser);
 
-// Administrator login
-router.post('/login-admin', ctrlDashAdmin.loginAdmin);
-// Administrator Dashboard
-router.post('/search-users-adm', ctrlDashAdmin.searchUserAdm);
-router.post('/search-nameandLocation-adm', ctrlDashAdmin.searchBusinessNameLocationAdm);
 
-router.post('/search-cases-adm', ctrlDashAdmin.searchUserCasesAdm);
 
-router.post('/add-business-case', ctrlDashAdmin.addCasesAdm )
-router.post('/invite-user', ctrlDashAdmin.inviteNewUser)
 
-router.post('/remove-business', ctrlDashAdmin.deleteUserAdm); 
-router.post('/remove-cases', ctrlDashAdmin.deleteUserCaseAdm);
+
 module.exports = router;

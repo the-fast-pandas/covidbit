@@ -1,14 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { MapsAPILoader } from '@agm/core';
-import { HttpClient } from '@angular/common/http';
 import { searchSB } from '../models/searchSB.model';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdmService } from '../services/adm-services/adm.service';
 import { BusinessName } from '../models/businessName.model';
 import { ApiService } from '../services/api-covid-services/api.service';
 import { DataService } from '../services/data-services/data.service';
 import { BusinessNameandLocation } from '../models/businessName&Location.model';
-import { number } from 'echarts';
 
 
 @Component({
@@ -65,7 +62,6 @@ export class TrackerMapComponent implements OnInit {
 
     this.searchService.getAllBusiness().subscribe(    
       data => {
-        // console.log(data);
         this.initializeMapMarkers(data);
       });
 
@@ -132,7 +128,7 @@ export class TrackerMapComponent implements OnInit {
       //Set Businesses Map Marker Case Count
      let toBeSearched = {name: data.myUsers[i].businessName}
 
-     this.adm.searchUserCases(toBeSearched).subscribe(caseData => {
+     this.adm.getUserCases(toBeSearched).subscribe(caseData => {
       // console.log(caseData);
       newMarker.cases = caseData.cases.length;
     });
@@ -143,8 +139,6 @@ export class TrackerMapComponent implements OnInit {
       this.markers.push(newMarker);
 
      }
-
-     console.log(this.markers);
 
   }
 

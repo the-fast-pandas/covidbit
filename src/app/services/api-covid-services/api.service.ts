@@ -1,3 +1,7 @@
+// Server - CovidBit - Fast Pandas
+// Created: 20, February, 2021, John Turkson
+// Modified: 20 March, 2021, Teresa Costa, added routes for covid api
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
