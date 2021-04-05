@@ -1,6 +1,6 @@
 {
     "/api": {
-      "target": "https://backend-covidbit.herokuapp.com/",
+      "target": "https://backend-covidbit.herokuapp.com",
       "secure": false
     }
   }
