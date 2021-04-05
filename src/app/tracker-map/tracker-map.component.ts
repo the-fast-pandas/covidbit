@@ -1,11 +1,13 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
+
 import { searchSB } from '../models/searchSB.model';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdmService } from '../services/adm-services/adm.service';
 import { BusinessName } from '../models/businessName.model';
 import { ApiService } from '../services/api-covid-services/api.service';
 import { DataService } from '../services/data-services/data.service';
 import { BusinessNameandLocation } from '../models/businessName&Location.model';
+
 
 
 @Component({
@@ -62,6 +64,7 @@ export class TrackerMapComponent implements OnInit {
 
     this.searchService.getAllBusiness().subscribe(    
       data => {
+        console.log(data);
         this.initializeMapMarkers(data);
       });
 
@@ -79,7 +82,7 @@ export class TrackerMapComponent implements OnInit {
   onSubmit() {
 
     let searchedBusiness = this.markers.find(e => e.name === this.businessSearch.get('businessName')?.value);
-    // console.log(searchedBusiness);
+    console.log(searchedBusiness);
 
     if (this.businessSearch.get('businessName')?.value === searchedBusiness?.name) {
       this.validSearch = false;
@@ -140,6 +143,8 @@ export class TrackerMapComponent implements OnInit {
 
      }
 
+     console.log(this.markers);
+
   }
 
   //Map Marker Helper Functions
@@ -168,3 +173,4 @@ export class TrackerMapComponent implements OnInit {
   }
 
 }
+
