@@ -1,6 +1,10 @@
 {
   "name": "covidbit",
   "version": "0.0.0",
+  "endgines": {
+    "node": "14.x",
+    "npm": "6.x"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
