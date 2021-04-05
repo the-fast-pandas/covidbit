@@ -14,8 +14,8 @@ app.use(function (req, res, next) {
   });
 
   //app.use(cors());
-require('./server/api/models/database'); // Connects database
-const routes = require('./server/api/routes/index');  
+require('./api/models/database'); // Connects database
+const routes = require('./api/routes/index');  
 
 
 app.use(express.urlencoded({ extended: false }));
