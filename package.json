@@ -2,14 +2,15 @@
   "name": "covidbit",
   "version": "0.0.0",
   "engines":{
-    "node": "14.x"
+    "node": "14.x",
+    "npm":"6.x"
   },
   "scripts": {
     "ng": "ng",
     "start": "node server/server.js",
     "build": "ng build",
     "test": "ng test",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build",
+    "heroku-postbuild": "ng build --prod",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
