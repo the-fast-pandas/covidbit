@@ -17,7 +17,7 @@ import { DataService } from '../data-services/data.service';
 })
 
 export class AuthService {
-  endpoint: string = 'http://localhost:2000/api';
+  endpoint: string = 'https://backend-covidbit.herokuapp.com/api/';
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
