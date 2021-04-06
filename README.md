@@ -20,7 +20,7 @@ This is a mean stack
 
 ## Prerequisites
 
-* [Visual Studio Code] (https://code.visualstudio.com/) (environment for all the steps of [Instalation](#instalation))
+* [Visual Studio Code](https://code.visualstudio.com/) (environment for all the steps of [Instalation](#instalation))
 * [Atlas Account on MongoDb](https://docs.atlas.mongodb.com/getting-started/)
 * [Herokku Account](https://dashboard.heroku.com/apps)
 
@@ -83,7 +83,7 @@ Frontend components were created with [Nebula](https://akveo.github.io/nebular/)
 
 Two external services (API) are used for data :
 
-* News API: allows for the access of news about covid in canada. To use this service is necessary to create an [API KEY] ((https://newsapi.org/) and replace it in the connection string on the method getNews() in the .ts file data.service.ts.
+* News API: allows for the access of news about covid in canada. To use this service is necessary to create an [API KEY]((https://newsapi.org/) and replace it in the connection string on the method getNews() in the .ts file data.service.ts.
 * Covid Data API: it uses two diffent sources for the covid official canadian data and they can be found in [here](https://api.covid19tracker.ca/docs/1.0/overview) and [here](https://opencovid.ca/api/).  
 
 ### Server
