@@ -10,7 +10,7 @@ const authLog = require('../middleware/auth');
 const ctrlDashAdmin = require('../controllers/administrator');
 const ctrlViewBus = require('../controllers/businessView');
 
-
+routers.get("/covid-news", ctrlViewBus.getNews);
 // Server Status
 router.get("/status", function (req, res) {
   res.status(200).json({ status: "I am alive!" });

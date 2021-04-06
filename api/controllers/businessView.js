@@ -7,6 +7,21 @@ const SmallBusiness = require('../schema/smallBusiness');
 const Cases = require('../schema/cases');
 const SafetyMeasures = require('../schema/safetyMeasures');
 
+
+
+const getNews = function (req, res) {
+    this.httpClient.get(`http://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=52142b02045c42709a8a9413a15d95f1`, function (error, data) {
+        if (error) {
+            return res.status(404).json({ message: "Server error!" });
+        }
+        if (data){
+            return res.status(200).json({ data });
+        }
+    })
+}
+
+
+
 // Search for one business using business name
 // Returns the business user id
 const searchUserView = function (req, res) {
@@ -131,4 +146,4 @@ const addReview = function (req, res) {
 
 }
 
-module.exports = { searchUserView, getAllBusiness, getAllCases, getMapCardInfo, addReview, getAllSafety };
+module.exports = { searchUserView, getAllBusiness, getAllCases, getMapCardInfo, addReview, getAllSafety , getNews};
