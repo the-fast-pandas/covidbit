@@ -13,7 +13,6 @@ const app = express();
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Headers", 
   "Access-Control-Allow-Origin",
-  "Access-Control-Expose-Headers",
   "Access-Control-Allow-Methods");
   next();
   });
