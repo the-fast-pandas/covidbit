@@ -8,8 +8,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiService } from './services/api-covid-services/api.service'; // api covid
 import { GooglePlaceModule } from "ngx-google-places-autocomplete"; // api map
 import { AgmCoreModule } from '@agm/core';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { Ng2CompleterModule } from "ng2-completer";
 // app
 import { AuthInterceptor } from './services/auth-services/authconfig.interceptor';
 import { AppRoutingModule } from './app-routing.module';
@@ -39,14 +37,8 @@ import { NewsComponent } from './tracker-map/news/news.component';
 import { AddCaseComponent } from './business-dashboard/add-case/add-case.component';
 import { TableCasesComponent } from './business-dashboard/table-cases/table-cases.component';
 import { EditCaseComponent } from './business-dashboard/edit-case/edit-case.component';
-
-
-import { NgxEchartsModule } from 'ngx-echarts';
-
 import { ReviewComponent } from './business-user-view/review/review.component';
 import { ReviewConfirmationComponent } from './business-user-view/review/review-confirmation/review-confirmation.component';
-
-
 import { StatsComponent } from './tracker-map/graphs/stats/stats.component';
 import { StatsCanadaComponent } from './tracker-map/graphs/stats-canada/stats-canada.component';
 import { OntarioCanadaComponent } from './tracker-map/ontario-canada/ontario-canada.component';
@@ -59,9 +51,6 @@ import { BarHealthRegionMortalityComponent } from './tracker-map/graphs/bar-heal
 import { BarOntarioCanadaComponent } from './tracker-map/graphs/bar-ontario-canada/bar-ontario-canada.component';
 import { BarOntarioCanadaVaccinesComponent } from './tracker-map/graphs/bar-ontario-canada-vaccines/bar-ontario-canada-vaccines.component';
 import { AboutUsComponent } from './static-pages/about-us/about-us.component';
-
-
-
 
 @NgModule({
   declarations: [
@@ -118,16 +107,13 @@ import { AboutUsComponent } from './static-pages/about-us/about-us.component';
     ReactiveFormsModule,
     GooglePlaceModule,
     HttpClientModule,
-    Ng2SmartTableModule,
-    Ng2CompleterModule,
+  
     GooglePlaceModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAbNARRSTlFSaDp6GyBBM_pkEttwvj18d0',
       libraries: ['places']
     }),
-    NgxEchartsModule.forRoot({
-      echarts: () => import('echarts'),
-    }),
+
   ],
   providers: [
     {

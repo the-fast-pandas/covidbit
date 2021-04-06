@@ -52,7 +52,8 @@ export class ApiService {
 
    // news headlines
    public getNews() {
-    return this.httpClient.get(`http://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=52142b02045c42709a8a9413a15d95f1`,  {headers: this.corsHeaders})
+    return this.httpClient.get(`https://news.google.com/rss/search?q=covid&hl=en-CA&gl=CA&ceid=CA:en`,  {headers: this.corsHeaders})
+   // return this.httpClient.get(`http://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=52142b02045c42709a8a9413a15d95f1`,  {headers: this.corsHeaders})
   }
 
 }

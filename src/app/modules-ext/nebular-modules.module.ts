@@ -30,6 +30,8 @@ import {
   NbToggleModule,
   
 } from '@nebular/theme';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { Ng2CompleterModule } from "ng2-completer";
 
 const NebularModules = [
   NbThemeModule.forRoot({ name: 'corporate' }),
@@ -64,6 +66,8 @@ const NebularModules = [
   NbTreeGridModule,
   NbRadioModule,
   NbToggleModule,
+  Ng2SmartTableModule,
+  Ng2CompleterModule,
 ];
 
 @NgModule({
