@@ -1,6 +1,7 @@
 // Server - CovidBit - Fast Pandas
 // Created: 20, February, 2021, John Turkson
 // Modified: 20 March, 2021, Teresa Costa, added routes for covid api
+// MOdified: 30 March, 2021, john Turkson, added service for location
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -19,6 +20,7 @@ export class ApiService {
 
   constructor(private httpClient: HttpClient) { }
 
+  // covid numbers/data
   public getCaseData() {
     return this.httpClient.get(`https://api.covid19tracker.ca/summary/split`,{headers: this.corsHeaders});
   }
@@ -43,8 +45,14 @@ export class ApiService {
     return this.httpClient.get(`https://api.opencovid.ca/summary`,{headers: this.corsHeaders});
   }
 
+  // coordinates/locations
   public getLocationCoords(address: any) {
     return this.httpClient.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCfGrP0EDXKbazT9t2wkaDP9aKB4ykK2AU`, {headers: this.corsHeaders});
+  }
+
+   // news headlines
+   public getNews() {
+    return this.httpClient.get(`http://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=52142b02045c42709a8a9413a15d95f1`,  {headers: this.corsHeaders})
   }
 
 }
