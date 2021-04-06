@@ -12,7 +12,9 @@ export class ApiService {
   corsHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Access-Control-Allow-Origin': 'http://localhost:4200/'
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST,GET,OPTIONS, PUT, DELETE',
+    'Access-Control-Allow-Headers': 'Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization'
   });
 
   constructor(private httpClient: HttpClient) { }

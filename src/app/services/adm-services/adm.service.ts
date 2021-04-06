@@ -31,7 +31,7 @@ export class AdmService {
   // Administrator to search multiple users on database using business name
   getUserAdm(business: BusinessName) {
     const api = `${this.endpoint}/get-user-adm`;
-    return this.http.post<any>(api, business).pipe(
+    return this.http.post<any>(api, business,  { headers: this.headers }).pipe(
       map(
         data => {
           return data;
@@ -46,7 +46,7 @@ export class AdmService {
   // Administrator sends invitation to new user to register
   inviteNewUser(email: Email) {
     const api = `${this.endpoint}/invite-new-user`;
-    return this.http.post<any>(api, email).pipe(
+    return this.http.post<any>(api, email,  { headers: this.headers }).pipe(
       map(
         data => {
           return data;
@@ -61,7 +61,7 @@ export class AdmService {
   // Administrator can delete a business user
   deleteUserAdm(id: Array<String>) {
     const api = `${this.endpoint}/delete-user-adm`;
-    return this.http.post<String>(api, id).pipe(
+    return this.http.post<String>(api, id,  { headers: this.headers }).pipe(
       map(
         data => {
           return data;
@@ -79,7 +79,7 @@ export class AdmService {
   getUserCases(business: BusinessName) {
     console.log(business)
     const api = `${this.endpoint}/get-user-cases`;
-    return this.http.post<any>(api, business).pipe(
+    return this.http.post<any>(api, business,  { headers: this.headers }).pipe(
       map(
         (data) => {
           return data;
@@ -106,7 +106,7 @@ export class AdmService {
   // Administrator can delete a business user case
   deleteUserCasesAdm(id: Array<String>) {
     const api = `${this.endpoint}/delete-user-cases-adm`;
-    return this.http.post<String>(api, id).pipe(
+    return this.http.post<String>(api, id,  { headers: this.headers }).pipe(
       map(
         data => {
           return data;
@@ -124,7 +124,7 @@ export class AdmService {
   //Search for Business Name and Location
   searchBusinessNameLocationAdm(business: BusinessName) {
     const api = `${this.endpoint}/search-nameandLocation-adm`;
-    return this.http.post<any>(api, business)
+    return this.http.post<any>(api, business,  { headers: this.headers })
       .pipe(
         map(
           data => {

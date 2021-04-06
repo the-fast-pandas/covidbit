@@ -30,7 +30,7 @@ export class DataService {
   // Search Business User
   searchUser(business: BusinessName) {
     const api = `${this.endpoint}/search`;
-    return this.http.post<any>(api, business)
+    return this.http.post<any>(api, business,  { headers: this.headers })
       .subscribe(
         data => {
           this.getUserView(data.id).subscribe(
@@ -66,7 +66,7 @@ export class DataService {
    // Get User Business View
    getMapInfo(id: any): Observable<any> {
     const api = `${this.endpoint}/tracker-map-view/${id}`;
-    return this.http.get<any>(api, id)
+    return this.http.get<any>(api,  { headers: this.headers })
       .pipe(
         map(
           data => {
@@ -82,7 +82,7 @@ export class DataService {
   // Get a valid User for Registration 
   getValidUser(user: LoginCredentials) {
     const api = `${this.endpoint}/check-user`;
-    return this.http.post<any>(api, user)
+    return this.http.post<any>(api, user,  { headers: this.headers })
       .subscribe(
         data => {
           return true;
@@ -99,7 +99,7 @@ export class DataService {
   // Business User can request a new password
   requestNewPassword(loginId: LoginId) {
     const api = `${this.endpoint}/forgot-password`;
-    return this.http.post<any>(api, loginId)
+    return this.http.post<any>(api, loginId,  { headers: this.headers })
       .subscribe(
         (data: any) => {
           this.router.navigate(['login-form']).then(() => {
@@ -118,7 +118,7 @@ export class DataService {
 
   checkValidNewPassword(token: any) {
     const api = `${this.endpoint}/check-reset-password/${token}`;
-    return this.http.get<any>(api)
+    return this.http.get<any>(api,  { headers: this.headers })
       .subscribe(
         (data: any) => {
           return data;
@@ -132,7 +132,7 @@ export class DataService {
   setNewPassword(newPassword: any, token: any) {
     newPassword.token = token;
     const api = `${this.endpoint}/new-password`;
-    return this.http.put<any>(api, newPassword)
+    return this.http.put<any>(api, newPassword,  { headers: this.headers })
       .subscribe(
         data => {
           this.router.navigate(['login-form']);
@@ -146,7 +146,7 @@ export class DataService {
 
   getAllBusiness() {
     const api = `${this.endpoint}/all-business`;
-    return this.http.get<any>(api)
+    return this.http.get<any>(api,  { headers: this.headers })
       .pipe(
         map(
           data => {
@@ -162,7 +162,7 @@ export class DataService {
 
   getAllCases() {
     const api = `${this.endpoint}/all-cases`;
-    return this.http.get<any>(api)
+    return this.http.get<any>(api,  { headers: this.headers })
       .pipe(
         map(
           data => {
@@ -178,7 +178,7 @@ export class DataService {
 
   getAllSafety() {
     const api = `${this.endpoint}/all-safety`;
-    return this.http.get<any>(api)
+    return this.http.get<any>(api,  { headers: this.headers })
       .pipe(
         map(
           data => {
@@ -194,7 +194,7 @@ export class DataService {
   // Business User is allowed to add safety measures
   addReview(review: any, id: String) {
     const api = `${this.endpoint}/add-review/${id}`;
-    return this.http.put<any>(api, review)
+    return this.http.put<any>(api, review,  { headers: this.headers })
       .subscribe(
         data => {
           return data;
@@ -207,6 +207,6 @@ export class DataService {
 
   // News headlines about covid
   getNews() {
-    return this.http.get(`https://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=fd7187b0369b44b1b4f9a03c11a32b9a`)
+    return this.http.get(`https://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=fd7187b0369b44b1b4f9a03c11a32b9a`,  { headers: this.headers })
   }
 }
