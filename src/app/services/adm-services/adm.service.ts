@@ -15,7 +15,7 @@ import { Email } from '../../models/email.model';
 })
 export class AdmService {
 
-  endpoint: string = 'https://backend-covidbit.herokuapp.com/api';
+  endpoint: string = 'https://cryptic-headland-94862.herokuapp.com/https://backend-covidbit.herokuapp.com/api';
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
