@@ -207,6 +207,6 @@ export class DataService {
 
   // News headlines about covid
   getNews() {
-    return this.http.get(`https://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=fd7187b0369b44b1b4f9a03c11a32b9a`,  { headers: this.headers })
+    return this.http.get(`https://tranquil-sands-94038.herokuapp.com/https://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=fd7187b0369b44b1b4f9a03c11a32b9a`,  { headers: this.headers })
   }
 }
