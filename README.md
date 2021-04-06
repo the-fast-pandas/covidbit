@@ -9,8 +9,8 @@ What is this project about
 * [Build With](#build-with)
 * [Features](#features)
 * [Deployment](#deployment)
-* [Issues] (#issues)
-* [General Reflection] (#general-reflection)
+* [Issues](#issues)
+* [General Reflection](#general-reflection)
 * [Authors](#authors)
 * [License](#license)
 
@@ -22,7 +22,7 @@ This is a mean stack
 
 * [Visual Studio Code] (https://code.visualstudio.com/) (environment for all the steps of [Instalation](#instalation))
 * [Atlas Account on MongoDb](https://docs.atlas.mongodb.com/getting-started/)
-* [Herokku Account] (https://dashboard.heroku.com/apps)
+* [Herokku Account](https://dashboard.heroku.com/apps)
 
 ## Instalation 
 
@@ -32,7 +32,7 @@ On Visual Studio on a new workspace:
 git clone https://github.com/the-fast-pandas/covidbit.git
 ```
 
-#### Frontend
+### Frontend
 
 ```
 cd covidbit
@@ -46,7 +46,7 @@ This should make frontend ready to run:
 ng serve   # initial setup is on PORT=4200
 ```
 
-#### Server
+### Server
 
 Open a new terminal window:
 
@@ -61,7 +61,7 @@ This should make the local server ready to run:
 npm start   # initial setup is on PORT=2000
 ```
 
-#### Database
+### Database
 
 A noSQL database needs to be created on MongoDb called covidbit with the follow collections:
 
@@ -91,11 +91,11 @@ Two external services (API) are used for data :
 
 ## Features
 
-#### Tracker Map
-#### Graphs
-#### News
-#### Email Service
-#### Authentication
+### Tracker Map
+### Graphs
+### News
+### Email Service
+### Authentication
 
 ## Deployment
 
