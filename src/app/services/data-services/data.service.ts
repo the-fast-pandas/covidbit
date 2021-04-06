@@ -205,8 +205,5 @@ export class DataService {
       )
   }
 
-  // News headlines about covid
-  getNews() {
-    return this.http.get(`https://tranquil-sands-94038.herokuapp.com/https://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=52142b02045c42709a8a9413a15d95f1`,  { headers: this.headers })
-  }
+ 
 }
