@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api-covid-services/api.service';
+import { DataService } from '../../services/data-services/data.service';
 
 @Component({
   selector: 'app-news',
@@ -10,7 +10,7 @@ export class NewsComponent implements OnInit {
 
   articles: any;
 
-  constructor(public api: ApiService) {
+  constructor(public data: DataService) {
     this.loadNews();
   }
 
@@ -18,7 +18,7 @@ export class NewsComponent implements OnInit {
   }
 
   loadNews() {
-    this.api.getNews().subscribe((news: any) => {
+    this.data.getNews().subscribe((news: any) => {
       this.articles = news.articles
     })
   }
