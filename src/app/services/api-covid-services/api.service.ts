@@ -15,14 +15,14 @@ export class ApiService {
     'Accept': 'application/json',
      'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST,GET,OPTIONS, PUT, DELETE',
-    'Access-Control-Allow-Headers': 'Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization'
+    'Access-Control-Allow-Headers': 'x-requested-with'
   });
-  
+
   constructor(private httpClient: HttpClient) { }
 
   // covid numbers/data
   public getCaseData() {
-    return this.httpClient.get(`https://api.covid19tracker.ca/summary/split`);
+    return this.httpClient.get(`https://api.covid19tracker.ca/summary/split`, { headers: this.corsHeaders });
   }
 
   public getFatalitiesCanada(dateAfter: any, dateBefore: any) {
@@ -47,7 +47,7 @@ export class ApiService {
 
   // coordinates/locations
   public getLocationCoords(address: any) {
-    return this.httpClient.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCfGrP0EDXKbazT9t2wkaDP9aKB4ykK2AU`);
+    return this.httpClient.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCfGrP0EDXKbazT9t2wkaDP9aKB4ykK2AU`, { headers: this.corsHeaders });
   }
 
    // news headlines
