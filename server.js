@@ -7,18 +7,19 @@ const path = require('path')
 const dotenv = require('dotenv');
 dotenv.config({ path: __dirname + '/.env' }); //variables
 const express = require('express');
-//const cors = require('cors');
+const cors = require('cors');
 var cookieParser = require('cookie-parser');
 const app = express();
-app.all(function (req, res, next) {
+app.use(cors());
+/*app.all(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', 'https://thawing-bastion-14821.herokuapp.com/');
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
-});
+});*/
 
-//app.use(cors());
+
 require('./api/models/database'); // Connects database
 const routes = require('./api/routes/index');
 
