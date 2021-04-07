@@ -53,7 +53,7 @@ router.put('add-review/:id', ctrlViewBus.addReview);
 
 ////////   ADMINISTRATOR  ////////
 router.post('/get-user-adm', authLog.authAdmin, ctrlDashAdmin.getUserAdm);
-router.post('/get-user-cases', authLog.authAdmin, ctrlDashAdmin.getUserCasesAdm);
+router.post('/get-user-cases',  ctrlDashAdmin.getUserCasesAdm);
 router.post('/delete-user-adm', authLog.authAdmin, ctrlDashAdmin.deleteUserAdm);
 router.post('/delete-user-cases-adm', authLog.authAdmin, ctrlDashAdmin.deleteUserCasesAdm);
 router.post('/add-user-cases-adm', authLog.authAdmin, ctrlDashAdmin.addUserCasesAdm);
