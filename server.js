@@ -12,7 +12,7 @@ var cookieParser = require('cookie-parser');
 const app = express();
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Headers",
-    "Access-Control-Expose-Headers, Contant-Type,Accept",
+    "Access-Control-Expose-Headers, Content-Type,Accept",
     //"Access-Control-Allow-Methods"
     );
   next();
