@@ -1,13 +1,11 @@
 {
-  "name": "covidbit-server",
-  "version": "0.0.1",
-  "private": true,
-  "main": "server.js",
-  "engines": {
-    "node": "14.x"
-  },
   "scripts": {
     "start": "node server.js"
+  },
+  "name": "server-covidbit",
+  "description": "This is the server for the app covidbit. It communicates with a MongoDb database.",
+  "engines": {
+    "node": "14.x"
   },
   "dependencies": {
     "@heroku/buildpack-registry": "^1.0.1",
@@ -42,5 +40,20 @@
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0",
     "gulp-watch": "^4.2.4"
-  }
+  },
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/the-fast-pandas/covidbit.git"
+  },
+  "keywords": [
+    "server"
+  ],
+  "author": "Fast Pandas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/the-fast-pandas/covidbit/issues"
+  },
+  "homepage": "https://github.com/the-fast-pandas/covidbit#readme"
 }
