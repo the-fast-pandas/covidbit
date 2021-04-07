@@ -12,10 +12,10 @@ var cookieParser = require('cookie-parser');
 const app = express();
 app.use(cors());
 app.use(function (req, res, next) {
+  res.header( 'Accept', 'application/json');
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Headers', 'Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization');
   next();
 });
 
