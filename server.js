@@ -5,21 +5,22 @@
 const path = require('path')
 
 const dotenv = require('dotenv');
-dotenv.config({path: __dirname + '/.env'}); //variables
+dotenv.config({ path: __dirname + '/.env' }); //variables
 const express = require('express');
 const cors = require('cors');
 var cookieParser = require('cookie-parser');
 const app = express();
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Headers", 
-  "Access-Control-Allow-Origin",
-  "Access-Control-Allow-Methods");
+  res.header("Access-Control-Allow-Headers",
+    "Access-Control-Expose-Headers, Contant-Type,Accept",
+    //"Access-Control-Allow-Methods"
+    );
   next();
-  });
+});
 
-  //app.use(cors());
+//app.use(cors());
 require('./api/models/database'); // Connects database
-const routes = require('./api/routes/index');  
+const routes = require('./api/routes/index');
 
 
 app.use(express.urlencoded({ extended: false }));
@@ -37,7 +38,7 @@ app.use('/api', routes);  // Routes for our API (this is for the frontend conect
 
 
 // Initializes the server
-const PORT = process.env.PORT ;
+const PORT = process.env.PORT;
 const server = app.listen(PORT, function (error) {
   if (error) throw error;
   else console.log("Application server now running on port", server.address().port);
