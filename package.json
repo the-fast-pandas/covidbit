@@ -8,7 +8,6 @@
     "node": "14.x"
   },
   "dependencies": {
-    "@heroku/buildpack-registry": "^1.0.1",
     "@mapbox/node-pre-gyp": "^1.0.3",
     "async-file": "^2.0.2",
     "bcrypt": "^5.0.0",
@@ -23,7 +22,6 @@
     "express-jwt": "^3.0.1",
     "express-validator": "^6.9.2",
     "got": "^8.3.2",
-    "heroku": "^7.51.0",
     "jsonwebtoken": "^5.7.0",
     "lodash": "^4.17.20",
     "mongodb": "^3.6.3",
