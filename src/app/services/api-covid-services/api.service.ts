@@ -22,7 +22,7 @@ export class ApiService {
 
   // covid numbers/data
   public getCaseData() {
-    return this.httpClient.get(`https://api.covid19tracker.ca/summary/split`, { headers: this.corsHeaders });
+    return this.httpClient.get(`https://api.covid19tracker.ca/summary/split`);
   }
 
   public getFatalitiesCanada(dateAfter: any, dateBefore: any) {
@@ -47,7 +47,7 @@ export class ApiService {
 
   // coordinates/locations
   public getLocationCoords(address: any) {
-    return this.httpClient.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCfGrP0EDXKbazT9t2wkaDP9aKB4ykK2AU`, { headers: this.corsHeaders });
+    return this.httpClient.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCfGrP0EDXKbazT9t2wkaDP9aKB4ykK2AU`);
   }
 
    // news headlines
