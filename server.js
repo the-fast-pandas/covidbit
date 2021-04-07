@@ -7,14 +7,12 @@ const path = require('path')
 const dotenv = require('dotenv');
 dotenv.config({ path: __dirname + '/.env' }); //variables
 const express = require('express');
-const cors = require('cors');
+//const cors = require('cors');
 var cookieParser = require('cookie-parser');
 const app = express();
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Headers",
-    "Access-Control-Expose-Headers, Content-Type,Accept",
-    //"Access-Control-Allow-Methods"
-    );
+app.all(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
 });
 

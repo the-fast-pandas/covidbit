@@ -2,10 +2,15 @@
   "name": "covidbit-server",
   "version": "0.0.1",
   "private": true,
+  "main": "server.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
+    "@mapbox/node-pre-gyp": "^1.0.3",
     "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -16,6 +21,7 @@
     "express": "^4.17.1",
     "express-jwt": "^3.0.1",
     "express-validator": "^6.9.2",
+    "heroku": "^7.51.0",
     "jsonwebtoken": "^5.7.0",
     "lodash": "^4.17.20",
     "mongodb": "^3.6.3",
