@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 // Local Services
 import { DataService } from '../services/data-services/data.service';
 import { AuthService } from '../services/auth-services/auth.service';
-import { SafetyMeasures } from '../models/safetyMeasures.model';
+import { SafetyMeasures } from '../models/safetyMeasures.model'
 import * as myGlobals from '../globals';
 
 @Component({
@@ -85,13 +85,14 @@ export class BusinessDashboardComponent implements OnInit {
 
   // ADD Safety Measure
   onAddMeasure() {
-    const safetyMeasure = {
-      title: this.safetyMeasures.get('title')?.value,
-      description: this.safetyMeasures.get('description')?.value,
-      confirmed: ""
-    }
+    let safetyMeasure = {} as SafetyMeasures;
+
+    safetyMeasure.title = this.safetyMeasures.get('title')?.value;
+    safetyMeasure.description = this.safetyMeasures.get('description')?.value;
+
     this.safetyMeasureList.push(safetyMeasure);
-    this.auth.addSafety(safetyMeasure, this.id);
+    console.log(this.safetyMeasureList);
+    // this.auth.addSafety(safetyMeasure, this.id);
     this.safetyMeasures.get('title')?.reset();
     this.safetyMeasures.get('description')?.reset();
   }

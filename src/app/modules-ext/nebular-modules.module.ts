@@ -32,7 +32,7 @@ import {
 } from '@nebular/theme';
 
 const NebularModules = [
-  NbThemeModule.forRoot({ name: 'corporate' }),
+  NbThemeModule.forRoot({ name: 'default' }),
   NbLayoutModule,
   NbEvaIconsModule,
   NbContextMenuModule,

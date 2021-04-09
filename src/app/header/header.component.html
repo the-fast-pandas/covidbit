@@ -4,17 +4,24 @@
 <nb-icon (click)="toggleSidebar()" class="sidebar-toggle" icon="menu-2-outline"></nb-icon>
 <h2>COVIDBIT</h2>
 <div class="navigation-buttons">
-    <app-search-widget></app-search-widget>
-    <button nbButton><a routerLink="/home" routerLinkActive="active">Home</a></button>
-    <button nbButton><a routerLink="/tracker-map" routerLinkActive="active">Tracker Map</a></button>
-    <button *ngIf="loggedInBusiness" nbButton [nbContextMenu]="itemsTitle" nbContextMenuTag="my-context-menu">
-        {{businessName}}
-    </button>
-    <button *ngIf="loggedInAdm" nbButton [nbContextMenu]="itemsTitleAdm" nbContextMenuTag="my-context-menu">
-        {{businessName}}
-    </button>
-    <button *ngIf="!loggedIn" nbButton><a routerLink="/login-form" routerLinkActive="active">Login</a></button>
+  <app-search-widget></app-search-widget>
+
+  <a routerLink="/home" routerLinkActive="active">
+    <button nbButton>Home</button>
+  </a>
+
+  <a routerLink="/tracker-map" routerLinkActive="active">
+    <button nbButton>Tracker Map</button>
+  </a>
+
+  <button *ngIf="loggedInBusiness" nbButton [nbContextMenu]="itemsTitle" nbContextMenuTag="my-context-menu">
+    {{businessName}}
+  </button>
+  <button *ngIf="loggedInAdm" nbButton [nbContextMenu]="itemsTitleAdm" nbContextMenuTag="my-context-menu">
+    {{businessName}}
+  </button>
+  <button *ngIf="!loggedIn" nbButton><a routerLink="/login-form" routerLinkActive="active">Login</a></button>
 </div>
 <nb-sidebar class="menu-sidebar" state='collapsed' class="right-sidebar" fixed end>
-    <nb-menu [items]="items"></nb-menu>
+  <nb-menu [items]="items"></nb-menu>
 </nb-sidebar>

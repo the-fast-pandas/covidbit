@@ -37,7 +37,7 @@ export class TrackerMapComponent implements OnInit {
   markerInfo!: BusinessNameandLocation
 
   businessNameDB: BusinessName = { name: '' };
-  businessNameSearch: BusinessName = { name: '' };
+  businessNameSearch: BusinessName = { name: 'Pizza Pizaa' };
   locationToBeSearched: String = '';
   searchedBusinessID: String = '';
 
@@ -108,19 +108,19 @@ export class TrackerMapComponent implements OnInit {
   }
 
   initializeMapMarkers(data: any){
-     for (let i = 0; i < data.myUsers.length; i++) {
+     for (let i = 0; i < data.users.length; i++) {
        
       let newMarker = {} as BusinessNameandLocation;
 
       //Set Business Info
-      newMarker.name = data.myUsers[i].businessName;
-      newMarker.location = data.myUsers[i].location;
-      newMarker.businessType = data.myUsers[i].businessType;
-      newMarker.id = data.myUsers[i].id;
+      newMarker.name = data.users[i].businessName;
+      newMarker.location = data.users[i].location;
+      newMarker.businessType = data.users[i].businessType;
+      newMarker.id = data.users[i].id;
       newMarker.animation = 'DROP';
 
       //Make Call to Google API to get Coords of the businesses location/address
-      this.apiService.getLocationCoords(data.myUsers[i].location).subscribe((geoInfo) => {
+      this.apiService.getLocationCoords(data.users[i].location).subscribe((geoInfo) => {
           
       //Set Lat and Long of google map to businesses map marker lat and lng
        newMarker.lat = this.setMarkerLat(geoInfo);
@@ -129,15 +129,13 @@ export class TrackerMapComponent implements OnInit {
       })
 
       //Set Businesses Map Marker Case Count
-     let toBeSearched = {name: data.myUsers[i].businessName}
-
+     let toBeSearched = {name: data.users[i].businessName}
+    
      this.adm.getUserCases(toBeSearched).subscribe(caseData => {
-      // console.log(caseData);
+      console.log(caseData);
       newMarker.cases = caseData.cases.length;
     });
-    
-    
-
+  
       //Add Map Marker to Marker Array
       this.markers.push(newMarker);
 
