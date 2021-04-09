@@ -34,7 +34,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { Ng2CompleterModule } from "ng2-completer";
 
 const NebularModules = [
-  NbThemeModule.forRoot({ name: 'corporate' }),
+  NbThemeModule.forRoot({ name: 'default' }),
   NbLayoutModule,
   NbEvaIconsModule,
   NbContextMenuModule,
@@ -43,7 +43,6 @@ const NebularModules = [
   NbSidebarModule,
   NbMenuModule.forRoot(),
   NbMenuModule,
-  // NbThemeModule.forRoot({ name: 'default' }),
   NbThemeModule,
   NbCardModule,
   NbInputModule,
