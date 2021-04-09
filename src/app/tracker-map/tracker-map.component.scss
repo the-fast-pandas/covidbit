@@ -1,9 +1,9 @@
 agm-map {
-  height: 500px;
+  height: 540px;
 }
 
 .search-overlay {
-  border: 2px solid lightblue;
+  border: 2px solid #aa67cf;
   width: 500px;
   height: 2em;
 }
@@ -17,13 +17,6 @@ agm-map {
 nb-icon {
   font-size: 1.6em;
 }
-
-// .container {
-//   display: flex; 
-//   flex-direction: row;
-//   flex-wrap: wrap;
-//   padding-left: 0px;
-// }
 
 .map-column {
   flex: 3;
@@ -65,7 +58,6 @@ nb-list-item {
   line-height: 100%;
 }
 
-
 legend {
   font-weight: bold;
 }
@@ -93,4 +85,26 @@ nb-card {
 
 #businessLink:hover{
   color: #2c2c2c;
+}
+
+.card-colour {
+  background-color: #c3aae3 !important;
+  color: white !important;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+#center {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.source a {
+  text-decoration: none;
+  color: white;
+}
+
+.source a:hover {
+    text-decoration: none;
 }
