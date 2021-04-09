@@ -24,7 +24,7 @@ This is a mean stack
 * [Atlas Account on MongoDb](https://docs.atlas.mongodb.com/getting-started/)
 * [Herokku Account](https://dashboard.heroku.com/apps)
 
-## Instalation 
+## Installation 
 
 On Visual Studio on a new workspace:
 
@@ -99,8 +99,7 @@ Two external services (API) are used for data :
 
 ## Deployment
 
-This project is deploy on Heroku, a cloud based service. For this, the server and frontend were separated and depolyed as two different apps.   
-
+For this project, the server and frontend were separated and deployed as two different apps. This project's server is deployed on Heroku, a cloud-based service. The frontend part is deployed on Netlify. Both services support GitHub, so the base code is hosted there. Heroku and Netlify support continuous deployment, so making changes and updating the app is simple. Any updates to the code in GitHub would be immediately published on both of the cloud hosting services. 
 
 ## Issues 
 
