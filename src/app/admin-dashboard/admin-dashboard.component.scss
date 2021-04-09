@@ -1,3 +1,6 @@
+// Server - CovidBit - Fast Pandas
+// Created:  16, February, 2021, John Turkson
+
 h1 {
     text-align: center;
     color: white;
@@ -7,14 +10,12 @@ h1 {
     text-align: center;
 }
 
-
+.card-row {
+  display: flex;
+  margin: 0 -0.5rem;
+}
   
-  .card-row {
-    display: flex;
-    margin: 0 -0.5rem;
-  }
-  
-  .card-col {
-    flex: 1 0 calc(50% - 1rem);
-    margin: 0 0.5rem;
-  }
+.card-col {
+  flex: 1 0 calc(50% - 1rem);
+  margin: 0 0.5rem;
+}

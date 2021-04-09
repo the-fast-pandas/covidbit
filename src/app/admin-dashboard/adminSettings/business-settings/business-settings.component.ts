@@ -1,13 +1,18 @@
 // Server - CovidBit - Fast Pandas
-// Created:             2021, John T
+// Created:  16, February, 2021, John Turkson
 // Modified: 04, March, 2021, Teresa Costa: backend integration, global variables
+//           20, March, 2021, John Turkson: improvements on backend/frontend integration
+//           28, March, 2021, Teresa Costa: added invitations component, delete works
 
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+// Local Service
 import { AuthService } from '../../../services/auth-services/auth.service';
-import * as myGlobals from '../../../globals';
 import { AdmService } from '../../../services/adm-services/adm.service';
+// Models
 import { BusinessName } from '../../../models/businessName.model';
+import { Email } from '../../../models/email.model';
+import * as myGlobals from '../../../globals';
 
 @Component({
   selector: 'app-business-settings',
@@ -16,28 +21,34 @@ import { BusinessName } from '../../../models/businessName.model';
 })
 export class MapSettingsComponent implements OnInit {
 
+  //Business types
+  businessTypes = myGlobals.categories;
+
+  // Form instances
+  businessList: FormGroup = new FormGroup({});
   businessCredentials: FormGroup = new FormGroup({});
   businessSearch: FormGroup = new FormGroup({});
-  businessList: FormGroup = new FormGroup({});
-  businessInvitation:FormGroup = new FormGroup({});
-  businessLocation = '';
-  alert: Boolean = false;
-  searchCheck = false;
-  displayList = false;
+  businessInvitation: FormGroup = new FormGroup({});
 
+  businessLocation = '';
+  emailInvitation: Email = { email: '' };
   businessName: BusinessName = { name: '' };
 
-  typesList: Array<String> = [];
-  idList: Array<String> = [];
+  // Check boolean
+  alertBusinessCreated: Boolean = false;
+  alertBusinessRemoved: Boolean = false;
+  alertBusinessInvitationSent: Boolean = false
+  searchCheck: Boolean = false;
+  displayList: Boolean = false;
 
-  //Business Types Array
-  businessTypes = myGlobals.categories;
+  namesList: Array<String> = [];
+  idList: Array<String> = [];
 
   constructor(private formBuilder: FormBuilder, public auth: AuthService, public adm: AdmService) {
     this.businessList = this.formBuilder.group({
       businesses: this.formBuilder.array([], [Validators.required])
     })
-   }
+  }
 
   ngOnInit(): void {
     this.businessCredentials = new FormGroup({
@@ -53,41 +64,76 @@ export class MapSettingsComponent implements OnInit {
     this.businessSearch = new FormGroup({
       searchedBusiness: new FormControl('', [Validators.required])
     });
-
+    this.businessInvitation = new FormGroup({
+      emailInvitation: new FormControl('', [Validators.required, Validators.email]),
+    });
   }
 
-  tabReset() {
-    this.displayList = false;
-    this.searchCheck = false;
-    this.businessCredentials.reset()
-    this.businessSearch.get('searchedBusiness')?.setValue('');
-  }
-
-  public handleAddressChange(address: any) {
+  // (onAdressChange) handler
+  handleAddressChange(address: any) {
     this.businessCredentials.get('businessLocation')?.setValue(address.formatted_address);
   }
 
+  // (ngSubmit)
   addBusiness() {
     this.auth.registerUser(this.businessCredentials.value, true);
-    this.alert = true;
+    this.alertBusinessCreated = true;
     this.businessCredentials.reset();
   }
 
+  // (ngSubmit)
   removeBusiness() {
-    this.adm.deleteUserAdm(this.idList);
+    this.adm.deleteUserAdm(this.idList).subscribe(
+      data => {
+        this.alertBusinessRemoved = true;
+        this.businessSearch.reset();
+        this.namesList = [];
+        this.idList = [];
+      }
+    );
   }
 
+  // (change) handler
+  getCheckedValue(event: any) {
+    let checkArray: FormArray = this.businessList.get('businesses') as FormArray;
+    if (event.target.checked) {
+      checkArray.push(new FormControl(event.target.value));
+    } else {
+      let index: number = 0;
+      checkArray.controls.forEach(
+        (item: AbstractControl) => {
+          if (item.value == event.target.value) {
+            checkArray.removeAt(index);
+            return;
+          }
+          index++;
+        });
+    }
+  }
+
+  // (ngSubmit)
+  inviteBusiness() {
+    this.emailInvitation.email = this.businessInvitation.get('emailInvitation')?.value;
+    console.log(this.emailInvitation)
+    this.adm.inviteUser(this.emailInvitation).subscribe(
+      data => {
+        this.alertBusinessInvitationSent = true;
+        this.businessInvitation.reset();
+      }
+    )
+  }
+
+  // (ngSubmit)
   searchForBusiness() {
-    this.typesList = [];
-    this.idList = [];
+    this.namesList = [];
     this.businessName.name = this.businessSearch.get('searchedBusiness')?.value;
     this.adm.searchUserAdm(this.businessName).subscribe(
       data => {
         this.getNames(data);
         if (this.businessSearch.get('searchedBusiness')?.value == '') {
-          this.typesList = [];
+          this.namesList = [];
         }
-        if (this.typesList.length === 0) {
+        if (this.namesList.length === 0) {
           this.searchCheck = true;
           this.displayList = false;
         } else {
@@ -98,37 +144,32 @@ export class MapSettingsComponent implements OnInit {
     );
   }
 
-  getCheckedValue(event: any) {
-    let checkArray: FormArray = this.businessList.get('businesses') as FormArray;
-    if(event.target.checked) {
-      checkArray.push(new FormControl(event.target.value));
-    } else {
-      let i: number = 0;
-      checkArray.controls.forEach((item: AbstractControl) => {
-        if (item.value == event.target.value) {
-          checkArray.removeAt(i);
-          return;
-        }
-        i++;
-      });
-    }
+  // (changeTab)
+  tabReset() {
+    this.displayList = false;
+    this.searchCheck = false;
+    this.businessCredentials.reset()
+    this.businessSearch.get('searchedBusiness')?.setValue('');
   }
 
+  // Called by searchForBusiness()
+  // Returns a list of names and a a list of correspondent ids
   getNames(data: any) {
     for (let i = 0; i < Object.keys(data).length; i++) {
-      if (data.myUsers[i].businessName == this.businessSearch.get('searchedBusiness')?.value) {
-        this.typesList.push(data.myUsers[i].businessName);
-        this.idList.push(data.myUsers[i]._id);
+      if (data.myUsers[i] !== undefined) {
+        if (data.myUsers[i].businessName == this.businessSearch.get('searchedBusiness')?.value) {
+          this.namesList.push(data.myUsers[i].businessName);
+          this.idList.push(data.myUsers[i]._id);
+        }
       }
-
     }
   }
 
-  inviteBusiness(){}
-
+  // Removes alert messages
   onClose() {
-    this.alert = false;
+    this.alertBusinessCreated = false;
+    this.alertBusinessRemoved = false;
+    this.alertBusinessInvitationSent = false;
   }
 
 }
-

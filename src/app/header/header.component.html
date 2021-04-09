@@ -15,6 +15,8 @@
     <button *ngIf="!loggedIn" nbButton><a routerLink="/login-form" routerLinkActive="active">Login</a></button>
 </div>
 
-<nb-sidebar class="menu-sidebar" state='collapsed'  class="right-sidebar" fixed end>
+<!-- <nb-sidebar class="menu-sidebar" class="right-sidebar" start> -->
+
+<nb-sidebar class="menu-sidebar" state='collapsed'  class="right-sidebar" start responsive>
     <nb-menu [items]="items"></nb-menu>
 </nb-sidebar>

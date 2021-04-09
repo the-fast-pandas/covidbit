@@ -1,5 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// Server - CovidBit - Fast Pandas
+// Created:  16, February, 2021, John Turkson
 
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CaseSettingsComponent } from './case-settings.component';
 
 describe('CaseSettingsComponent', () => {

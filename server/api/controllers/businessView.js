@@ -81,4 +81,24 @@ const getUserView = function (req, res) {
     })
 }
 
-module.exports = { getUserView, searchUserView, getAllBusiness, getAllCases };
+
+const getMapCardInfo = function (req, res) {
+    SmallBusiness.findById(req.params.id, function (error, user) {
+        if (error) {
+            throw error;
+        }
+        if (!user) {
+            return res.status(401).json({ message: "This business user does not exist!" });
+        }
+        if (user) {
+            let foundBusiness = {};
+            foundBusiness["businessName"] = user.businessName;
+            foundBusiness["location"] = user.location;
+            foundBusiness["businessType"] = user.businessType;
+            foundBusiness["certification"] = user.certification;
+            return res.status(200).json({ foundBusiness });
+        }
+    })
+}
+
+module.exports = { getUserView, searchUserView, getAllBusiness, getAllCases, getMapCardInfo };
