@@ -81,8 +81,9 @@
                                     #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"
                                     id="input-businessLocation" formControlName='businessLocation'
                                     placeholder="Enter a location" fullWidth fieldSize="large"
-                                    [(ngModel)]="businessLocation" name="businessLocation" [status]="userProfile.get('businessLocation')?.dirty ? (!userProfile.hasError('required', 'businessLocation') ? 'success' : 'danger') :
-                               (userProfile.hasError('required', 'businessLocation') ? 'basic' : 'danger')" />
+                                    [(ngModel)]="businessLocation" name="businessLocation" 
+                                    [status]="userProfile.get('businessLocation')?.dirty ? (userProfile.get('businessLocation')?.invalid ? 'danger' : 'success') : 'basic'">
+
                                 <ng-container>
                                     <p class="caption status-danger"
                                         *ngIf="userProfile.hasError('required', 'businessLocation')&& userProfile.get('businessLocation')?.touched">
@@ -133,17 +134,7 @@
                                 <label nbLabel class="label" for="input-webSite">Web site:</label>
                                 <input nbInput id="input-webSite" type="url" formControlName="webSite"
                                     placeholder="https://..." pattern="https://.*" fullWidth fieldSize="large"
-                                    [(ngModel)]="webSite" name="webSite"
-                                    [status]="userProfile.get('webSite')?.dirty ? (userProfile.get('webSite')?.invalid ? 'danger' : 'success') : 'basic' ">
-                                <ng-container>
-                                    <p class="caption status-danger"
-                                        *ngIf="userProfile.hasError('required', 'webSite') && userProfile.get('webSite')?.touched">
-                                        Web Site is required!
-                                    </p>
-                                    <p class="caption status-danger" *ngIf="userProfile.hasError('pattern', 'webSite')">
-                                        Web Site should be a valid one!
-                                    </p>
-                                </ng-container>
+                                    [(ngModel)]="webSite" name="webSite">
                             </div>
                             <div class="buttons">
                                 <button class="button" type="submit" nbButton outline status="success">Save
