@@ -36,8 +36,8 @@ export class HeaderComponent implements OnInit {
   items: NbMenuItem[] = this.itemsMenu;
 
   // Nav Type Control
-  loggedIn: Boolean = false;
-  loggedInBusiness: Boolean = false;
+  loggedIn: Boolean = this.auth.isLoggedIn;
+  loggedInBusiness: Boolean = this.auth.isLoggedIn;
   loggedInAdm: Boolean = false;
 
   constructor(private nbMenuService: NbMenuService, private router: Router, private auth: AuthService, private readonly sidebarService: NbSidebarService) { }

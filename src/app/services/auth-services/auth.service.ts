@@ -20,10 +20,12 @@ export class AuthService {
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-   'Access-Control-Allow-Origin': '*',
-   'Access-Control-Allow-Methods': 'POST,GET,OPTIONS, PUT, DELETE',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST,GET,OPTIONS, PUT, DELETE',
     'Access-Control-Allow-Headers': 'Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization'
   });
+
+  logInUser: boolean = false;
 
   constructor(private http: HttpClient, public router: Router, public data: DataService) { }
 
@@ -31,7 +33,7 @@ export class AuthService {
   registrationForm(user: SmallBusiness, safetyMeasures: Array<SafetyMeasures>, registeredBy: Boolean) {
     user.registeredBy = registeredBy;
     const api = `${this.endpoint}/registration-form`;
-    return this.http.post<any>(api, { user, safetyMeasures },  { headers: this.headers }).subscribe(
+    return this.http.post<any>(api, { user, safetyMeasures }, { headers: this.headers }).subscribe(
       (data: SmallBusiness) => {
         if (registeredBy == true) {
           this.router.navigate(['admin-dashboard']);
@@ -56,7 +58,7 @@ export class AuthService {
   // Business user/Administrator login Form
   loginForm(user: LoginCredentials) {
     const api = `${this.endpoint}/login-form`;
-    return this.http.post<any>(api, user,  { headers: this.headers }).pipe().subscribe(
+    return this.http.post<any>(api, user, { headers: this.headers }).pipe().subscribe(
       (data: any) => {
         if (data.admin !== undefined && data.admin.loginId === "admin@myAdmin.ca") {
           localStorage.removeItem('access_token');
@@ -65,7 +67,8 @@ export class AuthService {
             window.location.reload();
           });
         } else {
-          localStorage.setItem('access_token', data.accessToken);
+          this.logInUser = true;
+          //localStorage.setItem('access_token', data.accessToken);
           localStorage.setItem('name_header', data.user.businessName);
           localStorage.setItem('business_id', data.user._id);
           this.data.getUserView(data.user._id)
@@ -88,7 +91,7 @@ export class AuthService {
   // Edit the Business Profile
   editProfile(user: SmallBusiness, id: String) {
     const api = `${this.endpoint}/edit-profile/${id}`;
-    return this.http.put<any>(api, user,  { headers: this.headers })
+    return this.http.put<any>(api, user, { headers: this.headers })
       .subscribe(
         data => {
           this.router.navigate(['/business-dashboard/' + data.id]).then(() => {
@@ -104,7 +107,7 @@ export class AuthService {
   // Business User is allowed to add safety measures
   addSafety(safety: any, id: String) {
     const api = `${this.endpoint}/add-safety/${id}`;
-    return this.http.put<any>(api, safety,  { headers: this.headers })
+    return this.http.put<any>(api, safety, { headers: this.headers })
       .subscribe(
         data => {
           return data;
@@ -137,7 +140,8 @@ export class AuthService {
 
   // Check if it is authenticated
   get isLoggedIn(): boolean {
-    let authToken = localStorage.getItem('access_token');
+    //let authToken = localStorage.getItem('access_token');
+    let authToken = this.logInUser;
     return (authToken !== null) ? true : false;
   }
   get isAdmin(): boolean {
@@ -147,7 +151,7 @@ export class AuthService {
 
   addCertification(certification: any, id: String) {
     const api = `${this.endpoint}/certification-form/${id}`;
-    return this.http.post<any>(api, certification,  { headers: this.headers })
+    return this.http.post<any>(api, certification, { headers: this.headers })
       .subscribe(
         data => {
           this.router.navigate(['/business-dashboard/' + data.id]).then(() => {
@@ -162,7 +166,7 @@ export class AuthService {
 
   deleteSafety(id: String) {
     const api = `${this.endpoint}/remove-safety`;
-    return this.http.post<String>(api, id,  { headers: this.headers })
+    return this.http.post<String>(api, id, { headers: this.headers })
       .pipe(
         map(
           data => {

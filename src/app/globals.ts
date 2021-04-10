@@ -11,28 +11,27 @@ export const categories = [
 ]
 
 export const background = [
-  "#37393A",
-  "#475966",
-  "#577892",
-  "#77B6EA",
-  "#9FC5E4",
-  "#C7D3DD",
-  "#CFCED3",
-  "#D6C9C9",
-  "#DFDCDE",
-  "#E8EEF2"
+  "#FFF1DD",
+  "#FFE0BC",
+  "#FFCA9B",
+  "#FFB582",
+  "#FF9359",
+  "#DB6D41",
+  "#B74B2C",
+  "#932F1C",
+  "#7A1B11",
 ]
 
 export const hoverBackground = [
-  "#E8EEF2",
-  "#DFDCDE",
-  "#D6C9C9",
-  "#CFCED3",
-  "#C7D3DD",
-  "#9FC5E4",
-  "#77B6EA",
-  "#577892",
-  "#475966"
+  "#7A1B11",
+  "#FFF1DD",
+  "#FFE0BC",
+  "#FFCA9B",
+  "#FFB582",
+  "#FF9359",
+  "#DB6D41",
+  "#B74B2C",
+  "#932F1C",
 ]
 
 export const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'September', 'October', 'November', 'December']
