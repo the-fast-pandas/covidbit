@@ -26,8 +26,41 @@ export class AuthService {
   });
 
   logInUser: boolean = false;
+  logInAdm: boolean = false;
 
   constructor(private http: HttpClient, public router: Router, public data: DataService) { }
+
+  // Check if it is authenticated
+  get isLoggedIn(): boolean {
+    let authToken = this.logInUser;
+    return authToken;
+  }
+  get isAdmin(): boolean {
+    let authToken = this.logInAdm;
+    return authToken;
+  }
+
+  // Retrieve local storage
+  getToken() {
+    return localStorage.getItem('access_token') || localStorage.getItem('admin_token');
+  }
+  getBusinessName() {
+    return localStorage.getItem('name_header');
+  }
+  getId() {
+    return localStorage.getItem('business_id');
+  }
+
+  // Business User Logout
+  doLogout() {
+    this.logInUser = false;
+    this.logInAdm = false;
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('admin_token');
+    localStorage.removeItem('name_header');
+    localStorage.removeItem('business_id');
+    this.router.navigate(['login-form']);
+  }
 
   // Business User Registration (Administrator/ New Business User)
   registrationForm(user: SmallBusiness, safetyMeasures: Array<SafetyMeasures>, registeredBy: Boolean) {
@@ -61,14 +94,13 @@ export class AuthService {
     return this.http.post<any>(api, user, { headers: this.headers }).pipe().subscribe(
       (data: any) => {
         if (data.admin !== undefined && data.admin.loginId === "admin@myAdmin.ca") {
-          localStorage.removeItem('access_token');
+          this.logInAdm = true;
+          console.log("Here")
           localStorage.setItem('admin_token', data.adminToken);
-          this.router.navigate(['/admin-dashboard']).then(() => {
-            window.location.reload();
-          });
+          this.router.navigate(['/admin-dashboard']);
         } else {
           this.logInUser = true;
-          //localStorage.setItem('access_token', data.accessToken);
+          localStorage.setItem('access_token', data.accessToken);
           localStorage.setItem('name_header', data.user.businessName);
           localStorage.setItem('business_id', data.user._id);
           this.data.getUserView(data.user._id)
@@ -116,37 +148,6 @@ export class AuthService {
           console.log("It was not possible to add safety meausure!");
         }
       )
-  }
-
-  // Retrieve local storage
-  getToken() {
-    return localStorage.getItem('access_token') || localStorage.getItem('admin_token');
-  }
-  getBusinesName() {
-    return localStorage.getItem('name_header');
-  }
-  getId() {
-    return localStorage.getItem('business_id');
-  }
-
-  // Business User Logout
-  doLogout() {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('admin_token');
-    localStorage.removeItem('name_header');
-    localStorage.removeItem('business_id');
-    this.router.navigate(['login-form']);
-  }
-
-  // Check if it is authenticated
-  get isLoggedIn(): boolean {
-    //let authToken = localStorage.getItem('access_token');
-    let authToken = this.logInUser;
-    return (authToken !== null) ? true : false;
-  }
-  get isAdmin(): boolean {
-    let authToken = localStorage.getItem('admin_token');
-    return (authToken !== null) ? true : false;
   }
 
   addCertification(certification: any, id: String) {

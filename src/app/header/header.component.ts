@@ -17,7 +17,7 @@ import * as myGlobals from '../globals';
 })
 export class HeaderComponent implements OnInit {
 
-  businessName: String = myGlobals.emptyField;
+  businessName: string = myGlobals.emptyField;
   id: String = myGlobals.emptyField;
 
   itemsTitle: Array<any> = [{ title: 'Profile' }, { title: 'Logout' }];
@@ -36,13 +36,11 @@ export class HeaderComponent implements OnInit {
   items: NbMenuItem[] = this.itemsMenu;
 
   // Nav Type Control
-  loggedIn: Boolean = this.auth.isLoggedIn;
-  loggedInBusiness: Boolean = this.auth.isLoggedIn;
+  loggedIn: Boolean = false;
+  loggedInBusiness: Boolean = false;
   loggedInAdm: Boolean = false;
 
-  constructor(private nbMenuService: NbMenuService, private router: Router, private auth: AuthService, private readonly sidebarService: NbSidebarService) { }
-
-  ngOnInit() {
+  constructor(private nbMenuService: NbMenuService, private router: Router, private auth: AuthService, private readonly sidebarService: NbSidebarService) {
     this.addMenu(1);
     this.router.events.subscribe(event => {
       if (event.constructor.name === "NavigationEnd") {
@@ -50,8 +48,8 @@ export class HeaderComponent implements OnInit {
           this.addMenu(2);
           this.loggedIn = this.auth.isLoggedIn;
           this.loggedInBusiness = this.auth.isLoggedIn;
-          this.businessName = localStorage.getItem('name_header') || myGlobals.emptyField;
-          this.id = localStorage.getItem('business_id') || myGlobals.emptyField;
+          this.businessName = this.auth.getBusinessName() || myGlobals.emptyField;
+          this.id = this.auth.getId() || myGlobals.emptyField;
         } else if (this.auth.isAdmin) {
           this.addMenu(3);
           this.loggedIn = this.auth.isAdmin;
@@ -70,7 +68,10 @@ export class HeaderComponent implements OnInit {
         if (title == "Profile") {
           if (this.auth.isLoggedIn) {
             this.router.navigate(['business-dashboard/' + this.id]);
-          } else if (this.auth.isAdmin) {
+          }
+        }
+        if (title == "Dashboard") {
+          if (this.auth.isAdmin) {
             this.router.navigate(['admin-dashboard']);
           }
         }
@@ -80,8 +81,12 @@ export class HeaderComponent implements OnInit {
           this.loggedInAdm = false;
           this.loggedInBusiness = false;
         }
-      });
+      })
+
   }
+
+  ngOnInit() { }
+  
   toggleSidebar(): Boolean {
     this.sidebarService.toggle();
     return false;
