@@ -10,10 +10,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
+  endpoint: string = 'https://backend-covidbit.herokuapp.com/news';
   corsHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-     'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST,GET,OPTIONS, PUT, DELETE',
     'Access-Control-Allow-Headers': 'x-requested-with'
   });
@@ -22,7 +23,7 @@ export class ApiService {
 
   // covid numbers/data
   public getCaseData() {
-    return this.httpClient.get(`https://api.covid19tracker.ca/summary/split`, { headers: this.corsHeaders });
+    return this.httpClient.get(this.endpoint + `/summary/split`, { headers: this.corsHeaders });
   }
 
   public getFatalitiesCanada(dateAfter: any, dateBefore: any) {
@@ -50,11 +51,11 @@ export class ApiService {
     return this.httpClient.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCfGrP0EDXKbazT9t2wkaDP9aKB4ykK2AU`, { headers: this.corsHeaders });
   }
 
-   // news headlines
+  // news headlines
   public getNews() {
-     //return this.httpClient.get(`https://gnews.io/api/v4/search?q=covid&country=ca&token=e8f25399b0670a2b5e542b85e42ec2f1`,  {headers: this.corsHeaders})
+    //return this.httpClient.get(`https://gnews.io/api/v4/search?q=covid&country=ca&token=e8f25399b0670a2b5e542b85e42ec2f1`,  {headers: this.corsHeaders})
     //return this.httpClient.get(`https://news.google.com/rss/search?q=covid&hl=en-CA&gl=CA&ceid=CA:en`,  {headers: this.corsHeaders})
     return this.httpClient.get(`http://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=52142b02045c42709a8a9413a15d95f1`, { headers: this.corsHeaders });
- }
+  }
 
 }

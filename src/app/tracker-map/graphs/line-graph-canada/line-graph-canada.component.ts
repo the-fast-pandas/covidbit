@@ -22,7 +22,9 @@ export class LineGraphCanadaComponent implements OnInit {
   dataChartCase: any = [];
   //Dates
   today: Date = new Date(new Date().setDate(new Date().getDate() - 1));
+  todayDate = (this.today.getMonth()+1)+'/'+this.today.getDate(); 
   sevenDays: Date = new Date(new Date().setDate(new Date().getDate() - 7));
+  sevenDaysDate = (this. sevenDays.getMonth()+1)+'/'+this. sevenDays.getDate(); 
   formatToday: String = "";
   formatSevenDays: String = "";
 
@@ -46,35 +48,47 @@ export class LineGraphCanadaComponent implements OnInit {
 
   createGraph() {
     this.chart = {
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      legend: {
+        data: ['Fatalities', 'Cases']
+    },
+
       xAxis: {
         type: 'category',
-        data: [],
+        boundaryGap: false,
+        data: [this.sevenDaysDate, '', '', '', '', '', this.todayDate]
       },
       yAxis: {
-        type: 'value',
+        type: 'value'
       },
       series: [
         {
-          title: "Fatalities",
-          data: [this.dataChartFatalities[1],
-          this.dataChartFatalities[2],
-          this.dataChartFatalities[3],
-          this.dataChartFatalities[4],
-          this.dataChartFatalities[5],
-          this.dataChartFatalities[6],
-          this.dataChartFatalities[7]],
+          name: 'Fatalities',
+          data: [Math.log(this.dataChartFatalities[1]),
+          Math.log(this.dataChartFatalities[2]),
+          Math.log(this.dataChartFatalities[3]),
+          Math.log(this.dataChartFatalities[4]),
+          Math.log(this.dataChartFatalities[5]),
+          Math.log(this.dataChartFatalities[6]),
+          Math.log(this.dataChartFatalities[7])],
           type: 'line',
+          color: '#34206C',
         },
         {
-          title: "Cases",
-          data: [this.dataChartCase[1],
-          this.dataChartCase[2],
-          this.dataChartCase[3],
-          this.dataChartCase[4],
-          this.dataChartCase[5],
-          this.dataChartCase[6],
-          this.dataChartCase[7]],
+          name: 'Cases',
+          data: [Math.log(this.dataChartCase[1]),
+          Math.log(this.dataChartCase[2]),
+          Math.log(this.dataChartCase[3]),
+          Math.log(this.dataChartCase[4]),
+          Math.log(this.dataChartCase[5]),
+          Math.log(this.dataChartCase[6]),
+          Math.log(this.dataChartCase[7])],
           type: 'line',
+          color: '#987CC3'
         },
       ],
     };
