@@ -25,18 +25,21 @@ export class AuthService {
     'Access-Control-Allow-Headers': 'Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization'
   });
 
-  logInUser: boolean = false;
-  logInAdm: boolean = false;
-
   constructor(private http: HttpClient, public router: Router, public data: DataService) { }
 
   // Check if it is authenticated
   get isLoggedIn(): boolean {
-    let authToken = this.logInUser;
+    let authToken = false;
+    if (localStorage.getItem('access_token') !== null) {
+      authToken = true;
+    }
     return authToken;
   }
   get isAdmin(): boolean {
-    let authToken = this.logInAdm;
+    let authToken = false;
+    if (localStorage.getItem('admin_token') !== null) {
+      authToken = true;
+    }
     return authToken;
   }
 
@@ -53,13 +56,13 @@ export class AuthService {
 
   // Business User Logout
   doLogout() {
-    this.logInUser = false;
-    this.logInAdm = false;
     localStorage.removeItem('access_token');
     localStorage.removeItem('admin_token');
     localStorage.removeItem('name_header');
     localStorage.removeItem('business_id');
-    this.router.navigate(['login-form']);
+    this.router.navigate(['login-form']).then(() => {
+      window.location.reload();
+    });
   }
 
   // Business User Registration (Administrator/ New Business User)
@@ -94,12 +97,9 @@ export class AuthService {
     return this.http.post<any>(api, user, { headers: this.headers }).pipe().subscribe(
       (data: any) => {
         if (data.admin !== undefined && data.admin.loginId === "admin@myAdmin.ca") {
-          this.logInAdm = true;
-          console.log("Here")
           localStorage.setItem('admin_token', data.adminToken);
           this.router.navigate(['/admin-dashboard']);
         } else {
-          this.logInUser = true;
           localStorage.setItem('access_token', data.accessToken);
           localStorage.setItem('name_header', data.user.businessName);
           localStorage.setItem('business_id', data.user._id);
