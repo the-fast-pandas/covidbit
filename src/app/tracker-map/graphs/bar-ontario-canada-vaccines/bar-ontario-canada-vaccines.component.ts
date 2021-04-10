@@ -30,15 +30,16 @@ export class BarOntarioCanadaVaccinesComponent implements OnInit {
         labels: ['Distributed Vaccines', 'Applied Vaccines'],
         datasets: [
           {
+            label: 'Canada',
+            backgroundColor: myGlobals.background[6],
+            data: [this.distributedVaccines, this.appliedVaccines]
+          },
+          {
             label: 'Ontario',
             backgroundColor: myGlobals.background[4],
             data: [this.distributedVaccinesOntario, this.appliedVaccinesOntario]
           },
-          {
-            label: 'Canada',
-            backgroundColor: myGlobals.background[5],
-            data: [this.distributedVaccines, this.appliedVaccines]
-          }
+       
         ]
       };
     })

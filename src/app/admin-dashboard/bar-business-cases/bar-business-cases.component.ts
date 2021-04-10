@@ -55,12 +55,12 @@ export class BarBusinessCasesComponent implements OnInit {
       datasets: [
         {
           label: 'Business Registered',
-          backgroundColor: myGlobals.background[2],
+          backgroundColor: myGlobals.background[0],
           data: this.chartCountBusiness
         },
         {
           label: 'Cases Registered',
-          backgroundColor: myGlobals.background[3],
+          backgroundColor: myGlobals.background[6],
           data: this.chartCountCases
         }
       ]

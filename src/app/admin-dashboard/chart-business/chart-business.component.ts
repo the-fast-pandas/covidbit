@@ -31,8 +31,8 @@ export class ChartBusinessComponent implements OnInit {
           labels: this.chartLabel,
           datasets: [{
             data: this.chartCount,
-            backgroundColor: myGlobals.background,
-            hoverBackgroundColor: myGlobals.hoverBackground,
+            backgroundColor: myGlobals.hoverBackground,
+            hoverBackgroundColor: myGlobals.background,
           }]
         };
         this.chartOptions = {

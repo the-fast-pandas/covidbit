@@ -34,12 +34,12 @@ export class BarHealthRegionMortalityComponent implements OnInit {
         datasets: [{
           type: 'bar',
           label: 'Ontario',
-          backgroundColor: myGlobals.background[3],
+          backgroundColor: myGlobals.background[4],
 
           data: [this.chartTotalCount, this.chartTotalCount, this.chartTotalCount]
         }, {
           type: 'bar',
-          label: 'Specific Region',
+          label: 'Region',
           backgroundColor: myGlobals.background[6],
           data: [
             this.chartRegion[0],  this.chartRegion[1],  this.chartRegion[2]

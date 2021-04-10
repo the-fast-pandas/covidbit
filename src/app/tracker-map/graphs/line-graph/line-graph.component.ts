@@ -4,6 +4,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api-covid-services/api.service'
 import * as echarts from 'echarts'
+import * as myGlobals from '../../../globals';
 declare const formatDate: any;
 
 @Component({
@@ -75,7 +76,7 @@ export class LineGraphComponent implements OnInit {
           Math.log(this.dataChartFatalities[6]),
           Math.log(this.dataChartFatalities[7])],
           type: 'line',
-          color: '#34206C',
+          color: myGlobals.lineGraph[0],
         },
         {
           name: 'Cases',
@@ -87,7 +88,7 @@ export class LineGraphComponent implements OnInit {
           Math.log(this.dataChartCase[6]),
           Math.log(this.dataChartCase[7])],
           type: 'line',
-          color: '#987CC3'
+          color: myGlobals.lineGraph[1],
         },
       ],
     };

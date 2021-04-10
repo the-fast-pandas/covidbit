@@ -21,11 +21,6 @@ export class ApiService {
 
   constructor(private httpClient: HttpClient) { }
 
-  // covid numbers/data
-  public getCaseData() {
-    return this.httpClient.get(this.endpoint + `/summary/split`, { headers: this.corsHeaders });
-  }
-
   public getFatalitiesCanada(dateAfter: any, dateBefore: any) {
     return this.httpClient.get(`https://api.opencovid.ca/timeseries?stat=mortality&loc=prov&after=` + dateAfter + `&before=` + dateBefore, { headers: this.corsHeaders });
   }

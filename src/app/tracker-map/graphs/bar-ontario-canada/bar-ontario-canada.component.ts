@@ -29,16 +29,17 @@ export class BarOntarioCanadaComponent implements OnInit {
       this.countDataOntario();
       this.countData();
       this.basicData = {
+
         labels: [ 'Total Cases', 'Active Cases', 'Recoveries', 'Deaths'],
         datasets: [
           {
             label: 'Canada',
-            backgroundColor: myGlobals.background[1],
+            backgroundColor: myGlobals.background[4],
             data: [ this.totalCases, this.activeCases, this.totalRecovery, this.totalDeaths]
           },
           {
             label: 'Ontario',
-            backgroundColor:  myGlobals.background[3],
+            backgroundColor:  myGlobals.background[6],
             data: [ this.totalCasesOntario, this.activeCasesOntario,  this.totalRecoveryOntario, this.totalDeathsOntario]
           }
         ]

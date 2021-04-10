@@ -41,7 +41,6 @@ import { ReviewComponent } from './business-user-view/review/review.component';
 import { ReviewConfirmationComponent } from './business-user-view/review/review-confirmation/review-confirmation.component';
 import { StatsComponent } from './tracker-map/graphs/stats/stats.component';
 import { StatsCanadaComponent } from './tracker-map/graphs/stats-canada/stats-canada.component';
-import { OntarioCanadaComponent } from './tracker-map/ontario-canada/ontario-canada.component';
 import { LineGraphCanadaComponent } from './tracker-map/graphs/line-graph-canada/line-graph-canada.component';
 import { LineGraphComponent } from './tracker-map/graphs/line-graph/line-graph.component';
 import { BarHealthRegionCasesComponent } from './tracker-map/graphs/bar-health-region-cases/bar-health-region-cases.component';
@@ -85,7 +84,6 @@ import { AboutUsComponent } from './static-pages/about-us/about-us.component';
     ReviewComponent,
     ReviewConfirmationComponent,
     StatsCanadaComponent,
-    OntarioCanadaComponent,
     LineGraphCanadaComponent,
     BarHealthRegionCasesComponent,
     HealthRegionCasesComponent,
