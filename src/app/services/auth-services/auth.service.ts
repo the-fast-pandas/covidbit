@@ -30,14 +30,14 @@ export class AuthService {
   // Check if it is authenticated
   get isLoggedIn(): boolean {
     let authToken = false;
-    if (localStorage.getItem('access_token') !== null) {
+    if (sessionStorage.getItem('access_token') !== null) {
       authToken = true;
     }
     return authToken;
   }
   get isAdmin(): boolean {
     let authToken = false;
-    if (localStorage.getItem('admin_token') !== null) {
+    if (sessionStorage.getItem('admin_token') !== null) {
       authToken = true;
     }
     return authToken;
@@ -45,21 +45,21 @@ export class AuthService {
 
   // Retrieve local storage
   getToken() {
-    return localStorage.getItem('access_token') || localStorage.getItem('admin_token');
+    return sessionStorage.getItem('access_token') || sessionStorage.getItem('admin_token');
   }
   getBusinessName() {
-    return localStorage.getItem('name_header');
+    return sessionStorage.getItem('name_header');
   }
   getId() {
-    return localStorage.getItem('business_id');
+    return sessionStorage.getItem('business_id');
   }
 
   // Business User Logout
   doLogout() {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('admin_token');
-    localStorage.removeItem('name_header');
-    localStorage.removeItem('business_id');
+    sessionStorage.removeItem('access_token');
+    sessionStorage.removeItem('admin_token');
+    sessionStorage.removeItem('name_header');
+    sessionStorage.removeItem('business_id');
     this.router.navigate(['login-form']).then(() => {
       window.location.reload();
     });
@@ -83,7 +83,7 @@ export class AuthService {
           this.router.navigate(['admin-dashboard']);
         } else {
           this.router.navigate(['registration-form']).then(() => {
-            localStorage.setItem('server_warning', 'true');
+            sessionStorage.setItem('server_warning', 'true');
             window.location.reload();
           });
         }
@@ -97,12 +97,12 @@ export class AuthService {
     return this.http.post<any>(api, user, { headers: this.headers }).pipe().subscribe(
       (data: any) => {
         if (data.admin !== undefined && data.admin.loginId === "admin@myAdmin.ca") {
-          localStorage.setItem('admin_token', data.adminToken);
+          sessionStorage.setItem('admin_token', data.adminToken);
           this.router.navigate(['/admin-dashboard']);
         } else {
-          localStorage.setItem('access_token', data.accessToken);
-          localStorage.setItem('name_header', data.user.businessName);
-          localStorage.setItem('business_id', data.user._id);
+          sessionStorage.setItem('access_token', data.accessToken);
+          sessionStorage.setItem('name_header', data.user.businessName);
+          sessionStorage.setItem('business_id', data.user._id);
           this.data.getUserView(data.user._id)
             .subscribe(
               data => {
@@ -113,7 +113,7 @@ export class AuthService {
       },
       (error: any) => {
         this.router.navigate(['login-form']).then(() => {
-          localStorage.setItem('server_warning', 'true');
+          sessionStorage.setItem('server_warning', 'true');
           window.location.reload();
         });;
       }

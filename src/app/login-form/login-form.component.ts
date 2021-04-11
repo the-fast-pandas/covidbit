@@ -26,11 +26,11 @@ export class LoginFormComponent implements OnInit {
   authWarning: Boolean = false;
 
   constructor(public auth: AuthService, public router: Router) {
-    if (localStorage.getItem('server_warning') === 'true') {
+    if (sessionStorage.getItem('server_warning') === 'true') {
       this.serverWarning = true;
-    } else if (localStorage.getItem('new_password') === 'true') {
+    } else if (sessionStorage.getItem('new_password') === 'true') {
       this.newPassword = true;
-    } else if (localStorage.getItem('auth_warning') === 'true') {
+    } else if (sessionStorage.getItem('auth_warning') === 'true') {
       this.authWarning = true;
     }
   }
@@ -40,8 +40,8 @@ export class LoginFormComponent implements OnInit {
       email: new FormControl("", [Validators.required, Validators.email]),
       password: new FormControl("", [Validators.required, Validators.minLength(8)])
     })
-    localStorage.removeItem('server_warning');
-    localStorage.removeItem('auth_warning');
+    sessionStorage.removeItem('server_warning');
+    sessionStorage.removeItem('auth_warning');
   }
 
   // Checks for form validation
@@ -64,14 +64,14 @@ export class LoginFormComponent implements OnInit {
     this.serverWarning = false;
     this.newPassword = false;
     this.authWarning = false;
-    localStorage.removeItem('new_password');
-    localStorage.removeItem('auth_warning');
+    sessionStorage.removeItem('new_password');
+    sessionStorage.removeItem('auth_warning');
   }
 
   onClose() {
     this.alert = false;
     this.auth.loginForm(this.loginCredentials.value).unsubscribe();
-    localStorage.removeItem('server_warning'); // Controls messages from server
-    localStorage.removeItem('auth_warning');
+    sessionStorage.removeItem('server_warning'); // Controls messages from server
+    sessionStorage.removeItem('auth_warning');
   }
 }

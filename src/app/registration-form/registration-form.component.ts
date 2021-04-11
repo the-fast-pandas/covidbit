@@ -35,7 +35,7 @@ export class RegistrationFormComponent implements OnInit {
   safetyMeasure: SafetyMeasures = { title: myGlobals.emptyField, description: myGlobals.emptyField , confirmed: myGlobals.emptyField}
 
   constructor(public auth: AuthService, public router: Router, public data: DataService) {
-    if (localStorage.getItem('server_warning') === 'true') {
+    if (sessionStorage.getItem('server_warning') === 'true') {
       this.serverWarning = true;
     }
   }
@@ -60,7 +60,7 @@ export class RegistrationFormComponent implements OnInit {
         description: new FormControl('', [Validators.required])
       })
     })
-    localStorage.removeItem('server_warning'); // Controls messages from server
+    sessionStorage.removeItem('server_warning'); // Controls messages from server
   }
 
   onSubmit(): void {

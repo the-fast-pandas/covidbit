@@ -54,7 +54,7 @@ export class HeaderComponent implements OnInit {
           this.addMenu(3);
           this.loggedIn = this.auth.isAdmin;
           this.loggedInAdm = this.auth.isAdmin;
-          this.businessName = "Administrator"
+          this.businessName = "Administrator";
         }
       }
     })

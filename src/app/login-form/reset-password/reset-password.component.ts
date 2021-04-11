@@ -26,7 +26,7 @@ export class ResetPasswordComponent implements OnInit {
   serverWarning: Boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute, public data: DataService, public router: Router) {
-    if (localStorage.getItem('server_warning') === 'true') {
+    if (sessionStorage.getItem('server_warning') === 'true') {
       this.serverWarning = true;
     }
   }

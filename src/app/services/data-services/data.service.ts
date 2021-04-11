@@ -89,7 +89,7 @@ export class DataService {
         },
         error => {
           this.router.navigate(['registration-form']).then(() => {
-            localStorage.setItem('server_warning', 'true');
+            sessionStorage.setItem('server_warning', 'true');
             window.location.reload();
           });
         }
@@ -103,13 +103,13 @@ export class DataService {
       .subscribe(
         (data: any) => {
           this.router.navigate(['login-form']).then(() => {
-            localStorage.setItem('new_password', 'true');
+            sessionStorage.setItem('new_password', 'true');
             window.location.reload();
           });;
         },
         (error: any) => {
           this.router.navigate(['new-password']).then(() => {
-            localStorage.setItem('new_password_warning', 'true');
+            sessionStorage.setItem('new_password_warning', 'true');
             window.location.reload();
           });
         }
