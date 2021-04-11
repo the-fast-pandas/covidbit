@@ -100,9 +100,10 @@ Two external services (API) are used for data :
 ## Deployment
 
 For this project, the server and frontend were separated and deployed as two different apps. This project's server is deployed on Heroku, a cloud-based service. The frontend part is deployed on Netlify. Both services support GitHub, so the base code is hosted there. Heroku and Netlify support continuous deployment, so making changes and updating the app is simple. Any updates to the code in GitHub would be immediately published on both of the cloud hosting services. 
+You can find the deployed website on Netlify [here](https://covidbit.netlify.app)
 
 ## Issues 
-
+* We encountered a few issues with deployment that stretched out the process for a few weeks. Unfortunately, the resources were lacking, especially for a complex project like ours that includes both frontend and the server. The guides described only how to publish the frontend part, but didn't include the instructions for deploying both parts at the same time. We later came to a conclusion that these parts had to be separated to function properly, so we had to look into 2 different documentations, 1 for Heroku and 1 for Netlify, as according to the information we discovered, Angular apps work better in Netlify.
 
 ## General Reflection
 
