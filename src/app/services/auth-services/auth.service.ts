@@ -108,8 +108,10 @@ export class AuthService {
             .subscribe(
               data => {
                 this.router.navigate(['/header']);
-                this.router.navigate(['/business-dashboard/' + data.user._id]); 
-                console.log(sessionStorage.getItem('access_token'));
+                this.router.navigate(['/business-dashboard/' + data.user._id]).then(() => {
+                  window.location.reload();
+                }); 
+                console.log(this.isLoggedIn);
               }
             )
         }
