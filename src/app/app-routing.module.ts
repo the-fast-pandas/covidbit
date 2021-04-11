@@ -21,6 +21,7 @@ import { AboutUsComponent } from './static-pages/about-us/about-us.component';
 // Guards
 import { AuthGuard } from "./services/auth-services/auth.guard";
 import { AdminGuard } from "./services/auth-services/admin.guard";
+import { HeaderComponent } from './header/header.component';
 
 const routes: Routes = [
   {
@@ -89,6 +90,10 @@ const routes: Routes = [
   {
     path: 'reviewConfirmation',
     component: ReviewConfirmationComponent
+  },
+  {
+    path: 'header',
+    component: HeaderComponent
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },

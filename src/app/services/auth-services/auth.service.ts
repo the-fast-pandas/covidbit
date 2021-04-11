@@ -107,7 +107,8 @@ export class AuthService {
           this.data.getUserView(data.user._id)
             .subscribe(
               data => {
-                this.router.navigate(['/business-dashboard/' + data.user._id]);
+                this.router.navigate(['/header']);
+                this.router.navigate(['/business-dashboard/' + data.user._id]); 
                 console.log(sessionStorage.getItem('access_token'));
               }
             )
