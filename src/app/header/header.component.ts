@@ -57,7 +57,7 @@ export class HeaderComponent implements OnInit {
           this.businessName = "Administrator";
         }
       }
-    })
+    });
 
     this.nbMenuService.onItemClick()
       .pipe(

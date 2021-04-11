@@ -99,6 +99,7 @@ export class AuthService {
         if (data.admin !== undefined && data.admin.loginId === "admin@myAdmin.ca") {
           sessionStorage.setItem('admin_token', data.adminToken);
           this.router.navigate(['/admin-dashboard']);
+          console.log(sessionStorage.getItem('access_token'));
         } else {
           sessionStorage.setItem('access_token', data.accessToken);
           sessionStorage.setItem('name_header', data.user.businessName);
@@ -107,6 +108,7 @@ export class AuthService {
             .subscribe(
               data => {
                 this.router.navigate(['/business-dashboard/' + data.user._id]);
+                console.log(sessionStorage.getItem('access_token'));
               }
             )
         }
