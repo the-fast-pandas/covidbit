@@ -108,9 +108,7 @@ export class AuthService {
             .subscribe(
               data => {
                 this.router.navigate(['/header']);
-                this.router.navigate(['/business-dashboard/' + data.user._id]).then(() => {
-                  window.location.reload();
-                }); 
+                this.router.navigate(['/business-dashboard/' + data.user._id]);
                 console.log(this.isLoggedIn);
               }
             )

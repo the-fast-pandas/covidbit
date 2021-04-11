@@ -41,11 +41,16 @@ export class HeaderComponent implements OnInit {
   loggedInAdm: Boolean = false;
 
   constructor(private nbMenuService: NbMenuService, private router: Router, private auth: AuthService, private readonly sidebarService: NbSidebarService) {
-    this.addMenu(1);
+   
+
+  }
+
+  ngOnInit() {  this.addMenu(1);
     this.router.events.subscribe(event => {
       if (event.constructor.name === "NavigationEnd") {
         if (this.auth.isLoggedIn) {
           this.addMenu(2);
+          console.log(this.auth.isLoggedIn)
           this.loggedIn = this.auth.isLoggedIn;
           this.loggedInBusiness = this.auth.isLoggedIn;
           this.businessName = this.auth.getBusinessName() || myGlobals.emptyField;
@@ -81,11 +86,7 @@ export class HeaderComponent implements OnInit {
           this.loggedInAdm = false;
           this.loggedInBusiness = false;
         }
-      })
-
-  }
-
-  ngOnInit() { }
+      })}
   
   toggleSidebar(): Boolean {
     this.sidebarService.toggle();
