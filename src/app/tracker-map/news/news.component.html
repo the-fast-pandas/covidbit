@@ -6,8 +6,9 @@
           <nb-list-item *ngFor="let article of articles">
             <div class="news-section">
               <h3><a target="_blank" href={{article.url}}>{{article.title}}</a></h3>
+              <p style='color:#987CC3'>Source: <span style='color:black'>{{article.source}} </span></p>
               <p>{{article.description}}</p>
-              <p>{{article.publishedAt | date}} </p>
+              <p>{{article.published_at | date}} </p>
             </div>
           </nb-list-item>
         </nb-list>
