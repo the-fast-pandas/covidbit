@@ -191,21 +191,6 @@ export class DataService {
 
   }
 
-  getNews(){
-    const api = `${this.endpoint}/covid-news`;
-    return this.http.get<any>(api,  { headers: this.headers }).pipe(
-      map(
-        data => {
-              return data;
-            },
-            (error: any) => {
-              window.alert("No News to report!");
-            }
-          )
-          )
-
-  }
-
   // Business User is allowed to add safety measures
   addReview(review: any, id: String) {
     const api = `${this.endpoint}/add-review/${id}`;

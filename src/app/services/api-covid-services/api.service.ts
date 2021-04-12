@@ -56,14 +56,22 @@ export class ApiService {
             window.alert("Sorry, no service from maps.");
           }
         ))
-    //return this.httpClient.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCfGrP0EDXKbazT9t2wkaDP9aKB4ykK2AU`, { headers: this.corsHeaders });
   }
 
   // news headlines
   public getNews() {
-    //return this.httpClient.get(`https://gnews.io/api/v4/search?q=covid&country=ca&token=e8f25399b0670a2b5e542b85e42ec2f1`,  {headers: this.corsHeaders})
-    //return this.httpClient.get(`https://news.google.com/rss/search?q=covid&hl=en-CA&gl=CA&ceid=CA:en`,  {headers: this.corsHeaders})
-    return this.httpClient.get(`http://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=52142b02045c42709a8a9413a15d95f1`, { headers: this.corsHeaders });
+    const api = `${this.endpoint}/news-covid`;
+    return this.httpClient.get<any>(api)
+      .pipe(
+        map(
+          data => {
+            return data;
+          },
+          (error: any) => {
+            window.alert("Sorry, no news today.");
+          }
+        ))
+    // return this.httpClient.get(`http://api.mediastack.com/v1/news?access_key=08a50875122473c0c35d0c131ecd6b11&countries=ca&keywords=covid`, { headers: this.corsHeaders });
   }
 
 }
