@@ -1,6 +1,5 @@
 <div class="container">
 
-
   <div class="row">
 
     <div class="col-sm" style="text-align: center;">
@@ -15,6 +14,12 @@
           </button>
         </nb-form-field>
 
+        <ng-container>
+          <p class="caption status-danger" *ngIf=" validSearch === true">
+            Business Not Found!
+          </p>
+        </ng-container>
+
       </form>
 
 
@@ -26,58 +31,46 @@
 
   <div class="row">
 
-    <!-- news -->
-    <div class="col-md-3">
-      <app-news></app-news>
-    </div>
-
-    <div class="col-sm-12 col-md-9">
+    <div class="col-12 col-md-8">
 
       <!-- google map -->
       <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-        <agm-marker [latitude]="lat" [longitude]="lng">
+
+        <agm-marker *ngFor="let marker of markers let i = index;" [animation]="marker.animation" 
+        (mouseOver)="markerOver(marker)" (mouseOut)="markerOut(marker)"  [latitude]="marker.lat" [longitude]="marker.lng">
           <agm-info-window>
             <nb-card class="info-window" status="info">
               <nb-card-header>
-                <a target="blank" id="businessLink" style="text-decoration: none;"
-                  [href]="endpoint">{{cardBusinessName}}</a>
+                <a target="blank" id="businessLink" style="text-decoration: none;" [routerLink]="['/business-user-view' , marker.id]" routerLinkActive="active" >{{marker.name}}</a>
                 <br>
                 <sub>
-                  {{cardBusinessLocation}}
+                  {{marker.location}}
                 </sub>
 
               </nb-card-header>
               <nb-card-body>
-                <p>Total Cases: {{foundBusinessCases.length}}</p>
+                <p>Total Cases: {{marker.cases}}</p>
               </nb-card-body>
-              <nb-card-footer>By Wikipedia</nb-card-footer>
             </nb-card>
           </agm-info-window>
         </agm-marker>
+
       </agm-map>
+    </div>
+
+    <div class="col-md-4">
+      <app-news></app-news>
     </div>
 
 
   </div>
 </div>
 
-<br>
-
+  <br>
 
 <!-- Ontario Tab -->
-<div class="container source">
-  <button nbButton class="card-colour">
-    <nb-icon icon="external-link-outline"></nb-icon>
-    <a href="https://opencovid.ca/">Source</a>
-  </button>
-  <br><br>
-
-  <nb-card>
-
-    <nb-card-header class="card-colour" id="center">
-      Covid Statistics
-    </nb-card-header>
-
+<div class="container">
+  <nb-card status="primary">
 
     <nb-card-body>
       <nb-tabset>
@@ -191,9 +184,6 @@
       </nb-tabset>
     </nb-card-body>
   </nb-card>
-
 </div>
-
-
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>

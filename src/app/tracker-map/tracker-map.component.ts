@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild} from '@angular/core';
 
 import { searchSB } from '../models/searchSB.model';
@@ -37,7 +38,7 @@ export class TrackerMapComponent implements OnInit {
   markerInfo!: BusinessNameandLocation
 
   businessNameDB: BusinessName = { name: '' };
-  businessNameSearch: BusinessName = { name: '' };
+  businessNameSearch: BusinessName = { name: 'Pizza Pizaa' };
   locationToBeSearched: String = '';
   searchedBusinessID: String = '';
 
@@ -116,7 +117,7 @@ export class TrackerMapComponent implements OnInit {
       newMarker.name = data.users[i].businessName;
       newMarker.location = data.users[i].location;
       newMarker.businessType = data.users[i].businessType;
-      newMarker.id = data.users[i].id;
+      newMarker.id = data.users[i]._id;
       newMarker.animation = 'DROP';
 
       //Make Call to Google API to get Coords of the businesses location/address
@@ -130,14 +131,12 @@ export class TrackerMapComponent implements OnInit {
 
       //Set Businesses Map Marker Case Count
      let toBeSearched = {name: data.users[i].businessName}
-
+    
      this.adm.getUserCases(toBeSearched).subscribe(caseData => {
-      // console.log(caseData);
+      console.log(caseData);
       newMarker.cases = caseData.cases.length;
     });
-    
-    
-
+  
       //Add Map Marker to Marker Array
       this.markers.push(newMarker);
 
@@ -149,18 +148,19 @@ export class TrackerMapComponent implements OnInit {
 
   //Map Marker Helper Functions
   setMarkerLat(coordsData: any) {
-    for (let i = 0; i < coordsData.results.length; i++) {
-      return coordsData.results[0].geometry.location.lat;
+    for (let i = 0; i < JSON.parse(coordsData.body).results.length; i++) {
+      return JSON.parse(coordsData.body).results[0].geometry.location.lat;
     }
   }
 
   setMarkerLng(coordsData: any) {
-    for (let i = 0; i < coordsData.results.length; i++) {
-       return coordsData.results[0].geometry.location.lng;
+    console.log(JSON.parse(coordsData.body).results);
+    for (let i = 0; i < JSON.parse(coordsData.body).results.length; i++) {
+       return JSON.parse(coordsData.body).results[0].geometry.location.lng;
     }
   }
 
-   markerOver(m: BusinessNameandLocation) {
+  markerOver(m: BusinessNameandLocation) {
     m.animation = 'BOUNCE';
   }
 
@@ -173,4 +173,3 @@ export class TrackerMapComponent implements OnInit {
   }
 
 }
-

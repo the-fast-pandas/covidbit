@@ -5,12 +5,13 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  endpoint: string = 'https://backend-covidbit.herokuapp.com/news';
+  endpoint: string = 'https://backend-covidbit.herokuapp.com/api';
   corsHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
@@ -43,7 +44,19 @@ export class ApiService {
 
   // coordinates/locations
   public getLocationCoords(address: any) {
-    return this.httpClient.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCfGrP0EDXKbazT9t2wkaDP9aKB4ykK2AU`, { headers: this.corsHeaders });
+    console.log(address)
+    const api = `${this.endpoint}/google-api-maps`;
+    return this.httpClient.get<any>(api, address)
+      .pipe(
+        map(
+          data => {
+            return data;
+          },
+          (error: any) => {
+            window.alert("Sorry, no service from maps.");
+          }
+        ))
+    //return this.httpClient.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCfGrP0EDXKbazT9t2wkaDP9aKB4ykK2AU`, { headers: this.corsHeaders });
   }
 
   // news headlines
