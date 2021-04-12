@@ -6,7 +6,7 @@
     <div class="col-8">
 
       <!-- Business Info Card -->
-      <nb-card>
+      <nb-card size="small">
         <nb-card-header>
           <h2>{{businessName}}</h2>
         </nb-card-header>
@@ -16,14 +16,14 @@
               <label nbLabel class="h6" for="input-businessType">Phone Number</label>
               <ng-container>
                 <!-- Business Phone Number -->
-                <p class="subtitle text-hint">{{businessPhoneNumber}}</p>
+                <p style='color:#987CC3' class="subtitle text-hint">{{businessPhoneNumber}}</p>
               </ng-container>
             </div>
             <div class="col-6">
               <label nbLabel class="h6" for="input-businessType">Address</label>
               <ng-container>
                 <!-- Business' Address -->
-                <p class="subtitle text-hint">{{businessAddress}}</p>
+                <p style='color:#987CC3' class="subtitle text-hint">{{businessAddress}}</p>
               </ng-container>
             </div>
           </div>
@@ -39,7 +39,7 @@
             <div class="col-6">
               <label nbLabel class="h6" for="input-businessType">Business Type</label>
               <ng-container>
-                <p class="subtitle text-hint">{{businessType}}</p>
+                <p style='color:#987CC3' class="subtitle text-hint">{{businessType}}</p>
               </ng-container>
             </div>
           </div>
@@ -48,9 +48,9 @@
     </div>
     <!-- safety Measures List Card -->
     <div class="col-4">
-      <nb-card>
+      <nb-card size="small">
         <nb-card-header>
-          <h5 >Safety Measures</h5>
+          <h5>Safety Measures</h5>
         </nb-card-header>
         <nb-accordion *ngIf="safetyMeasureList.length > 0">
           <nb-accordion-item *ngFor="let measure of safetyMeasureList">
@@ -66,36 +66,25 @@
 
   <!-- Row Three -->
   <div class="row">
-    <div class="col-8">
-      <nb-card>
+    <div class="col-9">
+      <nb-card size="small">
         <nb-card-header>
-          <h5 >Reviews</h5>
+          <h5>Reviews</h5>
           <a href routerLink="/review/{{id}}" routerLinkActive="active">Add a review</a>
         </nb-card-header>
         <nb-card-body class="icon-container">
         </nb-card-body>
       </nb-card>
     </div>
-    <div class="col-4">
-      <nb-card>
+    <div class="col-3">
+      <nb-card size="small">
         <nb-card-header>
-          <h5 >COVID Case Log</h5>
+          <h5>COVID Case Log</h5>
         </nb-card-header>
         <nb-card-body>
-          <div class="row">
-            <div class="col-6">
-              <ng-container>
-                <h2 class="case-numbers">Total </h2>
-                <h4 class="case-numbers">{{totalCases}}</h4>
-              </ng-container>
-            </div>
-            <div class="col-6">
-              <ng-container>
-                <h2 class="case-numbers">Last 30 days</h2>
-                <h4  class="case-numbers">{{totalCases30Days}}</h4>
-              </ng-container>
-            </div>
-          </div>
+          <h6 style='color:#987CC3'> Cases: <span style='color:black'>{{totalCases | number}} </span></h6>
+          <h6 style='color:#987CC3'> Last 30 days: <span style='color:black'>{{totalCases30Days| number}}</span>
+          </h6>
         </nb-card-body>
       </nb-card>
     </div>

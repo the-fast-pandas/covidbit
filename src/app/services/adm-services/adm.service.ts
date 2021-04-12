@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 // Local Services
+import { AuthService } from '../../services/auth-services/auth.service';
 import { BusinessName } from '../../models/businessName.model';
 import { Cases } from '../../models/case.model';
 import { Email } from '../../models/email.model';
@@ -24,7 +25,7 @@ export class AdmService {
     'Access-Control-Allow-Headers': 'Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization'
   });
 
-  constructor(private http: HttpClient, public router: Router) { }
+  constructor(private http: HttpClient, public router: Router, public auth: AuthService) { }
 
   ////////////   BUSINESS USER //////////////
 
@@ -92,6 +93,7 @@ export class AdmService {
 
   // Administrator can add a case
   addUserCasesAdm(data: Cases) {
+    data.businessName = this.auth.getBusinessName() || 'no data';
     const api = `${this.endpoint}/add-user-cases-adm`;
     return this.http.post<any>(api, data, { headers: this.headers }).subscribe(
       (data) => {

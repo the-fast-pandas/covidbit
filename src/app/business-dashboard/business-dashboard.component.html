@@ -1,7 +1,5 @@
 <div class="container">
-
   <div class="card-row">
-
     <!-- Business Profile -->
     <div class="card-col">
       <nb-card size="large" class="profileInfo">
@@ -42,39 +40,34 @@
     <!-- Safety Measures -->
     <div class="card-col">
       <!-- Display list of Safety Measures -->
-      <nb-card size="small">
+      <nb-card size="large">
         <nb-card-header>
           <h5>Safety Measures</h5>
           <a href routerLink="/certification-form/{{id}}" routerLinkActive="active">Apply for Certification</a>
         </nb-card-header>
         <nb-card-body>
-          <div class="form-control-group" class="column">
-            <div class="safetyMeasureList">
-              <nb-accordion *ngIf="safetyMeasureList.length > 0">
-                <nb-accordion-item *ngFor="let measure of safetyMeasureList">
-                  <nb-accordion-item-header>{{measure.title}}</nb-accordion-item-header>
-                  <nb-accordion-item-body>{{measure.description}}</nb-accordion-item-body>
-                </nb-accordion-item>
-              </nb-accordion>
-              <p class="subtitle" *ngIf="safetyMeasureList.length <= 0">No safety Measures added</p>
-            </div>
-          </div>
-        </nb-card-body>
-      </nb-card>
-      <!-- Add Safety Measure -->
-      <nb-card size="tiny">
-        <nb-card-body>
           <nb-tabset (changeTab)="tabReset()">
+            <nb-tab tabTitle="List">
+              <div class="safetyMeasureList">
+                <nb-accordion *ngIf="safetyMeasureList.length > 0">
+                  <nb-accordion-item *ngFor="let measure of safetyMeasureList">
+                    <nb-accordion-item-header>{{measure.title}}</nb-accordion-item-header>
+                    <nb-accordion-item-body>{{measure.description}}</nb-accordion-item-body>
+                  </nb-accordion-item>
+                </nb-accordion>
+                <p class="subtitle" *ngIf="safetyMeasureList.length <= 0">No safety Measures added</p>
+              </div>
+            </nb-tab>
             <nb-tab tabTitle="Add">
               <form [formGroup]='safetyMeasures'>
                 <input nbInput type="text" id="input-safetyMeasureTitle" fieldSize="small" formControlName="title"
-                  fullWidth placeholder="Name of safety Measure">
+                  fullWidth placeholder="Name">
                 <label nbLabel class="label" for="input-safetyMeasureDescription"></label>
                 <textarea nbInput type="text" id="input-safetyMeasureDescription" formControlName="description"
-                  fullWidth placeholder="Desciption of safety Measure"></textarea>
+                  fullWidth placeholder="Description"></textarea>
                 <button nbButton size="small" nbButton id="addMeasure" outline status="primary"
                   [disabled]="this.safetyMeasures.get('title')?.invalid || this.safetyMeasures.get('description')?.invalid"
-                  (click)="onAddMeasure()">Add safety measure</button>
+                  (click)="onAddMeasure()">Add Safety Measure</button>
               </form>
             </nb-tab>
             <nb-tab tabTitle="Delete">
@@ -84,10 +77,12 @@
               </nb-select>
               <div>
                 <button nbButton size="small" nbButton id="deleteMeasure" outline status="primary"
-                  (click)="onDeleteMeasure()">Remove safety measure</button>
+                  (click)="onDeleteMeasure()">Remove Safety Measure</button>
               </div>
             </nb-tab>
           </nb-tabset>
+          <div class="form-control-group" class="column">
+          </div>
         </nb-card-body>
       </nb-card>
     </div>
@@ -97,7 +92,7 @@
 <div class="container">
   <div class="card-row">
     <div class="card-col">
-      <nb-card size="large">
+      <nb-card size="medium">
         <nb-card-header>
           <h5>Reported Cases</h5>
         </nb-card-header>
@@ -105,7 +100,6 @@
           <nb-tabset (changeTab)="tabReset()">
             <nb-tab tabTitle="Add Reported Case">
               <app-add-case></app-add-case>
-              <app-table-cases></app-table-cases>
             </nb-tab>
             <nb-tab tabTitle="Update Reported Case">
               <app-edit-case></app-edit-case>

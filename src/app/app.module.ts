@@ -35,7 +35,6 @@ import { ChartBusinessComponent } from './admin-dashboard/chart-business/chart-b
 import { BarBusinessCasesComponent } from './admin-dashboard/bar-business-cases/bar-business-cases.component';
 import { NewsComponent } from './tracker-map/news/news.component';
 import { AddCaseComponent } from './business-dashboard/add-case/add-case.component';
-import { TableCasesComponent } from './business-dashboard/table-cases/table-cases.component';
 import { EditCaseComponent } from './business-dashboard/edit-case/edit-case.component';
 import { ReviewComponent } from './business-user-view/review/review.component';
 import { ReviewConfirmationComponent } from './business-user-view/review/review-confirmation/review-confirmation.component';
@@ -77,7 +76,6 @@ import { AboutUsComponent } from './static-pages/about-us/about-us.component';
     BarBusinessCasesComponent,
     NewsComponent,
     AddCaseComponent,
-    TableCasesComponent,
     EditCaseComponent,
     LineGraphComponent,
     StatsComponent,
