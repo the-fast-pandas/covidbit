@@ -41,14 +41,13 @@
           [longitude]="marker.lng">
           <agm-info-window>
             <nb-card class="info-window" status="info">
-              <nb-card-header>
+              <nb-card-header class="card-colour" id="center">
                 <a target="blank" id="businessLink" style="text-decoration: none;"
                   [routerLink]="['/business-user-view' , marker.id]" routerLinkActive="active">{{marker.name}}</a>
                 <br>
                 <sub>
                   {{marker.location}}
                 </sub>
-
               </nb-card-header>
               <nb-card-body>
                 <p>Total Cases: {{marker.cases}}</p>
@@ -56,14 +55,10 @@
             </nb-card>
           </agm-info-window>
         </agm-marker>
-
       </agm-map>
     </div>
-
-
   </div>
 </div>
-
 <br>
 
 

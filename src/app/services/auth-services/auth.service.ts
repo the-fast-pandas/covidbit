@@ -70,10 +70,12 @@ export class AuthService {
     user.registeredBy = registeredBy;
     const api = `${this.endpoint}/registration-form`;
     return this.http.post<any>(api, { user, safetyMeasures }, { headers: this.headers }).subscribe(
-      (data: SmallBusiness) => {
+      (data: any) => {
         if (registeredBy == true) {
           this.router.navigate(['admin-dashboard']);
         } else {
+          console.log(data.newBusiness.id);
+          this.addSafety(safetyMeasures, data.newBusiness.id );
           this.router.navigate(['login-form']);
         }
       },

@@ -78,7 +78,6 @@ export class AdmService {
 
   // Administrator can search cases for a specific business
   getUserCases(business: BusinessName) {
-    console.log(business)
     const api = `${this.endpoint}/get-user-cases`;
     return this.http.post<any>(api, business,  { headers: this.headers }).pipe(
       map(
