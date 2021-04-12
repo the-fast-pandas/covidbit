@@ -13,8 +13,9 @@ const emailService = require('../models/emailService/emailForgotPassword');
 const Administrator = require('../schema/administrator');
 
 // Controls theloginForm for a business user and administrator
-const googleMaps = function (req, res) {
-
+/*const googleMaps = function (req, res) {
+   
+    var address = "1600 Amphitheatre Parkway, Mountain View, CA";
     // Defining the request URL
     var options = {
         url: 'https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCfGrP0EDXKbazT9t2wkaDP9aKB4ykK2AU'
@@ -35,6 +36,30 @@ const googleMaps = function (req, res) {
             return res.status(401).json({ message: "Google unavailable!" });
         }
     }
-}
+}*/
+
+
+// npm install request --save
+var request = require("request");
+
+const googleMaps = function (req, res, next) {
+
+    var API_KEY = "SOMEDATA";
+    var BASE_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+
+    var address = "1600 Amphitheatre Parkway, Mountain View, CA";
+
+    var url = BASE_URL + address + "&key=" + API_KEY;
+
+    request(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.json(body);
+            res.status(200).json(response);
+        }
+        else {
+            res.status(401).json({ message: "Google unavailable!" });
+        }
+    });
+};
 
 module.exports = { googleMaps };

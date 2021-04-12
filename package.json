@@ -28,6 +28,7 @@
     "mongoose": "^5.11.14",
     "nodemailer": "^6.4.17",
     "phoenix": "^1.5.8",
+    "request": "^2.88.2",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
