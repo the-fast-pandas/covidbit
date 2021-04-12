@@ -59,7 +59,7 @@ const googleMaps = function (req, res, next) {
 };
 
 const news = function (req, res, next) {
-    var url = `http://api.mediastack.com/v1/news?access_key=08a50875122473c0c35d0c131ecd6b11&countries=ca&categories=health&keywords=covid&languages=en`;
+    var url = `http://api.mediastack.com/v1/news?access_key=08a50875122473c0c35d0c131ecd6b11&countries=ca&keywords=covid&languages=en`;
     request(url, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             //res.json(body);
