@@ -9,6 +9,7 @@ const ctrlDashUser = require('../controllers/businessUser');
 const authLog = require('../middleware/auth');
 const ctrlDashAdmin = require('../controllers/administrator');
 const ctrlViewBus = require('../controllers/businessView');
+const googleApi = require('../controllers/google');
 
 
 // Server Status
@@ -59,7 +60,7 @@ router.post('/delete-user-cases-adm', authLog.authAdmin, ctrlDashAdmin.deleteUse
 router.post('/add-user-cases-adm', authLog.authAdmin, ctrlDashAdmin.addUserCasesAdm);
 router.post('/invite-new-user', authLog.authAdmin, ctrlDashAdmin.inviteNewUser);
 
-
+router.get('/google-api-maps', googleApi.googleMaps)
 
 
 
