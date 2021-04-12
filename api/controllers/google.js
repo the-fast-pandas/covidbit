@@ -43,17 +43,13 @@ const Administrator = require('../schema/administrator');
 var request = require("request");
 
 const googleMaps = function (req, res, next) {
-
+    const { address } = req.body;
     var API_KEY = "AIzaSyCfGrP0EDXKbazT9t2wkaDP9aKB4ykK2AU";
     var BASE_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-
-    var address = "1600 Amphitheatre Parkway, Mountain View, CA";
-
     var url = BASE_URL + address + "&key=" + API_KEY;
 
     request(url, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            //res.json(body);
             res.status(200).json(response);
         }
         else {
@@ -62,4 +58,17 @@ const googleMaps = function (req, res, next) {
     });
 };
 
-module.exports = { googleMaps };
+const news = function (req, res, next) {
+    var url = `http://api.mediastack.com/v1/news?access_key=08a50875122473c0c35d0c131ecd6b11&countries=ca&keywords=covid`;
+    request(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            //res.json(body);
+            res.status(200).json(response);
+        }
+        else {
+            res.status(401).json({ message: "News unvailable!" });
+        }
+    });
+}
+
+module.exports = { googleMaps, news };

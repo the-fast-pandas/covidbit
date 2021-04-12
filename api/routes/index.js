@@ -62,6 +62,8 @@ router.post('/invite-new-user', authLog.authAdmin, ctrlDashAdmin.inviteNewUser);
 
 router.get('/google-api-maps', googleApi.googleMaps)
 
+router.get('/news-covid', googleApi.news)
+
 
 
 module.exports = router;
