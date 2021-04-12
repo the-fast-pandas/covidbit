@@ -65,7 +65,7 @@ export class TrackerMapComponent implements OnInit {
 
     this.searchService.getAllBusiness().subscribe(    
       data => {
-        console.log(data);
+  
         this.initializeMapMarkers(data);
       });
 
@@ -83,7 +83,7 @@ export class TrackerMapComponent implements OnInit {
   onSubmit() {
 
     let searchedBusiness = this.markers.find(e => e.name === this.businessSearch.get('businessName')?.value);
-    console.log(searchedBusiness);
+   
 
     if (this.businessSearch.get('businessName')?.value === searchedBusiness?.name) {
       this.validSearch = false;
@@ -133,7 +133,7 @@ export class TrackerMapComponent implements OnInit {
      let toBeSearched = {name: data.users[i].businessName}
     
      this.adm.getUserCases(toBeSearched).subscribe(caseData => {
-      console.log(caseData);
+   
       newMarker.cases = caseData.cases.length;
     });
   
@@ -142,7 +142,7 @@ export class TrackerMapComponent implements OnInit {
 
      }
 
-     console.log(this.markers);
+    
 
   }
 
@@ -154,7 +154,7 @@ export class TrackerMapComponent implements OnInit {
   }
 
   setMarkerLng(coordsData: any) {
-    console.log(JSON.parse(coordsData.body).results);
+ 
     for (let i = 0; i < JSON.parse(coordsData.body).results.length; i++) {
        return JSON.parse(coordsData.body).results[0].geometry.location.lng;
     }

@@ -49,13 +49,13 @@ export class HeaderComponent implements OnInit {
     this.router.events.subscribe(event => {
       //if (event.constructor.name === "NavigationEnd") {
         //new Event('click');
-        console.log("Here1")
+  
         if (event instanceof RouterEvent) {
-          console.log("Here2")
+    
         if (this.auth.isLoggedIn) {
-          console.log("Here3")
+       
           this.addMenu(2);
-          console.log(this.auth.isLoggedIn)
+    
           this.loggedIn = this.auth.isLoggedIn;
           this.loggedInBusiness = this.auth.isLoggedIn;
           this.businessName = this.auth.getBusinessName() || myGlobals.emptyField;

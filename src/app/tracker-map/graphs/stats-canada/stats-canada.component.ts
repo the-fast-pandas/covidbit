@@ -25,7 +25,7 @@ export class StatsCanadaComponent implements OnInit {
         this.deaths += data.summary[i].deaths;
       }
     })
-    console.log(this.activeCases)
+ 
   }
 
 }
