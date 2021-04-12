@@ -76,7 +76,7 @@ export class BusinessDashboardComponent implements OnInit {
     for (let i = 0; i < Object.keys(data.safeties).length; i++) {
       if (this.id === data.safeties[i].businessId) {
         this.safetyMeasure["title"] = data.safeties[i].title;
-        this.safetyMeasure["description"] = data.safeties[i].title;
+        this.safetyMeasure["description"] = data.safeties[i].description;
         this.safetyMeasureList.push(this.safetyMeasure);
         this.safetyIdList.push(data.safeties[i]._id);
       }
