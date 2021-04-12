@@ -65,7 +65,6 @@ const addSafety = function (req, res) {
         }
         if (user) {
             const businessId = user._id;
-
             newSafety = new SafetyMeasures({
                 businessId,
                 title,
