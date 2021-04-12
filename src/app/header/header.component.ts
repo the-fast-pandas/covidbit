@@ -5,7 +5,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NbMenuItem, NbMenuService, NbSidebarService } from '@nebular/theme';
 import { filter, map } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, RouterEvent } from '@angular/router';
 // Local Service
 import { AuthService } from '../services/auth-services/auth.service';
 import * as myGlobals from '../globals';
@@ -47,8 +47,13 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {  this.addMenu(1);
     this.router.events.subscribe(event => {
-      if (event.constructor.name === "NavigationEnd") {
+      //if (event.constructor.name === "NavigationEnd") {
+        //new Event('click');
+        console.log("Here1")
+        if (event instanceof RouterEvent) {
+          console.log("Here2")
         if (this.auth.isLoggedIn) {
+          console.log("Here3")
           this.addMenu(2);
           console.log(this.auth.isLoggedIn)
           this.loggedIn = this.auth.isLoggedIn;
