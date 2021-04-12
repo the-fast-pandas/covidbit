@@ -108,9 +108,13 @@ export class HeaderComponent implements OnInit {
       menuItem = { title: "Profile", link: '/business-dashboard/' + this.id }
       this.itemsMenu.pop();
       this.itemsMenu.push(menuItem);
+      menuItem = { title: "Logout", link: 'home'}
+      this.itemsMenu.push(menuItem);
     } else if (section === 3) {
       menuItem = { title: "Dashboard", link: '/admin-dashboard' }
       this.itemsMenu.pop();
+      this.itemsMenu.push(menuItem);
+      menuItem = { title: "Logout", link: 'home'}
       this.itemsMenu.push(menuItem);
     }
   }
