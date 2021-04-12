@@ -34,7 +34,7 @@ const registrationForm = function (req, res) {
 
   } else {
     const { accountDetails, businessDetails } = req.body.user;
-  
+
     password = accountDetails.password;
     loginId = accountDetails.email;
     businessName = accountDetails.businessName;
@@ -87,8 +87,19 @@ const registrationForm = function (req, res) {
               } else {
                 emailService.emailRegistration('covidbitreg@gmail.com', newBusiness.businessName);
               }
-              return res.status(200).json({ newBusiness });
-            });
+              SmallBusiness.findOne({ "loginId": newBusiness.loginId }, function (error, user) {
+                if (error) {
+                  throw error;
+                }
+                if (!user) {
+                  return res.status(401).json({ message: "Incorrect LoginId!" });
+                }
+                if (user) {
+                  const id = user._id;
+                  return res.status(200).json({ id });
+                }
+              });
+            })
           }
         });
       });

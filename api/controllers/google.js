@@ -59,12 +59,10 @@ const googleMaps = function (req, res, next) {
 };
 
 const news = function (req, res, next) {
-    //var url = `http://api.mediastack.com/v1/news?access_key=08a50875122473c0c35d0c131ecd6b11&countries=ca&keywords=covid&languages=en`;
     var url = `http://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=52142b02045c42709a8a9413a15d95f1`;
     request(url, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            //res.json(body);
-            res.status(200).json(response);
+           res.status(200).json(response);
         }
         else {
             res.status(401).json({ message: "News unvailable!" });
