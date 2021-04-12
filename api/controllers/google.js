@@ -44,7 +44,7 @@ var request = require("request");
 
 const googleMaps = function (req, res, next) {
 
-    var API_KEY = "SOMEDATA";
+    var API_KEY = "SAIzaSyCfGrP0EDXKbazT9t2wkaDP9aKB4ykK2AU";
     var BASE_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
 
     var address = "1600 Amphitheatre Parkway, Mountain View, CA";
