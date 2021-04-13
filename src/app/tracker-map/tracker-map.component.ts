@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { searchSB } from '../models/searchSB.model';
-import {FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdmService } from '../services/adm-services/adm.service';
 import { BusinessName } from '../models/businessName.model';
 import { ApiService } from '../services/api-covid-services/api.service';
@@ -37,7 +38,7 @@ export class TrackerMapComponent implements OnInit {
   markerInfo!: BusinessNameandLocation
 
   businessNameDB: BusinessName = { name: '' };
-  businessNameSearch: BusinessName = { name: '' };
+  businessNameSearch: BusinessName = { name: 'Pizza Pizaa' };
   locationToBeSearched: String = '';
   searchedBusinessID: String = '';
 
@@ -46,7 +47,7 @@ export class TrackerMapComponent implements OnInit {
   cardBusinessName: String = '';
   cardBusinessType: String = '';
   cardCertification!: boolean;
-  cardBusinessLocation: String = ''; 
+  cardBusinessLocation: String = '';
   foundBusinessCases: Array<any> = [];
 
   markers: BusinessNameandLocation[] = [];
@@ -58,13 +59,12 @@ export class TrackerMapComponent implements OnInit {
   @ViewChild('infoWindow') markerInfoWindow;
 
 
-  constructor(public adm: AdmService, private apiService: ApiService, public searchService: DataService) {}
+  constructor(public adm: AdmService, private apiService: ApiService, public searchService: DataService) { }
 
   ngOnInit() {
 
-    this.searchService.getAllBusiness().subscribe(    
+    this.searchService.getAllBusiness().subscribe(
       data => {
-        console.log(data);
         this.initializeMapMarkers(data);
       });
 
@@ -76,13 +76,13 @@ export class TrackerMapComponent implements OnInit {
       businessName: new FormControl('', [Validators.required]),
       searchLocation: new FormControl('')
     })
-  
-}
+
+  }
 
   onSubmit() {
 
     let searchedBusiness = this.markers.find(e => e.name === this.businessSearch.get('businessName')?.value);
-    console.log(searchedBusiness);
+
 
     if (this.businessSearch.get('businessName')?.value === searchedBusiness?.name) {
       this.validSearch = false;
@@ -93,13 +93,13 @@ export class TrackerMapComponent implements OnInit {
       let foundIndex = this.markers.findIndex(x => x.id == searchedBusiness?.id);
       this.markers[foundIndex].animation = 'BOUNCE';
 
-      function quickChange(index, array){
+      function quickChange(index, array) {
         array[index].animation = 'DROP';
       }
 
       setTimeout(quickChange, 2000, foundIndex, this.markers);
 
-      
+
 
     } else {
       this.validSearch = true;
@@ -107,70 +107,55 @@ export class TrackerMapComponent implements OnInit {
 
   }
 
-  initializeMapMarkers(data: any){
-     for (let i = 0; i < data.myUsers.length; i++) {
-       
+  initializeMapMarkers(data: any) {
+    for (let i = 0; i < data.users.length; i++) {
       let newMarker = {} as BusinessNameandLocation;
-
       //Set Business Info
-      newMarker.name = data.myUsers[i].businessName;
-      newMarker.location = data.myUsers[i].location;
-      newMarker.businessType = data.myUsers[i].businessType;
-      newMarker.id = data.myUsers[i].id;
+      newMarker.name = data.users[i].businessName;
+      newMarker.location = data.users[i].location;
+      newMarker.businessType = data.users[i].businessType;
+      newMarker.id = data.users[i]._id;
       newMarker.animation = 'DROP';
-
-      //Make Call to Google API to get Coords of the businesses location/address
-      this.apiService.getLocationCoords(data.myUsers[i].location).subscribe((geoInfo) => {
-          
-      //Set Lat and Long of google map to businesses map marker lat and lng
-       newMarker.lat = this.setMarkerLat(geoInfo);
-       newMarker.lng = this.setMarkerLng(geoInfo)
-
+      //Make Call to Google API to get Coordinates
+    
+      this.apiService.getLocationCoords(data.users[i].location).subscribe((geoInfo) => {
+  
+        newMarker.lat = this.setMarkerLat(geoInfo);
+        newMarker.lng = this.setMarkerLng(geoInfo);
       })
-
-      //Set Businesses Map Marker Case Count
-     let toBeSearched = {name: data.myUsers[i].businessName}
-
-     this.adm.getUserCases(toBeSearched).subscribe(caseData => {
-      // console.log(caseData);
-      newMarker.cases = caseData.cases.length;
-    });
-    
-    
-
+      const toBeSearched = { name: data.users[i].businessName };
+      //Get COVID CAses
+      this.adm.getUserCases(toBeSearched).subscribe(caseData => {
+        newMarker.cases = caseData.cases.length;
+      });
       //Add Map Marker to Marker Array
       this.markers.push(newMarker);
-
-     }
-
-     console.log(this.markers);
-
+    }
   }
 
-  //Map Marker Helper Functions
+  //HELPER FUNCTIONS
+  //Gets Latitude
   setMarkerLat(coordsData: any) {
-    for (let i = 0; i < coordsData.results.length; i++) {
-      return coordsData.results[0].geometry.location.lat;
+    console.log(JSON.parse(coordsData.body))
+    for (let i = 0; i < JSON.parse(coordsData.body).results.length; i++) {
+      return JSON.parse(coordsData.body).results[i].geometry.location.lat;
     }
   }
-
+  //Gets Longitude
   setMarkerLng(coordsData: any) {
-    for (let i = 0; i < coordsData.results.length; i++) {
-       return coordsData.results[0].geometry.location.lng;
+    for (let i = 0; i < JSON.parse(coordsData.body).results.length; i++) {
+      return JSON.parse(coordsData.body).results[i].geometry.location.lng;
     }
   }
-
-   markerOver(m: BusinessNameandLocation) {
+  //Animation for Marker on Map
+  markerOver(m: BusinessNameandLocation) {
     m.animation = 'BOUNCE';
   }
-
   markerOut(m: BusinessNameandLocation) {
     m.animation = '';
   }
-
   changeAnimation(index: number) {
     this.markers[this.indexToChange].animation = 'DROP';
   }
 
 }
-

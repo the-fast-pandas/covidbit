@@ -25,7 +25,7 @@ export class SearchWidgetComponent implements OnInit {
         this.searchQuery = data.term;
         this.businessName.name = this.searchQuery;
         this.data.searchUser(this.businessName);
-        localStorage.setItem('reload', "true");
+        sessionStorage.setItem('reload', "true");
 
       })
   }

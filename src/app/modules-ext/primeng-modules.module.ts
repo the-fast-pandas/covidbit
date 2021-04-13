@@ -14,6 +14,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ConfirmationService } from 'primeng/api';
 import { ChartModule } from 'primeng/chart';
 import { AccordionModule } from 'primeng/accordion';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 const PrimengModules = [
     ChartModule,
@@ -27,7 +28,10 @@ const PrimengModules = [
     InputTextareaModule,
     RadioButtonModule,
     ButtonModule,
-    AccordionModule 
+    AccordionModule,
+    NgxEchartsModule.forRoot({
+        echarts: () => import('echarts'),
+      }),
 ];
 
 const PrimengProviders = [ConfirmationService];

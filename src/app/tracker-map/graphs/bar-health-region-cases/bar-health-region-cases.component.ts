@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api-covid-services/api.service';
-import { DataService } from 'src/app/services/data-services/data.service';
 import * as myGlobals from '../../../globals';
 
 @Component({
@@ -35,13 +34,13 @@ export class BarHealthRegionCasesComponent implements OnInit {
         datasets: [{
           type: 'bar',
           label: 'Ontario',
-          backgroundColor: "#4DA8DA",
+          backgroundColor: myGlobals.background[4],
 
           data: [this.chartTotalCount, this.chartTotalCount, this.chartTotalCount]
         }, {
           type: 'bar',
           label: 'Specific Region',
-          backgroundColor: "#203647",
+          backgroundColor: myGlobals.background[6],
           data: [
             this.chartRegion[0],  this.chartRegion[1],  this.chartRegion[2]
           ]

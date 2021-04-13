@@ -5,7 +5,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NbMenuItem, NbMenuService, NbSidebarService } from '@nebular/theme';
 import { filter, map } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, RouterEvent } from '@angular/router';
 // Local Service
 import { AuthService } from '../services/auth-services/auth.service';
 import * as myGlobals from '../globals';
@@ -17,7 +17,7 @@ import * as myGlobals from '../globals';
 })
 export class HeaderComponent implements OnInit {
 
-  businessName: String = myGlobals.emptyField;
+  businessName: string = myGlobals.emptyField;
   id: String = myGlobals.emptyField;
 
   itemsTitle: Array<any> = [{ title: 'Profile' }, { title: 'Logout' }];
@@ -40,26 +40,34 @@ export class HeaderComponent implements OnInit {
   loggedInBusiness: Boolean = false;
   loggedInAdm: Boolean = false;
 
-  constructor(private nbMenuService: NbMenuService, private router: Router, private auth: AuthService, private readonly sidebarService: NbSidebarService) { }
+  constructor(private nbMenuService: NbMenuService, private router: Router, private auth: AuthService, private readonly sidebarService: NbSidebarService) {
+   
 
-  ngOnInit() {
-    this.addMenu(1);
+  }
+
+  ngOnInit() {  this.addMenu(1);
     this.router.events.subscribe(event => {
-      if (event.constructor.name === "NavigationEnd") {
+      //if (event.constructor.name === "NavigationEnd") {
+        //new Event('click');
+  
+        if (event instanceof RouterEvent) {
+    
         if (this.auth.isLoggedIn) {
+       
           this.addMenu(2);
+    
           this.loggedIn = this.auth.isLoggedIn;
           this.loggedInBusiness = this.auth.isLoggedIn;
-          this.businessName = localStorage.getItem('name_header') || myGlobals.emptyField;
-          this.id = localStorage.getItem('business_id') || myGlobals.emptyField;
+          this.businessName = this.auth.getBusinessName() || myGlobals.emptyField;
+          this.id = this.auth.getId() || myGlobals.emptyField;
         } else if (this.auth.isAdmin) {
           this.addMenu(3);
           this.loggedIn = this.auth.isAdmin;
           this.loggedInAdm = this.auth.isAdmin;
-          this.businessName = "Administrator"
+          this.businessName = "Administrator";
         }
       }
-    })
+    });
 
     this.nbMenuService.onItemClick()
       .pipe(
@@ -70,7 +78,10 @@ export class HeaderComponent implements OnInit {
         if (title == "Profile") {
           if (this.auth.isLoggedIn) {
             this.router.navigate(['business-dashboard/' + this.id]);
-          } else if (this.auth.isAdmin) {
+          }
+        }
+        if (title == "Dashboard") {
+          if (this.auth.isAdmin) {
             this.router.navigate(['admin-dashboard']);
           }
         }
@@ -80,8 +91,8 @@ export class HeaderComponent implements OnInit {
           this.loggedInAdm = false;
           this.loggedInBusiness = false;
         }
-      });
-  }
+      })}
+  
   toggleSidebar(): Boolean {
     this.sidebarService.toggle();
     return false;
@@ -97,9 +108,13 @@ export class HeaderComponent implements OnInit {
       menuItem = { title: "Profile", link: '/business-dashboard/' + this.id }
       this.itemsMenu.pop();
       this.itemsMenu.push(menuItem);
+      menuItem = { title: "Logout", link: 'home'}
+      this.itemsMenu.push(menuItem);
     } else if (section === 3) {
       menuItem = { title: "Dashboard", link: '/admin-dashboard' }
       this.itemsMenu.pop();
+      this.itemsMenu.push(menuItem);
+      menuItem = { title: "Logout", link: 'home'}
       this.itemsMenu.push(menuItem);
     }
   }

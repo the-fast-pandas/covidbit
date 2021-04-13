@@ -1,13 +1,58 @@
 // Server - CovidBit - Fast Pandas
 // Created: 15, February, 2021, Yevgeniya Anasheva
 
-a {
-  text-decoration: none;
-}
-.column {
+
+.center {
   text-align: center;
+}
+
+.site-footer {
+  padding:35px 0px 25px;
+  font-size:15px;
+  line-height:24px;
+}
+
+.site-footer hr {
+  border-top-color:#bbb;
+  opacity:0.5;
   width: 100%;
 }
-p {
-  font-size: 12pt;
+
+.site-footer h6 {
+  font-size:16px;
+  // text-transform:uppercase;
+  margin-top:5px;
+  margin-bottom: 0px;
+  letter-spacing:1px
+}
+
+img {
+    padding-right: 478.73px;
+
+}
+
+a {
+  color:#aa67cf !important;
+}
+
+.footer-links {
+  padding-left:0;
+  list-style:none
+}
+
+.footer-links li { 
+  display:block;
+}
+
+.footer-links a:active,.footer-links a:focus,.footer-links a:hover {
+  color:#aa67cf !important;
+  text-decoration:none;
+}
+
+.footer-links.inline li {
+  display:inline-block
+}
+
+.quick-links {
+    column-count: 2;
 }

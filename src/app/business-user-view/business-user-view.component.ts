@@ -55,9 +55,11 @@ export class BusinessUserViewComponent implements OnInit {
   getSafetyMeasures(data: any) {
     for (let i = 0; i < Object.keys(data.safeties).length; i++) {
       if (this.id === data.safeties[i].businessId) {
-        this.safetyMeasure["title"] = data.safeties[i].title;
-        this.safetyMeasure["description"] = data.safeties[i].title;
-        this.safetyMeasureList.push(this.safetyMeasure);
+        this.safetyMeasureList.push({
+          title: data.safeties[i].title,
+          description: data.safeties[i].description,
+          confirmed: ""
+        });
       }
     }
   }

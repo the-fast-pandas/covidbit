@@ -19,7 +19,7 @@ export class NewsComponent implements OnInit {
 
   loadNews() {
     this.api.getNews().subscribe((news: any) => {
-      this.articles = news.articles
+      this.articles = JSON.parse(news.body).articles
     })
   }
 }

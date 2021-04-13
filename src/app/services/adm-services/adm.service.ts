@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 // Local Services
+import { AuthService } from '../../services/auth-services/auth.service';
 import { BusinessName } from '../../models/businessName.model';
 import { Cases } from '../../models/case.model';
 import { Email } from '../../models/email.model';
@@ -19,12 +20,12 @@ export class AdmService {
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-  //  'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST,GET,OPTIONS, PUT, DELETE',
-   // 'Access-Control-Allow-Headers': 'Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization'
+    'Access-Control-Allow-Headers': 'Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization'
   });
 
-  constructor(private http: HttpClient, public router: Router) { }
+  constructor(private http: HttpClient, public router: Router, public auth: AuthService) { }
 
   ////////////   BUSINESS USER //////////////
 
@@ -77,7 +78,6 @@ export class AdmService {
 
   // Administrator can search cases for a specific business
   getUserCases(business: BusinessName) {
-    console.log(business)
     const api = `${this.endpoint}/get-user-cases`;
     return this.http.post<any>(api, business,  { headers: this.headers }).pipe(
       map(
@@ -92,6 +92,7 @@ export class AdmService {
 
   // Administrator can add a case
   addUserCasesAdm(data: Cases) {
+    data.businessName = this.auth.getBusinessName() || 'no data';
     const api = `${this.endpoint}/add-user-cases-adm`;
     return this.http.post<any>(api, data, { headers: this.headers }).subscribe(
       (data) => {
@@ -117,23 +118,4 @@ export class AdmService {
       )
     )
   }
-
-
-  /////WHAT IS THIS ROUTE?
-
-  //Search for Business Name and Location
-  searchBusinessNameLocationAdm(business: BusinessName) {
-    const api = `${this.endpoint}/search-nameandLocation-adm`;
-    return this.http.post<any>(api, business,  { headers: this.headers })
-      .pipe(
-        map(
-          data => {
-            return data;
-          },
-          (error: any) => {
-            window.alert("No business with this name.");
-          }
-        ))
-  }
-
 }
