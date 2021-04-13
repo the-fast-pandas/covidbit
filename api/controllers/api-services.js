@@ -2,7 +2,6 @@
 // Connects to external APIs
 // Created: 03, April, 2021, Teresa Costa
 
-const { env } = require("node:process");
 const request = require("request");
 
 // Accepts an address
