@@ -120,7 +120,7 @@ The [node.js server](https://backend-covidbit.herokuapp.com/api/status) is deplo
 
 The [AngularJS frontend](https://covidbit.netlify.app/home) is deployed on Netlify, another cloud-based service.
 
-Both services support GitHub, so the base code is hosted here on two different branches: **backend** and **covid-bit**. Heroku and Netlify support continuous deployment, so making changes and updating the app is simple. Any updates to the code in GitHub would be immediately published on both of the cloud hosting services. Instructions on how to deploy your own version can be found [here](https://devcenter.heroku.com/articles/deploying-nodejs) and [here](https://www.netlify.com/blog/2019/09/23/first-steps-using-netlify-angular/).
+Both services support GitHub, so the base code is hosted here on two different branches: [**backend**](https://github.com/the-fast-pandas/covidbit/blob/backend/src/assets/images/covidbit-square.png) and [**covid-bit**](https://github.com/the-fast-pandas/covidbit/tree/covid-bit). Heroku and Netlify support continuous deployment, so making changes and updating the app is simple. Any updates to the code in GitHub would be immediately published on both of the cloud hosting services. Instructions on how to deploy your own version can be found [here](https://devcenter.heroku.com/articles/deploying-nodejs) and [here](https://www.netlify.com/blog/2019/09/23/first-steps-using-netlify-angular/).
 
 ## Authors
 <img src="https://image.freepik.com/free-vector/baby-panda-waving-paw-cartoon_42750-612.jpg" width="100" height="100">
