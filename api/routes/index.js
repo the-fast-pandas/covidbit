@@ -41,7 +41,7 @@ router.post('/certification-form/:id', authLog.authLogin, ctrlDashUser.addCertif
 router.get('/business-dashboard/:id', authLog.authLogin, ctrlDashUser.getUser);
 router.get('/edit-profile/:id', authLog.authLogin, ctrlDashUser.getUser);
 router.put('/edit-profile/:id', authLog.authLogin, ctrlDashUser.editUser);
-router.put('/add-safety/:id', authLog.authLogin, ctrlDashUser.addSafety);
+router.put('/add-safety/:id', ctrlDashUser.addSafety);
 router.post('/remove-safety',authLog.authLogin, ctrlDashUser.deleteSafety);
 
 // Administrator Dashboard
