@@ -1,6 +1,9 @@
 
 
-![covidbit logo](https://github.com/the-fast-pandas/covidbit/tree/master/src/assets/images/covidbit-square.png?raw=true)
+[covidbit logo](https://github.com/the-fast-pandas/covidbit/tree/master/src/assets/images/covidbit-square.png?raw=true)
+
+<img src="https://github.com/the-fast-pandas/covidbit/tree/master/src/assets/images/covidbit-square.png?raw=true" width="100" height="100">
+
 # CovidBit
 
 This it the web template for a platform that will provide small businesses with the opportunity to advertise their businesses, safety measures, track cases and be certified as a safe business. It will also allow general users to make well-informed decisions.
