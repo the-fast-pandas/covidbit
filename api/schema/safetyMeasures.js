@@ -1,4 +1,5 @@
 // Server - CovidBit - Fast Pandas
+// Schema for Safety Measures - MongoDB
 // Created: 08, February, 2021, Teresa Costa
 
 const mongoose = require("mongoose");

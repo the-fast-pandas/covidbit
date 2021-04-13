@@ -1,4 +1,5 @@
 // Server - CovidBit - Fast Pandas
+// Confirms registration of a new user
 // Created: 31, January, 2021, Teresa Costa
 // Edit: 25, March, 2021, Adilah, HTML Template
 

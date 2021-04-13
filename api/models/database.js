@@ -1,4 +1,5 @@
 // Server - CovidBit - Fast Pandas
+// Database Connection - MongoDB
 // Created: 31, January, 2021, Teresa Costa
 
 const mongoose = require('mongoose');

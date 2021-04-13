@@ -1,4 +1,5 @@
 // Server - CovidBit - Fast Pandas
+// Sends invitation to registration to a new user
 // Created: 24, March, 2021, Teresa Costa
 // Edit: 25, March, 2021, Adilah, HTML Template
 

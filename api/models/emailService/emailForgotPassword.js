@@ -1,4 +1,5 @@
 // Server - CovidBit - Fast Pandas
+// Sends link to user to reset password
 // Created: 31, January, 2021, Teresa Costa
 // Edit: 25, March, 2021, Adilah, HTML Template
 

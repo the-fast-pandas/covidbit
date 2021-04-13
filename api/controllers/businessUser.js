@@ -1,14 +1,13 @@
 // Server - CovidBit - Fast Pandas
-// BUSINESS USER DASHBOARD
+// Connects to the BUSINESS USER DASHBOARD
 // Created: 09, February, 2021, Teresa Costa
 
 // MongoDB Schemas
 const SmallBusiness = require('../schema/smallBusiness');
-const Cases = require('../schema/cases');
 const SafetyMeasures = require('../schema/safetyMeasures');
 
 // Gets a business user by id
-// Returns information for the business user
+// Returns information the business user data
 const getUser = function (req, res) {
     SmallBusiness.findById(req.params.id, function (error, user) {
         if (error) {
@@ -53,7 +52,7 @@ const editUser = function (req, res) {
 }
 
 // Adds a safety measure by business id
-// Returns the new safety meausre
+// Returns the new safety measure
 const addSafety = function (req, res) {
     const { title, description } = req.body;
     SmallBusiness.findById(req.params.id, function (error, user) {
@@ -80,8 +79,8 @@ const addSafety = function (req, res) {
     })
 }
 
-// Administrator can delete multiple users based on id
-// Returns an array of deleted users
+// Deletes a list of safety measures by id
+// Returns data for the deleted safety measures
 const deleteSafety = function (req, res) {
     const idList = req.body;
     SafetyMeasures.deleteMany({ '_id': { '$in': idList } }, function (error, safeties) {
@@ -97,7 +96,7 @@ const deleteSafety = function (req, res) {
     })
 }
 
-//method to submit
+// Add Certification for the Business User
 const addCertification = function (req, res) {
     let id = req.params.id;
     let newvalues = {
@@ -107,7 +106,7 @@ const addCertification = function (req, res) {
     };
     SmallBusiness.updateOne({ "_id": id }, newvalues, function (error, user) {
         if (error) {
-            throw error;
+            return res.status(404).json({ message: "Server error!" });
         }
         if (!user) {
             return res.status(401).json({ message: "This business does not exist!" });
@@ -117,7 +116,5 @@ const addCertification = function (req, res) {
         }
     })
 }
-
-
 
 module.exports = { getUser, editUser, addSafety, addCertification, deleteSafety };

@@ -1,25 +1,11 @@
 // Server - CovidBit - Fast Pandas
-// Controls the BUSINESS VIEW
+// Connects to the BUSINESS VIEW
 // Created: 16, February, 2021, Teresa Costa
 
 // MongoDB Schemas
 const SmallBusiness = require('../schema/smallBusiness');
 const Cases = require('../schema/cases');
 const SafetyMeasures = require('../schema/safetyMeasures');
-
-
-
-const getNews = function (req, res) {
-    this.httpClient.get(`http://newsapi.org/v2/top-headlines?country=ca&category=health&apiKey=52142b02045c42709a8a9413a15d95f1`, function (error, data) {
-        if (error) {
-            return res.status(404).json({ message: "Server error!" });
-        }
-        if (data){
-            return res.status(200).json({ data });
-        }
-    })
-}
-
 
 
 // Search for one business using business name
@@ -55,11 +41,11 @@ const getAllBusiness = function (req, res) {
     })
 }
 
-// Returns all the cases in database
+// Returns all the covid cases in database
 const getAllCases = function (req, res) {
     Cases.find({}, function (error, cases) {
         if (error) {
-            throw error;
+            return res.status(404).json({ message: "Server error!" });
         }
         if (!cases) {
             return res.status(401).json({ message: "There is no cases in database!" });
@@ -70,11 +56,11 @@ const getAllCases = function (req, res) {
     })
 }
 
-// Returns all the cases in database
+// Returns all the safety measures in database
 const getAllSafety = function (req, res) {
     SafetyMeasures.find({}, function (error, safeties) {
         if (error) {
-            throw error;
+            return res.status(404).json({ message: "Server error!" });
         }
         if (!safeties) {
             return res.status(401).json({ message: "There is no cases in database!" });
@@ -85,40 +71,13 @@ const getAllSafety = function (req, res) {
     })
 }
 
-
-
-
-
-
-
-
-
-
-const getMapCardInfo = function (req, res) {
-    SmallBusiness.findById(req.params.id, function (error, user) {
-        if (error) {
-            throw error;
-        }
-        if (!user) {
-            return res.status(401).json({ message: "This business user does not exist!" });
-        }
-        if (user) {
-            let foundBusiness = {};
-            foundBusiness["businessName"] = user.businessName;
-            foundBusiness["location"] = user.location;
-            foundBusiness["businessType"] = user.businessType;
-            foundBusiness["certification"] = user.certification;
-            return res.status(200).json({ foundBusiness });
-        }
-    })
-}
-
+// Adds a review associated with a business id
 const addReview = function (req, res) {
     let id = req.params.id;
     let myReview = [];
     SmallBusiness.findById(id, function (error, user) {
         if (error) {
-            throw error;
+            return res.status(404).json({ message: "Server error!" });
         }
         if (!user) {
             return res.status(401).json({ message: "This business does not exist!" });
@@ -132,7 +91,7 @@ const addReview = function (req, res) {
             let newvalues = { $set: { reviews: myReview } };
             SmallBusiness.updateOne({ "_id": id }, newvalues, function (error, user) {
                 if (error) {
-                    throw error;
+                    return res.status(404).json({ message: "Server error!" });
                 }
                 if (!user) {
                     return res.status(401).json({ message: "This business does not exist!" });
@@ -143,7 +102,6 @@ const addReview = function (req, res) {
             })
         }
     })
-
 }
 
-module.exports = { searchUserView, getAllBusiness, getAllCases, getMapCardInfo, addReview, getAllSafety , getNews};
+module.exports = { searchUserView, getAllBusiness, getAllCases, addReview, getAllSafety };

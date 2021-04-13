@@ -1,5 +1,6 @@
 // Server - CovidBit - Fast Pandas
-// Created: 28, February, 2021, Teresa Costa
+// Schema for Cases - MongoDB
+// Created: 08, February, 2021, Teresa Costa
 
 const mongoose = require("mongoose");
 

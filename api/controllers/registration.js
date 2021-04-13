@@ -1,8 +1,8 @@
 // Server - CovidBit - Fast Pandas
-// REGISTRATION for small business user
+// Connects to the registration form
 // Created: 03, February, 2021, Teresa Costa
 
-// Security
+// Security/authentication
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 // Nodemailer
@@ -13,14 +13,13 @@ const SmallBusiness = require('../schema/smallBusiness');
 const crypto = require('crypto');
 
 // Registration of a new business user
+const registrationEmailDemo = 'covidbitreg@gmail.com';
 const registrationForm = function (req, res) {
-
   let password, loginId, businessName, businessType, firstName, lastName, phoneNumber, location;
   let safetyMeasures = [];
   let registeredBy = req.body.registeredBy;
 
-  if (registeredBy == true) {
-
+  if (registeredBy == true) { // registration by administrator
     password = 'fakefake';
     loginId = req.body.email;
     businessName = req.body.businessName;
@@ -32,9 +31,8 @@ const registrationForm = function (req, res) {
     resetPassword = crypto.randomBytes(64).toString('hex');
     resetPasswordExpires = Date.now() + 86400000;
 
-  } else {
+  } else { //registration by user
     const { accountDetails, businessDetails } = req.body.user;
-
     password = accountDetails.password;
     loginId = accountDetails.email;
     businessName = accountDetails.businessName;
@@ -49,7 +47,7 @@ const registrationForm = function (req, res) {
   }
   SmallBusiness.findOne({ "loginId": loginId }, function (error, user) { // checks if the user already exists
     if (error) {
-      throw error;
+      return res.status(404).json({ message: "Server error!" });
     }
     if (user) {
       return res.status(401).json({ message: "This business user already exists!" });
@@ -69,27 +67,28 @@ const registrationForm = function (req, res) {
       });
       bcrypt.genSalt(saltRounds, function (error, salt) {  //sets password with hash
         if (error) {
-          throw error;
+          return res.status(404).json({ message: "Server error!" });
         }
         bcrypt.hash(newBusiness.password, salt, function (error, hash) {
           if (error) {
-            throw error;
+            return res.status(404).json({ message: "Server error!" });
           }
           if (hash) {
             newBusiness.password = hash;
             newBusiness.save(function (error) {
               if (error) {
-                throw error;
+                return res.status(404).json({ message: "Server error!" });
               }
               if (registeredBy == true) {
-                const userToken = 'http://localhost:4200/reset-password/' + resetPassword;
-                emailServiceAdm.emailRegistrationAdm('covidbitreg@gmail.com', newBusiness.businessName, userToken);
+                const userToken = 'https://covidbit.netlify.app/reset-password/' + resetPassword;
+                // "registrationEmailDemo" must be replace with "loginId" for live working
+                emailServiceAdm.emailRegistrationAdm(registrationEmailDemo, newBusiness.businessName, userToken);
               } else {
-                emailService.emailRegistration('covidbitreg@gmail.com', newBusiness.businessName);
+                emailService.emailRegistration(registrationEmailDemo, newBusiness.businessName);
               }
               SmallBusiness.findOne({ "loginId": newBusiness.loginId }, function (error, user) {
                 if (error) {
-                  throw error;
+                  return res.status(404).json({ message: "Server error!" });
                 }
                 if (!user) {
                   return res.status(401).json({ message: "Incorrect LoginId!" });
@@ -113,7 +112,7 @@ const checkUser = function (req, res) {
   const loginId = accountDetails.email;
   SmallBusiness.findOne({ "loginId": loginId }, function (error, user) {
     if (error) {
-      throw error;
+      return res.status(404).json({ message: "Server error!" });
     }
     if (user) {
       return res.status(401).json({ message: "This business user already exists!" });

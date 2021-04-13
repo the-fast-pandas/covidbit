@@ -1,8 +1,8 @@
 // Server - CovidBit - Fast Pandas
-//loginForm for small business user
+// Connects to the login form
 // Created: 03, February, 2021, Teresa Costa
 
-// Security
+// Security/authentication
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
@@ -12,13 +12,14 @@ const SmallBusiness = require('../schema/smallBusiness');
 const emailService = require('../models/emailService/emailForgotPassword');
 const Administrator = require('../schema/administrator');
 
-// Controls theloginForm for a business user and administrator
+// Controls the loginForm for a business user and administrator
+// Accepts credentials and returns an authentication token
 const loginUser = function (req, res) {
     const { email, password } = req.body;
     if (email === "admin@myAdmin.ca") {
         Administrator.findOne({ "loginId": email }, function (error, admin) {
             if (error) {
-                throw error;
+                return res.status(404).json({ message: "Server error!" });
             }
             if (!admin) {
                 return res.status(401).json({ message: "Incorrect LoginId!" });
@@ -36,7 +37,7 @@ const loginUser = function (req, res) {
     } else {
         SmallBusiness.findOne({ "loginId": email }, function (error, user) {
             if (error) {
-                throw error;
+                return res.status(404).json({ message: "Server error!" });
             }
             if (!user) {
                 return res.status(401).json({ message: "Incorrect LoginId!" });
@@ -44,7 +45,7 @@ const loginUser = function (req, res) {
             if (user) {
                 bcrypt.compare(password, user.password, function (error, result) {
                     if (error) {
-                        throw error;
+                        return res.status(404).json({ message: "Server error!" });
                     }
                     if (!result) {
                         return res.status(401).json({ message: "Incorrect Password!" });
@@ -60,10 +61,13 @@ const loginUser = function (req, res) {
     }
 }
 
+// Accepts a registered loginId for password reset
+// Returns an access token and an email link for access
+const resetEmailDemo = 'covidbitreg@gmail.com';
 const forgotPassword = function (req, res) {
     SmallBusiness.findOne({ "loginId": req.body.email }, function (error, user) {
         if (error) {
-            throw error;
+            return res.status(404).json({ message: "Server error!" });
         }
         if (!user) {
             return res.status(401).json({ message: "User not found!" });
@@ -78,15 +82,16 @@ const forgotPassword = function (req, res) {
             }
             SmallBusiness.updateOne({ "_id": user._id }, newvalues, function (error, user) {
                 if (error) {
-                    throw error;
+                    return res.status(404).json({ message: "Server error!" });
                 }
                 if (!user) {
                     return res.status(401).json({ message: "User not found!" });
                 }
                 if (user) {
                     const businessName = user.businessName;
-                    const userToken = 'http://localhost:4200/reset-password/' + token;
-                    emailService.emailChangePassword('covidbitreg@gmail.com', userToken, businessName);
+                    const userToken = 'https://covidbit.netlify.app/reset-password/' + token;
+                    // "resetEmailDemo" must be replace with "req.body.email" for live working
+                    emailService.emailChangePassword(resetEmailDemo, userToken, businessName);
                     return res.status(200).json({ user });
                 }
             })
@@ -94,12 +99,12 @@ const forgotPassword = function (req, res) {
     })
 }
 
-
+// Checks if the token for password reset is valid
 const checkResetPassword = function (req, res, next) {
     let token = req.params.token;
     SmallBusiness.findOne({ resetPassword: token }, function (error, user) {
         if (error) {
-            throw error;
+            return res.status(404).json({ message: "Server error!" });
         }
         if (!user) {
             return res.status(401).json({ message: "This link is invalid." });
@@ -113,17 +118,17 @@ const checkResetPassword = function (req, res, next) {
     })
 };
 
-
+// Resets user password
 const resetPassword = function (req, res, next) {
     let password = req.body.password;
     let token = req.body.token;
     bcrypt.genSalt(saltRounds, function (error, salt) {  //sets password with hash
         if (error) {
-            throw error;
+            return res.status(404).json({ message: "Server error!" });
         }
         bcrypt.hash(password, salt, function (error, hash) {
             if (error) {
-                throw error;
+                return res.status(404).json({ message: "Server error!" });
             }
             if (hash) {
                 let newvalues = {
@@ -134,7 +139,7 @@ const resetPassword = function (req, res, next) {
                 };
                 SmallBusiness.updateOne({ resetPassword: token }, newvalues, function (error, user) {
                     if (error) {
-                        throw error;
+                        return res.status(404).json({ message: "Server error!" });
                     }
                     if (!user) {
                         return res.status(401).json({ message: "This business does not exist!" });
@@ -149,7 +154,5 @@ const resetPassword = function (req, res, next) {
         })
     })
 }
-
-
 
 module.exports = { loginUser, forgotPassword, resetPassword, checkResetPassword };
