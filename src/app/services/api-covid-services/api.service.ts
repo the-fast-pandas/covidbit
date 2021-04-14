@@ -6,12 +6,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import * as myGlobals from '../../globals';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  endpoint: string = 'https://backend-covidbit.herokuapp.com/api';
+  endpoint: string = myGlobals.endpoint;
   corsHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
@@ -50,6 +51,7 @@ export class ApiService {
       .pipe(
         map(
           data => {
+            console.log(data)
             return data;
           },
           (error: any) => {

@@ -8,7 +8,7 @@ import { Location } from '@angular/common';
 // Local Services
 import { DataService } from '../../services/data-services/data.service';
 import { AuthService } from '../../services/auth-services/auth.service';
-import { SafetyMeasures } from '../../models/safetyMeasures.model';
+import { SafetyMeasures } from '../../models/schemas/safetyMeasures.model';
 import * as myGlobals from '../../globals';
 
 @Component({

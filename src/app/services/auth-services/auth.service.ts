@@ -7,16 +7,17 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 // Local services
 import { LoginCredentials } from '../../models/logincredentials.model';
-import { SafetyMeasures } from '../../models/safetyMeasures.model';
-import { SmallBusiness } from '../../models/smallBusiness.model';
+import { SafetyMeasures } from '../../models/schemas/safetyMeasures.model';
+import { SmallBusiness } from '../../models/schemas/smallBusiness.model';
 import { DataService } from '../data-services/data.service';
+import * as myGlobals from '../../globals';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-  endpoint: string = 'https://backend-covidbit.herokuapp.com/api';
+  endpoint: string = myGlobals.endpoint;
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json',

@@ -2,15 +2,6 @@
     "/api": {
       "target": "https://backend-covidbit.herokuapp.com",
       "secure": false
-    },
-
-    "/news": {
-      "target": "https://api.covid19tracker.ca",
-      "secure": true,
-      "changeOrigin": true,
-      "pathRewrite": {
-        "^/news": ""
-      }
     }
   }
   

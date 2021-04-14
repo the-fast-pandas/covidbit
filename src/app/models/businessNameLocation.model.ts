@@ -1,7 +1,7 @@
 // Server - CovidBit - Fast Pandas
 // Created: 18, March, 2021, John Turkson
 
-export interface BusinessNameandLocation {
+export interface BusinessNameLocation {
     name: String;
     businessType: String;
     location: String;

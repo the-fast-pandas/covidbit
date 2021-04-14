@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 // Local Services
 import { AuthService } from '../services/auth-services/auth.service';
 import { DataService } from '../services/data-services/data.service';
-import { SafetyMeasures } from '../models/safetyMeasures.model';
+import { SafetyMeasures } from '../models/schemas/safetyMeasures.model';
 import * as myGlobals from '../globals';
 
 @Component({

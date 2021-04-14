@@ -7,7 +7,7 @@ import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 // Local Services
 import { DataService } from 'src/app/services/data-services/data.service';
-import { SafetyMeasures } from '../../models/safetyMeasures.model';
+import { SafetyMeasures } from '../../models/schemas/safetyMeasures.model';
 import * as myGlobals from '../../globals';
 
 @Component({

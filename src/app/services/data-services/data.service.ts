@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BusinessName } from '../../models/businessName.model';
-import { LoginId } from '../../models/loginId';
+import { Email } from '../../models/email.model';
+import * as myGlobals from '../../globals';
 
 
 @Injectable({
@@ -16,7 +17,7 @@ import { LoginId } from '../../models/loginId';
 })
 export class DataService {
 
-  endpoint: string = 'https://backend-covidbit.herokuapp.com/api';
+  endpoint: string = myGlobals.endpoint;
   headers  = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
@@ -97,7 +98,7 @@ export class DataService {
   }
 
   // Business User can request a new password
-  requestNewPassword(loginId: LoginId) {
+  requestNewPassword(loginId: Email) {
     const api = `${this.endpoint}/forgot-password`;
     return this.http.post<any>(api, loginId,  { headers: this.headers })
       .subscribe(

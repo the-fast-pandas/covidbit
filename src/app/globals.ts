@@ -1,5 +1,7 @@
 'use strict';
 
+export const endpoint = 'https://backend-covidbit.herokuapp.com/api';
+
 export const categories = [
   { name: "Restaurant" },
   { name: "Boutique" },

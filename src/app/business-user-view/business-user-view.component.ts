@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 // Local Service
 import { DataService } from '../services/data-services/data.service';
-import { SafetyMeasures } from '../models/safetyMeasures.model';
+import { SafetyMeasures } from '../models/schemas/safetyMeasures.model';
 import { AdmService } from '../services/adm-services/adm.service';
 import * as myGlobals from '../globals';
 

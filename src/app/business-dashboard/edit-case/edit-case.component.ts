@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms'
 import { AdmService } from 'src/app/services/adm-services/adm.service';
 import { BusinessName } from '../../models/businessName.model';
-import {Cases} from '../../models/case.model';
+import {Cases} from '../../models/schemas/case.model';
 import * as myGlobals from '../../globals';
 
 @Component({

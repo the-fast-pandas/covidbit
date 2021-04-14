@@ -12,7 +12,7 @@ import { AdmService } from '../../../services/adm-services/adm.service';
 // Models
 import { BusinessName } from '../../../models/businessName.model';
 import { Email } from '../../../models/email.model';
-import { SafetyMeasures } from '../../../models/safetyMeasures.model';
+import { SafetyMeasures } from '../../../models/schemas/safetyMeasures.model';
 import * as myGlobals from '../../../globals';
 
 @Component({

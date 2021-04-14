@@ -8,15 +8,16 @@ import { map } from 'rxjs/operators';
 // Local Services
 import { AuthService } from '../../services/auth-services/auth.service';
 import { BusinessName } from '../../models/businessName.model';
-import { Cases } from '../../models/case.model';
+import { Cases } from '../../models/schemas/case.model';
 import { Email } from '../../models/email.model';
+import * as myGlobals from '../../globals';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdmService {
 
-  endpoint: string = 'https://backend-covidbit.herokuapp.com/api';
+  endpoint: string = myGlobals.endpoint;
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
