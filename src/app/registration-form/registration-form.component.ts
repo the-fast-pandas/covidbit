@@ -64,6 +64,7 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.safetyMeasures)
     this.auth.registrationForm(this.userCredentials.value, this.safetyMeasures, false);
   }
 

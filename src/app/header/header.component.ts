@@ -40,22 +40,14 @@ export class HeaderComponent implements OnInit {
   loggedInBusiness: Boolean = false;
   loggedInAdm: Boolean = false;
 
-  constructor(private nbMenuService: NbMenuService, private router: Router, private auth: AuthService, private readonly sidebarService: NbSidebarService) {
-   
+  constructor(private nbMenuService: NbMenuService, private router: Router, private auth: AuthService, private readonly sidebarService: NbSidebarService) { }
 
-  }
-
-  ngOnInit() {  this.addMenu(1);
+  ngOnInit() {
+    this.addMenu(1);
     this.router.events.subscribe(event => {
-      //if (event.constructor.name === "NavigationEnd") {
-        //new Event('click');
-  
-        if (event instanceof RouterEvent) {
-    
+      if (event instanceof RouterEvent) {
         if (this.auth.isLoggedIn) {
-       
           this.addMenu(2);
-    
           this.loggedIn = this.auth.isLoggedIn;
           this.loggedInBusiness = this.auth.isLoggedIn;
           this.businessName = this.auth.getBusinessName() || myGlobals.emptyField;
@@ -91,8 +83,9 @@ export class HeaderComponent implements OnInit {
           this.loggedInAdm = false;
           this.loggedInBusiness = false;
         }
-      })}
-  
+      })
+  }
+
   toggleSidebar(): Boolean {
     this.sidebarService.toggle();
     return false;
@@ -108,13 +101,13 @@ export class HeaderComponent implements OnInit {
       menuItem = { title: "Profile", link: '/business-dashboard/' + this.id }
       this.itemsMenu.pop();
       this.itemsMenu.push(menuItem);
-      menuItem = { title: "Logout", link: 'home'}
+      menuItem = { title: "Logout", link: 'home' }
       this.itemsMenu.push(menuItem);
     } else if (section === 3) {
       menuItem = { title: "Dashboard", link: '/admin-dashboard' }
       this.itemsMenu.pop();
       this.itemsMenu.push(menuItem);
-      menuItem = { title: "Logout", link: 'home'}
+      menuItem = { title: "Logout", link: 'home' }
       this.itemsMenu.push(menuItem);
     }
   }

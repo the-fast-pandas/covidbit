@@ -75,8 +75,8 @@ export class AuthService {
         if (registeredBy == true) {
           this.router.navigate(['admin-dashboard']);
         } else {
-          console.log(data.newBusiness.id);
-          this.addSafety(safetyMeasures, data.newBusiness.id );
+          console.log(data.id);
+          this.addSafety(safetyMeasures, data.id );
           this.router.navigate(['login-form']);
         }
       },

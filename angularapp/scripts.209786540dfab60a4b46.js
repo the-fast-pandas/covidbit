@@ -1,1 +1,0 @@
-function formatDate(t){let e=t.getMonth()+1;return t.getDate()+"-"+e+"-"+t.getFullYear()}

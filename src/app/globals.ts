@@ -1,7 +1,12 @@
+// Server - CovidBit - Fast Pandas
+// Global Variables
+// Created: 01, April, 2021, Teresa Costa
+
 'use strict';
 
 export const endpoint = 'https://backend-covidbit.herokuapp.com/api';
 
+// Categories/Types business
 export const categories = [
   { name: "Restaurant" },
   { name: "Boutique" },
@@ -12,6 +17,7 @@ export const categories = [
   { name: "Labour" }
 ]
 
+// Color fot the graphs
 export const background = [
   '#F8F0FD',
   '#F1E2FC',
@@ -23,7 +29,6 @@ export const background = [
   '#4D3683',
   '#34206C',
 ]
-
 export const hoverBackground = [
   '#34206C',
   '#4D3683',
@@ -35,15 +40,14 @@ export const hoverBackground = [
   '#F1E2FC',
   '#F8F0FD',
 ]
-
 export const lineGraph = ['#987CC3', '#D7C1EE']
 
+// Graps Labels
 export const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'September', 'October', 'November', 'December']
-
 export const GTA = ["Halton", "Peel", "York", "Durham", "Toronto"];
-
 export const gender = [{ name: "Male" }, { name: "Female" }, { name: 'Prefer not to say' }];
 
+// Cases Classifications
 export const statusCases = [
   { name: 'Under Investigation' },
   { name: 'Recovered' },
@@ -52,7 +56,6 @@ export const statusCases = [
   { name: 'Deceased' },
   { name: 'Hospitalized-ICU' },
 ];
-
 export const acquisitionType = [{ name: 'Travel' },
 { name: 'Workplace Outbreak' },
 { name: 'Close Contact' },
@@ -60,4 +63,5 @@ export const acquisitionType = [{ name: 'Travel' },
 { name: 'Institutional Outbreak' },
 { name: 'Unknown' }]
 
+// Fill in data
 export const emptyField = "(no data)"

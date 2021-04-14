@@ -6,13 +6,11 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 // Local Service
-import { SmallBusiness } from '../models/schemas/smallBusiness.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdmService } from '../services/adm-services/adm.service';
 import { ApiService } from '../services/api-covid-services/api.service';
 import { DataService } from '../services/data-services/data.service';
 import { BusinessNameLocation } from '../models/businessNameLocation.model';
-import * as myGlobals from '../globals';
 
 @Component({
   selector: 'app-tracker-map',

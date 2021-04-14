@@ -64,7 +64,7 @@ const routes: Routes = [
   {
     path: 'business-profile/:id',
     component: BusinessProfileComponent,
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'certification-form/:id',

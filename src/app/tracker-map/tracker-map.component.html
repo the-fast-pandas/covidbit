@@ -1,41 +1,29 @@
+<!--Server - CovidBit - Fast Pandas
+    Created:  16, February, 2021, Adilah -->
+
 <div class="container">
-
-
   <div class="row">
-
     <div class="col-sm" style="text-align: center;">
-
       <form [formGroup]="businessSearch" (ngSubmit)="onSubmit()">
         <nb-form-field>
           <input type="text" formControlName="businessName" name="businessName" id="input-business-name"
             placeholder="Search for Business" fullWidth fieldSize="giant" shape="semi-round" nbInput>
-
           <button type="submit" nbSuffix nbButton ghost>
             <nb-icon icon="search-outline"></nb-icon>
           </button>
         </nb-form-field>
-
       </form>
-
-
     </div>
-
   </div>
-
   <br>
-
   <div class="row">
-
     <!-- news -->
     <div class="col-md-3">
       <app-news></app-news>
     </div>
-
     <div class="col-sm-12 col-md-9">
-
       <!-- google map -->
       <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-
         <agm-marker *ngFor="let marker of markers let i = index;" [animation]="marker.animation"
           (mouseOver)="markerOver(marker)" (mouseOut)="markerOut(marker)" [latitude]="marker.lat"
           [longitude]="marker.lng">
@@ -61,9 +49,6 @@
 </div>
 <br>
 
-
-
-
 <!-- Ontario Tab -->
 <div class="container source">
   <button nbButton class="card-colour">
@@ -71,32 +56,23 @@
     <a href="https://opencovid.ca/">Source</a>
   </button>
   <br><br>
-
   <nb-card>
-
     <nb-card-header class="card-colour" id="center">
       Covid Statistics
     </nb-card-header>
-
-
     <nb-card-body>
       <nb-tabset>
         <nb-tab tabTitle="Ontario">
           <div class="container">
             <nb-card [style]="{width:'28%', float:'right'}">
-
               <nb-card-body>
                 <app-stats></app-stats>
               </nb-card-body>
-
             </nb-card>
-
             <nb-card [style]="{width:'68%', float:'left'}">
-
               <nb-card-body>
                 <app-line-graph></app-line-graph>
               </nb-card-body>
-
             </nb-card>
           </div>
         </nb-tab>
@@ -105,19 +81,14 @@
         <nb-tab tabTitle="Canada">
           <div class="container">
             <nb-card [style]="{width:'28%', float:'right'}">
-
               <nb-card-body>
                 <app-stats-canada></app-stats-canada>
               </nb-card-body>
-
             </nb-card>
-
             <nb-card [style]="{width:'68%', float:'left'}">
-
               <nb-card-body>
                 <app-line-graph-canada></app-line-graph-canada>
               </nb-card-body>
-
             </nb-card>
           </div>
         </nb-tab>
@@ -126,19 +97,14 @@
         <nb-tab tabTitle="GTA: Cases">
           <div class="container">
             <nb-card [style]="{width:'48%', float:'right'}">
-
               <nb-card-body>
                 <app-bar-health-region-cases></app-bar-health-region-cases>
               </nb-card-body>
-
             </nb-card>
-
             <nb-card [style]="{width:'48%', float:'left'}">
-
               <nb-card-body>
                 <app-health-region-cases></app-health-region-cases>
               </nb-card-body>
-
             </nb-card>
           </div>
         </nb-tab>
@@ -147,51 +113,36 @@
         <nb-tab tabTitle="GTA: Fatalities">
           <div class="container">
             <nb-card [style]="{width:'48%', float:'right'}">
-
               <nb-card-body>
                 <app-bar-health-region-mortality></app-bar-health-region-mortality>
               </nb-card-body>
-
             </nb-card>
-
             <nb-card [style]="{width:'48%', float:'left'}">
-
               <nb-card-body>
                 <app-health-region-mortality></app-health-region-mortality>
               </nb-card-body>
-
             </nb-card>
           </div>
         </nb-tab>
-
-
 
         <!-- GTA Fatalities-->
         <nb-tab tabTitle="Ontario x Canada">
           <div class="container">
             <nb-card [style]="{width:'48%', float:'right'}">
-
               <nb-card-body>
                 <app-bar-ontario-canada></app-bar-ontario-canada>
               </nb-card-body>
-
             </nb-card>
             <nb-card [style]="{width:'48%', float:'left'}">
-
               <nb-card-body>
                 <app-bar-ontario-canada-vaccines></app-bar-ontario-canada-vaccines>
               </nb-card-body>
-
             </nb-card>
-
           </div>
         </nb-tab>
-
-
       </nb-tabset>
     </nb-card-body>
   </nb-card>
-
 </div>
 
 

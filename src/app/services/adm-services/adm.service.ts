@@ -119,23 +119,4 @@ export class AdmService {
       )
     )
   }
-
-
-  /////WHAT IS THIS ROUTE?
-
-  //Search for Business Name and Location
-  searchBusinessNameLocationAdm(business: BusinessName) {
-    const api = `${this.endpoint}/search-nameandLocation-adm`;
-    return this.http.post<any>(api, business,  { headers: this.headers })
-      .pipe(
-        map(
-          data => {
-            return data;
-          },
-          (error: any) => {
-            window.alert("No business with this name.");
-          }
-        ))
-  }
-
 }

@@ -1,3 +1,7 @@
+// Server - CovidBit - Fast Pandas
+// Created: 15, March, 2021, Teresa Costa
+// Modified: 01, April, 2021, Adilah 
+
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 

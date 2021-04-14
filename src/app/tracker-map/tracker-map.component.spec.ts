@@ -1,5 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// Server - CovidBit - Fast Pandas
+// Created:  16, February, 2021, Adilah
 
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TrackerMapComponent } from './tracker-map.component';
 
 describe('TrackerMapComponent', () => {
