@@ -16,7 +16,7 @@ It also has the potential to allow the public to make well-informed decisions by
 
 ## Description
 
-<img alt="MongoDB" src ="https://img.shields.io/badge/MongoDB-%234ea94b.svg?&style=for-the-badge&logo=mongodb&logoColor=white"/><img alt="Express.js" src="https://img.shields.io/badge/express.js%20-%23404d59.svg?&style=for-the-badge"/><img alt="Angular.js" src="https://img.shields.io/badge/angular.js%20-%23E23237.svg?&style=for-the-badge&logo=angularjs&logoColor=white"/><img alt="NodeJS" src="https://img.shields.io/badge/node.js%20-%2343853D.svg?&style=for-the-badge&logo=node.js&logoColor=white"/>
+<img alt="MongoDB" src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?&style=for-the-badge&logo=mongodb&logoColor=white"/><img alt="Express.js" src="https://img.shields.io/badge/express.js%20-%23404d59.svg?&style=for-the-badge"/><img alt="Angular.js" src="https://img.shields.io/badge/angular.js%20-%23E23237.svg?&style=for-the-badge&logo=angularjs&logoColor=white"/><img alt="NodeJS" src="https://img.shields.io/badge/node.js%20-%2343853D.svg?&style=for-the-badge&logo=node.js&logoColor=white"/>
 
 This is a mean stack solution, a JavaScript software stack that has as its main components MongoDB, Express.js, AngularJS, and Node.js. 
 
@@ -97,11 +97,11 @@ Angular components are mostly written in Typescript - or Javascript with type de
 
 Three external services are used for data :
 
-* [News API](https://newsapi.org/): allows for the access of canadian news about covid-19 in english (this can be easily customized in the connection string). To use this service is necessary to create an and replace it in the connection string on the server **.env** file.
+* [News API](https://newsapi.org/): allows for the access of canadian news about covid-19 in english (this can be easily customized in the connection string). To use this service is necessary to create an API KEY and replace it in the connection string on the server [**.env** file](https://github.com/the-fast-pandas/covidbit/blob/backend/.env).
 
 * [Covid Data API](https://opencovid.ca/api/): the API for the *COVID-19 Canada Open Data Working Group dataset*, a dedicated team of volunteers with expertise in epidemiology, public health, and data science from the University of Toronto and University of Guelph. It is used to feed the graphs with official governmental data and its data can be arranged by province and health region. This is the only external service called by the client side and its fetching methods and connection strings can be found at **app/services/api.service.ts**.
 
-*
+* [Geocoding API](https://developers.google.com/maps/documentation/geocoding/start): a service by google that provides geocoding and reverse geocoding of addresses. It is used to track the business addresses on the map. To use this service is necessary to create an API KEY and replace it in the connection string on the server [**.env** file](https://github.com/the-fast-pandas/covidbit/blob/backend/.env).
 
 ### Server
 
@@ -111,7 +111,11 @@ A server  was built using [Node.js](https://nodejs.org/en/docs/guides/getting-st
 
 ### Tracker Map
 ### Graphs
-### News
+
+Graphs are used to display data from the covid-19 official sources (tracker-map component) and analytics (admin-dashboard). All the code necessary to process and display the data was created for this project. No other tool was used.
+
+<img alt="graph" src="https://github.com/the-fast-pandas/covidbit/blob/master/download.png" height="200"><img alt="graph" src="https://github.com/the-fast-pandas/covidbit/blob/master/echarts.png" height="200">
+
 ### Email Service
 ### Authentication
 
