@@ -80,7 +80,7 @@ const registrationForm = function (req, res) {
                 return res.status(404).json({ message: "Server error!" });
               }
               if (registeredBy == true) {
-                const userToken = 'https://covidbit.netlify.app/reset-password/' + resetPassword;
+                const userToken = process.env.Host + 'reset-password/' + resetPassword;
                 // "registrationEmailDemo" must be replace with "loginId" for live working
                 emailServiceAdm.emailRegistrationAdm(registrationEmailDemo, newBusiness.businessName, userToken);
               } else {

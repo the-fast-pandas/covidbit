@@ -89,7 +89,7 @@ const forgotPassword = function (req, res) {
                 }
                 if (user) {
                     const businessName = user.businessName;
-                    const userToken = 'https://covidbit.netlify.app/reset-password/' + token;
+                    const userToken = process.env.HOST + 'reset-password/' + token;
                     // "resetEmailDemo" must be replace with "req.body.email" for live working
                     emailService.emailChangePassword(resetEmailDemo, userToken, businessName);
                     return res.status(200).json({ user });
