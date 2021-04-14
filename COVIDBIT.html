@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)https://thawing-bastion-14821.herokuapp.com/admin-dashboard -->
+<html lang="en" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>.gm-control-active>img{box-sizing:content-box;display:none;left:50%;pointer-events:none;position:absolute;top:50%;transform:translate(-50%,-50%)}.gm-control-active>img:nth-child(1){display:block}.gm-control-active:hover>img:nth-child(1),.gm-control-active:active>img:nth-child(1){display:none}.gm-control-active:hover>img:nth-child(2),.gm-control-active:active>img:nth-child(3){display:block}
+</style><link type="text/css" rel="stylesheet" href="./COVIDBIT_files/css"><style>.gm-ui-hover-effect{opacity:.6}.gm-ui-hover-effect:hover{opacity:1}
+</style><style>.gm-style .gm-style-cc a,.gm-style .gm-style-cc button,.gm-style .gm-style-cc span,.gm-style .gm-style-mtc div{font-size:10px;box-sizing:border-box}
+</style><style>@media print {  .gm-style .gmnoprint, .gmnoprint {    display:none  }}@media screen {  .gm-style .gmnoscreen, .gmnoscreen {    display:none  }}</style><style>.gm-style-pbc{transition:opacity ease-in-out;background-color:rgba(0,0,0,0.45);text-align:center}.gm-style-pbt{font-size:22px;color:white;font-family:Roboto,Arial,sans-serif;position:relative;margin:0;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}
+</style><style>.gm-style img{max-width: none;}.gm-style {font: 400 11px Roboto, Arial, sans-serif; text-decoration: none;}</style>
+  
+  <title>COVIDBIT</title>
+  <!--<base href="/">--><base href=".">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="./COVIDBIT_files/font-awesome.css" rel="stylesheet" type="text/css">
+  <script src="./COVIDBIT_files/js"></script>
+<link rel="stylesheet" href="./COVIDBIT_files/styles.0493d12b358d61280178.css"><style type="text/css" id="s./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./package/src/animation.scss-0">/**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+.eva-animation {
+  animation-duration: 1s;
+  animation-fill-mode: both; }
+
+.eva-infinite {
+  animation-iteration-count: infinite; }
+
+.eva-icon-shake {
+  animation-name: eva-shake; }
+
+.eva-icon-zoom {
+  animation-name: eva-zoomIn; }
+
+.eva-icon-pulse {
+  animation-name: eva-pulse; }
+
+.eva-icon-flip {
+  animation-name: eva-flipInY; }
+
+.eva-hover {
+  display: inline-block; }
+
+.eva-hover:hover .eva-icon-hover-shake, .eva-parent-hover:hover .eva-icon-hover-shake {
+  animation-name: eva-shake; }
+
+.eva-hover:hover .eva-icon-hover-zoom, .eva-parent-hover:hover .eva-icon-hover-zoom {
+  animation-name: eva-zoomIn; }
+
+.eva-hover:hover .eva-icon-hover-pulse, .eva-parent-hover:hover .eva-icon-hover-pulse {
+  animation-name: eva-pulse; }
+
+.eva-hover:hover .eva-icon-hover-flip, .eva-parent-hover:hover .eva-icon-hover-flip {
+  animation-name: eva-flipInY; }
+
+@keyframes eva-flipInY {
+  from {
+    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    animation-timing-function: ease-in;
+    opacity: 0; }
+  40% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+    animation-timing-function: ease-in; }
+  60% {
+    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+    opacity: 1; }
+  80% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -5deg); }
+  to {
+    transform: perspective(400px); } }
+
+@keyframes eva-shake {
+  from,
+  to {
+    transform: translate3d(0, 0, 0); }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translate3d(-3px, 0, 0); }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translate3d(3px, 0, 0); } }
+
+@keyframes eva-pulse {
+  from {
+    transform: scale3d(1, 1, 1); }
+  50% {
+    transform: scale3d(1.2, 1.2, 1.2); }
+  to {
+    transform: scale3d(1, 1, 1); } }
+
+@keyframes eva-zoomIn {
+  from {
+    opacity: 1;
+    transform: scale3d(0.5, 0.5, 0.5); }
+  50% {
+    opacity: 1; } }
+</style><style></style><style>[_nghost-yna-c79]{-webkit-font-smoothing:antialiased}[dir=ltr]   [_nghost-yna-c79]{text-align:left}[dir=rtl]   [_nghost-yna-c79]{text-align:right}[_nghost-yna-c79]   .layout[_ngcontent-yna-c79]{display:flex;flex-direction:column}[_nghost-yna-c79]     nb-layout-header{display:block}[_nghost-yna-c79]     nb-layout-header nav{align-items:center;justify-content:flex-start;display:flex}[_nghost-yna-c79]     nb-layout-header.fixed{position:fixed;top:0;left:0;right:0;z-index:1040}[_nghost-yna-c79]   .layout-container[_ngcontent-yna-c79]{display:flex;flex:1;-ms-flex:1 1 auto;flex-direction:row}[dir=ltr]   [_nghost-yna-c79]   .layout-container[_ngcontent-yna-c79]     nb-sidebar.left{order:0}[dir=rtl]   [_nghost-yna-c79]   .layout-container[_ngcontent-yna-c79]     nb-sidebar.left{order:2}[dir=ltr]   [_nghost-yna-c79]   .layout-container[_ngcontent-yna-c79]     nb-sidebar.right{order:2}[dir=rtl]   [_nghost-yna-c79]   .layout-container[_ngcontent-yna-c79]     nb-sidebar.right{order:0}[_nghost-yna-c79]   .layout-container[_ngcontent-yna-c79]     nb-sidebar.end{order:2}[_nghost-yna-c79]   .layout-container[_ngcontent-yna-c79]     nb-sidebar .fixed{position:fixed;width:100%;overflow-y:auto;height:100%}[_nghost-yna-c79]   .layout-container[_ngcontent-yna-c79]   .content[_ngcontent-yna-c79]{display:flex;flex:1;-ms-flex:1 1 auto;flex-direction:column;min-width:0}[_nghost-yna-c79]   .layout-container[_ngcontent-yna-c79]   .content.center[_ngcontent-yna-c79]{max-width:100%;position:relative;margin-left:auto;margin-right:auto}[_nghost-yna-c79]   .layout-container[_ngcontent-yna-c79]   .content[_ngcontent-yna-c79]   .columns[_ngcontent-yna-c79]{display:flex;flex:1;-ms-flex:1 1 auto;flex-direction:row;width:100%}[_nghost-yna-c79]   .layout-container[_ngcontent-yna-c79]   .content[_ngcontent-yna-c79]   .columns[_ngcontent-yna-c79]     nb-layout-column{order:1;flex:1 0;min-width:0}[dir=ltr]   [_nghost-yna-c79]   .layout-container[_ngcontent-yna-c79]   .content[_ngcontent-yna-c79]   .columns[_ngcontent-yna-c79]     nb-layout-column.left{order:0}[dir=rtl]   [_nghost-yna-c79]   .layout-container[_ngcontent-yna-c79]   .content[_ngcontent-yna-c79]   .columns[_ngcontent-yna-c79]     nb-layout-column.left{order:2}[_nghost-yna-c79]   .layout-container[_ngcontent-yna-c79]   .content[_ngcontent-yna-c79]   .columns[_ngcontent-yna-c79]     nb-layout-column.start{order:0}[_nghost-yna-c79]   .layout-container[_ngcontent-yna-c79]   .content[_ngcontent-yna-c79]     nb-layout-footer{display:block;margin-top:auto}[_nghost-yna-c79]   .layout-container[_ngcontent-yna-c79]   .content[_ngcontent-yna-c79]     nb-layout-footer nav{justify-content:center;display:flex}</style><style>.navigation-buttons[_ngcontent-yna-c178]{position:absolute;right:1rem;top:1rem}button[_ngcontent-yna-c178]{margin-right:.5rem}a[_ngcontent-yna-c178]{text-decoration:none}@media only screen and (min-width:600px){nb-icon[_ngcontent-yna-c178], nb-sidebar[_ngcontent-yna-c178]{display:none}}@media only screen and (max-width:600px){.navigation-buttons[_ngcontent-yna-c178], h2[_ngcontent-yna-c178]{display:none}}.sidebar-toggle[_ngcontent-yna-c178]{padding-right:1.25rem;text-decoration:none;color:var(--text-hint-color);font-size:3.5rem}</style><style>.center[_ngcontent-yna-c179]{text-align:center}.site-footer[_ngcontent-yna-c179]{padding:35px 0 25px;font-size:15px;line-height:24px}.site-footer[_ngcontent-yna-c179]   hr[_ngcontent-yna-c179]{border-top-color:#bbb;opacity:.5;width:100%}.site-footer[_ngcontent-yna-c179]   h6[_ngcontent-yna-c179]{font-size:16px;margin-top:5px;margin-bottom:0;letter-spacing:1px}img[_ngcontent-yna-c179]{padding-right:478.73px}a[_ngcontent-yna-c179]{color:#aa67cf!important}.footer-links[_ngcontent-yna-c179]{padding-left:0;list-style:none}.footer-links[_ngcontent-yna-c179]   li[_ngcontent-yna-c179]{display:block}.footer-links[_ngcontent-yna-c179]   a[_ngcontent-yna-c179]:active, .footer-links[_ngcontent-yna-c179]   a[_ngcontent-yna-c179]:focus, .footer-links[_ngcontent-yna-c179]   a[_ngcontent-yna-c179]:hover{color:#aa67cf!important;text-decoration:none}.footer-links.inline[_ngcontent-yna-c179]   li[_ngcontent-yna-c179]{display:inline-block}.quick-links[_ngcontent-yna-c179]{column-count:2}</style><style>[_nghost-yna-c45]{display:inline-block}</style><style>nb-search[_ngcontent-yna-c177]{margin-right:1rem}</style><style>[_nghost-yna-c86]{display:flex;flex-direction:column;overflow:hidden;z-index:auto;order:0}[_nghost-yna-c86]   .scrollable[_ngcontent-yna-c86]{overflow-y:auto;overflow-x:hidden;flex:1}[_nghost-yna-c86]   .main-container[_ngcontent-yna-c86]{transform:translate3d(0, 0, 0);display:flex;flex-direction:column}[_nghost-yna-c86]   .main-container-fixed[_ngcontent-yna-c86]{position:fixed}.right[_nghost-yna-c86]{margin-right:0;margin-left:auto}[dir=ltr]   .right[_nghost-yna-c86]{order:4}[dir=rtl]   .right[_nghost-yna-c86]{order:0}.end[_nghost-yna-c86]{order:4}[dir=ltr]   .end[_nghost-yna-c86]{margin-right:0;margin-left:auto}[dir=rtl]   .end[_nghost-yna-c86]{margin-left:0;margin-right:auto}.fixed[_nghost-yna-c86]{position:fixed;height:100%;z-index:999;top:0;bottom:0;left:0}.fixed.right[_nghost-yna-c86]{right:0}[dir=ltr]   .fixed.start[_nghost-yna-c86]{left:0}[dir=rtl]   .fixed.start[_nghost-yna-c86]{right:0}[dir=ltr]   .fixed.end[_nghost-yna-c86]{right:0}[dir=rtl]   .fixed.end[_nghost-yna-c86]{left:0}[_nghost-yna-c86]     nb-sidebar-footer{margin-top:auto;display:block}[_nghost-yna-c86]     nb-sidebar-header{display:block}</style><style>[_nghost-yna-c84]    {display:block}[_nghost-yna-c84]     .menu-items, [_nghost-yna-c84]     .menu-item>.menu-items{list-style-type:none;overflow:hidden}[_nghost-yna-c84]     .menu-item a{display:flex;text-decoration:none;align-items:center}[_nghost-yna-c84]     .menu-item a .menu-title{flex:1 0 auto}[dir=rtl]   [_nghost-yna-c84]     .menu-item a .menu-title{text-align:right}[_nghost-yna-c84]     .menu-item nb-badge{position:static}[_nghost-yna-c84]     .menu-group span{display:flex}</style><style>[_nghost-yna-c90]   button[_ngcontent-yna-c90]{font-size:2rem;margin:0 auto;padding:0;cursor:pointer;border:none;background:none}[_nghost-yna-c90]   button[_ngcontent-yna-c90]:focus{box-shadow:none;outline:none}  nb-layout.with-search .scrollable-container{position:relative;z-index:0}</style><style>agm-map[_ngcontent-yna-c167]{height:540px}.search-overlay[_ngcontent-yna-c167]{border:2px solid #aa67cf;width:500px;height:2em}#title[_ngcontent-yna-c167]{font-weight:700}#title[_ngcontent-yna-c167], nb-icon[_ngcontent-yna-c167]{font-size:1.6em}.map-column[_ngcontent-yna-c167]{flex:3;padding:0 15px 0 0}.info-column[_ngcontent-yna-c167]{flex:1}.news-container[_ngcontent-yna-c167]   nb-card[_ngcontent-yna-c167]{height:500px}.calendar-container[_ngcontent-yna-c167]{margin-top:10px}.news-section[_ngcontent-yna-c167], nb-list-item[_ngcontent-yna-c167]{border-radius:25px;padding:2.5px 10px;margin-bottom:5px}.news-section[_ngcontent-yna-c167]   p[_ngcontent-yna-c167]{font-size:.8rem!important;line-height:100%}.news-section[_ngcontent-yna-c167]   h3[_ngcontent-yna-c167]{font-size:.9rem!important;font-weight:700;line-height:100%}legend[_ngcontent-yna-c167]{font-weight:700}nb-card[_ngcontent-yna-c167]{padding:0;margin:0}#map[_ngcontent-yna-c167]{height:500px;width:100%}.within-card[_ngcontent-yna-c167]{text-align:center}.my-text[_ngcontent-yna-c167]{font-family:nb-theme(font-family-primary);color:nb-theme(text-basic-color)}#businessLink[_ngcontent-yna-c167]:hover{color:#2c2c2c}.card-colour[_ngcontent-yna-c167]{background-color:#c3aae3!important;color:#fff!important;font-size:.9rem;font-weight:400}#center[_ngcontent-yna-c167]{font-size:1.5rem;font-weight:600;text-align:center}.source[_ngcontent-yna-c167]   a[_ngcontent-yna-c167]{color:#fff}.source[_ngcontent-yna-c167]   a[_ngcontent-yna-c167], .source[_ngcontent-yna-c167]   a[_ngcontent-yna-c167]:hover{text-decoration:none}</style><style>[_nghost-yna-c115]{display:flex;align-items:center}.nb-form-control-container[_ngcontent-yna-c115]{width:100%}</style><style>agm-map[_ngcontent-yna-c156]{height:500px}.search-overlay[_ngcontent-yna-c156]{border:2px solid #add8e6;width:500px;height:2em}#title[_ngcontent-yna-c156]{font-weight:700}#title[_ngcontent-yna-c156], nb-icon[_ngcontent-yna-c156]{font-size:1.6em}.container[_ngcontent-yna-c156]{display:flex;flex-direction:row;flex-wrap:wrap;padding-left:0}.map-column[_ngcontent-yna-c156]{flex:3;padding:0 15px 0 0}.info-column[_ngcontent-yna-c156]{flex:1}.news-container[_ngcontent-yna-c156]   nb-card[_ngcontent-yna-c156]{height:500px;text-align:justify;text-justify:inter-word}.calendar-container[_ngcontent-yna-c156]{margin-top:10px}.news-section[_ngcontent-yna-c156], nb-list-item[_ngcontent-yna-c156]{border-radius:25px;padding:2.5px 10px;margin-bottom:5px}.news-section[_ngcontent-yna-c156]   p[_ngcontent-yna-c156]{font-size:.8rem!important;line-height:100%}.news-section[_ngcontent-yna-c156]   h3[_ngcontent-yna-c156]{font-size:.9rem!important;font-weight:700;line-height:100%}legend[_ngcontent-yna-c156]{font-weight:700}nb-card[_ngcontent-yna-c156]{padding:0;margin:0}#map[_ngcontent-yna-c156]{height:500px;width:100%}.within-card[_ngcontent-yna-c156]{text-align:center}</style><style>.agm-map-container-inner[_ngcontent-yna-c141] {
+      width: inherit;
+      height: inherit;
+    }
+    .agm-map-content[_ngcontent-yna-c141] {
+      display:none;
+    }</style><style>[_nghost-yna-c49]{display:flex;flex-direction:column}</style><style>[_nghost-yna-c88]{display:block}.full-width[_nghost-yna-c88]   .tabset[_ngcontent-yna-c88]{justify-content:space-around}[_nghost-yna-c88]     nb-tab{flex:1;-ms-flex:1 1 auto;overflow:auto;display:none}[_nghost-yna-c88]     nb-tab.content-active{display:block}[_nghost-yna-c88]   .tabset[_ngcontent-yna-c88]{display:flex;flex-direction:row;list-style-type:none;margin:0;padding:0}[_nghost-yna-c88]   .tabset[_ngcontent-yna-c88]   .tab[_ngcontent-yna-c88]{margin-bottom:-1px;text-align:center;position:relative}[_nghost-yna-c88]   .tabset[_ngcontent-yna-c88]   .tab.active[_ngcontent-yna-c88]   a[_ngcontent-yna-c88]::before{display:block}[_nghost-yna-c88]   .tabset[_ngcontent-yna-c88]   .tab[_ngcontent-yna-c88]   a[_ngcontent-yna-c88]{display:flex;position:relative;text-decoration:none}[_nghost-yna-c88]   .tabset[_ngcontent-yna-c88]   .tab[_ngcontent-yna-c88]   a[_ngcontent-yna-c88]::before{position:absolute;content:'';width:100%;border-radius:3px;bottom:-2px;left:0}[_nghost-yna-c88]   .tabset[_ngcontent-yna-c88]   .tab[_ngcontent-yna-c88]   a[_ngcontent-yna-c88]   nb-icon[_ngcontent-yna-c88]{vertical-align:middle}[dir=ltr]   [_nghost-yna-c88]   .tabset[_ngcontent-yna-c88]   .tab[_ngcontent-yna-c88]   a[_ngcontent-yna-c88]   nb-icon[_ngcontent-yna-c88] + span[_ngcontent-yna-c88]{margin-left:.5rem}[dir=rtl]   [_nghost-yna-c88]   .tabset[_ngcontent-yna-c88]   .tab[_ngcontent-yna-c88]   a[_ngcontent-yna-c88]   nb-icon[_ngcontent-yna-c88] + span[_ngcontent-yna-c88]{margin-right:.5rem}</style><style>.demo-chart[_ngcontent-yna-c158]{height:400px}</style><style>[_nghost-yna-c104]{display:flex;flex-direction:column;flex:1 1 auto;overflow:auto}</style><style type="text/css">/* Chart.js */
+/*
+ * DOM element rendering detection
+ * https://davidwalsh.name/detect-node-insertion
+ */
+@keyframes chartjs-render-animation {
+	from { opacity: 0.99; }
+	to { opacity: 1; }
+}
+
+.chartjs-render-monitor {
+	animation: chartjs-render-animation 0.001s;
+}
+
+/*
+ * DOM element resizing detection
+ * https://github.com/marcj/css-element-queries
+ */
+.chartjs-size-monitor,
+.chartjs-size-monitor-expand,
+.chartjs-size-monitor-shrink {
+	position: absolute;
+	direction: ltr;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+	pointer-events: none;
+	visibility: hidden;
+	z-index: -1;
+}
+
+.chartjs-size-monitor-expand > div {
+	position: absolute;
+	width: 1000000px;
+	height: 1000000px;
+	left: 0;
+	top: 0;
+}
+
+.chartjs-size-monitor-shrink > div {
+	position: absolute;
+	width: 200%;
+	height: 200%;
+	left: 0;
+	top: 0;
+}
+</style><script type="text/javascript" charset="UTF-8" src="./COVIDBIT_files/common.js.download"></script><script type="text/javascript" charset="UTF-8" src="./COVIDBIT_files/util.js.download"></script><script type="text/javascript" charset="UTF-8" src="./COVIDBIT_files/map.js.download"></script><script type="text/javascript" charset="UTF-8" src="./COVIDBIT_files/onion.js.download"></script><script type="text/javascript" charset="UTF-8" src="./COVIDBIT_files/controls.js.download"></script><script type="text/javascript" charset="UTF-8" src="./COVIDBIT_files/marker.js.download"></script><script type="text/javascript" charset="UTF-8" src="./COVIDBIT_files/infowindow.js.download"></script><style>[_nghost-yna-c105]{display:flex;align-items:center;flex-shrink:0}</style><style type="text/css">@-webkit-keyframes _gm5138 {
+0% { -webkit-transform: translate3d(0px,-500px,0); -webkit-animation-timing-function: ease-in; }
+50% { -webkit-transform: translate3d(0px,0px,0); -webkit-animation-timing-function: ease-out; }
+75% { -webkit-transform: translate3d(0px,-20px,0); -webkit-animation-timing-function: ease-in; }
+100% { -webkit-transform: translate3d(0px,0px,0); -webkit-animation-timing-function: ease-out; }
+}
+</style><style>.register-header[_ngcontent-yna-c144]{text-align:center;margin-bottom:20px}.my-label[_ngcontent-yna-c144]{font-family:nb-theme(font-family-primary);color:nb-theme(text-basic-color)}.form-control-group[_ngcontent-yna-c144]{padding-bottom:20px;padding-left:30%;padding-right:30%}.form-control-group[_ngcontent-yna-c144]   button[_ngcontent-yna-c144]{margin-top:20px;margin-bottom:10px}.checkbox[_ngcontent-yna-c144]{margin:2rem 0}@media only screen and (max-width:600px){.form-control-group[_ngcontent-yna-c144]{padding-bottom:20px;padding-left:10%;padding-right:10%}}</style><style>h1[_ngcontent-yna-c155]{color:#fff}.within-card[_ngcontent-yna-c155], h1[_ngcontent-yna-c155]{text-align:center}.card-row[_ngcontent-yna-c155]{display:flex;margin:0 -.5rem}.card-col[_ngcontent-yna-c155]{flex:1 0 calc(50% - 1rem);margin:0 .5rem}</style></head>
+<body class="nb-theme-default">
+  <app-root _nghost-yna-c180="" ng-version="11.1.2"><nb-layout _ngcontent-yna-c180="" _nghost-yna-c79=""><div _ngcontent-yna-c79="" class="scrollable-container"><div _ngcontent-yna-c79="" class="layout"><nb-layout-header _ngcontent-yna-c180="" fixed="" class="fixed"><nav class="fixed"><app-header _ngcontent-yna-c180="" _nghost-yna-c178=""><nb-icon _ngcontent-yna-c178="" icon="menu-2-outline" class="sidebar-toggle" _nghost-yna-c45=""><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" class="eva eva-menu-2-outline" fill="currentColor"><g data-name="Layer 2"><g data-name="menu-2"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"></rect><circle cx="4" cy="12" r="1"></circle><rect x="7" y="11" width="14" height="2" rx=".94" ry=".94"></rect><rect x="3" y="16" width="18" height="2" rx=".94" ry=".94"></rect><rect x="3" y="6" width="18" height="2" rx=".94" ry=".94"></rect></g></g></svg></nb-icon><h2 _ngcontent-yna-c178="">COVIDBIT</h2><div _ngcontent-yna-c178="" class="navigation-buttons"><app-search-widget _ngcontent-yna-c178="" _nghost-yna-c177=""><nb-search _ngcontent-yna-c177="" type="curtain" _nghost-yna-c90=""><button _ngcontent-yna-c90="" nbbutton="" ghost="" class="start-search appearance-ghost size-medium shape-rectangle icon-start icon-end status-basic nb-transition" aria-disabled="false" tabindex="0"><nb-icon _ngcontent-yna-c90="" icon="search-outline" pack="nebular-essentials" _nghost-yna-c45=""><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="100%" height="100%" viewBox="0 0 24 24"><g data-name="Layer 2"><g data-name="search"><rect width="24" height="24" opacity="0"></rect><path d="M20.71 19.29l-3.4-3.39A7.92 7.92 0 0 0 19 11a8 8 0 1 0-8 8 7.92 7.92 0 0 0 4.9-1.69l3.39 3.4a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM5 11a6 6 0 1 1 6 6 6 6 0 0 1-6-6z"></path></g></g></svg></nb-icon></button><!----></nb-search></app-search-widget><button _ngcontent-yna-c178="" nbbutton="" aria-disabled="false" tabindex="0" class="appearance-filled size-medium shape-rectangle status-basic nb-transition"><a _ngcontent-yna-c178="" routerlink="/home" routerlinkactive="active" href="https://thawing-bastion-14821.herokuapp.com/home">Home</a></button><button _ngcontent-yna-c178="" nbbutton="" aria-disabled="false" tabindex="0" class="appearance-filled size-medium shape-rectangle status-basic nb-transition"><a _ngcontent-yna-c178="" routerlink="/tracker-map" routerlinkactive="active" href="https://thawing-bastion-14821.herokuapp.com/tracker-map" class="">Tracker Map</a></button><!----><button _ngcontent-yna-c178="" nbbutton="" nbcontextmenutag="my-context-menu" aria-disabled="false" tabindex="0" class="appearance-filled size-medium shape-rectangle status-basic context-menu-host ng-star-inserted nb-transition"> Administrator </button><!----><!----></div><nb-sidebar _ngcontent-yna-c178="" state="collapsed" fixed="" end="" class="right-sidebar fixed end collapsed" _nghost-yna-c86=""><div _ngcontent-yna-c86="" class="main-container main-container-fixed"><div _ngcontent-yna-c86="" class="scrollable"><nb-menu _ngcontent-yna-c178="" _nghost-yna-c84=""><ul _ngcontent-yna-c84="" class="menu-items"><li _ngcontent-yna-c84="" nbmenuitem="" class="menu-item ng-tns-c83-0 ng-star-inserted"><!----><a class="ng-tns-c83-0 ng-star-inserted" title="Home" href="https://thawing-bastion-14821.herokuapp.com/home"><!----><span class="menu-title ng-tns-c83-0">Home</span><!----></a><!----><!----><!----><!----><!----><!----></li><!----><!----><li _ngcontent-yna-c84="" nbmenuitem="" class="menu-item ng-tns-c83-1 ng-star-inserted"><!----><a class="ng-tns-c83-1 ng-star-inserted" title="Tracker Map" href="https://thawing-bastion-14821.herokuapp.com/tracker-map"><!----><span class="menu-title ng-tns-c83-1">Tracker Map</span><!----></a><!----><!----><!----><!----><!----><!----></li><!----><!----><li _ngcontent-yna-c84="" nbmenuitem="" class="menu-item ng-tns-c83-3 ng-star-inserted"><!----><a class="ng-tns-c83-3 active ng-star-inserted" title="Dashboard" href="https://thawing-bastion-14821.herokuapp.com/admin-dashboard"><!----><span class="menu-title ng-tns-c83-3">Dashboard</span><!----></a><!----><!----><!----><!----><!----><!----></li><!----><!----><li _ngcontent-yna-c84="" nbmenuitem="" class="menu-item ng-tns-c83-4 ng-star-inserted"><!----><a class="ng-tns-c83-4 ng-star-inserted" title="Dashboard" href="https://thawing-bastion-14821.herokuapp.com/admin-dashboard"><!----><span class="menu-title ng-tns-c83-4">Dashboard</span><!----></a><!----><!----><!----><!----><!----><!----></li><!----><!----><li _ngcontent-yna-c84="" nbmenuitem="" class="menu-item ng-tns-c83-5 ng-star-inserted"><!----><a class="ng-tns-c83-5 ng-star-inserted" title="Dashboard" href="https://thawing-bastion-14821.herokuapp.com/admin-dashboard"><!----><span class="menu-title ng-tns-c83-5">Dashboard</span><!----></a><!----><!----><!----><!----><!----><!----></li><!----><!----><li _ngcontent-yna-c84="" nbmenuitem="" class="menu-item ng-tns-c83-6 ng-star-inserted"><!----><a class="ng-tns-c83-6 ng-star-inserted" title="Dashboard" href="https://thawing-bastion-14821.herokuapp.com/admin-dashboard"><!----><span class="menu-title ng-tns-c83-6">Dashboard</span><!----></a><!----><!----><!----><!----><!----><!----></li><!----><!----><li _ngcontent-yna-c84="" nbmenuitem="" class="menu-item ng-tns-c83-7 ng-star-inserted"><!----><a class="ng-tns-c83-7 ng-star-inserted" title="Dashboard" href="https://thawing-bastion-14821.herokuapp.com/admin-dashboard"><!----><span class="menu-title ng-tns-c83-7">Dashboard</span><!----></a><!----><!----><!----><!----><!----><!----></li><!----><!----><li _ngcontent-yna-c84="" nbmenuitem="" class="menu-item ng-tns-c83-8 ng-star-inserted"><!----><a class="ng-tns-c83-8 ng-star-inserted" title="Dashboard" href="https://thawing-bastion-14821.herokuapp.com/admin-dashboard"><!----><span class="menu-title ng-tns-c83-8">Dashboard</span><!----></a><!----><!----><!----><!----><!----><!----></li><!----><!----><li _ngcontent-yna-c84="" nbmenuitem="" class="menu-item ng-tns-c83-9 ng-star-inserted"><!----><a class="ng-tns-c83-9 ng-star-inserted" title="Dashboard" href="https://thawing-bastion-14821.herokuapp.com/admin-dashboard"><!----><span class="menu-title ng-tns-c83-9">Dashboard</span><!----></a><!----><!----><!----><!----><!----><!----></li><!----><!----><li _ngcontent-yna-c84="" nbmenuitem="" class="menu-item ng-tns-c83-10 ng-star-inserted"><!----><a class="ng-tns-c83-10 ng-star-inserted" title="Logout" href="https://thawing-bastion-14821.herokuapp.com/home"><!----><span class="menu-title ng-tns-c83-10">Logout</span><!----></a><!----><!----><!----><!----><!----><!----></li><!----><!----><!----></ul></nb-menu></div></div></nb-sidebar></app-header></nav></nb-layout-header><div _ngcontent-yna-c79="" class="layout-container"><div _ngcontent-yna-c79="" class="content"><div _ngcontent-yna-c79="" class="columns"><nb-layout-column _ngcontent-yna-c180=""><router-outlet _ngcontent-yna-c180=""></router-outlet><app-admin-dashboard _nghost-yna-c155="" class="ng-star-inserted"><div _ngcontent-yna-c155="" class="container"><div _ngcontent-yna-c155="" class="row"><div _ngcontent-yna-c155="" class="col-12"><nb-card _ngcontent-yna-c155="" status="primary" _nghost-yna-c49="" class="status-primary"><nb-card-header _ngcontent-yna-c155=""><h1 _ngcontent-yna-c155="">Admin Dashboard</h1></nb-card-header><nb-card-body _ngcontent-yna-c155=""><div _ngcontent-yna-c155="" class="row"><div _ngcontent-yna-c155="" class="col-6 within-card"><h5 _ngcontent-yna-c155="">COVID Case Management</h5><button _ngcontent-yna-c155="" id="caseManagment" nbbutton="" aria-disabled="false" tabindex="0" class="appearance-filled size-medium shape-rectangle status-basic nb-transition">Settings</button></div><div _ngcontent-yna-c155="" class="col-6 within-card"><h5 _ngcontent-yna-c155="">Business Admin Settings</h5><button _ngcontent-yna-c155="" id="mapManagement" nbbutton="" aria-disabled="false" tabindex="0" class="appearance-filled size-medium shape-rectangle status-basic nb-transition">Settings</button></div></div></nb-card-body></nb-card><div _ngcontent-yna-c155="" class="row"><div _ngcontent-yna-c155="" class="col-md-12"><!----><!----></div></div></div></div></div><div _ngcontent-yna-c155="" class="container"><nb-card _ngcontent-yna-c155="" _nghost-yna-c49="" style="float: right; width: 48%;"><nb-card-header _ngcontent-yna-c155=""><h5 _ngcontent-yna-c155="">Data Activity (last 3 months)</h5></nb-card-header><nb-card-body _ngcontent-yna-c155=""><app-bar-business-cases _ngcontent-yna-c155="" _nghost-yna-c151=""><p-chart _ngcontent-yna-c151="" type="bar" style="width: 100%;"><div style="position: relative;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div><canvas class="chartjs-render-monitor" width="712" height="356" style="display: block; height: 285px; width: 570px;"></canvas></div></p-chart></app-bar-business-cases></nb-card-body></nb-card><nb-card _ngcontent-yna-c155="" _nghost-yna-c49="" style="float: left; width: 48%;"><nb-card-header _ngcontent-yna-c155=""><h5 _ngcontent-yna-c155="">Business by Type</h5></nb-card-header><nb-card-body _ngcontent-yna-c155=""><app-chart-business _ngcontent-yna-c155="" _nghost-yna-c152=""><p-chart _ngcontent-yna-c152="" type="pie" style="width: 100%;"><div style="position: relative;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div><canvas class="chartjs-render-monitor" width="712" height="356" style="display: block; height: 285px; width: 570px;"></canvas></div></p-chart></app-chart-business></nb-card-body></nb-card></div></app-admin-dashboard><!----></nb-layout-column></div><nb-layout-footer _ngcontent-yna-c180="" fixed="" class="fixed"><nav class="fixed"><app-footer _ngcontent-yna-c180="" _nghost-yna-c179=""><footer _ngcontent-yna-c179="" class="site-footer"><div _ngcontent-yna-c179="" class="container"><div _ngcontent-yna-c179="" class="row"><div _ngcontent-yna-c179="" class="col-xs-12 col-md-4"><img _ngcontent-yna-c179="" src="./COVIDBIT_files/covidbit-logo.png" alt="logo" height="60px"><p _ngcontent-yna-c179="" class="text-justify">Creating a safer world together.</p></div><div _ngcontent-yna-c179="" class="col-xs-6 col-md-3"><h6 _ngcontent-yna-c179="">Resources</h6><ul _ngcontent-yna-c179="" class="footer-links"><li _ngcontent-yna-c179=""><a _ngcontent-yna-c179="" href="https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html" target="_blank">Canada COVID-19</a></li><li _ngcontent-yna-c179=""><a _ngcontent-yna-c179="" href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019" target="_blank">World Health Organization (WHO)</a></li></ul></div><div _ngcontent-yna-c179="" class="col-xs-6 col-md-3"><h6 _ngcontent-yna-c179="">Quick Links</h6><ul _ngcontent-yna-c179="" class="footer-links quick-links"><li _ngcontent-yna-c179=""><a _ngcontent-yna-c179="" routerlink="/login-form" routerlinkactive="active" href="https://thawing-bastion-14821.herokuapp.com/login-form" class="">Login</a></li><li _ngcontent-yna-c179=""><a _ngcontent-yna-c179="" routerlink="/about-us" routerlinkactive="active" href="https://thawing-bastion-14821.herokuapp.com/about-us">About Us</a></li><li _ngcontent-yna-c179=""><a _ngcontent-yna-c179="" routerlink="/terms" routerlinkactive="active" href="https://thawing-bastion-14821.herokuapp.com/terms">Terms</a></li><li _ngcontent-yna-c179=""><a _ngcontent-yna-c179="" routerlink="/policy" routerlinkactive="active" href="https://thawing-bastion-14821.herokuapp.com/policy">Policy</a></li></ul></div></div></div><hr _ngcontent-yna-c179=""><div _ngcontent-yna-c179="" class="container center"> COVIDBIT © 2021. Created by <strong _ngcontent-yna-c179="">The Fast Pandas</strong>. <br _ngcontent-yna-c179=""></div></footer></app-footer></nav></nb-layout-footer></div></div></div></div></nb-layout></app-root>
+  <div class="sk-container" id="nb-global-spinner" style="display: none;">
+    <div class="sk-chase">
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+    </div>
+  </div>
+<script src="./COVIDBIT_files/runtime.7b63b9fd40098a2e8207.js.download" defer=""></script><script src="./COVIDBIT_files/polyfills.d15628b9ba7248669cd9.js.download" defer=""></script><script src="./COVIDBIT_files/scripts.209786540dfab60a4b46.js.download" defer=""></script><script src="./COVIDBIT_files/main.cd3062420ceaf94d55b8.js.download" defer=""></script>
+
+</body></html>
