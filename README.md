@@ -117,6 +117,9 @@ Graphs are used to display data from the covid-19 official sources (tracker-map 
 <img alt="graph" src="https://github.com/the-fast-pandas/covidbit/blob/master/download.png" height="200"><img alt="graph" src="https://github.com/the-fast-pandas/covidbit/blob/master/echarts.png" height="200">
 
 ### Email Service
+
+Email service was devloped as a professional way to send small businesses invitations, registration and password reset emails on behalf of COVIDBIT. The email template was created using [bee.io](https://beefree.io/). Adjustments to the email template were made to reflect the project features and match the project colour scheme. 
+
 ### Authentication
 
 ## Deployment
