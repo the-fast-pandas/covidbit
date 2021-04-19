@@ -110,6 +110,10 @@ A server  was built using [Node.js](https://nodejs.org/en/docs/guides/getting-st
 ## Features
 
 ### Tracker Map
+The Tracker map is comprised of using the Google Maps API to vizualize COVIDBIT registered businesses on a easy to use and recognizble map. The Tracker Map was implemented into the project using an Angular NPM package called AGM Angular Google Maps. Our Business displayed on the map by making several calls to our COVIDBIT API that retrives the information about all registered businesses. The Geocoding API provided by google is then used to display the markers on the map at their respective locations using the coordinates returned.
+
+<img alt="graph" src="https://github.com/the-fast-pandas/covidbit/blob/master/Map Screenshot.jpg" height="200">
+
 ### Graphs
 
 Graphs are used to display data from the covid-19 official sources (tracker-map component) and analytics (admin-dashboard). All the code necessary to process and display the data was created for this project. No other tool was used.
