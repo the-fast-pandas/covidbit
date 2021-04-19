@@ -124,8 +124,6 @@ Graphs are used to display data from the covid-19 official sources (tracker-map 
 
 Email service was devloped as a professional way to send small businesses invitations, registration and password reset emails on behalf of COVIDBIT. The email template was created using [bee.io](https://beefree.io/). Adjustments to the email template were made to reflect the project features and match the project colour scheme. 
 
-### Authentication
-
 ## Deployment
 
 <img alt="Heroku" src="https://img.shields.io/badge/heroku%20-%23430098.svg?&style=for-the-badge&logo=heroku&logoColor=white"/>
